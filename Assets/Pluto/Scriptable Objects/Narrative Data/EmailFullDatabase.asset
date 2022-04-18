@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bc705542a79e641894dec53141dbd4, type: 3}
+  m_Name: EmailFullDatabase
+  m_EditorClassIdentifier: 
+  csvFile: {fileID: 4900000, guid: 60fec9a2143ada549bc6a62b0add7245, type: 3}
+  database:
+    list:
+    - Key: Andrew_001
+      Value:
+        mSender: Andrew Kaphan <akaphan@isthmus>
+        mSubject: Introductions
+        mMessage: 'Hello!
+
+
+          My name is Andrew Kaphan, one of the drone
+          mechanics at Isthmus working on Project Nautilus. For the foreseeable future,
+          the two of us will be working together so I thought it would be proper
+          if I introduced myself. If you ever need something, I''m your man in the
+          chair. In exchange do you mind crashing a drone or two? I have to put dinner
+          on the table somehow.
+
+
+          Your Friend,
+
+          Andrew Kaphan'
+    - Key: Andrew_002
+      Value:
+        mSender: Andrew Kaphan <akaphan@isthmus>
+        mSubject: Clarifications
+        mMessage: 'The closing statement on my previous email was a joke. Please
+          do not go around smashing drones on my behalf. But yeah good luck down
+          there.
+
+
+          Your Friend,
+
+          Andrew Kaphan'
+    - Key: Andrew_003
+      Value:
+        mSender: 
+        mSubject: Destroyed Drones
+        mMessage: 'Hello again.
+
+
+          So I''ve been thinking about all the
+          drones that have been sent out for this operation. I wonder how many of
+          those drones I helped manufacture? '
+    - Key: Andrew_004
+      Value:
+        mSender: 
+        mSubject: 
+        mMessage: 
+    - Key: Andrew_005
+      Value:
+        mSender: 
+        mSubject: 
+        mMessage: 
+    - Key: Andrew_006
+      Value:
+        mSender: 
+        mSubject: 
+        mMessage: 
+    - Key: Cat_000
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: Congratulations on Your New Position
+        mMessage: "Hey!\n\nMy name is Cat, I\u2019m a freelancer. I wanted to congratulate
+          you on your new position at Isthmus. I\u2019m familiar with the facilities
+          there and if you ever wanted someone to show you around shoot me an email.
+          I would love to write a piece about what it\u2019s like to be a new employee
+          at such a influental company!\n\nCat Vargas"
+    - Key: Cat_001
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: Follow Up
+        mMessage: "Hey,\n\nThis is Cat, I\u2019m just following up from my last email
+          and letting you know the offer still stands if you would like to sit down
+          and grab a bite. I bet you would have a lot to say!"
+    - Key: Cat_002
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: "And if you gaze long enough\u2026"
+        mMessage: "Underwater drones are beautiful displays of how far we\u2019ve
+          come as a civilization. There is no need to search the bottom of the ocean,
+          but from our inception we\u2019ve been drawn into exploring. Are you, too,
+          drawn to the abyss?"
+    - Key: Cat_003
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: '[No Subject]'
+        mMessage: Isthmus stopped taking manned submarines down. I wonder why. Did
+          something happen?
+    - Key: Cat_004
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_005
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_006
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_007
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_008
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_009
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_010
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: ???
+        mMessage: Look, I send my emails with read reciepts. I know you saw them.
+          Why won't you respond?
+    - Key: Cat_011
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: 
+        mMessage: 
+    - Key: Cat_012
+      Value:
+        mSender: Cat Vargas <vargasnews@isthmail>
+        mSubject: '[No Subject]'
+        mMessage: You should be ashamed of yourself.
+    - Key: Cusano_000
+      Value:
+        mSender: Robert Cusano <rcusano@isthmus>
+        mSubject: 
+        mMessage: 
+    - Key: Cusano_001
+      Value:
+        mSender: Robert Cusano <rcusano@isthmus>
+        mSubject: 
+        mMessage: 
+    - Key: Cusano_002
+      Value:
+        mSender: Robert Cusano <rcusano@isthmus>
+        mSubject: 
+        mMessage: 
+    - Key: Cusano_003
+      Value:
+        mSender: Robert Cusano <rcusano@isthmus>
+        mSubject: 
+        mMessage: 
+    - Key: Cusano_004
+      Value:
+        mSender: Robert Cusano <rcusano@isthmus>
+        mSubject: 
+        mMessage: 
+    - Key: Cusano_005
+      Value:
+        mSender: Robert Cusano <rcusano@isthmus>
+        mSubject: 
+        mMessage: 
+    - Key: Isthmus_000
+      Value:
+        mSender: Isthmus Corp <autoreply@isthmus>
+        mSubject: Sent Email
+        mMessage: Sending emails is prohibited. Your email was erased.
+    - Key: Sent_000
+      Value:
+        mSender: You <employee21843@isthmus>
+        mSubject: '****************************************'
+        mMessage: '************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************'

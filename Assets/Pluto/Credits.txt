@@ -1,0 +1,16 @@
+PLUTO
+=====
+Made by Nicholas Perell
+
+Game-icons.net (used for images for the different objects)
+=====
+Collection/PQ - Book pile icon by Delapouite
+Database - Database icon by Delapouite 
+Narrative System - Book aura icon by Lorc 
+Bundle - Tied scroll icon by Lorc
+Datapoint - Scroll unfurled icon by Lorc
+Bitflags Collection - Checklist icon by Delapouite 
+Flag - Flying flag icon by Lorc
+Delivery System - Dove icon by Lorc
+
+
