@@ -50,5 +50,9 @@ public class NarrativeSystem : ScriptableObject
         //subtitleInk[0].Enqueue(data);
     }
 
-    
+    public void OnValidate()
+    {
+        
+    }
+
 }

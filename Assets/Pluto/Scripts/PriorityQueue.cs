@@ -4,7 +4,6 @@ using UnityEngine;
 
 [System.Serializable]
 public class PriorityQueue<Value>
-
 {
     [SerializeField]
     private bool mRecencyBias;
@@ -67,6 +66,16 @@ public class PriorityQueue<Value>
 
             return a.mPriority != b.mPriority;
 
+        }
+
+        public override int GetHashCode()
+        {
+            return mPriority.GetHashCode() * mValue.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
         }
     }
 
