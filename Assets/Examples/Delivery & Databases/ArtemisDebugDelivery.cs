@@ -20,10 +20,21 @@ public struct ArtemisDebugData
 [CreateAssetMenu(fileName = "New Artemis Debug Delivery System", menuName = "Artemis/Examples/Debug Delivery System")]
 public class ArtemisDebugDelivery : ArtemisDeliverySystem<ArtemisDebugData>
 {
-    public override bool Send()
+    
+
+    public override bool AbruptEnd()
     {
-        Debug.Log("YOOOO");
-        return true;
+        throw new System.NotImplementedException();
+    }
+
+    public override bool IsBusy()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Send(string id)
+    {
+        throw new System.NotImplementedException();
     }
 
     protected override bool SetUpDataFromCells(string[] dataToInterpret, out ArtemisDebugData valueDetermined)

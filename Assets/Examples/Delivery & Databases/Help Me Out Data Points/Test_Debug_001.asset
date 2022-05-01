@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Test_Debug_001
   m_EditorClassIdentifier: 
   id: Test_Debug_001
-  deliverySystem: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+  deliverySystem: {fileID: 11400000, guid: d3a4bc53890eaf841846cb68c5f015dc, type: 2}
   priorityValue: 0
-  flagsToMeet: []
-  flagsToAvoid: []
+  flagsToMeet:
+  - {fileID: 11400000, guid: 3d847ecd21b1b81449b7595e72540b2a, type: 2}
+  - {fileID: 11400000, guid: c80d640688e458c42a371c1305a9513c, type: 2}
+  flagsToAvoid:
+  - {fileID: 11400000, guid: ab4a36d5218437d4bbc40584f88755d3, type: 2}
+  - {fileID: 11400000, guid: f9a223825acf48249957e08651b42ebb, type: 2}
   whenAlreadyVoicePlaying: 1

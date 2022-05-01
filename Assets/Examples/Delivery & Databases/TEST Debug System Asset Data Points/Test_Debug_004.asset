@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test_Debug_004
   m_EditorClassIdentifier: 
   id: Test_Debug_004
-  deliveryScriptableObject: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+  deliverySystem: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
   priorityValue: 1
   flagsToMeet: []
   flagsToAvoid: []

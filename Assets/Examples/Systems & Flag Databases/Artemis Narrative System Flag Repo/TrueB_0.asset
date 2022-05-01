@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ab86da48d252c46baf4c766e2090c6, type: 3}
-  m_Name: Test_Debug_000
+  m_Script: {fileID: 11500000, guid: dc3a7195cd6cceb4fb680098c3302dd7, type: 3}
+  m_Name: TrueB_0
   m_EditorClassIdentifier: 
-  id: Test_Debug_000
-  deliverySystem: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-  priorityValue: 0
-  flagsToMeet: []
-  flagsToAvoid: []
-  whenAlreadyVoicePlaying: 0
+  value: 0
