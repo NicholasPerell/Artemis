@@ -16,7 +16,7 @@ public struct SpeakerColorPair
 public class SubtitleInk : MonoBehaviour
 {
     [SerializeField]
-    NarrativeSystem narrativeSystem;
+    ArtemisNarrativeSystem narrativeSystem;
     [SerializeField]
     SpeakerColorPair[] speakerToColorKey;
 
@@ -41,12 +41,12 @@ public class SubtitleInk : MonoBehaviour
     float timer = 0;
 
     [SerializeField]
-    List<NarrativeDataPoint> queuedVoiceLines;
+    List<ArtemisNarrativeDataPoint> queuedVoiceLines;
 
     private void Start()
     {
-        queuedVoiceLines = new List<NarrativeDataPoint>();
-        narrativeSystem.subtitleInk[index] = this;
+        queuedVoiceLines = new List<ArtemisNarrativeDataPoint>();
+        //narrativeSystem.subtitleInk[index] = this;
 
         if (testStartingInkFile)
         {
@@ -170,7 +170,7 @@ public class SubtitleInk : MonoBehaviour
         }
     }
 
-    public void Enqueue(NarrativeDataPoint data)
+    public void Enqueue(ArtemisNarrativeDataPoint data)
     {
         queuedVoiceLines.Add(data);
     }

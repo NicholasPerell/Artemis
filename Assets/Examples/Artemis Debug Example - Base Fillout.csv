@@ -1,0 +1,7 @@
+ID,Priority Value,Flags to be True,Flags to be False,How to handle busy,Debug Message,Log Type,Time (s)
+Test_Debug_000,0,,,CANCEL,Test 0,DEFAULT,0.1
+Test_Debug_001,0,,,QUEUE,Test 1,DEFAULT,0.1
+Test_Debug_002,3,,,INTERRUPT,Test 2,ERROR,0.1
+Test_Debug_003,2,,,DELETE,Test 3,DEFAULT,0.1
+Test_Debug_004,1,,,FRONT_OF_QUEUE,Test 4,WARNING,0.1
+END,,,,,,,
