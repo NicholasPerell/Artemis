@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Artemis Narrative Data Point", menuName = "Artemis/Narrative Data Point")]
 public class ArtemisNarrativeDataPoint : ScriptableObject
 { 
-    public enum WhenAlreadyVoicePlaying
+    public enum HowToHandleBusy
     {
         CANCEL = 0,
         QUEUE = 1,
@@ -29,16 +29,16 @@ public class ArtemisNarrativeDataPoint : ScriptableObject
     [SerializeField]
     ArtemisFlag[] flagsToAvoid;
     [SerializeField]
-    WhenAlreadyVoicePlaying whenAlreadyVoicePlaying = WhenAlreadyVoicePlaying.QUEUE;
+    HowToHandleBusy howToHandleBusy = HowToHandleBusy.QUEUE;
 
-    public void Rewrite(string _id, ArtemisPreDictionaryDeliverySystem _systemScriptable, int _priorityValue, ArtemisFlag[] _flagsToMeet, ArtemisFlag[] _flagsToAvoid, WhenAlreadyVoicePlaying _whenAlreadyVoicePlaying)
+    public void Rewrite(string _id, ArtemisPreDictionaryDeliverySystem _systemScriptable, int _priorityValue, ArtemisFlag[] _flagsToMeet, ArtemisFlag[] _flagsToAvoid, HowToHandleBusy _howToHandleBusy)
     {
         id = _id;
         deliverySystem = _systemScriptable;
         priorityValue = _priorityValue; 
         flagsToMeet = _flagsToMeet; 
         flagsToAvoid = _flagsToAvoid;
-        whenAlreadyVoicePlaying = _whenAlreadyVoicePlaying;
+        howToHandleBusy = _howToHandleBusy;
     }
 
     public bool Deliver(ArtemisNarrativePriorityQueues sender)
@@ -77,8 +77,8 @@ public class ArtemisNarrativeDataPoint : ScriptableObject
         return true;
     }
 
-    public WhenAlreadyVoicePlaying GetWhenBusyDescision()
+    public HowToHandleBusy GetWhenBusyDescision()
     {
-        return whenAlreadyVoicePlaying;
+        return howToHandleBusy;
     }
 }

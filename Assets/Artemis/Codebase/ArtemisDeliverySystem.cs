@@ -20,7 +20,7 @@ public abstract class ArtemisPreDictionaryDeliverySystem : ScriptableObject
     {
         bool successfullyProcessed = false;
 
-        ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying decision = dataPoint.GetWhenBusyDescision();
+        ArtemisNarrativeDataPoint.HowToHandleBusy decision = dataPoint.GetWhenBusyDescision();
 
         if(IsBusy())
         {
@@ -33,22 +33,22 @@ public abstract class ArtemisPreDictionaryDeliverySystem : ScriptableObject
 
             switch (decision)
             {
-                case ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.CANCEL:
+                case ArtemisNarrativeDataPoint.HowToHandleBusy.CANCEL:
                     successfullyProcessed = false;
                     break;
-                case ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.QUEUE:
+                case ArtemisNarrativeDataPoint.HowToHandleBusy.QUEUE:
                     queue.Add(storedPairing);
                     successfullyProcessed = true;
                     break;
-                case ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.INTERRUPT:
+                case ArtemisNarrativeDataPoint.HowToHandleBusy.INTERRUPT:
                     AbruptEnd();
                     Send(dataPoint.name);
                     successfullyProcessed = true;
                     break;
-                case ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.DELETE:
+                case ArtemisNarrativeDataPoint.HowToHandleBusy.DELETE:
                     successfullyProcessed = true;
                     break;
-                case ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.FRONT_OF_QUEUE:
+                case ArtemisNarrativeDataPoint.HowToHandleBusy.FRONT_OF_QUEUE:
                     queue.Insert(0, storedPairing);
                     successfullyProcessed = true;
                     break;
@@ -249,32 +249,32 @@ public abstract class ArtemisDeliverySystem<T> : ArtemisPreDictionaryDeliverySys
                 }
             }
 
-            ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying _whenAlreadyVoicePlaying;
+            ArtemisNarrativeDataPoint.HowToHandleBusy _howToHandleBusy;
             if (currentLine.cell[4] != null)
             {
                 switch (currentLine.cell[4].value)
                 {
                     case "DELETE":
-                        _whenAlreadyVoicePlaying = ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.DELETE;
+                        _howToHandleBusy = ArtemisNarrativeDataPoint.HowToHandleBusy.DELETE;
                         break;
                     case "FRONT_OF_QUEUE":
-                        _whenAlreadyVoicePlaying = ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.FRONT_OF_QUEUE;
+                        _howToHandleBusy = ArtemisNarrativeDataPoint.HowToHandleBusy.FRONT_OF_QUEUE;
                         break;
                     case "INTERRUPT":
-                        _whenAlreadyVoicePlaying = ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.INTERRUPT;
+                        _howToHandleBusy = ArtemisNarrativeDataPoint.HowToHandleBusy.INTERRUPT;
                         break;
                     case "QUEUE":
-                        _whenAlreadyVoicePlaying = ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.QUEUE;
+                        _howToHandleBusy = ArtemisNarrativeDataPoint.HowToHandleBusy.QUEUE;
                         break;
                     case "CANCEL":
                     default:
-                        _whenAlreadyVoicePlaying = ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.CANCEL;
+                        _howToHandleBusy = ArtemisNarrativeDataPoint.HowToHandleBusy.CANCEL;
                         break;
                 }
             }
             else
             {
-                _whenAlreadyVoicePlaying = ArtemisNarrativeDataPoint.WhenAlreadyVoicePlaying.CANCEL;
+                _howToHandleBusy = ArtemisNarrativeDataPoint.HowToHandleBusy.CANCEL;
             }
 
             ArtemisNarrativeDataPoint dataPoint = AssetDatabase.LoadAssetAtPath<ArtemisNarrativeDataPoint>(GetContainingFolder() + "/" + GetDataPointFolderName() + "/" + _id + ".asset");
@@ -286,7 +286,7 @@ public abstract class ArtemisDeliverySystem<T> : ArtemisPreDictionaryDeliverySys
                 dataPoint = ScriptableObject.CreateInstance<ArtemisNarrativeDataPoint>();
             }
 
-            dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _flagsToMeet, _flagsToAvoid, _whenAlreadyVoicePlaying);
+            dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _flagsToMeet, _flagsToAvoid, _howToHandleBusy);
 
             if (exists)
             {
