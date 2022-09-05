@@ -41,11 +41,11 @@ Stores the most basic information for each possible piece of narrative delivery.
 - <ins>Priority Value:</ins> int value used by the archer
 - <ins>Flags to be True:</ins> flags that must be set to true (otherwise the datapoint will be skipped over by the archer)
 - <ins>Flags to be False:</ins> flags that must be set to false (otherwise the datapoint will be skipped over by the archer)
-- <ins>How to handle busy:</ins> Enum. If the feltchers tries to fire the data point, but the delivery actor is busy, what is done? There a couple options:
-  - CANCEL: Retreat! Return the datapoint back into the archer that chose it.
-  - QUEUE: Add the datapoint to a queue and wait until the feltchers/actor gets around to it.
+- <ins>How to handle busy:</ins> Enum. If the feltchers tries to fire the data point, but the delivery actor is busy, what is done? There are a couple options:
+  - CANCEL: Retreat! Return the arrow back to the archer that chose it.
+  - QUEUE: Add the datapoint to a queue and wait until the feltcher/bow gets around to it.
   - INTERRUPT: Abruptly stop what the delivery actor is doing to deliver a narrative beat, and have it do this one.
-  - DELETE: Don't play it, but don't return it to the archer. Discard the data point.
+  - DELETE: Don't play it, but don't return it to the archer. Discard the arrow entirely.
   - FRONT_OF_QUEUE: Similar to the queue, but make it cut to the front of the queue.
 
 ### Archers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisNarrativePriorityQueues%20Icon.png" alt="Book pile icon by Delapouite" height="50px;" align="right">
@@ -94,9 +94,10 @@ The narrative system keeps track of if flag assets are being used by any of the 
 
  - The option to make the priority value based off the number of flags it sets off (as opposed to a static value) so *Artemis* can instead emulate bark systems in games like in Left 4 Dead 2[^3].
  - Looking for alternatives to strings for ID's because having symbols would run much better[^3].
- - Giving archer options in regards to refreshing itself once it's empty.
- - Alternatives to a priority queue for an archer logic (ex: ranks the arrows by value, but will pull from most valuable arrows at random as if it's another general pool)
- - Bundles tracking if it has already been dumped into a archer.
+ - Giving archers options in regards to refreshing when they're out of arrows.
+ - Alternatives to a priority queue for an archer's logic (ex: ranks the arrows by value, but will pull from most valuable arrows at random as if it's another general pool)
+ - Bundles tracking if it has already been dumped into (or removed from) a archer.
+ - What should be done if the value for a flag hasn't been actively set yet?
  - Save/load capabilities for the whole narrative.
  - More examples and scenes demonstrating how you can use *Artemis*!
 
@@ -105,6 +106,8 @@ The narrative system keeps track of if flag assets are being used by any of the 
 _Artemis_ is an ongoing narrative programming project by Nicholas Perell.
 
 CSV Parsing Scripts contributed by Brandon "bb" Boras.
+
+Upcoming icons made by Crystal Wong.
 
 ### Game-icons.net
 Used for the header image & _Artemis_'s Gizmos/Icons
