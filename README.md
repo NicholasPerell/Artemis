@@ -28,7 +28,7 @@ Welcome to **Version 0.2**! It's currently much less user friendly than hoped, b
   - Children scripts of the Feltchers & Bows to deliver debug log messages with a delay before another message can be sent
   - An Editor script that gives the Debug Feltchers to have a button in its inspector to trigger the .CSV[^sheets] parsing.
     - It is reccomended you copy this to use it for your own Feltchers scripts
-  - A scene that initializes an example archer then triggers narrative delivery from the archer at a rate that demonstrates the settings each data point can have save for what to do if the delivery actor is busy.
+  - A scene that initializes an example archer then triggers narrative delivery from the archer at a rate that demonstrates the settings each data point can have save for what to do if the bow is busy.
 
 ## File-By-File Explanation
 
