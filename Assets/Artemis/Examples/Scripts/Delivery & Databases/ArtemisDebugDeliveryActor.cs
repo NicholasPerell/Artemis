@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Artemis;
 
-public class ArtemisDebugDeliveryActor : ArtemisDeliveryActor<ArtemisDebugData>
+public class ArtemisDebugDeliveryActor : Bow<ArtemisDebugData>
 {
     [SerializeField]
     float delayTimer = 0;

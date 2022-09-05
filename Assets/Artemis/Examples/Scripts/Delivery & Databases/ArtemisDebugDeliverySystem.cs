@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Artemis;
 
 [System.Serializable]
 public struct ArtemisDebugData
@@ -18,7 +19,7 @@ public struct ArtemisDebugData
 }
 
 [CreateAssetMenu(fileName = "New Artemis Debug Delivery System", menuName = "Artemis/Examples/Debug Delivery System")]
-public class ArtemisDebugDeliverySystem : ArtemisDeliverySystem<ArtemisDebugData>
+public class ArtemisDebugDeliverySystem : Fletcher<ArtemisDebugData>
 {
     protected override bool SetUpDataFromCells(string[] dataToInterpret, out ArtemisDebugData valueDetermined)
     {

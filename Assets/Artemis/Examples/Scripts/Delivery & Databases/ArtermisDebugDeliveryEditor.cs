@@ -1,6 +1,7 @@
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+using Artemis;
 
 [CustomEditor(typeof(ArtemisDebugDeliverySystem))]
 public class ArtemisDeliveryEditor : Editor

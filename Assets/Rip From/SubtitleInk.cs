@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 //using Ink.Runtime;
+using Artemis;
 using System;
 // script below, unless otherwise stated, created by Nicholas Perell, standard copyright and usage applies.
 [System.Serializable]
@@ -16,7 +17,7 @@ public struct SpeakerColorPair
 public class SubtitleInk : MonoBehaviour
 {
     [SerializeField]
-    ArtemisNarrativeSystem narrativeSystem;
+    NarrativeSystem narrativeSystem;
     [SerializeField]
     SpeakerColorPair[] speakerToColorKey;
 
@@ -41,11 +42,11 @@ public class SubtitleInk : MonoBehaviour
     float timer = 0;
 
     [SerializeField]
-    List<ArtemisNarrativeDataPoint> queuedVoiceLines;
+    List<Arrow> queuedVoiceLines;
 
     private void Start()
     {
-        queuedVoiceLines = new List<ArtemisNarrativeDataPoint>();
+        queuedVoiceLines = new List<Arrow>();
         //narrativeSystem.subtitleInk[index] = this;
 
         if (testStartingInkFile)
@@ -170,7 +171,7 @@ public class SubtitleInk : MonoBehaviour
         }
     }
 
-    public void Enqueue(ArtemisNarrativeDataPoint data)
+    public void Enqueue(Arrow data)
     {
         queuedVoiceLines.Add(data);
     }
