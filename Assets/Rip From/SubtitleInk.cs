@@ -17,7 +17,7 @@ public struct SpeakerColorPair
 public class SubtitleInk : MonoBehaviour
 {
     [SerializeField]
-    NarrativeSystem narrativeSystem;
+    Goddess narrativeSystem;
     [SerializeField]
     SpeakerColorPair[] speakerToColorKey;
 

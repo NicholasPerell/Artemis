@@ -7,8 +7,8 @@ using UnityEditor;
 #endif
 namespace Artemis
 {
-    [CreateAssetMenu(fileName = "New Artemis Narrative System", menuName = "Artemis/Overall Narrative System")]
-    public class NarrativeSystem : ScriptableSingleton<NarrativeSystem>
+    //[CreateAssetMenu(fileName = "New Artemis Narrative System", menuName = "Artemis/Overall Narrative System")]
+    public class Goddess : ScriptableSingleton<Goddess>
     {
         [SerializeField]
         private List<Flag> flagsToKeep;

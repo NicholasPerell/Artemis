@@ -18,7 +18,7 @@ public struct ArtemisDebugData
     public float timeSystemIsBusy;
 }
 
-[CreateAssetMenu(fileName = "New Artemis Debug Delivery System", menuName = "Artemis/Examples/Debug Delivery System")]
+//[CreateAssetMenu(fileName = "New Artemis Debug Delivery System", menuName = "Artemis/Examples/Debug Delivery System")]
 public class ArtemisDebugDeliverySystem : Fletcher<ArtemisDebugData>
 {
     protected override bool SetUpDataFromCells(string[] dataToInterpret, out ArtemisDebugData valueDetermined)

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ab86da48d252c46baf4c766e2090c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 81d6c426b21345840a5ce7617c156483, type: 3}
   m_Name: Test_Debug_001
   m_EditorClassIdentifier: 
   id: Test_Debug_001
@@ -21,4 +21,4 @@ MonoBehaviour:
   flagsToAvoid:
   - {fileID: 11400000, guid: ab4a36d5218437d4bbc40584f88755d3, type: 2}
   - {fileID: 11400000, guid: f9a223825acf48249957e08651b42ebb, type: 2}
-  whenAlreadyVoicePlaying: 1
+  howToHandleBusy: 1

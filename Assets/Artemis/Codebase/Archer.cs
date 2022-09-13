@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Artemis
 {
-    [CreateAssetMenu(fileName = "New Artemis Narrative Priority Queue", menuName = "Artemis/Narrative Priority Queue")]
+    //[CreateAssetMenu(fileName = "New Artemis Narrative Priority Queue", menuName = "Artemis/Narrative Priority Queue")]
     public class Archer : ScriptableObject
     {
         enum WhenEmpty

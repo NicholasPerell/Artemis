@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Artemis
 {
-    [CreateAssetMenu(fileName = "New Artemis Narrative Data Point", menuName = "Artemis/Narrative Data Point")]
+    //[CreateAssetMenu(fileName = "New Artemis Narrative Data Point", menuName = "Artemis/Narrative Data Point")]
     public class Arrow : ScriptableObject
     {
         public enum HowToHandleBusy

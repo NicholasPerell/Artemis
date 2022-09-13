@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f12ec0c35e426bd4f8c45715c59ac178, type: 3}
+  m_Script: {fileID: 11500000, guid: c52dea9d8cbf3ec41ac81669310c2d3a, type: 3}
   m_Name: Artemis Narrative System
   m_EditorClassIdentifier: 
   flagsToKeep: []

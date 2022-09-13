@@ -159,7 +159,7 @@ namespace Artemis
 
             foreach (string e in flagsNoLongerBeingUsed)
             {
-                NarrativeSystem.instance.DisconnectFlag(e, this);
+                Goddess.instance.DisconnectFlag(e, this);
             }
 
             EditorUtility.SetDirty(this);
@@ -226,7 +226,7 @@ namespace Artemis
                     _flagsToMeet = new Flag[names.Length];
                     for (int i = 0; i < _flagsToMeet.Length; i++)
                     {
-                        _flagsToMeet[i] = NarrativeSystem.instance.ConnectFlag(names[i], this);
+                        _flagsToMeet[i] = Goddess.instance.ConnectFlag(names[i], this);
                         flagsNoLongerBeingUsed.Remove(names[i]);
                         if (!flagsBeingUsed.Contains(names[i]))
                         {
@@ -242,7 +242,7 @@ namespace Artemis
                     _flagsToAvoid = new Flag[names.Length];
                     for (int i = 0; i < _flagsToMeet.Length; i++)
                     {
-                        _flagsToAvoid[i] = NarrativeSystem.instance.ConnectFlag(names[i], this);
+                        _flagsToAvoid[i] = Goddess.instance.ConnectFlag(names[i], this);
                         flagsNoLongerBeingUsed.Remove(names[i]);
                         if (!flagsBeingUsed.Contains(names[i]))
                         {
