@@ -69,7 +69,7 @@ _Artemis_'s base feltchers script is an abstract template class, where you will 
 
 To reiterate something said prior: The example folder has an Editor script that gives the Debug Feltchers to have a button in its inspector to trigger the .CSV[^sheets] parsing. It is reccomended you copy this to use it for your own Feltchers scripts.
 
-### Bows <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisDeliveryActor%20Icon.png" alt="High shot icon by Lorc" height="50px;" align="right">
+### Bows <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bow-arrow.png?raw=true" alt="Bow Arrow by Delapouite" height="50px;" align="right">
 
 Another whose base script is an abstract template class. The typing on the template class should be the same as the feltchers you want it to work with. This is where things go from decision to full delivery.
 
@@ -111,13 +111,14 @@ Upcoming icons made by Crystal Wong.
 
 ### Game-icons.net
 Used for the header image & _Artemis_'s Gizmos/Icons
-- Archer - Bowman by Lorc
-- Flag - Flying Flag by Lorc
-- Bundle - Quiver by Delapouite
-- Arrow - Branch Arrow by Lorc
-- Goddess - Night Sky by Lorc
-- Fletcher - Table by Delapouite
-- Bow - Bow Arrow by Delapouite
+- Archer: Bowman by Lorc
+- Flag: Flying Flag by Lorc
+- Bundle: Quiver by Delapouite
+- Arrow: Branch Arrow by Lorc
+- Goddess: Night Sky by Lorc
+- Fletcher: Table by Delapouite
+- Bow: Bow Arrow by Delapouite
+- Artemis Logo: Book Aura & High Shot by Lorc
 
 [^sheets]: For what the format of the .CSV's should be like, [here is an example format on Google Sheets](https://docs.google.com/spreadsheets/d/15kqTE368a9-T_mWnH0c4kyO8i_zSbvk4vVvYFh-C_5c/edit?usp=sharing). You're encouraged to make a copy and use it as a basis for yours.
 [^1]: [People Make Games's video on _Hades_](https://www.youtube.com/watch?v=bwdYL0KFA_U)
