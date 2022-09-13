@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ExpLvl))]
-public class LevelShowScripts : Editor
+namespace Artemis.EditorIntegration
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(ExpLvl))]
+    public class LevelShowScripts : Editor
     {
-        ExpLvl myExpLvl = (ExpLvl)target;
-
-
-        //DrawDefaultInspector();
-
-        myExpLvl.experience = EditorGUILayout.IntField("Experience", myExpLvl.experience);
-        EditorGUILayout.LabelField("Level", myExpLvl.Level.ToString());
-
-        EditorGUILayout.HelpBox("This is a help box", MessageType.Info);
-
-        if (GUILayout.Button("Press me!"))
+        public override void OnInspectorGUI()
         {
-            Debug.Log("Button pressed");
+
+
+            ExpLvl myExpLvl = (ExpLvl)target;
+
+
+            //DrawDefaultInspector();
+
+            myExpLvl.experience = EditorGUILayout.IntField("Experience", myExpLvl.experience);
+            EditorGUILayout.LabelField("Level", myExpLvl.Level.ToString());
+
+            EditorGUILayout.HelpBox("This is a help box", MessageType.Info);
+
+            if (GUILayout.Button("Press me!"))
+            {
+                Debug.Log("Button pressed");
+            }
+
+            EditorGUILayout.Space();
+
+            myExpLvl.loops = EditorGUILayout.Toggle("Loops", myExpLvl.loops);
+
+            if (myExpLvl.loops)
+            {
+                myExpLvl.includeBundlesInLoop = EditorGUILayout.Toggle("  Include Bundles", myExpLvl.includeBundlesInLoop);
+            }
+
         }
-
-        EditorGUILayout.Space();
-
-        myExpLvl.loops = EditorGUILayout.Toggle("Loops", myExpLvl.loops);
-
-        if(myExpLvl.loops)
-        {
-            myExpLvl.includeBundlesInLoop = EditorGUILayout.Toggle("  Include Bundles", myExpLvl.includeBundlesInLoop);
-        }
-
     }
+
 }
