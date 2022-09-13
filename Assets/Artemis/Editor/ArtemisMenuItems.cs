@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis {
+namespace Artemis.Editor {
     public class ArtemisMenuItems
     {
         [MenuItem("Assets/Create/Artemis/Archer")]
@@ -14,13 +14,13 @@ namespace Artemis {
         [MenuItem("Assets/Create/Artemis/Bundle")]
         private static void CreateBundle()
         {
-            CreateArtemisItem(new Bundle(), "Archer");
+            CreateArtemisItem(new Bundle(), "Bundle");
         }
 
         [MenuItem("Assets/Create/Artemis/Flag")]
         private static void CreateFlag()
         {
-            CreateArtemisItem(new Flag(), "Archer");
+            CreateArtemisItem(new Flag(), "Flag");
         }
 
         private static void CreateArtemisItem(Object created, string type)
@@ -33,10 +33,7 @@ namespace Artemis {
                 folderPath = folderPath.Substring(0, folderPath.LastIndexOf('/'));
             }
 
-            AssetDatabase.CreateAsset(created, folderPath + "/New Artemis "+type+".asset");
-            
-            //TODO: go into rename mode with the newly created asset
-            //(created,c)
+            ProjectWindowUtil.CreateAsset(created, folderPath + "/New Artemis "+type+".asset");
         }
     }
 }
