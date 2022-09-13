@@ -37,7 +37,7 @@ namespace Artemis.EditorIntegration
 
             //Figure out why Resources works in the Ink Package but not in Artemis
             //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArcherFileIcon-Large.png");
+            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/branch-arrow.png");
 
             EditorUtility.CopySerialized(copyFrom, tex);
 
