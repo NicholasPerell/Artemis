@@ -22,7 +22,7 @@ This branch is currently working towards **Version 0.2**! It's currently much le
   - <ins>Bundles</ins>, which can be prompted to dump into a archer of the designer's choosing.
   - <ins>Feltchers</ins>, which parse .CSV's[^sheets] to generate the databases full of the relevant information needed to direct the...
   - <ins>Bows</ins>, which are the monobehaviors that use the incoming data to deliver the narrative.
-  - <ins>Narrative System</ins>, which tracks all the true/false flags the arrows use.
+  - <ins>Goddess (Narrative System)</ins>, which tracks all the true/false flags the arrows use.
 - Example for how the code can be used
   - An example .CSV[^sheets] file.
   - Children scripts of the Feltchers & Bows to deliver debug log messages with a delay before another message can be sent
@@ -34,7 +34,7 @@ This branch is currently working towards **Version 0.2**! It's currently much le
 
 Although one of the best ways to get an understanding of *Artemis* would be to check out the examples made, it's worth documenting the target purpose of each of the previously listed items.
 
-### Arrows <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisNarrativeDataPoint%20Icon.png" alt="Scroll unfurled icon by Lorc" height="50px;" align="right">
+### Arrows <img src="https://raw.githubusercontent.com/nicholas-hoy-champain/narrative-system-project/d8e41bfca6e25fc062ffbac8ebde975d6accd94c/Assets/Artemis/Editor/Resources/branch-arrow.png" alt="Branch Arrow by Lorc" height="50px;" align="right">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
 - <ins>ID:</ins> string used to access the databases found in the feltchers it is connected to.
@@ -48,7 +48,7 @@ Stores the most basic information for each possible piece of narrative delivery.
   - DELETE: Don't play it, but don't return it to the archer. Discard the arrow entirely.
   - FRONT_OF_QUEUE: Similar to the queue, but make it cut to the front of the queue.
 
-### Archers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisNarrativePriorityQueues%20Icon.png" alt="Book pile icon by Delapouite" height="50px;" align="right">
+### Archers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bowman.png?raw=true" alt="Bowman by Lorc" height="50px;" align="right">
 
 This is what tries to choose which arrow should be shot. Currently uses a priority queue, or PQ. Arrows with a priority of 0 are placed in a "general pool" with a random order. Higher values are given priority above lower values. Instead of being random, there is a checkbox in the inspector about if the PQ should have "recency bais."
 
@@ -56,11 +56,11 @@ When recency bias is *off*, arrows of equal value (greater than 0) will be deliv
 
 When recency bias is *on*, the most recently added data point is the one that will delivered first. This was what _Project Nautilus_ utilized for the managerial AI, PASSION. If the player managed to do A and B before they get to the next narrative trigger, and both A and B added commentary the player can receive from PASSION, it made more sense that PASSION commented on the most recent action of the player, to make things feel reactive. Instead of a queue, the PQ becomes a "priority *stack*."
 
-### Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisNarrativeBundle%20Icon.png" alt="Tied scroll icon by Lorc" height="50px;" align="right">
+### Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/quiver.png" alt="Quiver by Delapouite" height="50px;" align="right">
 
 Can be prompted to dump into a archer of the designer's choosing. These dumps are where recency bias being on or off on your archer are very important. More capabilities and options for bundles are planned for the future, but for now there aren't many.
 
-### Feltchers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisDeliverySystem%20Icon.png" alt="Dove icon by Lorc" height="50px;" align="right">
+### Feltchers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/table.png" alt="Table by Delapouite" height="50px;" align="right">
 
 _Artemis_'s base feltchers script is an abstract template class, where you will want to define:
  1. The information that needs be stored in a database for the delivery actor to deliver the narrative how you want it.
@@ -82,7 +82,7 @@ To properly set up a script for a delivery actor:
 
 When attaching the delivery actor monobehavior to a game object, make sure the "Feltchers" in the inspector is set to the feltchers you want the actor to be paired with.
 
-### Narrative System <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Gizmos/ArtemisNarrativeSystem%20icon.png" alt="Book aura icon by Lorc" height="50px;" align="right">
+### Goddess (Narrative System) <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/night-sky.png?raw=true" alt="Night Sky by Lorc" height="50px;" align="right">
 
 Singleton that facilitates the Flags. The flags are their own asset[^whyasset] that store just a bool value and has setter and getter functions for this value. Have **one** (no more, no less) of this asset created.
 
