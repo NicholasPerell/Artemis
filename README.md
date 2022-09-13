@@ -111,16 +111,13 @@ Upcoming icons made by Crystal Wong.
 
 ### Game-icons.net
 Used for the header image & _Artemis_'s Gizmos/Icons
-- Archer - Book pile icon by Delapouite
-- Database - Database icon by Delapouite 
-- Narrative System - Book aura icon by Lorc 
-- Bundle - Tied scroll icon by Lorc
-- Arrow - Scroll unfurled icon by Lorc
-- Bitflags Collection - Checklist icon by Delapouite 
-- Flag - Flying flag icon by Lorc
-- Feltchers - Dove icon by Lorc
-- Delivery Actor - High shot icon by Lorc
-- Delivery Actor - Bowman icon by Lorc
+- Archer - Bowman by Lorc
+- Flag - Flying Flag by Lorc
+- Bundle - Quiver by Delapouite
+- Arrow - Branch Arrow by Lorc
+- Goddess - Night Sky by Lorc
+- Fletcher - Table by Delapouite
+- Bow - Bow Arrow by Delapouite
 
 [^sheets]: For what the format of the .CSV's should be like, [here is an example format on Google Sheets](https://docs.google.com/spreadsheets/d/15kqTE368a9-T_mWnH0c4kyO8i_zSbvk4vVvYFh-C_5c/edit?usp=sharing). You're encouraged to make a copy and use it as a basis for yours.
 [^1]: [People Make Games's video on _Hades_](https://www.youtube.com/watch?v=bwdYL0KFA_U)
