@@ -20,14 +20,14 @@ This branch is currently working towards **Version 0.2**! It's currently much le
   - <ins>Arrows</ins> for each deliverable narrative beat, with ID's, priority values, and what needs to be true or false. 
   - <ins>Archers</ins>, which use the priority values (and when they were added to the archer) to determine which of a group of arrows should be delivered.
   - <ins>Bundles</ins>, which can be prompted to dump into a archer of the designer's choosing.
-  - <ins>Feltchers</ins>, which parse .CSV's[^sheets] to generate the databases full of the relevant information needed to direct the...
+  - <ins>Fletchers</ins>, which parse .CSV's[^sheets] to generate the databases full of the relevant information needed to direct the...
   - <ins>Bows</ins>, which are the monobehaviors that use the incoming data to deliver the narrative.
   - <ins>Goddess (Narrative System)</ins>, which tracks all the true/false flags the arrows use.
 - Example for how the code can be used
   - An example .CSV[^sheets] file.
-  - Children scripts of the Feltchers & Bows to deliver debug log messages with a delay before another message can be sent
-  - An Editor script that gives the Debug Feltchers to have a button in its inspector to trigger the .CSV[^sheets] parsing.
-    - It is reccomended you copy this to use it for your own Feltchers scripts
+  - Children scripts of the Fletchers & Bows to deliver debug log messages with a delay before another message can be sent
+  - An Editor script that gives the Debug Fletchers to have a button in its inspector to trigger the .CSV[^sheets] parsing.
+    - It is reccomended you copy this to use it for your own Fletchers scripts
   - A scene that initializes an example archer then triggers narrative delivery from the archer at a rate that demonstrates the settings each data point can have save for what to do if the bow is busy.
 
 ## File-By-File Explanation
@@ -37,13 +37,13 @@ Although one of the best ways to get an understanding of *Artemis* would be to c
 ### Arrows <img src="https://raw.githubusercontent.com/nicholas-hoy-champain/narrative-system-project/d8e41bfca6e25fc062ffbac8ebde975d6accd94c/Assets/Artemis/Editor/Resources/branch-arrow.png" alt="Branch Arrow by Lorc" height="50px;" align="right">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
-- <ins>ID:</ins> string used to access the databases found in the feltchers it is connected to.
+- <ins>ID:</ins> string used to access the databases found in the fletchers it is connected to.
 - <ins>Priority Value:</ins> int value used by the archer
 - <ins>Flags to be True:</ins> flags that must be set to true (otherwise the datapoint will be skipped over by the archer)
 - <ins>Flags to be False:</ins> flags that must be set to false (otherwise the datapoint will be skipped over by the archer)
-- <ins>How to handle busy:</ins> Enum. If the feltchers tries to fire the data point, but the delivery actor is busy, what is done? There are a couple options:
+- <ins>How to handle busy:</ins> Enum. If the fletchers tries to fire the data point, but the delivery actor is busy, what is done? There are a couple options:
   - CANCEL: Retreat! Return the arrow back to the archer that chose it.
-  - QUEUE: Add the datapoint to a queue and wait until the feltcher/bow gets around to it.
+  - QUEUE: Add the datapoint to a queue and wait until the fletcher/bow gets around to it.
   - INTERRUPT: Abruptly stop what the delivery actor is doing to deliver a narrative beat, and have it do this one.
   - DELETE: Don't play it, but don't return it to the archer. Discard the arrow entirely.
   - FRONT_OF_QUEUE: Similar to the queue, but make it cut to the front of the queue.
@@ -60,33 +60,33 @@ When recency bias is *on*, the most recently added data point is the one that wi
 
 Can be prompted to dump into a archer of the designer's choosing. These dumps are where recency bias being on or off on your archer are very important. More capabilities and options for bundles are planned for the future, but for now there aren't many.
 
-### Feltchers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/table.png" alt="Table by Delapouite" height="50px;" align="right">
+### Fletchers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/table.png" alt="Table by Delapouite" height="50px;" align="right">
 
-_Artemis_'s base feltchers script is an abstract template class, where you will want to define:
+_Artemis_'s base fletchers script is an abstract template class, where you will want to define:
  1. The information that needs be stored in a database for the delivery actor to deliver the narrative how you want it.
  2. The `bool SetUpDataFromCells(string[] dataToInterpret, out T valueDetermined)` fuction that validates the string array intake from the .CSV[^sheets] and uses those strings to generate the information that needs to be stored.
  3. The length of the string array. Based on the value of an int named columnsToReadFrom.
 
-To reiterate something said prior: The example folder has an Editor script that gives the Debug Feltchers to have a button in its inspector to trigger the .CSV[^sheets] parsing. It is reccomended you copy this to use it for your own Feltchers scripts.
+To reiterate something said prior: The example folder has an Editor script that gives the Debug Fletchers to have a button in its inspector to trigger the .CSV[^sheets] parsing. It is reccomended you copy this to use it for your own Fletchers scripts.
 
 ### Bows <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bow-arrow.png?raw=true" alt="Bow Arrow by Delapouite" height="50px;" align="right">
 
-Another whose base script is an abstract template class. The typing on the template class should be the same as the feltchers you want it to work with. This is where things go from decision to full delivery.
+Another whose base script is an abstract template class. The typing on the template class should be the same as the fletchers you want it to work with. This is where things go from decision to full delivery.
 
 To properly set up a script for a delivery actor:
  1. Define `void Send(T data)`. Using this data, how does this gameobject facilitate delivery.
  2. Define `bool IsBusy()`. Is the actor still in the middle of delivery?
- 3. Define `void AbruptEnd()`. If the feltchers wants to interrupt with a new data point being sent, how do you wrap up what's going on?
- 4. When you're done delivering, be sure to call `ReportEnd();`. This allows the feltchers to see if there were any datapoints with QUEUE or FRONT_OF_QUEUE stored for later.
+ 3. Define `void AbruptEnd()`. If the fletchers wants to interrupt with a new data point being sent, how do you wrap up what's going on?
+ 4. When you're done delivering, be sure to call `ReportEnd();`. This allows the fletchers to see if there were any datapoints with QUEUE or FRONT_OF_QUEUE stored for later.
  5. If you define `OnEnable()`, be sure to call `base.OnEnable();` in the function.
 
-When attaching the delivery actor monobehavior to a game object, make sure the "Feltchers" in the inspector is set to the feltchers you want the actor to be paired with.
+When attaching the delivery actor monobehavior to a game object, make sure the "Fletchers" in the inspector is set to the fletchers you want the actor to be paired with.
 
 ### Goddess (Narrative System) <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/night-sky.png?raw=true" alt="Night Sky by Lorc" height="50px;" align="right">
 
 Singleton that facilitates the Flags. The flags are their own asset[^whyasset] that store just a bool value and has setter and getter functions for this value. Have **one** (no more, no less) of this asset created.
 
-The narrative system keeps track of if flag assets are being used by any of the arrows generated by the feltcherss. By default, if a flag asset has not a single data point checking it for being true or false, that flag asset will be deleted. However, in the inspector the narrative system has a "Flags to Keep" array. Flag assets in this array will not be deleted by this scrubbing.
+The narrative system keeps track of if flag assets are being used by any of the arrows generated by the fletcherss. By default, if a flag asset has not a single data point checking it for being true or false, that flag asset will be deleted. However, in the inspector the narrative system has a "Flags to Keep" array. Flag assets in this array will not be deleted by this scrubbing.
 
 ## Future Plans
 
