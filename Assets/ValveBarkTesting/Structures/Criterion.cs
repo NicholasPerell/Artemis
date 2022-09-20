@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public enum CriterionComparisonType
 }
 
 [System.Serializable]
-public struct Criterion
+public class Criterion : IComparable<Criterion>
 {
     /* left-hand side is the larger or equal, 
      * while right-hand side is the smaller or equal
@@ -37,9 +38,6 @@ public struct Criterion
 
     [SerializeField]
     CriterionComparisonType comparisonType;
-
-    [SerializeField]
-    string preview;
 
     public Criterion(ValveInternalSymbols _stateChecked, CriterionComparisonType _comparisonType, float a, float b = 0)
     {
@@ -88,9 +86,6 @@ public struct Criterion
                 rhs = b + float.Epsilon;
                 break;
         }
-
-        preview = "";
-        preview = GetStringRepresentation();
     }
 
     public bool Compare(float x)
@@ -144,5 +139,10 @@ public struct Criterion
         }
 
         return rtn;
+    }
+
+    public int CompareTo(Criterion other)
+    {
+        return stateChecked.CompareTo(other.GetStateChecked());
     }
 }

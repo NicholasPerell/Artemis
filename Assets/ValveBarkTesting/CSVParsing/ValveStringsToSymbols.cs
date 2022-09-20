@@ -9,6 +9,7 @@ public enum ValveInternalSymbols
     Wow,
     DragonSlain,
     Love,
+    Who,
     TrueA,
     FALSEB,
     TRUEC, 
@@ -20,6 +21,5 @@ public enum ValveInternalSymbols
     Op,
     Cl,
     OC,
-    CO, 
-    Who
+    CO
 }

@@ -9,11 +9,12 @@ public class ReadingInFlagCheck : MonoBehaviour
     string toDealWith;
 
     [SerializeField]
-    List<Criterion> rule;
+    SortedSet<Criterion> rule;
 
     // Start is called before the first frame update
     void Start()
     {
+        rule = new SortedSet<Criterion>();
         dealWithFlagList(toDealWith);
     }
 
@@ -23,6 +24,13 @@ public class ReadingInFlagCheck : MonoBehaviour
         for(int i = 0; i < inputs.Length; i++)
         {
             evalSpecificFlag(inputs[i]);
+        }
+
+
+        foreach(Criterion e in rule)
+        {
+        Debug.Log(e.GetStringRepresentation());
+
         }
     }
 
