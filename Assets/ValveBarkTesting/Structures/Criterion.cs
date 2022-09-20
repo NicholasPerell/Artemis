@@ -25,7 +25,7 @@ public enum CriterionComparisonType
 }
 
 [System.Serializable]
-public class Criterion : IComparable<Criterion>
+public struct Criterion : IComparable<Criterion>
 {
     /* left-hand side is the larger or equal, 
      * while right-hand side is the smaller or equal

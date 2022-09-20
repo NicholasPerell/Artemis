@@ -7,7 +7,6 @@ public enum ValveInternalSymbols
     Flag_A,
     Float_B,
     Wow,
-    DragonSlain,
     Love,
     Who,
     TrueA,
@@ -19,7 +18,12 @@ public enum ValveInternalSymbols
     GE, 
     LE,
     Op,
+    DragonSlain,
     Cl,
     OC,
-    CO
+    CO,
+    WOOP,
+    lmao,
+    IloveYou,
+    END
 }

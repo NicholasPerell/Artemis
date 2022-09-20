@@ -9,13 +9,14 @@ public class ReadingInFlagCheck : MonoBehaviour
     string toDealWith;
 
     [SerializeField]
-    SortedSet<Criterion> rule;
+    SortedStrictDictionary<ValveInternalSymbols,Criterion> rule;
 
     // Start is called before the first frame update
     void Start()
     {
-        rule = new SortedSet<Criterion>();
+        rule = new SortedStrictDictionary<ValveInternalSymbols, Criterion>();
         dealWithFlagList(toDealWith);
+        TestSorting();
     }
 
     void dealWithFlagList(string str)
@@ -24,13 +25,6 @@ public class ReadingInFlagCheck : MonoBehaviour
         for(int i = 0; i < inputs.Length; i++)
         {
             evalSpecificFlag(inputs[i]);
-        }
-
-
-        foreach(Criterion e in rule)
-        {
-        Debug.Log(e.GetStringRepresentation());
-
         }
     }
 
@@ -305,11 +299,33 @@ public class ReadingInFlagCheck : MonoBehaviour
         ValveInternalSymbols symbol;
         if (Enum.TryParse(flag, out symbol))
         {
-            rule.Add(new Criterion(symbol,comparisonType,a,b));
+            rule.Add(symbol,new Criterion(symbol,comparisonType,a,b));
         }
         else
         {
             Debug.LogError("Did not recognize flag \"" + flag + "\" in internal symbols. Perhaps recompile?");
+        }
+    }
+
+    void TestSorting()
+    {
+        int index = 0;
+        Criterion found;
+        bool success;
+        ValveInternalSymbols search;
+        for(int i = 0; i <= (int)ValveInternalSymbols.END; i++)
+        {
+            search = (ValveInternalSymbols)i;
+            success = rule.LinearSearch(search, ref index, out found);
+
+            if(success)
+            {
+                Debug.Log("Found " + search + " (" + found.GetStringRepresentation() + "). Next index point is " + index + ".");
+            }
+            else
+            {
+                Debug.Log("No " + search + " found. Next index point is " + index + ".");
+            }
         }
     }
 }
