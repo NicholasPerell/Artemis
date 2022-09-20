@@ -7,5 +7,19 @@ public enum ValveInternalSymbols
     Flag_A,
     Float_B,
     Wow,
-    DragonSlain
+    DragonSlain,
+    Love,
+    TrueA,
+    FALSEB,
+    TRUEC, 
+    Gr, 
+    Eq, 
+    Le, 
+    GE, 
+    LE,
+    Op,
+    Cl,
+    OC,
+    CO, 
+    Who
 }

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toDealWith: TrueA, !FALSEB, TRUEC,Gr > 0,Eq = 5 ,  Le < 4, GE >= 5, LE<= 5, 100
-    > Op >0, 100 >= Cl >= 50, 50 > OC >= 0, 50 >= CO >0
+    > Op >0, 100 >= Cl >= 50, 50 > OC >= 0, 50 >= CO >0, Who = Love
 --- !u!4 &396043943
 Transform:
   m_ObjectHideFlags: 0

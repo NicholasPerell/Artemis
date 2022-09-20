@@ -23,7 +23,8 @@ public enum CriterionComparisonType
     RANGE_CLOSED_OPEN //ex: {x | a >= x > b}
 }
 
-public class Criterion : ScriptableObject
+[System.Serializable]
+public struct Criterion
 {
     /* left-hand side is the larger or equal, 
      * while right-hand side is the smaller or equal
@@ -37,10 +38,16 @@ public class Criterion : ScriptableObject
     [SerializeField]
     CriterionComparisonType comparisonType;
 
+    [SerializeField]
+    string preview;
+
     public Criterion(ValveInternalSymbols _stateChecked, CriterionComparisonType _comparisonType, float a, float b = 0)
     {
         stateChecked = _stateChecked;
         comparisonType = _comparisonType;
+
+        lhs = 0;
+        rhs = 0;
 
         switch (comparisonType)
         {
@@ -81,6 +88,9 @@ public class Criterion : ScriptableObject
                 rhs = b + float.Epsilon;
                 break;
         }
+
+        preview = "";
+        preview = GetStringRepresentation();
     }
 
     public bool Compare(float x)
@@ -96,5 +106,43 @@ public class Criterion : ScriptableObject
     public CriterionComparisonType GetComparisonType()
     {
         return comparisonType;
+    }
+
+    public string GetStringRepresentation()
+    {
+        string rtn = "";
+
+        switch (comparisonType)
+        {
+            case CriterionComparisonType.EQUALS:
+                rtn += stateChecked.ToString() + " = " + lhs;
+                break;
+            case CriterionComparisonType.GREATER:
+                rtn += stateChecked.ToString() + " > " + (rhs - float.Epsilon);
+                break;
+            case CriterionComparisonType.LESS:
+                rtn += stateChecked.ToString() + " < " + (lhs + float.Epsilon);
+                break;
+            case CriterionComparisonType.GREATER_EQUAL:
+                rtn += stateChecked.ToString() + " >= " + (rhs);
+                break;
+            case CriterionComparisonType.LESS_EQUAL:
+                rtn += stateChecked.ToString() + " <= " + (lhs);
+                break;
+            case CriterionComparisonType.RANGE_OPEN:
+                rtn += (lhs + float.Epsilon) + " > " + stateChecked.ToString() + " > " + (rhs - float.Epsilon);
+                break;
+            case CriterionComparisonType.RANGE_CLOSED:
+                rtn += (lhs) + " >= " + stateChecked.ToString() + " >= " + (rhs);
+                break;
+            case CriterionComparisonType.RANGE_OPEN_CLOSED:
+                rtn += (lhs + float.Epsilon) + " > " + stateChecked.ToString() + " >= " + (rhs);
+                break;
+            case CriterionComparisonType.RANGE_CLOSED_OPEN:
+                rtn += (lhs) + " >= " + stateChecked.ToString() + " > " + (rhs - float.Epsilon);
+                break;
+        }
+
+        return rtn;
     }
 }

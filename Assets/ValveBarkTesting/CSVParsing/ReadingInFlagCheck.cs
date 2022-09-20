@@ -8,6 +8,9 @@ public class ReadingInFlagCheck : MonoBehaviour
     [SerializeField]
     string toDealWith;
 
+    [SerializeField]
+    List<Criterion> rule;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +29,12 @@ public class ReadingInFlagCheck : MonoBehaviour
     void evalSpecificFlag(string input)
     {
         //Variable set-up
-        CriterionComparisonType endResult = CriterionComparisonType.INVALID;
+        CriterionComparisonType compareType = CriterionComparisonType.INVALID;
         bool valid = false;
-        string flag;
+        string flag = "";
         string[] tmp;
-        float a,b;
+        float a = 0;
+        float b = 0;
 
         //Trim input
         input = input.Trim();
@@ -46,94 +50,96 @@ public class ReadingInFlagCheck : MonoBehaviour
             valid = !hasEx && !hasLess;
             if (valid)
             {
-                tmp = input.Split('>');
-                if (tmp.Length == 2)
+                valid = IsValidLessGreat(input, '>', out a, out flag);
+                if (!valid)
                 {
-                    if (hasEq)
+                    tmp = input.Split('>');
+                    valid = tmp.Length == 3;
+                    if (valid)
                     {
-                        if (float.TryParse(tmp[1].Substring(1), out a))
-                        {
-                            flag = tmp[0].Trim();
-                            valid = flag.IndexOf(' ') == -1
-                                && flag.IndexOf('=') == -1;
-                            if (valid)
-                            {
-                                Debug.Log(flag + " >= " + a);
-                            }
-                        }
-                        else
-                        {
-                            valid = false;
-                        }
-                    }
-                    else
-                    {
-                        if (float.TryParse(tmp[1], out a))
-                        {
-                            flag = tmp[0].Trim();
-                            valid = flag.IndexOf(' ') == -1;
-                            if (valid)
-                            {
-                                Debug.Log(flag + " > " + a);
-                            }
-                        }
-                        else
-                        {
-                            valid = false;
-                        }
-                    }
-                }
-                else if (tmp.Length == 3)
-                {
-                    //TODO: ranges!
-                    valid = false;
+                        bool hasLeftEq = tmp[1].IndexOf('=') != -1;
+                        bool hasRightEq = tmp[2].IndexOf('=') != -1;
 
+                        int leftStartIndex = hasLeftEq ? 1 : 0;
+                        int rightStartIndex = hasRightEq ? 1 : 0;
+
+                        if (float.TryParse(tmp[0], out a)
+                            && float.TryParse(tmp[2].Substring(rightStartIndex), out b))
+                        {
+                            flag = tmp[1].Substring(leftStartIndex).Trim();
+                            valid = IsFlagValid(flag);
+                            if (valid)
+                            {
+                                //String
+                                string output = a + " >";
+                                if (hasLeftEq)
+                                {
+                                    output += "=";
+                                }
+                                output += " " + flag + " >";
+                                if (hasRightEq)
+                                {
+                                    output += "=";
+                                }
+                                output += " " + b;
+                                Debug.Log(output);
+
+                                if(hasLeftEq)
+                                {
+                                    if(hasRightEq)
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_CLOSED;
+                                    }
+                                    else
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_CLOSED_OPEN;
+                                    }
+                                }
+                                else
+                                {
+                                    if(hasRightEq)
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_OPEN_CLOSED;
+                                    }
+                                    else
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_OPEN;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            valid = false;
+                        }
+
+                    }
                 }
                 else
                 {
-                    valid = false;
+                    if(hasEq)
+                    {
+                        compareType = CriterionComparisonType.GREATER_EQUAL;
+                    }
+                    else
+                    {
+                        compareType = CriterionComparisonType.GREATER;
+                    }
                 }
             }
         }
         else if (hasLess)
         {
-            tmp = input.Split('<');
-            valid = !hasEx && tmp.Length == 2;
-
-            if (valid)
+            valid = IsValidLessGreat(input, '<', out a, out flag);
+            if(valid)
             {
                 if (hasEq)
                 {
-                    if (float.TryParse(tmp[1].Substring(1), out a))
-                    {
-                        flag = tmp[0].Trim();
-                        valid = flag.IndexOf(' ') == -1 
-                            && flag.IndexOf('=') == -1;
-                        if (valid)
-                        {
-                            Debug.Log(flag + " <= " + a);
-                        }
-                    }
-                    else
-                    {
-                        valid = false;
-                    }
+                    compareType = CriterionComparisonType.LESS_EQUAL;
                 }
                 else
                 {
-                    if (float.TryParse(tmp[1], out a))
-                    {
-                        flag = tmp[0].Trim();
-                        valid = flag.IndexOf(' ') == -1;
-                        if (valid)
-                        {
-                            Debug.Log(flag + " < " + a);
-                        }
-                    }
-                    else
-                    {
-                        valid = false;
-                    }
+                    compareType = CriterionComparisonType.LESS;
                 }
             }
         }
@@ -148,44 +154,154 @@ public class ReadingInFlagCheck : MonoBehaviour
                 if (float.TryParse(tmp[1], out a)) //number value
                 {
                     flag = tmp[0].Trim();
-                    valid = flag.IndexOf(' ') == -1;
-                    if(valid)
+                    valid = IsFlagValid(flag);
+                    if (valid)
                     {
+                        compareType = CriterionComparisonType.EQUALS;
                         Debug.Log(flag + " = " + a);
                     }
                 }
                 else
                 {
-                    valid = false;
-                    //TODO: At some point, handle enums/symbols
+                    flag = tmp[0].Trim();
+                    string enumPossibly = tmp[1].Trim();
+                    valid = IsFlagValid(flag) && IsFlagValid(enumPossibly);
+                    if(valid)
+                    {
+                        if (Enum.TryParse(enumPossibly, out ValveInternalSymbols internalSymbol))
+                        {
+                            a = (float)internalSymbol;
+                            compareType = CriterionComparisonType.EQUALS;
+                            Debug.Log(flag + " = " + enumPossibly);
+                        }
+                        else
+                        {
+                            Debug.LogError("Could not parse \"" + enumPossibly + "\" into a ValveInternalSymbols. Perhaps try to recompile?");
+                            valid = false;
+                        }
+                    }
                 }
             }
         }
         else if (hasEx)
         {
-            valid = input.IndexOf(' ') == -1
-                && input.IndexOf('!') == 0
+            valid = input.IndexOf('!') == 0
                 && input.LastIndexOf('!') == 0;
 
             if (valid)
             {
                 flag = input.Substring(1);
-                Debug.Log(flag + " = FALSE");
+                a = 0;
+                compareType = CriterionComparisonType.EQUALS;
+
+                valid = IsFlagValid(flag);
+                if (valid)
+                {
+                    Debug.Log(flag + " = FALSE");
+                }
             }
         }
         else
         {
-            valid = input.IndexOf(' ') == -1;
+            valid = IsFlagValid(input);
             if (valid)
             {
                 flag = input;
+                a = 1;
+                compareType = CriterionComparisonType.EQUALS;
                 Debug.Log(flag + " = TRUE");
             }
         }
 
-        if (!valid)
+        if (valid)
+        {
+            ProcessCriterion(flag, compareType, a, b);
+        }
+        else
         {
             Debug.LogError("\"" + input + "\" was found INVALID");
+        }
+    }
+
+    bool IsValidLessGreat(string input, char compareChar, out float a, out string flag)
+    {
+        bool valid;
+        flag = "";
+        a = 0;
+
+        bool hasEq = input.IndexOf('=') != -1;
+        bool hasEx = input.IndexOf('!') != -1;
+
+        valid = !hasEx;
+
+        if (valid)
+        {
+            string[] tmp = input.Split(compareChar);
+            valid = tmp.Length == 2;
+            if (valid)
+            {
+                int startIndex = hasEq ? 1 : 0;
+                if (float.TryParse(tmp[1].Substring(1), out a))
+                {
+                    flag = tmp[0].Trim();
+                    valid = IsFlagValid(flag);
+                    if (valid)
+                    {
+                        string output = flag + " " + compareChar;
+                        if(hasEq)
+                        {
+                            output += "=";
+                        }
+                        output += " " + a;
+
+                        Debug.Log(output);
+                    }
+                }
+                else
+                {
+                    valid = false;
+                }
+            }
+        }
+
+        return valid;
+    }
+
+    bool IsFlagValid(string flag)
+    {
+        bool valid = true;
+
+        char[] arr = flag.ToCharArray();
+
+        if (char.IsLetter(arr[0]))
+        {
+            foreach (char e in arr)
+            {
+                if (!char.IsLetterOrDigit(e) && e != '_')
+                {
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    void ProcessCriterion(string flag, CriterionComparisonType comparisonType, float a, float b)
+    {
+        ValveInternalSymbols symbol;
+        if (Enum.TryParse(flag, out symbol))
+        {
+            rule.Add(new Criterion(symbol,comparisonType,a,b));
+        }
+        else
+        {
+            Debug.LogError("Did not recognize flag \"" + flag + "\" in internal symbols. Perhaps recompile?");
         }
     }
 }
