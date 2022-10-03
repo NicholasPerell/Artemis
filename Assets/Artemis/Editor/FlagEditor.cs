@@ -14,7 +14,28 @@ namespace Artemis.EditorIntegration
 
             EditorGUI.BeginChangeCheck();
 
-            DrawDefaultInspector();
+            Flag.ValueType valueType = e.GetValueType();
+
+            //For Debugging Purposes
+            e.SetValueType((Flag.ValueType)EditorGUILayout.EnumPopup("Type",valueType));
+
+
+            switch (valueType)
+            {
+                case Flag.ValueType.FLOAT:
+                    e.SetValue(EditorGUILayout.FloatField("Value", e.GetValue()));
+                    break;
+                case Flag.ValueType.BOOL:
+                    e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
+                    break;
+                case Flag.ValueType.SYMBOL:
+                    //TODO: Convert to flag's compiled type
+                    e.SetValue((float)(ValveInternalSymbols)EditorGUILayout.EnumPopup("Value", (ValveInternalSymbols)(e.GetValue())));
+
+                    break;
+                default:
+                    break;
+            }
 
             if (EditorGUI.EndChangeCheck())
             {

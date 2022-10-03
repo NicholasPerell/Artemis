@@ -61,7 +61,7 @@ namespace Artemis
         {
             for (int i = 0; i < flagsToMeet.Length; i++)
             {
-                if (!flagsToMeet[i].GetValue())
+                if (!flagsToMeet[i].GetBoolValue())
                 {
                     return false;
                 }
@@ -69,7 +69,7 @@ namespace Artemis
 
             for (int i = 0; i < flagsToAvoid.Length; i++)
             {
-                if (flagsToAvoid[i].GetValue())
+                if (flagsToAvoid[i].GetBoolValue())
                 {
                     return false;
                 }

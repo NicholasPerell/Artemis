@@ -3,13 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StateValueType
-{
-    FLOAT,
-    BOOL,
-    SYMBOL
-}
-
 public enum CriterionComparisonType
 {
     INVALID = -1,

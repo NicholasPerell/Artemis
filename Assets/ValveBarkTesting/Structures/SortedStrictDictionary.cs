@@ -9,6 +9,7 @@ public class SortedStrictDictionary<K,V> where K : Enum
     [SerializeField]
     List<Tuple> list;
 
+    //Created in place of KeyValuePairs to allow for serialization
     [System.Serializable]
     struct Tuple
     {
@@ -110,9 +111,4 @@ public class SortedStrictDictionary<K,V> where K : Enum
     }
 
     public int Count => list.Count;
-}
-
-public class Rule : MonoBehaviour
-{
-
 }
