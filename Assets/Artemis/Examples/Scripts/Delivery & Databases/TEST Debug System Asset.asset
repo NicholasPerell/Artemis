@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415c62343185c3047a154bef3128ca5f, type: 3}
   m_Name: TEST Debug System Asset
   m_EditorClassIdentifier: Assembly-CSharp::DebugDelivery
-  csvFile: {fileID: 4900000, guid: 820a9a043a6ad364c81f72ae9f526ade, type: 3}
+  csvFile: {fileID: 4900000, guid: dde5b3aa10e47e443a26f0b36cb5b605, type: 3}
   columnsToReadFrom: 3
   database:
     list:
@@ -20,24 +20,24 @@ MonoBehaviour:
       Value:
         message: Test 0
         messageType: 0
-        timeSystemIsBusy: 2
+        timeSystemIsBusy: 0.2
     - Key: Test_Debug_001
       Value:
         message: Test 1
         messageType: 0
-        timeSystemIsBusy: 2
+        timeSystemIsBusy: 0.2
     - Key: Test_Debug_002
       Value:
         message: Test 2
         messageType: 1
-        timeSystemIsBusy: 2
+        timeSystemIsBusy: 0.2
     - Key: Test_Debug_003
       Value:
         message: Test 3
         messageType: 0
-        timeSystemIsBusy: 2
+        timeSystemIsBusy: 0.2
     - Key: Test_Debug_004
       Value:
         message: Test 4
         messageType: 2
-        timeSystemIsBusy: 2
+        timeSystemIsBusy: 0.2

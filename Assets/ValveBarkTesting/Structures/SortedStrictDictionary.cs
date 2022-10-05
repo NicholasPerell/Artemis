@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SortedStrictDictionary<K,V> where K : Enum
+public class SortedStrictDictionary<K,V> where K : IComparable
 {
     [SerializeField]
     List<Tuple> list;
 
     //Created in place of KeyValuePairs to allow for serialization
     [System.Serializable]
-    struct Tuple
+    public struct Tuple
     {
         public K Key;
         public V Value;
@@ -55,10 +55,16 @@ public class SortedStrictDictionary<K,V> where K : Enum
         }
     }
 
-    //public bool Remove(K key)
-    //{
-    //    return list.Remove();
-    //}
+    public void Remove(K key)
+    {
+        V tempVal;
+        int startInt = 0;
+        //TODO: Add a binary search method for this
+        if(LinearSearch(key, ref startInt, out tempVal))
+        {
+            list.RemoveAt(startInt - 1);
+        }
+    }
 
     public void RemoveAt(int i)
     {
@@ -68,6 +74,68 @@ public class SortedStrictDictionary<K,V> where K : Enum
     public void Clear()
     {
         list = new List<Tuple>();
+    }
+
+
+    public Tuple this[int key]
+    {
+        get { return list[key]; }
+    }
+
+    public V this[K key]
+    {
+        get 
+        {
+            V value;
+            int startIndex = 0;
+
+            //TODO: Add a binary search method for this
+            LinearSearch(key, ref startIndex, out value);
+
+            return value; 
+        }
+
+        set
+        {
+            V find = default(V);
+            int startIndex = 0;
+
+            //TODO: Add a binary search method for this
+            if(LinearSearch(key, ref startIndex, out find))
+            {
+                list[startIndex - 1] = new Tuple(key,value);
+            }
+            else
+            {
+                Add(key, value);
+            }
+        }
+    }
+
+    public bool HasKey(K key)
+    {
+        V tempVal;
+        int tempInt = 0;
+        //TODO: Add a binary search method for this
+        return LinearSearch(key, ref tempInt, out tempVal);
+    }
+
+    public bool HasValue(V value)
+    {
+        for(int i = 0; i < list.Count; i++)
+        {
+            if(value.Equals(value))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool LinearSearch(K key, out V foundValue)
+    {
+        int tempInt = 0;
+        return LinearSearch(key, ref tempInt, out foundValue);
     }
 
     public bool LinearSearch(K key, ref int startAt, out V foundValue)

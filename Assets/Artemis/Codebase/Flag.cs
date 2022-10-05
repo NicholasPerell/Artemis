@@ -8,6 +8,7 @@ namespace Artemis
     {
         public enum ValueType
         {
+            INVALID = -1,
             FLOAT,
             BOOL,
             SYMBOL

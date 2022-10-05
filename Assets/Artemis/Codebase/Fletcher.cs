@@ -107,7 +107,7 @@ namespace Artemis
         [SerializeField]
         private StringSortingDictionary<T> database;
 
-        private const int BASE_COLUMNS = 5;
+        private const int BASE_COLUMNS = 4;
 
         [HideInInspector]
         private List<string> flagsBeingUsed;
@@ -121,7 +121,7 @@ namespace Artemis
 #if UNITY_EDITOR
         public override void DeliverySystemDatabase()
         {
-            //List used to track what IDs need to deleted
+            //List used to track what IDs need to be deleted
             notBeingUsed = new List<string>();
             if (database != null)
             {
@@ -161,6 +161,8 @@ namespace Artemis
             {
                 Goddess.instance.DisconnectFlag(e, this);
             }
+
+            Goddess.instance.WriteFlagEnumScript();
 
             EditorUtility.SetDirty(this);
         }
@@ -204,6 +206,19 @@ namespace Artemis
                 }
             }
 
+            //Flag checks must be valid
+            SortedStrictDictionary<FlagID, Criterion> _flags;
+            if(!invalid)
+            {
+                string flagColumnString = "";
+                if(currentLine.cell[2] != null)
+                {
+                    flagColumnString = currentLine.cell[2].value;
+                }
+
+                invalid = !TryEvalFlagList(flagColumnString, out _flags);
+            }
+
             //Valid!!!!
             if (!invalid)
             {
@@ -219,59 +234,12 @@ namespace Artemis
                     _priorityValue = 0;
                 }
 
-                Flag[] _flagsToMeet = new Flag[0];
-                if (currentLine.cell[2] != null && currentLine.cell[2].value != "")
-                {
-                    string[] names = currentLine.cell[2].value.Split(',');
-                    _flagsToMeet = new Flag[names.Length];
-                    for (int i = 0; i < _flagsToMeet.Length; i++)
-                    {
-                        _flagsToMeet[i] = Goddess.instance.ConnectFlag(names[i], this);
-                        flagsNoLongerBeingUsed.Remove(names[i]);
-                        if (!flagsBeingUsed.Contains(names[i]))
-                        {
-                            flagsBeingUsed.Add(names[i]);
-                        }
-                    }
-                }
-
-                Flag[] _flagsToAvoid = new Flag[0];
-                if (currentLine.cell[3] != null && currentLine.cell[3].value != "")
-                {
-                    string[] names = currentLine.cell[3].value.Split(',');
-                    _flagsToAvoid = new Flag[names.Length];
-                    for (int i = 0; i < _flagsToMeet.Length; i++)
-                    {
-                        _flagsToAvoid[i] = Goddess.instance.ConnectFlag(names[i], this);
-                        flagsNoLongerBeingUsed.Remove(names[i]);
-                        if (!flagsBeingUsed.Contains(names[i]))
-                        {
-                            flagsBeingUsed.Add(names[i]);
-                        }
-                    }
-                }
-
                 Arrow.HowToHandleBusy _howToHandleBusy;
-                if (currentLine.cell[4] != null)
+                if (currentLine.cell[3] != null)
                 {
-                    switch (currentLine.cell[4].value)
+                    if (!Enum.TryParse<Arrow.HowToHandleBusy>(currentLine.cell[3].value, out _howToHandleBusy))
                     {
-                        case "DELETE":
-                            _howToHandleBusy = Arrow.HowToHandleBusy.DELETE;
-                            break;
-                        case "FRONT_OF_QUEUE":
-                            _howToHandleBusy = Arrow.HowToHandleBusy.FRONT_OF_QUEUE;
-                            break;
-                        case "INTERRUPT":
-                            _howToHandleBusy = Arrow.HowToHandleBusy.INTERRUPT;
-                            break;
-                        case "QUEUE":
-                            _howToHandleBusy = Arrow.HowToHandleBusy.QUEUE;
-                            break;
-                        case "CANCEL":
-                        default:
-                            _howToHandleBusy = Arrow.HowToHandleBusy.CANCEL;
-                            break;
+                        _howToHandleBusy = Arrow.HowToHandleBusy.CANCEL;
                     }
                 }
                 else
@@ -288,6 +256,8 @@ namespace Artemis
                     dataPoint = ScriptableObject.CreateInstance<Arrow>();
                 }
 
+                Flag[] _flagsToMeet = new Flag[0];
+                Flag[] _flagsToAvoid = new Flag[0];
                 dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _flagsToMeet, _flagsToAvoid, _howToHandleBusy);
 
                 if (exists)
@@ -302,6 +272,320 @@ namespace Artemis
                 //3) remove from list of uninvolved Assets for clean up later
                 notBeingUsed.Remove(_id);
             }
+        }
+
+        bool TryEvalFlagList(string str, out SortedStrictDictionary<FlagID, Criterion> flagChecks)
+        {
+            bool success = true;
+            flagChecks = new SortedStrictDictionary<FlagID, Criterion>();
+
+            string[] inputs = str.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                success = TryEvalSpecificFlag(inputs[i], ref flagChecks);
+                if(!success)
+                {
+                    break;
+                }
+            }
+
+            return success;
+        }
+
+        bool TryEvalSpecificFlag(string input, ref SortedStrictDictionary<FlagID, Criterion> flagChecks)
+        {
+            //Variable set-up
+            CriterionComparisonType compareType = CriterionComparisonType.INVALID;
+            Flag.ValueType valueType = Flag.ValueType.INVALID;
+            bool valid = false;
+            string flag = "";
+            string[] tmp;
+            float a = 0;
+            float b = 0;
+
+            //Trim input
+            input = input.Trim();
+
+            //Check input for key symbols
+            bool hasLess = input.IndexOf('<') != -1;
+            bool hasGreat = input.IndexOf('>') != -1;
+            bool hasEq = input.IndexOf('=') != -1;
+            bool hasEx = input.IndexOf('!') != -1;
+
+            if (hasGreat)
+            {
+                valueType = Flag.ValueType.FLOAT;
+                valid = !hasEx && !hasLess;
+                if (valid)
+                {
+                    valid = IsValidLessGreat(input, '>', out a, out flag);
+                    if (!valid)
+                    {
+                        tmp = input.Split('>');
+                        valid = tmp.Length == 3;
+                        if (valid)
+                        {
+                            bool hasLeftEq = tmp[1].IndexOf('=') != -1;
+                            bool hasRightEq = tmp[2].IndexOf('=') != -1;
+
+                            int leftStartIndex = hasLeftEq ? 1 : 0;
+                            int rightStartIndex = hasRightEq ? 1 : 0;
+
+                            if (float.TryParse(tmp[0], out a)
+                                && float.TryParse(tmp[2].Substring(rightStartIndex), out b))
+                            {
+                                flag = tmp[1].Substring(leftStartIndex).Trim();
+                                valid = IsFlagNameValid(flag);
+                                if (valid)
+                                {
+                                    //String
+                                    string output = a + " >";
+                                    if (hasLeftEq)
+                                    {
+                                        output += "=";
+                                    }
+                                    output += " " + flag + " >";
+                                    if (hasRightEq)
+                                    {
+                                        output += "=";
+                                    }
+                                    output += " " + b;
+                                    Debug.Log(output);
+
+                                    if (hasLeftEq)
+                                    {
+                                        if (hasRightEq)
+                                        {
+                                            compareType = CriterionComparisonType.RANGE_CLOSED;
+                                        }
+                                        else
+                                        {
+                                            compareType = CriterionComparisonType.RANGE_CLOSED_OPEN;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (hasRightEq)
+                                        {
+                                            compareType = CriterionComparisonType.RANGE_OPEN_CLOSED;
+                                        }
+                                        else
+                                        {
+                                            compareType = CriterionComparisonType.RANGE_OPEN;
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                valid = false;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        if (hasEq)
+                        {
+                            compareType = CriterionComparisonType.GREATER_EQUAL;
+                        }
+                        else
+                        {
+                            compareType = CriterionComparisonType.GREATER;
+                        }
+                    }
+                }
+            }
+            else if (hasLess)
+            {
+                valueType = Flag.ValueType.FLOAT;
+                valid = IsValidLessGreat(input, '<', out a, out flag);
+                if (valid)
+                {
+                    if (hasEq)
+                    {
+                        compareType = CriterionComparisonType.LESS_EQUAL;
+                    }
+                    else
+                    {
+                        compareType = CriterionComparisonType.LESS;
+                    }
+                }
+            }
+            else if (hasEq)
+            {
+                tmp = input.Split('=');
+
+                valid = !hasEx && tmp.Length == 2;
+
+                if (valid)
+                {
+                    if (float.TryParse(tmp[1], out a)) //number value
+                    {
+                        valueType = Flag.ValueType.FLOAT;
+                        flag = tmp[0].Trim();
+                        valid = IsFlagNameValid(flag);
+                        if (valid)
+                        {
+                            compareType = CriterionComparisonType.EQUALS;
+                            Debug.Log(flag + " = " + a);
+                        }
+                    }
+                    else
+                    {
+                        valueType = Flag.ValueType.SYMBOL;
+                        flag = tmp[0].Trim();
+                        string enumPossibly = tmp[1].Trim();
+                        valid = IsFlagNameValid(flag) && IsFlagNameValid(enumPossibly);
+                        if (valid)
+                        {
+                            if (Enum.TryParse(enumPossibly, out ValveInternalSymbols internalSymbol))
+                            {
+                                a = (float)internalSymbol;
+                                compareType = CriterionComparisonType.EQUALS;
+                                Debug.Log(flag + " = " + enumPossibly);
+                            }
+                            else
+                            {
+                                Debug.LogError("Could not parse \"" + enumPossibly + "\" into a ValveInternalSymbols. Perhaps try to recompile?");
+                                valid = false;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (hasEx)
+            {
+                valueType = Flag.ValueType.BOOL;
+                valid = input.IndexOf('!') == 0
+                    && input.LastIndexOf('!') == 0;
+
+                if (valid)
+                {
+                    flag = input.Substring(1);
+                    a = 0;
+                    compareType = CriterionComparisonType.EQUALS;
+
+                    valid = IsFlagNameValid(flag);
+                    if (valid)
+                    {
+                        Debug.Log(flag + " = FALSE");
+                    }
+                }
+            }
+            else
+            {
+                valueType = Flag.ValueType.BOOL;
+                valid = IsFlagNameValid(input);
+                if (valid)
+                {
+                    flag = input;
+                    a = 1;
+                    compareType = CriterionComparisonType.EQUALS;
+                    Debug.Log(flag + " = TRUE");
+                }
+            }
+
+            if (valid)
+            {
+                valid = ProcessCriterion(flag, valueType, compareType, a, b, ref flagChecks);
+            }
+            
+            if(!valid)
+            {
+                Debug.LogError("\"" + input + "\" was found INVALID");
+            }
+
+            return valid;
+        }
+
+        bool IsValidLessGreat(string input, char compareChar, out float a, out string flag)
+        {
+            bool valid;
+            flag = "";
+            a = 0;
+
+            bool hasEq = input.IndexOf('=') != -1;
+            bool hasEx = input.IndexOf('!') != -1;
+
+            valid = !hasEx;
+
+            if (valid)
+            {
+                string[] tmp = input.Split(compareChar);
+                valid = tmp.Length == 2;
+                if (valid)
+                {
+                    int startIndex = hasEq ? 1 : 0;
+                    if (float.TryParse(tmp[1].Substring(1), out a))
+                    {
+                        flag = tmp[0].Trim();
+                        valid = IsFlagNameValid(flag);
+                        if (valid)
+                        {
+                            string output = flag + " " + compareChar;
+                            if (hasEq)
+                            {
+                                output += "=";
+                            }
+                            output += " " + a;
+
+                            Debug.Log(output);
+                        }
+                    }
+                    else
+                    {
+                        valid = false;
+                    }
+                }
+            }
+
+            return valid;
+        }
+
+        bool IsFlagNameValid(string flag)
+        {
+            bool valid = true;
+
+            char[] arr = flag.ToCharArray();
+
+            if (char.IsLetter(arr[0]))
+            {
+                foreach (char e in arr)
+                {
+                    if (!char.IsLetterOrDigit(e) && e != '_')
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        bool ProcessCriterion(string flag, Flag.ValueType valueType, CriterionComparisonType comparisonType, float a, float b, ref SortedStrictDictionary<FlagID, Criterion> flagChecks)
+        {
+            bool success = true;
+
+            FlagID flagID = Goddess.instance.ConnectFlag(flag, valueType, this);
+
+            if (flagID != FlagID.INVALID)
+            {
+                flagChecks.Add(flagID, new Criterion(flagID, comparisonType, a, b));
+                flagsBeingUsed.Add(flag.ToUpper());
+                flagsNoLongerBeingUsed.Remove(flag.ToUpper());
+            }
+            else
+            {
+                success = false;
+            }
+
+            return success;
         }
 #endif
 

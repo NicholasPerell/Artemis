@@ -15,8 +15,6 @@ MonoBehaviour:
   id: Test_Debug_002
   deliverySystem: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
   priorityValue: 3
-  flagsToMeet:
-  - {fileID: 11400000, guid: 3d847ecd21b1b81449b7595e72540b2a, type: 2}
-  - {fileID: 11400000, guid: 4aa3447bf12dc5a4fada013f0dee1046, type: 2}
+  flagsToMeet: []
   flagsToAvoid: []
   howToHandleBusy: 2

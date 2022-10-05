@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Artemis;
 
 public class ReadingInFlagCheck : MonoBehaviour
 {
@@ -9,12 +10,12 @@ public class ReadingInFlagCheck : MonoBehaviour
     string toDealWith;
 
     [SerializeField]
-    SortedStrictDictionary<ValveInternalSymbols,Criterion> rule;
+    SortedStrictDictionary<FlagID,Criterion> rule;
 
     // Start is called before the first frame update
     void Start()
     {
-        rule = new SortedStrictDictionary<ValveInternalSymbols, Criterion>();
+        rule = new SortedStrictDictionary<FlagID, Criterion>();
         dealWithFlagList(toDealWith);
         TestSorting();
     }
@@ -296,7 +297,7 @@ public class ReadingInFlagCheck : MonoBehaviour
 
     void ProcessCriterion(string flag, CriterionComparisonType comparisonType, float a, float b)
     {
-        ValveInternalSymbols symbol;
+        FlagID symbol;
         if (Enum.TryParse(flag, out symbol))
         {
             rule.Add(symbol,new Criterion(symbol,comparisonType,a,b));
@@ -312,10 +313,10 @@ public class ReadingInFlagCheck : MonoBehaviour
         int index = 0;
         Criterion found;
         bool success;
-        ValveInternalSymbols search;
-        for(int i = 0; i <= (int)ValveInternalSymbols.END; i++)
+        FlagID search;
+        for(int i = 0; i <= 10; i++)
         {
-            search = (ValveInternalSymbols)i;
+            search = (FlagID)i;
             success = rule.LinearSearch(search, ref index, out found);
 
             if(success)
