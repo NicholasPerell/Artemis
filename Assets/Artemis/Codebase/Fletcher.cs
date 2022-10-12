@@ -207,7 +207,7 @@ namespace Artemis
             }
 
             //Flag checks must be valid
-            SortedStrictDictionary<FlagID, Criterion> _flags;
+            SortedStrictDictionary<FlagID, Criterion> _rule = null;
             if(!invalid)
             {
                 string flagColumnString = "";
@@ -216,7 +216,7 @@ namespace Artemis
                     flagColumnString = currentLine.cell[2].value;
                 }
 
-                invalid = !TryEvalFlagList(flagColumnString, out _flags);
+                invalid = !TryEvalFlagList(flagColumnString, out _rule);
             }
 
             //Valid!!!!
@@ -256,9 +256,7 @@ namespace Artemis
                     dataPoint = ScriptableObject.CreateInstance<Arrow>();
                 }
 
-                Flag[] _flagsToMeet = new Flag[0];
-                Flag[] _flagsToAvoid = new Flag[0];
-                dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _flagsToMeet, _flagsToAvoid, _howToHandleBusy);
+                dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _rule, _howToHandleBusy);
 
                 if (exists)
                 {

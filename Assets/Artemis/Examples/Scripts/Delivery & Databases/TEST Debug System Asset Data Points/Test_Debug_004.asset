@@ -15,6 +15,30 @@ MonoBehaviour:
   id: Test_Debug_004
   deliverySystem: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
   priorityValue: 1
-  flagsToMeet: []
-  flagsToAvoid: []
+  rule:
+    list:
+    - Key: 0
+      Value:
+        lhs: 1
+        rhs: 1
+        stateChecked: 0
+        comparisonType: 0
+    - Key: 1
+      Value:
+        lhs: 0
+        rhs: 0
+        stateChecked: 1
+        comparisonType: 0
+    - Key: 12
+      Value:
+        lhs: 1
+        rhs: 1
+        stateChecked: 12
+        comparisonType: 0
+    - Key: 13
+      Value:
+        lhs: 0
+        rhs: 0
+        stateChecked: 13
+        comparisonType: 0
   howToHandleBusy: 4

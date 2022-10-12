@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
   m_Name: Debug Example PQ
   m_EditorClassIdentifier: 
-  soManyIcons: {fileID: 0}
   defaultContents:
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
   - {fileID: 11400000, guid: 1a530829c24159c4fb5c7ae83c24b021, type: 2}
@@ -41,14 +40,14 @@ MonoBehaviour:
       mPriority: -1
   generalPool:
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
-  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
-  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
-  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
   - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
+  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
+  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
+  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
+  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
+  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
+  - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}

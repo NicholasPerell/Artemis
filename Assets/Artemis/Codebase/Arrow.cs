@@ -26,19 +26,16 @@ namespace Artemis
         [Min(0)]
         int priorityValue;
         [SerializeField]
-        Flag[] flagsToMeet;
-        [SerializeField]
-        Flag[] flagsToAvoid;
+        SortedStrictDictionary<FlagID, Criterion> rule;
         [SerializeField]
         HowToHandleBusy howToHandleBusy = HowToHandleBusy.QUEUE;
 
-        public void Rewrite(string _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, Flag[] _flagsToMeet, Flag[] _flagsToAvoid, HowToHandleBusy _howToHandleBusy)
+        public void Rewrite(string _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy)
         {
             id = _id;
             deliverySystem = _systemScriptable;
             priorityValue = _priorityValue;
-            flagsToMeet = _flagsToMeet;
-            flagsToAvoid = _flagsToAvoid;
+            rule = _rule;
             howToHandleBusy = _howToHandleBusy;
         }
 
@@ -59,18 +56,21 @@ namespace Artemis
 
         public bool CondtionsMet()
         {
-            for (int i = 0; i < flagsToMeet.Length; i++)
-            {
-                if (!flagsToMeet[i].GetBoolValue())
-                {
-                    return false;
-                }
-            }
+            SortedStrictDictionary<FlagID, Flag> everythingQueuery = Goddess.instance.idToFlag;
+            int startIndex = 0;
+            FlagID targetId = FlagID.INVALID;
+            Criterion targetCriterion;
+            Flag targetFlag;
 
-            for (int i = 0; i < flagsToAvoid.Length; i++)
+            for(int i = 0; i < rule.Count; i++)
             {
-                if (flagsToAvoid[i].GetBoolValue())
+                targetId = rule[i].Key;
+                targetCriterion = rule[i].Value;
+
+                if(!everythingQueuery.LinearSearch(targetId, ref startIndex, out targetFlag)
+                    || !targetCriterion.Compare(targetFlag.GetValue()))
                 {
+                    //Flag either not found or the criterion was failed to be met!
                     return false;
                 }
             }

@@ -18,7 +18,7 @@ namespace Artemis
 
         //For managing internal symbols
         [SerializeField]
-        private SortedStrictDictionary<FlagID, Flag> idToFlag;
+        public SortedStrictDictionary<FlagID, Flag> idToFlag;
         [SerializeField]
         private SortedStrictList<FlagID> idsUsed;
 
