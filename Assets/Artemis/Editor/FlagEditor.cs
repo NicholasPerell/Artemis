@@ -42,7 +42,7 @@ namespace Artemis.EditorIntegration
                         e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
                         break;
                     case Flag.ValueType.SYMBOL:
-                        var takeIn = EditorGUILayout.EnumPopup("Flag ID",(System.Enum)System.Enum.Parse(e.GetSymbolType(),""+(Mathf.FloorToInt(e.GetValue()))));
+                        var takeIn = EditorGUILayout.EnumPopup("Value", (System.Enum)System.Enum.Parse(e.GetSymbolType(),""+(Mathf.FloorToInt(e.GetValue()))));
                         e.SetValue((int)((object)takeIn));
                         break;
                     default:

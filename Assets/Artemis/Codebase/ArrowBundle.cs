@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Artemis
 {
     //[CreateAssetMenu(fileName = "New Artemis Narrative Bundle", menuName = "Artemis/Narrative Bundle")]
-    public class Bundle : ScriptableObject
+    public class ArrowBundle : ScriptableObject
     {
         [SerializeField]
         Arrow[] narrativeDataPoints;

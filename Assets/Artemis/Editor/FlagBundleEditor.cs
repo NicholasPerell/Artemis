@@ -5,12 +5,12 @@ using UnityEditor;
 
 namespace Artemis.EditorIntegration
 {
-    [CustomEditor(typeof(FlagState))]
-    public class FlagStateEditor : Editor
+    [CustomEditor(typeof(FlagBundle))]
+    public class FlagBundleEditor : Editor
     {
         public override void OnInspectorGUI()
         {
-            FlagState e = (FlagState)target;
+            FlagBundle e = (FlagBundle)target;
 
             EditorGUI.BeginChangeCheck();
 
@@ -64,7 +64,7 @@ namespace Artemis.EditorIntegration
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
         {
-            FlagState example = (FlagState)target;
+            FlagBundle example = (FlagBundle)target;
 
             if (example == null)
                 return null;
@@ -74,7 +74,7 @@ namespace Artemis.EditorIntegration
 
             //Figure out why Resources works in the Ink Package but not in Artemis
             //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Database.png");
+            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArtemisFlag Bundle Icon.png");
 
             EditorUtility.CopySerialized(copyFrom, tex);
 

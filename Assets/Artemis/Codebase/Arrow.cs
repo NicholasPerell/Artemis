@@ -77,7 +77,7 @@ namespace Artemis
         {
             //TODO: Allow for more than the global states to be loaded
             //TODO: Check for ANY type values
-            FlagState[] globalStates = Goddess.instance.globallyLoadedStates;
+            FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles;
             int[] startIndex = new int[globalStates.Length];
             for (int i = 0; i < startIndex.Length; i++)
             {

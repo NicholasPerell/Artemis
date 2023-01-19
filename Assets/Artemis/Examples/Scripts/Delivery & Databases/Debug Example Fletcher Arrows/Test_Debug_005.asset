@@ -19,32 +19,32 @@ MonoBehaviour:
     list:
     - Key: 0
       Value:
-        lhs: 1
-        rhs: 1
+        lhs: 3
+        rhs: 3
         flagIdChecked: 0
         comparisonType: 0
     - Key: 1
       Value:
-        lhs: 0
-        rhs: 0
-        flagIdChecked: 1
-        comparisonType: 0
-    - Key: 14
-      Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 14
+        flagIdChecked: 1
+        comparisonType: 0
+    - Key: 2
+      Value:
+        lhs: 0
+        rhs: 0
+        flagIdChecked: 2
         comparisonType: 0
     - Key: 15
       Value:
-        lhs: 0
-        rhs: 0
+        lhs: 1
+        rhs: 1
         flagIdChecked: 15
         comparisonType: 0
     - Key: 16
       Value:
-        lhs: 3
-        rhs: 3
+        lhs: 0
+        rhs: 0
         flagIdChecked: 16
         comparisonType: 0
   howToHandleBusy: 4

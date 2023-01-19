@@ -19,51 +19,51 @@ MonoBehaviour:
     list:
     - Key: 0
       Value:
-        lhs: 1
-        rhs: 1
+        lhs: 0
+        rhs: 0
         flagIdChecked: 0
         comparisonType: 0
     - Key: 1
       Value:
-        lhs: 0
-        rhs: 0
+        lhs: 1
+        rhs: 1
         flagIdChecked: 1
         comparisonType: 0
     - Key: 2
       Value:
+        lhs: 0
+        rhs: 0
+        flagIdChecked: 2
+        comparisonType: 0
+    - Key: 3
+      Value:
         lhs: 100
         rhs: 1e-45
-        flagIdChecked: 2
+        flagIdChecked: 3
         comparisonType: 5
-    - Key: 3
+    - Key: 4
       Value:
         lhs: 0
         rhs: 0
-        flagIdChecked: 3
+        flagIdChecked: 4
         comparisonType: 0
-    - Key: 4
+    - Key: 5
       Value:
         lhs: 100
         rhs: 50
-        flagIdChecked: 4
-        comparisonType: 6
-    - Key: 5
-      Value:
-        lhs: 50
-        rhs: 0
         flagIdChecked: 5
-        comparisonType: 7
+        comparisonType: 6
     - Key: 6
       Value:
         lhs: 50
-        rhs: 1e-45
-        flagIdChecked: 6
-        comparisonType: 8
-    - Key: 16
-      Value:
-        lhs: 0
         rhs: 0
-        flagIdChecked: 16
-        comparisonType: 0
+        flagIdChecked: 6
+        comparisonType: 7
+    - Key: 7
+      Value:
+        lhs: 50
+        rhs: 1e-45
+        flagIdChecked: 7
+        comparisonType: 8
   howToHandleBusy: 0
   howPriorityCalculated: 0

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   symbolTypeName: Artemis.CONCEPT_ID
   flagValueType: 2
-  flagId: 16
-  value: 0
-  boolValue: 0
+  flagId: 0
+  value: 2
+  boolValue: 1

@@ -80,6 +80,8 @@ namespace Artemis
             string elementName;
             int elementInt;
 
+            CheckForCompiledScript();
+
             //Remove unused enums
             for (int i = 0; i < toRemove.Count; i++)
             {
@@ -135,7 +137,7 @@ namespace Artemis
             CheckForCompiledScript();
         }
 
-        private int FindValidUnusedFlagIDNumber()
+        private int FindValidIdNumber()
         {
             int rtn;
             int start;
@@ -204,7 +206,7 @@ namespace Artemis
             }
             else
             {
-                int newIdValue = FindValidUnusedFlagIDNumber();
+                int newIdValue = FindValidIdNumber();
 
                 if (newIdValue != -1)
                 {

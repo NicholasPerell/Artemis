@@ -19,7 +19,7 @@ namespace Artemis
         [HideInInspector]
         private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes;
 
-        [SerializeField]
+        [HideInInspector]
         private SortedStrictDictionary<FlagID, InternalSymbolCompiler> flagSymbolTypes;
 
         //For managing internal symbols
@@ -34,7 +34,7 @@ namespace Artemis
 
         //TO DO: convert to list
         [SerializeField]
-        public FlagState[] globallyLoadedStates;
+        public FlagBundle[] globallyLoadedFlagBundles;
 
         [HideInInspector]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections;
@@ -51,6 +51,7 @@ namespace Artemis
 #if UNITY_EDITOR
         public FlagID[] GetFlagIDs()
         {
+            idsUsed ??= new SortedStrictList<FlagID>();
             return idsUsed.ToArray();
         }
 
@@ -189,7 +190,8 @@ namespace Artemis
             FlagID elementID;
 
             //Remove unused enums
-            for(int i = 0; i < toRemove.Count; i++)
+            toRemove ??= new List<FlagID>();
+            for (int i = 0; i < toRemove.Count; i++)
             {
                 elementID = toRemove[i];
                 idsUsed.Remove(elementID);

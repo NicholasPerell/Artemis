@@ -13,19 +13,5 @@ MonoBehaviour:
   m_Name: Artemis Narrative System
   m_EditorClassIdentifier: 
   flagsIdsToKeep: 
-  flagSymbolTypes:
-    list:
-    - Key: 9
-      Value:
-        idsUsed:
-          list: 0000000001000000
-        enumName: WHO_ID
-    - Key: 16
-      Value:
-        idsUsed:
-          list: 00000000010000000200000003000000
-        enumName: CONCEPT_ID
-  globallyLoadedStates:
+  globallyLoadedFlagBundles:
   - {fileID: 11400000, guid: ba9c2d63a1aa5fd4ea0b55f9bb9ff640, type: 2}
-  - {fileID: 11400000, guid: 4d32c11493cd12e47b71a736d48a1ac7, type: 2}
-  - {fileID: 11400000, guid: 1887e178c46e2784ab997147d43eab8d, type: 2}

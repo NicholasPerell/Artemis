@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Artemis
 {
-    public class FlagState : ScriptableObject
+    public class FlagBundle : ScriptableObject
     { 
         [HideInInspector]
         public SortedStrictDictionary<FlagID, Flag> flagsUsed;

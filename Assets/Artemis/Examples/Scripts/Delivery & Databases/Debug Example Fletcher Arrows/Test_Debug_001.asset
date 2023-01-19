@@ -19,26 +19,26 @@ MonoBehaviour:
     list:
     - Key: 0
       Value:
-        lhs: 1
-        rhs: 1
+        lhs: 0
+        rhs: 0
         flagIdChecked: 0
         comparisonType: 0
     - Key: 1
       Value:
-        lhs: 0
-        rhs: 0
-        flagIdChecked: 1
-        comparisonType: 0
-    - Key: 7
-      Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 7
+        flagIdChecked: 1
+        comparisonType: 0
+    - Key: 2
+      Value:
+        lhs: 0
+        rhs: 0
+        flagIdChecked: 2
         comparisonType: 0
     - Key: 8
       Value:
-        lhs: 0
-        rhs: 0
+        lhs: 1
+        rhs: 1
         flagIdChecked: 8
         comparisonType: 0
     - Key: 9
@@ -47,11 +47,11 @@ MonoBehaviour:
         rhs: 0
         flagIdChecked: 9
         comparisonType: 0
-    - Key: 16
+    - Key: 10
       Value:
         lhs: 0
         rhs: 0
-        flagIdChecked: 16
+        flagIdChecked: 10
         comparisonType: 0
   howToHandleBusy: 1
   howPriorityCalculated: 0

@@ -12,10 +12,10 @@ namespace Artemis.EditorIntegration
             CreateArtemisItem(ScriptableObject.CreateInstance<Archer>(), "Archer");
         }
 
-        [MenuItem("Assets/Create/Artemis/Bundle")]
+        [MenuItem("Assets/Create/Artemis/Arrow Bundle")]
         private static void CreateBundle()
         {
-            CreateArtemisItem(ScriptableObject.CreateInstance<Bundle>(), "Bundle");
+            CreateArtemisItem(ScriptableObject.CreateInstance<ArrowBundle>(), "Arrow Bundle");
         }
 
         [MenuItem("Assets/Create/Artemis/Flags/Flag")]
@@ -56,10 +56,10 @@ namespace Artemis.EditorIntegration
             EditorUtility.FocusProjectWindow();
         }
 
-        [MenuItem("Assets/Create/Artemis/Flags/Flag State")]
+        [MenuItem("Assets/Create/Artemis/Flags/Flag Bundle")]
         private static void CreateFlagState()
         {
-            CreateArtemisItem(ScriptableObject.CreateInstance<FlagState>(), "Flag State");
+            CreateArtemisItem(ScriptableObject.CreateInstance<FlagBundle>(), "Flag Bundle");
         }
 
         private static void CreateArtemisItem(Object created, string type)

@@ -25,15 +25,15 @@ MonoBehaviour:
         comparisonType: 0
     - Key: 1
       Value:
-        lhs: 0
-        rhs: 0
-        flagIdChecked: 1
-        comparisonType: 0
-    - Key: 9
-      Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 9
+        flagIdChecked: 1
+        comparisonType: 0
+    - Key: 2
+      Value:
+        lhs: 0
+        rhs: 0
+        flagIdChecked: 2
         comparisonType: 0
     - Key: 10
       Value:
@@ -43,15 +43,15 @@ MonoBehaviour:
         comparisonType: 0
     - Key: 11
       Value:
-        lhs: 0
-        rhs: 0
-        flagIdChecked: 11
-        comparisonType: 0
-    - Key: 16
-      Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 16
+        flagIdChecked: 11
+        comparisonType: 0
+    - Key: 12
+      Value:
+        lhs: 0
+        rhs: 0
+        flagIdChecked: 12
         comparisonType: 0
   howToHandleBusy: 2
   howPriorityCalculated: 0

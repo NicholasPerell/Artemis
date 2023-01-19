@@ -5,12 +5,12 @@ using UnityEditor;
 
 namespace Artemis.EditorIntegration
 {
-    [CustomEditor(typeof(Bundle))]
-    public class BundleEditor : Editor
+    [CustomEditor(typeof(ArrowBundle))]
+    public class ArrowBundleEditor : Editor
     {
         public override void OnInspectorGUI()
         {
-            Bundle e = (Bundle)target;
+            ArrowBundle e = (ArrowBundle)target;
 
             DrawDefaultInspector();
 
@@ -27,7 +27,7 @@ namespace Artemis.EditorIntegration
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
         {
-            Bundle example = (Bundle)target;
+            ArrowBundle example = (ArrowBundle)target;
 
             if (example == null)
                 return null;
