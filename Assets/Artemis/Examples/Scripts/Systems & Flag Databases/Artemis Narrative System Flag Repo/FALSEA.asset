@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: FALSEA
   m_EditorClassIdentifier: 
   flagValueType: 1
+  flagId: 1
   value: 0
   boolValue: 0

@@ -56,7 +56,8 @@ namespace Artemis
 
         public bool CondtionsMet()
         {
-            SortedStrictDictionary<FlagID, Flag> everythingQueuery = Goddess.instance.idToFlag;
+            //TODO: convert to list of queries and indexes
+            SortedStrictDictionary<FlagID, Flag> everythingQueuery = Goddess.instance.worldState.flagsUsed;
             int startIndex = 0;
             FlagID targetId = FlagID.INVALID;
             Criterion targetCriterion;

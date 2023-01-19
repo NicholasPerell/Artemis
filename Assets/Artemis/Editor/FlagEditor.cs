@@ -15,26 +15,45 @@ namespace Artemis.EditorIntegration
             EditorGUI.BeginChangeCheck();
 
             Flag.ValueType valueType = e.GetValueType();
+            FlagID flagId = e.GetFlagId();
 
-            //For Debugging Purposes
-            e.SetValueType((Flag.ValueType)EditorGUILayout.EnumPopup("Type",valueType));
-
-
-            switch (valueType)
+            //Turn this into a check inside its class?
+            if (flagId.ToString() == ((int)flagId).ToString())
             {
-                case Flag.ValueType.FLOAT:
-                    e.SetValue(EditorGUILayout.FloatField("Value", e.GetValue()));
-                    break;
-                case Flag.ValueType.BOOL:
-                    e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
-                    break;
-                case Flag.ValueType.SYMBOL:
-                    //TODO: Convert to flag's compiled type
-                    e.SetValue((float)(ValveInternalSymbols)EditorGUILayout.EnumPopup("Value", (ValveInternalSymbols)(e.GetValue())));
+                e.SetFlagId(FlagID.INVALID);
+                flagId = FlagID.INVALID;
+            }
 
-                    break;
-                default:
-                    break;
+            if (flagId != FlagID.INVALID)
+            {
+                EditorGUILayout.LabelField("Flag ID", flagId.ToString());
+
+                switch (valueType)
+                {
+                    case Flag.ValueType.FLOAT:
+                        e.SetValue(EditorGUILayout.FloatField("Value", e.GetValue()));
+                        break;
+                    case Flag.ValueType.BOOL:
+                        e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
+                        break;
+                    case Flag.ValueType.SYMBOL:
+                        //TODO: Convert to flag's compiled type
+                        e.SetValue((float)(ValveInternalSymbols)EditorGUILayout.EnumPopup("Value", (ValveInternalSymbols)(e.GetValue())));
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                e.SetFlagId((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
+
+                if (e.GetFlagId() != FlagID.INVALID)
+                {
+                    Flag.ValueType temp = Goddess.instance.GetFlagValueType(e.GetFlagId());
+                    e.SetValueType(temp);
+                }
             }
 
             if (EditorGUI.EndChangeCheck())

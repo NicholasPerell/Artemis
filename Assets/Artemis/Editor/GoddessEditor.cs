@@ -14,6 +14,13 @@ namespace Artemis.EditorIntegration
 
             DrawDefaultInspector();
 
+            EditorGUILayout.Space();
+            FlagID[] flagIds = e.GetFlagIDs();
+            foreach (FlagID id in flagIds)
+            {
+                EditorGUILayout.LabelField(id.ToString(), e.GetFlagValueType(id).ToString());
+            }
+
             EditorGUI.BeginChangeCheck();
 
 

@@ -14,42 +14,43 @@ namespace Artemis
     public class Goddess : ScriptableSingleton<Goddess>
     {
         [SerializeField]
-        private List<Flag> flagsToKeep;
+        private List<FlagID> flagsIdsToKeep;
+
+        [HideInInspector]
+        private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes;
 
         //For managing internal symbols
-        [SerializeField]
-        public SortedStrictDictionary<FlagID, Flag> idToFlag;
-        [SerializeField]
+        [HideInInspector]
         private SortedStrictList<FlagID> idsUsed;
-
-        [SerializeField]
+        [HideInInspector]
         private SortedStrictDictionary<string, int> toAdd;
-        [SerializeField]
+        [HideInInspector]
         private SortedStrictList<int> intsReadyToConvert;
-        [SerializeField]
+        [HideInInspector]
         private List<FlagID> toRemove;
 
+        //TO DO: convert to list
         [SerializeField]
+        public FlagState worldState;
+
+        [HideInInspector]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections;
 
         public void Awake()
         {
         }
 
-        public Flag GetFlag(string name)
+        public Flag.ValueType GetFlagValueType(FlagID id)
         {
-            Flag rtn = null;
-            FlagID id;
-
-            //TODO: create a TryGetValue function that only requires the one binary search instead of the two.
-            if (Enum.TryParse<FlagID>(name, out id))
-            {
-                rtn = idToFlag[id];
-            }
-            return rtn;
+            return flagValueTypes[id];
         }
 
 #if UNITY_EDITOR
+        public FlagID[] GetFlagIDs()
+        {
+            return idsUsed.ToArray();
+        }
+
         public FlagID ConnectFlag(string name, Flag.ValueType valueType, PreDictionaryFletcher connector)
         {
             //New Code
@@ -58,8 +59,9 @@ namespace Artemis
             name = name.ToUpper();
 
             FlagID id;
-            Flag flag;
-            idToFlag ??= new SortedStrictDictionary<FlagID, Flag>();
+            //Flag flag;
+            //idToFlag ??= new SortedStrictDictionary<FlagID, Flag>();
+            flagValueTypes ??= new SortedStrictDictionary<FlagID, Flag.ValueType>();
             //Checks if flag enum already exists
             bool found = Enum.TryParse<FlagID>(name, out id);
             int idInt;
@@ -71,8 +73,7 @@ namespace Artemis
 
             if (found)
             {
-                flag = idToFlag[id];
-                Flag.ValueType originalValueType = flag.GetValueType();
+                Flag.ValueType originalValueType = flagValueTypes[id];
                 flagIDConnections ??= new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
                 flagIDConnections[id] ??= new List<PreDictionaryFletcher>();
 
@@ -80,7 +81,7 @@ namespace Artemis
                 {
                     if(flagIDConnections[id].Contains(connector))
                     {
-                        flag.SetValueType(valueType);
+                        flagValueTypes[id] = valueType;
                     }
                     else
                     {
@@ -103,27 +104,10 @@ namespace Artemis
                 int newIdValue = FindValidUnusedFlagIDNumber();
                 if (newIdValue != (int)FlagID.INVALID)
                 {
-                    if (!AssetDatabase.IsValidFolder(GetContainingFolder() + "/" + GetFlagRepoFolderName()))
-                    {
-                        AssetDatabase.CreateFolder(GetContainingFolder(), GetFlagRepoFolderName());
-                    }
-
-                    flag = AssetDatabase.LoadAssetAtPath<Flag>(GetContainingFolder() + "/" + GetFlagRepoFolderName() + "/" + name + ".asset");
-
-                    bool exists = flag != null;
-
-                    if (!exists)
-                    {
-                        flag = ScriptableObject.CreateInstance<Flag>();
-                        flag.SetValue(0);
-                        flag.SetValueType(valueType);
-                        AssetDatabase.CreateAsset(flag, GetContainingFolder() + "/" + GetFlagRepoFolderName() + "/" + name + ".asset");
-                    }
-
                     toAdd.Add(name, newIdValue);
                     id = (FlagID)newIdValue;
 
-                    idToFlag.Add(id, flag);
+                    flagValueTypes.Add(id, valueType);
                     flagIDConnections.Add(id, new List<PreDictionaryFletcher>());
                     flagIDConnections[id].Add(connector);
                 }
@@ -158,11 +142,10 @@ namespace Artemis
                     flagIDConnections[id].Remove(connector);
                 }
 
-                if (flagIDConnections[id].Count == 0 && !flagsToKeep.Contains(idToFlag[id]))
+                if (flagIDConnections[id].Count == 0 && !flagsIdsToKeep.Contains(id))
                 {
-                    idToFlag.Remove(id);
                     flagIDConnections.Remove(id);
-                    AssetDatabase.DeleteAsset(GetContainingFolder() + "/" + GetFlagRepoFolderName() + "/" + name + ".asset");
+                    flagValueTypes.Remove(id);
                     toRemove.Add(id);
                 }
             }
@@ -301,16 +284,10 @@ namespace Artemis
         [ContextMenu("Reset Entirely")]
         private void Reset()
         {
-            for (int i = 0; i < idToFlag.Count; i++)
-            {
-                AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(idToFlag[i].Value));
-            }
-
             toAdd.Clear();
             toRemove.Clear();
             intsReadyToConvert.Clear();
-            flagsToKeep.Clear();
-            idToFlag.Clear();
+            flagValueTypes.Clear();
             flagIDConnections.Clear();
             idsUsed.Clear();
 

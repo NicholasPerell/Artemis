@@ -15,14 +15,19 @@ namespace Artemis
         }
 
         [SerializeField]
-        ValueType flagValueType = ValueType.BOOL;
+        System.Type flagSymbolType;
+
+        [SerializeField]
+        ValueType flagValueType = ValueType.INVALID;
+
+        [SerializeField]
+        FlagID flagId = FlagID.INVALID;
 
         [SerializeField]
         float value;
 
         [SerializeField]
         bool boolValue;
-
 
         public void SetValue(float _value)
         {
@@ -44,6 +49,16 @@ namespace Artemis
         public float GetValue()
         {
             return value;
+        }
+
+        public FlagID GetFlagId()
+        {
+            return flagId;
+        }
+
+        public void SetFlagId(FlagID _flagId)
+        {
+            flagId = _flagId;
         }
 
         public ValueType GetValueType()

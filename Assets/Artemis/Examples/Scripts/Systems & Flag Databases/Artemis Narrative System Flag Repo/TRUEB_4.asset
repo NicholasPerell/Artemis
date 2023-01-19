@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TRUEB_4
   m_EditorClassIdentifier: 
   flagValueType: 1
-  value: 1
-  boolValue: 1
+  flagId: 12
+  value: 0
+  boolValue: 0

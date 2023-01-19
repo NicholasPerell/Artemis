@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: OC
   m_EditorClassIdentifier: 
   flagValueType: 0
+  flagId: 4
   value: 0
   boolValue: 0

@@ -103,4 +103,9 @@ public class SortedStrictList<T> where T : IComparable
     }
 
     public int Count => list.Count;
+
+    public T[] ToArray()
+    {
+        return list.ToArray();
+    }
 }
