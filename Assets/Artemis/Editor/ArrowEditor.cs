@@ -35,10 +35,10 @@ namespace Artemis.EditorIntegration
                     priorityValueRepresentation = "" + e.GetPriority();
                     break;
                 case Arrow.HowPriorityCalculated.CRITERIA:
-                    priorityValueRepresentation = "COND = " + e.GetPriority();
+                    priorityValueRepresentation = PreDictionaryFletcher.CRITERIA_KEY_WORD + " = " + e.GetPriority();
                     break;
                 case Arrow.HowPriorityCalculated.SUM:
-                    priorityValueRepresentation = (e.GetPriority() - e.GetRuleSize()) + " + COND = " + e.GetPriority();
+                    priorityValueRepresentation = (e.GetPriority() - e.GetRuleSize()) + " + "+ PreDictionaryFletcher.CRITERIA_KEY_WORD + " = " + e.GetPriority();
                     break;
             }
             EditorGUILayout.LabelField("Priority Value", priorityValueRepresentation, EditorStyles.label);
