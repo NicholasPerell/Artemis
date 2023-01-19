@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc3a7195cd6cceb4fb680098c3302dd7, type: 3}
-  m_Name: FALSEB_3
+  m_Name: CONCEPT
   m_EditorClassIdentifier: 
-  symbolTypeName: 
-  flagValueType: 1
-  flagId: 13
+  symbolTypeName: Artemis.CONCEPT_ID
+  flagValueType: 2
+  flagId: 16
   value: 0
   boolValue: 0

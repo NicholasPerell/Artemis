@@ -37,21 +37,33 @@ MonoBehaviour:
         comparisonType: 5
     - Key: 3
       Value:
+        lhs: 0
+        rhs: 0
+        stateChecked: 3
+        comparisonType: 0
+    - Key: 4
+      Value:
         lhs: 100
         rhs: 50
-        stateChecked: 3
+        stateChecked: 4
         comparisonType: 6
     - Key: 5
       Value:
         lhs: 50
-        rhs: 1e-45
+        rhs: 0
         stateChecked: 5
-        comparisonType: 8
-    - Key: 14
+        comparisonType: 7
+    - Key: 6
       Value:
         lhs: 50
+        rhs: 1e-45
+        stateChecked: 6
+        comparisonType: 8
+    - Key: 16
+      Value:
+        lhs: 0
         rhs: 0
-        stateChecked: 14
-        comparisonType: 7
+        stateChecked: 16
+        comparisonType: 0
   howToHandleBusy: 0
   howPriorityCalculated: 0

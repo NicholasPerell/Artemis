@@ -171,17 +171,17 @@ public class ReadingInFlagCheck : MonoBehaviour
                     valid = IsFlagValid(flag) && IsFlagValid(enumPossibly);
                     if(valid)
                     {
-                        if (Enum.TryParse(enumPossibly, out ValveInternalSymbols internalSymbol))
-                        {
-                            a = (float)internalSymbol;
-                            compareType = CriterionComparisonType.EQUALS;
-                            Debug.Log(flag + " = " + enumPossibly);
-                        }
-                        else
-                        {
-                            Debug.LogError("Could not parse \"" + enumPossibly + "\" into a ValveInternalSymbols. Perhaps try to recompile?");
-                            valid = false;
-                        }
+                        //if (Enum.TryParse(enumPossibly, out ValveInternalSymbols internalSymbol))
+                        //{
+                        //    a = (float)internalSymbol;
+                        //    compareType = CriterionComparisonType.EQUALS;
+                        //    Debug.Log(flag + " = " + enumPossibly);
+                        //}
+                        //else
+                        //{
+                        //    Debug.LogError("Could not parse \"" + enumPossibly + "\" into a ValveInternalSymbols. Perhaps try to recompile?");
+                        //    valid = false;
+                        //}
                     }
                 }
             }

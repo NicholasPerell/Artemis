@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Test_Debug_005
   fletcher: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-  priorityValue: 5
+  priorityValue: 6
   rule:
     list:
     - Key: 0
@@ -29,17 +29,23 @@ MonoBehaviour:
         rhs: 0
         stateChecked: 1
         comparisonType: 0
-    - Key: 12
+    - Key: 14
       Value:
         lhs: 1
         rhs: 1
-        stateChecked: 12
+        stateChecked: 14
         comparisonType: 0
-    - Key: 13
+    - Key: 15
       Value:
         lhs: 0
         rhs: 0
-        stateChecked: 13
+        stateChecked: 15
+        comparisonType: 0
+    - Key: 16
+      Value:
+        lhs: 3
+        rhs: 3
+        stateChecked: 16
         comparisonType: 0
   howToHandleBusy: 4
   howPriorityCalculated: 2

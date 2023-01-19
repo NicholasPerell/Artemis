@@ -29,17 +29,29 @@ MonoBehaviour:
         rhs: 0
         stateChecked: 1
         comparisonType: 0
-    - Key: 8
+    - Key: 9
       Value:
         lhs: 1
         rhs: 1
-        stateChecked: 8
+        stateChecked: 9
         comparisonType: 0
-    - Key: 9
+    - Key: 10
+      Value:
+        lhs: 1
+        rhs: 1
+        stateChecked: 10
+        comparisonType: 0
+    - Key: 11
       Value:
         lhs: 0
         rhs: 0
-        stateChecked: 9
+        stateChecked: 11
+        comparisonType: 0
+    - Key: 16
+      Value:
+        lhs: 1
+        rhs: 1
+        stateChecked: 16
         comparisonType: 0
   howToHandleBusy: 2
   howPriorityCalculated: 0

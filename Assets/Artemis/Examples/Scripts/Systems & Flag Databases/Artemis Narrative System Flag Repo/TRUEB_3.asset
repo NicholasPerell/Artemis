@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3a7195cd6cceb4fb680098c3302dd7, type: 3}
   m_Name: TRUEB_3
   m_EditorClassIdentifier: 
+  symbolTypeName: 
   flagValueType: 1
-  flagId: 10
-  value: 1
-  boolValue: 1
+  flagId: 12
+  value: 0
+  boolValue: 0

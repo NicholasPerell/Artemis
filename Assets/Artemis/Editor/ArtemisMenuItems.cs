@@ -43,6 +43,10 @@ namespace Artemis.EditorIntegration
                 //TO DO: Convert this to a InitFlag(ID) method
                 flag.SetFlagId(flagIDs[i]);
                 flag.SetValueType(Goddess.instance.GetFlagValueType(flagIDs[i]));
+                if (flag.GetValueType() == Flag.ValueType.SYMBOL)
+                {
+                    flag.SetSymbolType(Goddess.instance.GetFlagSymbolType(flag.GetFlagId()));
+                }
                 created = flag;
                 AssetDatabase.CreateAsset(created, folderPath + "/" + flagIDs[i].ToString() + ".asset");
             }

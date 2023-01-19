@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,10 @@ namespace Artemis
         }
 
         [SerializeField]
-        System.Type flagSymbolType;
+        System.Type symbolType;
+
+        [SerializeField]
+        string symbolTypeName;
 
         [SerializeField]
         ValueType flagValueType = ValueType.INVALID;
@@ -24,10 +28,10 @@ namespace Artemis
         FlagID flagId = FlagID.INVALID;
 
         [SerializeField]
-        float value;
+        float value = 0;
 
         [SerializeField]
-        bool boolValue;
+        bool boolValue = false;
 
         public void SetValue(float _value)
         {
@@ -69,6 +73,28 @@ namespace Artemis
         public void SetValueType(ValueType type)
         {
             flagValueType = type;
+            
+        }
+
+        public System.Type GetSymbolType()
+        {
+            if (symbolType == null)
+            {
+                symbolType = System.Type.GetType(symbolTypeName);
+            }
+
+            if (symbolType == null)
+            {
+                symbolType = typeof(ValueType);
+            }
+
+            return symbolType;
+        }
+
+        public void SetSymbolType(Type type)
+        {
+            symbolType = type;
+            symbolTypeName = type.FullName;
         }
     }
 }

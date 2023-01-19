@@ -42,9 +42,8 @@ namespace Artemis.EditorIntegration
                         e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
                         break;
                     case Flag.ValueType.SYMBOL:
-                        //TODO: Convert to flag's compiled type
-                        e.SetValue((float)(ValveInternalSymbols)EditorGUILayout.EnumPopup("Value", (ValveInternalSymbols)(e.GetValue())));
-
+                        var takeIn = EditorGUILayout.EnumPopup("Flag ID",(System.Enum)System.Enum.Parse(e.GetSymbolType(),""+(Mathf.FloorToInt(e.GetValue()))));
+                        e.SetValue((int)((object)takeIn));
                         break;
                     default:
                         break;
@@ -58,6 +57,10 @@ namespace Artemis.EditorIntegration
                 {
                     Flag.ValueType temp = Goddess.instance.GetFlagValueType(e.GetFlagId());
                     e.SetValueType(temp);
+                    if(temp == Flag.ValueType.SYMBOL)
+                    {
+                        e.SetSymbolType(Goddess.instance.GetFlagSymbolType(e.GetFlagId()));
+                    }
                 }
             }
 

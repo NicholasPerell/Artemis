@@ -19,6 +19,9 @@ namespace Artemis
         [HideInInspector]
         private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes;
 
+        [SerializeField]
+        private SortedStrictDictionary<FlagID, InternalSymbolCompiler> flagSymbolTypes;
+
         //For managing internal symbols
         [HideInInspector]
         private SortedStrictList<FlagID> idsUsed;
@@ -59,9 +62,8 @@ namespace Artemis
             name = name.ToUpper();
 
             FlagID id;
-            //Flag flag;
-            //idToFlag ??= new SortedStrictDictionary<FlagID, Flag>();
             flagValueTypes ??= new SortedStrictDictionary<FlagID, Flag.ValueType>();
+            flagSymbolTypes ??= new SortedStrictDictionary<FlagID, InternalSymbolCompiler>();
             //Checks if flag enum already exists
             bool found = Enum.TryParse<FlagID>(name, out id);
             int idInt;
@@ -82,6 +84,15 @@ namespace Artemis
                     if(flagIDConnections[id].Contains(connector))
                     {
                         flagValueTypes[id] = valueType;
+                        if(valueType == Flag.ValueType.SYMBOL)
+                        {
+                            flagSymbolTypes.Add(id, new InternalSymbolCompiler(GetContainingFolder() + "/" + GetFlagRepoFolderName() + "/", name));
+
+                        }
+                        else if (originalValueType == Flag.ValueType.SYMBOL)
+                        {
+                            flagSymbolTypes.Remove(id);
+                        }
                     }
                     else
                     {
@@ -110,6 +121,10 @@ namespace Artemis
                     flagValueTypes.Add(id, valueType);
                     flagIDConnections.Add(id, new List<PreDictionaryFletcher>());
                     flagIDConnections[id].Add(connector);
+                    if (valueType == Flag.ValueType.SYMBOL)
+                    {
+                        flagSymbolTypes.Add(id, new InternalSymbolCompiler(GetContainingFolder() + "/" + GetFlagRepoFolderName() + "/", name));
+                    }
                 }
                 else
                 {
@@ -136,6 +151,7 @@ namespace Artemis
             {
                 flagIDConnections ??= new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
                 flagIDConnections[id] ??= new List<PreDictionaryFletcher>();
+                flagSymbolTypes ??= new SortedStrictDictionary<FlagID, InternalSymbolCompiler>();
 
                 if (flagIDConnections[id].Contains(connector))
                 {
@@ -147,6 +163,7 @@ namespace Artemis
                     flagIDConnections.Remove(id);
                     flagValueTypes.Remove(id);
                     toRemove.Add(id);
+                    flagSymbolTypes.Remove(id);
                 }
             }
 
@@ -225,6 +242,13 @@ namespace Artemis
             intsReadyToConvert.Clear();
 
             AssetDatabase.ImportAsset(relativePath);
+
+            //Write the other enum scripts
+            for (int i = 0; i < flagSymbolTypes.Count; i++)
+            {
+                flagSymbolTypes[i].Value.WriteFlagEnumScript();
+            }
+
         }
 
         private int FindValidUnusedFlagIDNumber()
@@ -281,6 +305,31 @@ namespace Artemis
             return rtn;
         }
 
+        public int FindSymbolValueOfFlag(FlagID id, string enumPossibly)
+        {
+            int rtn = -1;
+
+            if(flagSymbolTypes.HasKey(id))
+            {
+                rtn = flagSymbolTypes[id].FindValueOfString(enumPossibly);
+            }
+
+            return rtn;
+        }
+
+        public System.Type GetFlagSymbolType(FlagID id)
+        {
+            System.Type rtn = typeof(Flag.ValueType);
+
+            if (flagSymbolTypes.HasKey(id))
+            {
+                rtn = flagSymbolTypes[id].GetEnumType();
+                Debug.Log("" + rtn.FullName);
+            }
+
+            return rtn;
+        }
+
         [ContextMenu("Reset Entirely")]
         private void Reset()
         {
@@ -290,6 +339,7 @@ namespace Artemis
             flagValueTypes.Clear();
             flagIDConnections.Clear();
             idsUsed.Clear();
+            flagSymbolTypes.Clear();
 
             WriteFlagEnumScript();
         }

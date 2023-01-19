@@ -465,17 +465,22 @@ namespace Artemis
                         valid = IsFlagNameValid(flag) && IsFlagNameValid(enumPossibly);
                         if (valid)
                         {
-                            if (Enum.TryParse(enumPossibly, out ValveInternalSymbols internalSymbol))
+                            FlagID flagID = Goddess.instance.ConnectFlag(flag, Flag.ValueType.SYMBOL, this);
+
+                            if (flagID != FlagID.INVALID)
                             {
-                                a = (float)internalSymbol;
+                                a = (float)Goddess.instance.FindSymbolValueOfFlag(flagID, enumPossibly);
                                 compareType = CriterionComparisonType.EQUALS;
                                 Debug.Log(flag + " = " + enumPossibly);
                             }
                             else
                             {
-                                Debug.LogError("Could not parse \"" + enumPossibly + "\" into a ValveInternalSymbols. Perhaps try to recompile?");
                                 valid = false;
                             }
+
+                            //a = 25;
+                            //compareType = CriterionComparisonType.EQUALS;
+                            //Debug.Log(flag + " = " + enumPossibly);
                         }
                     }
                 }

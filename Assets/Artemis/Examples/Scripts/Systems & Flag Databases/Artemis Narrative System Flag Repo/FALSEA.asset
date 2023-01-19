@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3a7195cd6cceb4fb680098c3302dd7, type: 3}
   m_Name: FALSEA
   m_EditorClassIdentifier: 
+  symbolTypeName: 
   flagValueType: 1
   flagId: 1
   value: 0

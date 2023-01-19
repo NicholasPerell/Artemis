@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3a7195cd6cceb4fb680098c3302dd7, type: 3}
   m_Name: CO
   m_EditorClassIdentifier: 
+  symbolTypeName: 
   flagValueType: 0
-  flagId: 5
-  value: 25
-  boolValue: 1
+  flagId: 6
+  value: 0
+  boolValue: 0
