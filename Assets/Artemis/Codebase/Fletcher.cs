@@ -11,7 +11,9 @@ namespace Artemis
 {
     public abstract class PreDictionaryFletcher : ScriptableObject
     {
-        List<KeyValuePair<Arrow, Archer>> queue;
+
+        private List<KeyValuePair<Arrow, Archer>> queue;
+        public const string CRITERIA_KEY_WORD = "COND";
 
         private void Awake()
         {
@@ -44,7 +46,7 @@ namespace Artemis
                         break;
                     case Arrow.HowToHandleBusy.INTERRUPT:
                         AbruptEnd();
-                        Send(dataPoint.name);
+                        Send(dataPoint.GetArrowID());
                         successfullyProcessed = true;
                         break;
                     case Arrow.HowToHandleBusy.DELETE:
@@ -62,7 +64,7 @@ namespace Artemis
             }
             else
             {
-                Send(dataPoint.name);
+                Send(dataPoint.GetArrowID());
                 successfullyProcessed = true;
             }
 
@@ -77,7 +79,7 @@ namespace Artemis
                 queue.RemoveAt(0);
                 if (pair.Key.CondtionsMet())
                 {
-                    Send(pair.Key.name);
+                    Send(pair.Key.GetArrowID());
                 }
                 else
                 {
@@ -139,9 +141,9 @@ namespace Artemis
             database = new StringSortingDictionary<T>();
 
             //Check for folder
-            if (!AssetDatabase.IsValidFolder(GetContainingFolder() + "/" + GetDataPointFolderName()))
+            if (!AssetDatabase.IsValidFolder(GetContainingFolder() + "/" + GetArrowFolderName()))
             {
-                AssetDatabase.CreateFolder(GetContainingFolder(), GetDataPointFolderName());
+                AssetDatabase.CreateFolder(GetContainingFolder(), GetArrowFolderName());
             }
 
             //Parse CSV
@@ -150,7 +152,7 @@ namespace Artemis
             string tmp;
             foreach (string e in notBeingUsed)
             {
-                tmp = GetContainingFolder() + "/" + GetDataPointFolderName() + "/" + e + ".asset";
+                tmp = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + e + ".asset";
                 if (AssetDatabase.LoadAssetAtPath<Arrow>(tmp) != null)
                 {
                     AssetDatabase.DeleteAsset(tmp);
@@ -228,10 +230,36 @@ namespace Artemis
                 //2) Add/update asset
                 string _id = currentLine.cell[0].value;
                 PreDictionaryFletcher _systemScriptable = this;
-                int _priorityValue;
-                if (currentLine.cell[1] == null || !int.TryParse(currentLine.cell[1].value, out _priorityValue))
+                int _priorityValue = 0;
+                Arrow.HowPriorityCalculated _howPriorityCalculated = Arrow.HowPriorityCalculated.SET_VALUE;
+                if (currentLine.cell[1] != null)
                 {
-                    _priorityValue = 0;
+                    string priorityValueInput = currentLine.cell[1].value.Trim();
+                    int indexOf = priorityValueInput.IndexOf(CRITERIA_KEY_WORD);
+                    if (indexOf != -1)
+                    {
+                        if (priorityValueInput.Length == CRITERIA_KEY_WORD.Length)
+                        {
+                            _howPriorityCalculated = Arrow.HowPriorityCalculated.CRITERIA;
+                        }
+                        else
+                        {
+                            indexOf = priorityValueInput.Substring(0, indexOf).LastIndexOf("+");
+                            if (int.TryParse(priorityValueInput.Substring(0, indexOf), out _priorityValue))
+                            {
+                                _howPriorityCalculated = Arrow.HowPriorityCalculated.SUM;
+                            }
+                            else
+                            {
+                                _howPriorityCalculated = Arrow.HowPriorityCalculated.CRITERIA;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int.TryParse(priorityValueInput, out _priorityValue);
+                    }
+                    
                 }
 
                 Arrow.HowToHandleBusy _howToHandleBusy;
@@ -247,7 +275,7 @@ namespace Artemis
                     _howToHandleBusy = Arrow.HowToHandleBusy.CANCEL;
                 }
 
-                Arrow dataPoint = AssetDatabase.LoadAssetAtPath<Arrow>(GetContainingFolder() + "/" + GetDataPointFolderName() + "/" + _id + ".asset");
+                Arrow dataPoint = AssetDatabase.LoadAssetAtPath<Arrow>(GetContainingFolder() + "/" + GetArrowFolderName() + "/" + _id + ".asset");
 
                 bool exists = dataPoint != null;
 
@@ -256,7 +284,7 @@ namespace Artemis
                     dataPoint = ScriptableObject.CreateInstance<Arrow>();
                 }
 
-                dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _rule, _howToHandleBusy);
+                dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _rule, _howToHandleBusy, _howPriorityCalculated);
 
                 if (exists)
                 {
@@ -264,7 +292,7 @@ namespace Artemis
                 }
                 else
                 {
-                    AssetDatabase.CreateAsset(dataPoint, GetContainingFolder() + "/" + GetDataPointFolderName() + "/" + _id + ".asset");
+                    AssetDatabase.CreateAsset(dataPoint, GetContainingFolder() + "/" + GetArrowFolderName() + "/" + _id + ".asset");
                 }
 
                 //3) remove from list of uninvolved Assets for clean up later
@@ -607,9 +635,9 @@ namespace Artemis
         }
 #endif
 
-        private string GetDataPointFolderName()
+        private string GetArrowFolderName()
         {
-            return name + " Data Points";
+            return name + " Arrows";
         }
 
         public void SetInSceneObject(Bow<T> _value)

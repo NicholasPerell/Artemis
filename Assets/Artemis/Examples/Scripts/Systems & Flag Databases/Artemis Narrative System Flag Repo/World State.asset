@@ -13,5 +13,15 @@ MonoBehaviour:
   m_Name: World State
   m_EditorClassIdentifier: 
   flagsUsed:
-    list: []
+    list:
+    - Key: 0
+      Value: {fileID: 11400000, guid: 9617b714aa6ccc24d81fa295b269b136, type: 2}
+    - Key: 6
+      Value: {fileID: 11400000, guid: 104733c24a094514f9589ee0b6c036ba, type: 2}
+    - Key: 8
+      Value: {fileID: 11400000, guid: f520e5e4c709f5c45bf8d6a6073c8430, type: 2}
+    - Key: 10
+      Value: {fileID: 11400000, guid: fe868d5089e4ab841981a4e689b799ed, type: 2}
+    - Key: 12
+      Value: {fileID: 11400000, guid: 3fe40b28d0221ee48b38b32956d931f9, type: 2}
   tempFlags: []

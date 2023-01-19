@@ -8,6 +8,13 @@ namespace Artemis
     //[CreateAssetMenu(fileName = "New Artemis Narrative Data Point", menuName = "Artemis/Narrative Data Point")]
     public class Arrow : ScriptableObject
     {
+        public enum HowPriorityCalculated
+        {
+            SET_VALUE = 0,
+            CRITERIA = 1,
+            SUM = 2
+        }
+
         public enum HowToHandleBusy
         {
             CANCEL = 0,
@@ -20,7 +27,7 @@ namespace Artemis
         [SerializeField]
         string id;
         [SerializeField]
-        PreDictionaryFletcher deliverySystem;
+        PreDictionaryFletcher fletcher;
         [Space]
         [SerializeField]
         [Min(0)]
@@ -29,19 +36,31 @@ namespace Artemis
         SortedStrictDictionary<FlagID, Criterion> rule;
         [SerializeField]
         HowToHandleBusy howToHandleBusy = HowToHandleBusy.QUEUE;
+        [HideInInspector]
+        public HowPriorityCalculated howPriorityCalculated = HowPriorityCalculated.SET_VALUE;
 
-        public void Rewrite(string _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy)
+        public void Rewrite(string _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy, HowPriorityCalculated _howPriorityCalculated)
         {
             id = _id;
-            deliverySystem = _systemScriptable;
+            fletcher = _systemScriptable;
             priorityValue = _priorityValue;
             rule = _rule;
             howToHandleBusy = _howToHandleBusy;
+            howPriorityCalculated = _howPriorityCalculated;
+
+            if(howPriorityCalculated == HowPriorityCalculated.CRITERIA)
+            {
+                priorityValue = rule.Count;
+            }
+            else if(howPriorityCalculated == HowPriorityCalculated.SUM)
+            {
+                priorityValue += rule.Count;
+            }
         }
 
         public bool Deliver(Archer sender)
         {
-            return deliverySystem.ProcessDataPoint(this, sender);
+            return fletcher.ProcessDataPoint(this, sender);
         }
 
         public bool IsPriority()
@@ -83,11 +102,6 @@ namespace Artemis
                         if(!targetCriterion.Compare(targetFlag.GetValue()))
                         {
                             //The criterion was failed to be met!
-
-                            if(name == "Test_Debug_000")
-                            {
-                                Debug.LogError("0 failed rule " + targetCriterion.GetStringRepresentation());
-                            }
                             return false;
                         }
                     }
@@ -96,11 +110,6 @@ namespace Artemis
                 if(!located)
                 {
                     //Flag not found in any state!
-
-                    if (name == "Test_Debug_000")
-                    {
-                        Debug.LogError("0 couldn't find " + targetId.ToString());
-                    }
                     return false;
                 }
             }
@@ -108,9 +117,48 @@ namespace Artemis
             return true;
         }
 
+
+#if UNITY_EDITOR
+        public string RecieveRuleStringRepresentation()
+        {
+            string rtn = "";
+
+            for(int i = 0; i < rule.Count; i++)
+            {
+                rtn += rule[i].Value.GetStringRepresentation();
+                if(i < rule.Count - 1)
+                {
+                    rtn += "\n";
+                }
+            }
+
+            return rtn;
+        }
+#endif
+
+        public int GetRuleSize()
+        {
+            return rule.Count;
+        }
+
         public HowToHandleBusy GetWhenBusyDescision()
         {
             return howToHandleBusy;
+        }
+
+        public PreDictionaryFletcher GetFletcher()
+        {
+            return fletcher;
+        }
+
+        public string GetArrowID()
+        {
+            return id;
+        }
+
+        public HowPriorityCalculated GetHowPriorityCalculated()
+        {
+            return howPriorityCalculated;
         }
     }
 }

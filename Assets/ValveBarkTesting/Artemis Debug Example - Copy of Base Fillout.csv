@@ -4,4 +4,5 @@ Test_Debug_001,0,"TrueA,TrueB_1, !FalseA,!FalseB_1",QUEUE,Test 1,DEFAULT,0.2
 Test_Debug_002,3,"TrueA,TrueB_2, !FalseA,!FalseB_2",INTERRUPT,Test 2,ERROR,0.2
 Test_Debug_003,2,"TrueA,TrueB_3, !FalseA,!FalseB_3",DELETE,Test 3,DEFAULT,0.2
 Test_Debug_004,1,"TrueA,TrueB_4, !FalseA,!FalseB_4",FRONT_OF_QUEUE,Test 4,WARNING,0.2
+Test_Debug_005,1 + COND,"TrueA,TrueB_4, !FalseA,!FalseB_4",FRONT_OF_QUEUE,Test 5,DEFAULT,0.2
 END,,,,,,

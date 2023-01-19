@@ -12,11 +12,59 @@ namespace Artemis.EditorIntegration
         {
             Arrow e = (Arrow)target;
 
-            DrawDefaultInspector();
+            //DrawDefaultInspector();
 
             EditorGUI.BeginChangeCheck();
 
+            //Delivery System
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.ObjectField("Fletcher", e.GetFletcher(), typeof(PreDictionaryFletcher), false);
+            EditorGUI.EndDisabledGroup();
 
+            //ID
+            EditorGUILayout.LabelField("Arrow ID", e.GetArrowID()+"");
+
+            //Priority
+            EditorGUILayout.Space();
+
+            Arrow.HowPriorityCalculated howPriorityCalculated = e.GetHowPriorityCalculated();
+            string priorityValueRepresentation = "";
+            switch(howPriorityCalculated)
+            {
+                case Arrow.HowPriorityCalculated.SET_VALUE:
+                    priorityValueRepresentation = "" + e.GetPriority();
+                    break;
+                case Arrow.HowPriorityCalculated.CRITERIA:
+                    priorityValueRepresentation = "COND = " + e.GetPriority();
+                    break;
+                case Arrow.HowPriorityCalculated.SUM:
+                    priorityValueRepresentation = (e.GetPriority() - e.GetRuleSize()) + " + COND = " + e.GetPriority();
+                    break;
+            }
+            EditorGUILayout.LabelField("Priority Value", priorityValueRepresentation, EditorStyles.label);
+
+
+            //Rule
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Rule",EditorStyles.label);
+            GUIStyle criterionStyle = new GUIStyle(EditorStyles.label);
+             criterionStyle = new GUIStyle(EditorStyles.textArea);
+            criterionStyle.alignment = TextAnchor.UpperCenter;
+            string criterions = e.RecieveRuleStringRepresentation();
+            if(criterions.Length > 0)
+            {
+                EditorGUILayout.LabelField(criterions, criterionStyle);
+            }
+            else
+            {
+                EditorGUILayout.LabelField("No Criteria Required", criterionStyle);
+            }
+
+            //How To Handle Busy
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("How to Handle Busy", e.GetWhenBusyDescision().ToString());
+
+            //Repaint Arrow
             if (EditorGUI.EndChangeCheck())
             {
                 EditorUtility.SetDirty(e);

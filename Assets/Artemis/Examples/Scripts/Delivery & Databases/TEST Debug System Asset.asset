@@ -41,3 +41,8 @@ MonoBehaviour:
         message: Test 4
         messageType: 2
         timeSystemIsBusy: 0.2
+    - Key: Test_Debug_005
+      Value:
+        message: Test 5
+        messageType: 2
+        timeSystemIsBusy: 0.2

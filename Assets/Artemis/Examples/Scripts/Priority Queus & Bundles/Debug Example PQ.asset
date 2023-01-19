@@ -28,14 +28,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
   - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
   - {fileID: 11400000, guid: 33b10d9318bf83a44a16b087c4565f95, type: 2}
+  - {fileID: 11400000, guid: de2b63b1e3cfe354db504287c6bb2947, type: 2}
   recencyBias: 1
   priorityQueue:
     mRecencyBias: 1
     mList: []
-  generalPool:
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
-  - {fileID: 11400000, guid: 2d897c72467be2745af347b4ec172f69, type: 2}
+  generalPool: []
