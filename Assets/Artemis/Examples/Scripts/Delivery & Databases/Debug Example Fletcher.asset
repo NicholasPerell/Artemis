@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 415c62343185c3047a154bef3128ca5f, type: 3}
-  m_Name: TEST Debug System Asset
+  m_Name: Debug Example Fletcher
   m_EditorClassIdentifier: Assembly-CSharp::DebugDelivery
   csvFile: {fileID: 4900000, guid: dde5b3aa10e47e443a26f0b36cb5b605, type: 3}
   columnsToReadFrom: 3
@@ -44,5 +44,5 @@ MonoBehaviour:
     - Key: Test_Debug_005
       Value:
         message: Test 5
-        messageType: 2
+        messageType: 0
         timeSystemIsBusy: 0.2

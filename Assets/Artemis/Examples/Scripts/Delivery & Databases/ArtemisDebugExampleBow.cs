@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Artemis;
 
-public class ArtemisDebugDeliveryActor : Bow<ArtemisDebugData>
+public class ArtemisDebugExampleBow : Bow<ArtemisDebugData>
 {
     [SerializeField]
     float delayTimer = 0;

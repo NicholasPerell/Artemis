@@ -19,7 +19,7 @@ public struct ArtemisDebugData
 }
 
 //[CreateAssetMenu(fileName = "New Artemis Debug Delivery System", menuName = "Artemis/Examples/Debug Delivery System")]
-public class ArtemisDebugDeliverySystem : Fletcher<ArtemisDebugData>
+public class ArtemisDebugExampleFletcher : Fletcher<ArtemisDebugData>
 {
     protected override bool SetUpDataFromCells(string[] dataToInterpret, out ArtemisDebugData valueDetermined)
     {

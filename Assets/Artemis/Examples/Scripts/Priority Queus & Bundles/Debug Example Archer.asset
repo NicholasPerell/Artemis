@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
+  m_Name: Debug Example Archer
+  m_EditorClassIdentifier: 
+  defaultContents:
+  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
+  - {fileID: 11400000, guid: bb33a576e6b2e6c468325aaf0f4ee066, type: 2}
+  - {fileID: 11400000, guid: db65b7f32ef181e479b788a689b71c34, type: 2}
+  - {fileID: 11400000, guid: 8bf15acfdab66834aa083d1ce28d1111, type: 2}
+  - {fileID: 11400000, guid: 1337ee4f11bb41c408a6d05d530653a1, type: 2}
+  - {fileID: 11400000, guid: cd7af124a4b005248ba4738bb9622931, type: 2}
+  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
+  - {fileID: 11400000, guid: bb33a576e6b2e6c468325aaf0f4ee066, type: 2}
+  - {fileID: 11400000, guid: db65b7f32ef181e479b788a689b71c34, type: 2}
+  - {fileID: 11400000, guid: 8bf15acfdab66834aa083d1ce28d1111, type: 2}
+  - {fileID: 11400000, guid: 1337ee4f11bb41c408a6d05d530653a1, type: 2}
+  - {fileID: 11400000, guid: cd7af124a4b005248ba4738bb9622931, type: 2}
+  recencyBias: 1
+  priorityQueue:
+    mRecencyBias: 1
+    mList: []
+  generalPool:
+  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
+  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}

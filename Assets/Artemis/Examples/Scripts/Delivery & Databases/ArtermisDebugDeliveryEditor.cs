@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityEditor;
 using Artemis;
 
-[CustomEditor(typeof(ArtemisDebugDeliverySystem))]
+[CustomEditor(typeof(ArtemisDebugExampleFletcher))]
 public class ArtemisDeliveryEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        ArtemisDebugDeliverySystem system = (ArtemisDebugDeliverySystem)target;
+        ArtemisDebugExampleFletcher system = (ArtemisDebugExampleFletcher)target;
         if(GUILayout.Button("Parse CSV into database"))
         {
             system.DeliverySystemDatabase();
