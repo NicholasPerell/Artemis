@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: World State
   m_EditorClassIdentifier: 
   flagsUsed:
-    list: []
+    list:
+    - Key: 1
+      Value: {fileID: 11400000, guid: acf811e30298a6e4caa1f2ef8807840f, type: 2}
+  tempFlag: {fileID: 0}

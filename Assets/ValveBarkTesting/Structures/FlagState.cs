@@ -8,6 +8,8 @@ namespace Artemis
     { 
         [SerializeField]
         public SortedStrictDictionary<FlagID, Flag> flagsUsed;
+        [SerializeField]
+        public Flag tempFlag;
 
         public void Add(Flag _flag)
         {
@@ -23,6 +25,16 @@ namespace Artemis
             {
                 flagsUsed.Remove(_flag.GetFlagId());
             }
+        }
+
+        public Flag[] ToValueArray()
+        {
+            Flag[] rtn = new Flag[flagsUsed.Count];
+            for (int i = 0; i < flagsUsed.Count; i++)
+            {
+                rtn[i] = flagsUsed[i].Value;
+            }
+            return rtn;
         }
 
     }
