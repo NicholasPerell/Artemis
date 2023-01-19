@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flagValueType: 0
   flagId: 5
-  value: 0
-  boolValue: 0
+  value: 25
+  boolValue: 1

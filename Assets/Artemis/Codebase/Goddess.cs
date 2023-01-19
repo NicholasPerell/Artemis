@@ -31,7 +31,7 @@ namespace Artemis
 
         //TO DO: convert to list
         [SerializeField]
-        public FlagState worldState;
+        public FlagState[] globallyLoadedStates;
 
         [HideInInspector]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections;

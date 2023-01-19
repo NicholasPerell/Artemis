@@ -47,4 +47,10 @@ MonoBehaviour:
         rhs: 1e-45
         stateChecked: 5
         comparisonType: 8
-  howToHandleBusy: 0
+    - Key: 14
+      Value:
+        lhs: 50
+        rhs: 0
+        stateChecked: 14
+        comparisonType: 7
+  howToHandleBusy: 2

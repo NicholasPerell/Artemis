@@ -13,33 +13,5 @@ MonoBehaviour:
   m_Name: World State
   m_EditorClassIdentifier: 
   flagsUsed:
-    list:
-    - Key: 0
-      Value: {fileID: 11400000, guid: 9617b714aa6ccc24d81fa295b269b136, type: 2}
-    - Key: 1
-      Value: {fileID: 11400000, guid: acf811e30298a6e4caa1f2ef8807840f, type: 2}
-    - Key: 2
-      Value: {fileID: 11400000, guid: eee5796fc57ce2a4188221b0385c98f9, type: 2}
-    - Key: 3
-      Value: {fileID: 11400000, guid: c4959540c357dc745b661599099c6abc, type: 2}
-    - Key: 4
-      Value: {fileID: 11400000, guid: 88b668273d94e8b44a8b58d7f2b99315, type: 2}
-    - Key: 5
-      Value: {fileID: 11400000, guid: f9544e0c09ef7714f9ec8f8e3a9ff219, type: 2}
-    - Key: 6
-      Value: {fileID: 11400000, guid: 104733c24a094514f9589ee0b6c036ba, type: 2}
-    - Key: 7
-      Value: {fileID: 11400000, guid: b5602e0bff15ea0428df921cfa24de6b, type: 2}
-    - Key: 8
-      Value: {fileID: 11400000, guid: f520e5e4c709f5c45bf8d6a6073c8430, type: 2}
-    - Key: 9
-      Value: {fileID: 11400000, guid: 158517ce5c1220f4d908e1d66ebc503a, type: 2}
-    - Key: 10
-      Value: {fileID: 11400000, guid: fe868d5089e4ab841981a4e689b799ed, type: 2}
-    - Key: 11
-      Value: {fileID: 11400000, guid: 5a56023626c0d8945a9a1588f5bc2d8d, type: 2}
-    - Key: 12
-      Value: {fileID: 11400000, guid: 3fe40b28d0221ee48b38b32956d931f9, type: 2}
-    - Key: 13
-      Value: {fileID: 11400000, guid: 4ec211daa7dc3284384e03a896e4f4c8, type: 2}
+    list: []
   tempFlags: []

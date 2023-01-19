@@ -56,22 +56,51 @@ namespace Artemis
 
         public bool CondtionsMet()
         {
-            //TODO: convert to list of queries and indexes
-            SortedStrictDictionary<FlagID, Flag> everythingQueuery = Goddess.instance.worldState.flagsUsed;
-            int startIndex = 0;
+            //TODO: Allow for more than the global states to be loaded
+            //TODO: Check for ANY type values
+            FlagState[] globalStates = Goddess.instance.globallyLoadedStates;
+            int[] startIndex = new int[globalStates.Length];
+            for (int i = 0; i < startIndex.Length; i++)
+            {
+                startIndex[i] = 0;
+            }
+
             FlagID targetId = FlagID.INVALID;
             Criterion targetCriterion;
             Flag targetFlag;
-
+            bool located = false;
             for(int i = 0; i < rule.Count; i++)
             {
                 targetId = rule[i].Key;
                 targetCriterion = rule[i].Value;
 
-                if(!everythingQueuery.LinearSearch(targetId, ref startIndex, out targetFlag)
-                    || !targetCriterion.Compare(targetFlag.GetValue()))
+                located = false;
+                for (int j = 0; j < globalStates.Length && !located; j++)
                 {
-                    //Flag either not found or the criterion was failed to be met!
+                    if(globalStates[j].flagsUsed.LinearSearch(targetId, ref startIndex[j], out targetFlag))
+                    {
+                        located = true;
+                        if(!targetCriterion.Compare(targetFlag.GetValue()))
+                        {
+                            //The criterion was failed to be met!
+
+                            if(name == "Test_Debug_000")
+                            {
+                                Debug.LogError("0 failed rule " + targetCriterion.GetStringRepresentation());
+                            }
+                            return false;
+                        }
+                    }
+                }
+
+                if(!located)
+                {
+                    //Flag not found in any state!
+
+                    if (name == "Test_Debug_000")
+                    {
+                        Debug.LogError("0 couldn't find " + targetId.ToString());
+                    }
                     return false;
                 }
             }

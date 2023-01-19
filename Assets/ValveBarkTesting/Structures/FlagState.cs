@@ -44,5 +44,10 @@ namespace Artemis
             return rtn;
         }
 
+        [ContextMenu("Clear Entire List")]
+        private void Clear()
+        {
+            flagsUsed.Clear();
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace Artemis
 		TRUEB_3 = 10,
 		FALSEB_3 = 11,
 		TRUEB_4 = 12,
-		FALSEB_4 = 13
+		FALSEB_4 = 13,
+		OC = 14
 	}
 }

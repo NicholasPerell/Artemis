@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Artemis Narrative System
   m_EditorClassIdentifier: 
   flagsIdsToKeep: 
-  worldState: {fileID: 11400000, guid: ba9c2d63a1aa5fd4ea0b55f9bb9ff640, type: 2}
+  globallyLoadedStates:
+  - {fileID: 11400000, guid: ba9c2d63a1aa5fd4ea0b55f9bb9ff640, type: 2}
