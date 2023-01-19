@@ -29,14 +29,14 @@ namespace Artemis
         float lhs, rhs;
 
         [SerializeField]
-        FlagID stateChecked;
+        FlagID flagIdChecked;
 
         [SerializeField]
         CriterionComparisonType comparisonType;
 
         public Criterion(FlagID _stateChecked, CriterionComparisonType _comparisonType, float a, float b = 0)
         {
-            stateChecked = _stateChecked;
+            flagIdChecked = _stateChecked;
             comparisonType = _comparisonType;
 
             lhs = 0;
@@ -90,7 +90,7 @@ namespace Artemis
 
         public FlagID GetStateChecked()
         {
-            return stateChecked;
+            return flagIdChecked;
         }
 
         public CriterionComparisonType GetComparisonType()
@@ -105,31 +105,42 @@ namespace Artemis
             switch (comparisonType)
             {
                 case CriterionComparisonType.EQUALS:
-                    rtn += stateChecked.ToString() + " = " + lhs;
+                    switch (Goddess.instance.GetFlagValueType(flagIdChecked))
+                    {
+                        case Flag.ValueType.BOOL:
+                            rtn += flagIdChecked.ToString() + " = " + (lhs == 1);
+                            break;
+                        case Flag.ValueType.FLOAT:
+                            rtn += flagIdChecked.ToString() + " = " + lhs;
+                            break;
+                        case Flag.ValueType.SYMBOL:
+                            rtn += flagIdChecked.ToString() + " = " + (System.Enum)System.Enum.Parse(Goddess.instance.GetFlagSymbolType(flagIdChecked), "" + (Mathf.FloorToInt(lhs)));
+                            break;
+                    }
                     break;
                 case CriterionComparisonType.GREATER:
-                    rtn += stateChecked.ToString() + " > " + (rhs - float.Epsilon);
+                    rtn += flagIdChecked.ToString() + " > " + (rhs - float.Epsilon);
                     break;
                 case CriterionComparisonType.LESS:
-                    rtn += stateChecked.ToString() + " < " + (lhs + float.Epsilon);
+                    rtn += flagIdChecked.ToString() + " < " + (lhs + float.Epsilon);
                     break;
                 case CriterionComparisonType.GREATER_EQUAL:
-                    rtn += stateChecked.ToString() + " >= " + (rhs);
+                    rtn += flagIdChecked.ToString() + " >= " + (rhs);
                     break;
                 case CriterionComparisonType.LESS_EQUAL:
-                    rtn += stateChecked.ToString() + " <= " + (lhs);
+                    rtn += flagIdChecked.ToString() + " <= " + (lhs);
                     break;
                 case CriterionComparisonType.RANGE_OPEN:
-                    rtn += (lhs + float.Epsilon) + " > " + stateChecked.ToString() + " > " + (rhs - float.Epsilon);
+                    rtn += (lhs + float.Epsilon) + " > " + flagIdChecked.ToString() + " > " + (rhs - float.Epsilon);
                     break;
                 case CriterionComparisonType.RANGE_CLOSED:
-                    rtn += (lhs) + " >= " + stateChecked.ToString() + " >= " + (rhs);
+                    rtn += (lhs) + " >= " + flagIdChecked.ToString() + " >= " + (rhs);
                     break;
                 case CriterionComparisonType.RANGE_OPEN_CLOSED:
-                    rtn += (lhs + float.Epsilon) + " > " + stateChecked.ToString() + " >= " + (rhs);
+                    rtn += (lhs + float.Epsilon) + " > " + flagIdChecked.ToString() + " >= " + (rhs);
                     break;
                 case CriterionComparisonType.RANGE_CLOSED_OPEN:
-                    rtn += (lhs) + " >= " + stateChecked.ToString() + " > " + (rhs - float.Epsilon);
+                    rtn += (lhs) + " >= " + flagIdChecked.ToString() + " > " + (rhs - float.Epsilon);
                     break;
             }
 
@@ -138,7 +149,7 @@ namespace Artemis
 
         public int CompareTo(Criterion other)
         {
-            return stateChecked.CompareTo(other.GetStateChecked());
+            return flagIdChecked.CompareTo(other.GetStateChecked());
         }
     }
 }

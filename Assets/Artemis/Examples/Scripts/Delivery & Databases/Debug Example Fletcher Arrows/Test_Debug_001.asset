@@ -21,37 +21,37 @@ MonoBehaviour:
       Value:
         lhs: 1
         rhs: 1
-        stateChecked: 0
+        flagIdChecked: 0
         comparisonType: 0
     - Key: 1
       Value:
         lhs: 0
         rhs: 0
-        stateChecked: 1
+        flagIdChecked: 1
         comparisonType: 0
     - Key: 7
       Value:
         lhs: 1
         rhs: 1
-        stateChecked: 7
+        flagIdChecked: 7
         comparisonType: 0
     - Key: 8
       Value:
         lhs: 0
         rhs: 0
-        stateChecked: 8
+        flagIdChecked: 8
         comparisonType: 0
     - Key: 9
       Value:
         lhs: 0
         rhs: 0
-        stateChecked: 9
+        flagIdChecked: 9
         comparisonType: 0
     - Key: 16
       Value:
         lhs: 0
         rhs: 0
-        stateChecked: 16
+        flagIdChecked: 16
         comparisonType: 0
   howToHandleBusy: 1
   howPriorityCalculated: 0

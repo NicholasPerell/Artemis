@@ -324,7 +324,6 @@ namespace Artemis
             if (flagSymbolTypes.HasKey(id))
             {
                 rtn = flagSymbolTypes[id].GetEnumType();
-                Debug.Log("" + rtn.FullName);
             }
 
             return rtn;
