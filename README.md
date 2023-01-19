@@ -120,7 +120,12 @@ Used for the header image & _Artemis_'s Gizmos/Icons
 - Fletcher: Table by Delapouite
 - Bow: Bow Arrow by Delapouite
 - Flag State: Database by Delapouite 
+- Subicon of the symbol flags: Price tag by Delapouite
+- Subicon of the bool flags: Check mark by Delapouite
 - Artemis Logo: Book Aura & High Shot by Lorc
+
+### Flaticons.com
+- Subicon of the float flags: <a href="https://www.flaticon.com/free-icons/range" title="range icons">Range icons created by Freepik - Flaticon</a>
 
 [^sheets]: For what the format of the .CSV's should be like, [here is an example format on Google Sheets](https://docs.google.com/spreadsheets/d/15kqTE368a9-T_mWnH0c4kyO8i_zSbvk4vVvYFh-C_5c/edit?usp=sharing). You're encouraged to make a copy and use it as a basis for yours.
 [^1]: [People Make Games's video on _Hades_](https://www.youtube.com/watch?v=bwdYL0KFA_U)
