@@ -47,8 +47,7 @@ namespace Artemis.EditorIntegration
             //Rule
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Rule",EditorStyles.label);
-            GUIStyle criterionStyle = new GUIStyle(EditorStyles.label);
-             criterionStyle = new GUIStyle(EditorStyles.textArea);
+            GUIStyle criterionStyle = new GUIStyle(EditorStyles.textArea);
             criterionStyle.alignment = TextAnchor.UpperCenter;
             string criterions = e.RecieveRuleStringRepresentation();
             if(criterions.Length > 0)
