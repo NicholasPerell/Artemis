@@ -3,19 +3,18 @@ namespace Artemis
 	public enum FlagID
 	{
 		INVALID = -1,
+		TRUEA = 0,
+		FALSEA = 1,
+		OP = 2,
 		CL = 3,
 		CO = 5,
-		FALSEA = 1,
-		FALSEB_1 = 7,
-		FALSEB_2 = 9,
-		FALSEB_3 = 11,
-		FALSEB_4 = 13,
-		OC = 4,
-		OP = 2,
-		TRUEA = 0,
 		TRUEB_1 = 6,
+		FALSEB_1 = 7,
 		TRUEB_2 = 8,
+		FALSEB_2 = 9,
 		TRUEB_3 = 10,
-		TRUEB_4 = 12
+		FALSEB_3 = 11,
+		TRUEB_4 = 12,
+		FALSEB_4 = 13
 	}
 }

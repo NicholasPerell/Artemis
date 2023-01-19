@@ -22,6 +22,11 @@ namespace Artemis.EditorIntegration
             {
                 e.SetFlagId(FlagID.INVALID);
                 flagId = FlagID.INVALID;
+
+                //Repaint!
+                EditorUtility.SetDirty(e);
+                AssetDatabase.SaveAssets();
+                Repaint();
             }
 
             if (flagId != FlagID.INVALID)
@@ -76,7 +81,39 @@ namespace Artemis.EditorIntegration
 
             //Figure out why Resources works in the Ink Package but not in Artemis
             //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArtemisFlag Icon.png");
+
+            string fileSuffix = "";
+
+            if(example.GetFlagId() != FlagID.INVALID)
+            {
+                switch(example.GetValueType())
+                {
+                    case Flag.ValueType.FLOAT:
+                        fileSuffix = " Float";
+                        break;
+                    case Flag.ValueType.BOOL:
+                        fileSuffix = " Bool";
+                        break;
+                    case Flag.ValueType.SYMBOL:
+                        fileSuffix = " Symbol";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                if(example.GetValueType() == Flag.ValueType.INVALID)
+                {
+                    fileSuffix = " Unknown";
+                }
+                else
+                {
+                    fileSuffix = " Issue";
+                }
+            }
+
+            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArtemisFlag Icon" + fileSuffix + ".png");
 
             EditorUtility.CopySerialized(copyFrom, tex);
 

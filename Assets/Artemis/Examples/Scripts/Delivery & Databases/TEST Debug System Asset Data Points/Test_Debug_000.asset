@@ -41,12 +41,6 @@ MonoBehaviour:
         rhs: 50
         stateChecked: 3
         comparisonType: 6
-    - Key: 4
-      Value:
-        lhs: 50
-        rhs: 0
-        stateChecked: 4
-        comparisonType: 7
     - Key: 5
       Value:
         lhs: 50
