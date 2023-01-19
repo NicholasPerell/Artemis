@@ -108,7 +108,7 @@ namespace Artemis
                     switch (Goddess.instance.GetFlagValueType(flagIdChecked))
                     {
                         case Flag.ValueType.BOOL:
-                            rtn += flagIdChecked.ToString() + " = " + (lhs == 1);
+                            rtn += flagIdChecked.ToString() + " = " + (lhs == 1).ToString().ToUpper();
                             break;
                         case Flag.ValueType.FLOAT:
                             rtn += flagIdChecked.ToString() + " = " + lhs;
