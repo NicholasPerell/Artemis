@@ -6,10 +6,10 @@ namespace Artemis
 {
     public class FlagState : ScriptableObject
     { 
-        [SerializeField]
+        [HideInInspector]
         public SortedStrictDictionary<FlagID, Flag> flagsUsed;
         [SerializeField]
-        public Flag tempFlag;
+        public Flag[] tempFlags;
 
         public void Add(Flag _flag)
         {
@@ -21,9 +21,16 @@ namespace Artemis
 
         public void Remove(Flag _flag)
         {
-            if(flagsUsed.HasValue(_flag))
+            if (_flag != null)
             {
-                flagsUsed.Remove(_flag.GetFlagId());
+                if (flagsUsed.HasValue(_flag))
+                {
+                    flagsUsed.Remove(_flag.GetFlagId());
+                }
+            }
+            else
+            {
+                flagsUsed.Clean();
             }
         }
 

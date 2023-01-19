@@ -14,17 +14,34 @@ namespace Artemis.EditorIntegration
 
             EditorGUI.BeginChangeCheck();
 
-            e.tempFlag = (Flag)EditorGUILayout.ObjectField("Flag ", e.tempFlag, typeof(Flag), true);
+            DrawDefaultInspector();
+
+            //e.tempFlag = (Flag)EditorGUILayout.ObjectField("Flag ", e.tempFlag, typeof(Flag), false);
 
             if (GUILayout.Button("Add To List"))
             {
-                e.Add(e.tempFlag);
-                e.tempFlag = null;
+
+                if (e.tempFlags != null)
+                {
+                    foreach (Flag flag in e.tempFlags)
+                    {
+                        e.Add(flag);
+                    }
+                    e.tempFlags = null;
+                }
             }
             if (GUILayout.Button("Remove From List"))
             {
-                e.Remove(e.tempFlag);
-                e.tempFlag = null;
+                if(e.tempFlags == null)
+                {
+                    e.tempFlags = new Flag[1];
+                }
+
+                foreach (Flag flag in e.tempFlags)
+                {
+                    e.Remove(flag);
+                }
+                e.tempFlags = null;
             }
 
             EditorGUILayout.Space();
@@ -33,7 +50,7 @@ namespace Artemis.EditorIntegration
             EditorGUI.BeginDisabledGroup(true);
             foreach (Flag flag in flags)
             {
-                EditorGUILayout.ObjectField("", flag, typeof(Flag), true);
+                EditorGUILayout.ObjectField("", flag, typeof(Flag), false);
             }
             EditorGUI.EndDisabledGroup();
 
@@ -57,7 +74,7 @@ namespace Artemis.EditorIntegration
 
             //Figure out why Resources works in the Ink Package but not in Artemis
             //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArtemisFlag Icon.png");
+            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Database.png");
 
             EditorUtility.CopySerialized(copyFrom, tex);
 

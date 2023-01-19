@@ -55,6 +55,20 @@ public class SortedStrictDictionary<K,V> where K : IComparable
         }
     }
 
+    /// <summary>
+    /// Cleans out any null Keys or Values
+    /// </summary>
+    public void Clean()
+    {
+        for (int i = list.Count - 1; i >= 0; i--)
+        {
+            if (list[i].Value.Equals(null) || list[i].Key.Equals(null))
+            {
+                list.RemoveAt(i);
+            }
+        }
+    }
+
     public void Remove(K key)
     {
         V tempVal;
@@ -124,7 +138,7 @@ public class SortedStrictDictionary<K,V> where K : IComparable
     {
         for(int i = 0; i < list.Count; i++)
         {
-            if(value.Equals(value))
+            if(value.Equals(list[i].Value))
             {
                 return true;
             }
