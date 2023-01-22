@@ -4,7 +4,7 @@
 
 # ARTEMIS
 
-*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.weebly.com/). With the narrative programming done for *[Project Nautilus](https://store.steampowered.com/app/1953870/Project_Nautilus/)*'s narrative system as a basis, the hope is to expand the code to work for anyone's means for delivery (not just emails and subtitled voicelines in *PN*).
+*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.com/). With the narrative programming done for *[Project Nautilus](https://store.steampowered.com/app/1953870/Project_Nautilus/)*'s narrative system as a basis, the hope is to expand the code to work for anyone's means for delivery (not just emails and subtitled voicelines in *PN*).
 
 As opposed to gems for giving writer the ability to deliver narrative directly, like *Ink* and *Yarnspinner*, Artemus is about the logic that decides what should be deliveried to ensure the narrative beats feel reactive, appropriate, and timely.
 
