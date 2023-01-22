@@ -19,9 +19,9 @@ This branch is currently working towards **Version 0.2**! It's currently much le
 - The base code for Artemis's...
   - <ins>Arrows</ins> for each deliverable narrative beat, with ID's, priority values, and what criteria need to be met. 
   - <ins>Archers</ins>, which use the priority values (and when they were added to the archer) to determine which of a group of arrows should be delivered.
-  - <ins>Bundles</ins>, which can be prompted to dump into a archer of the designer's choosing.
+  - <ins>Arrow Bundles</ins>, which can be prompted to dump into a archer of the designer's choosing.
   - <ins>Flags</ins>, which store the values that is evaluated for an Arrow's criteria.
-  - <ins>Flag States</ins>, which bundle up flags into groups, to load and unload them as necessary to optimize the process.
+  - <ins>Flag Bundles</ins>, which bundle up flags into groups, to load and unload them as necessary to optimize the process.
   - <ins>Fletchers</ins>, which parse .CSV's[^sheets] to generate the databases full of the relevant information needed to direct the...
   - <ins>Bows</ins>, which are the monobehaviors that use the incoming data to deliver the narrative.
   - <ins>Goddess (Narrative System)</ins>, which tracks all the true/false flags the arrows use.
@@ -39,7 +39,7 @@ Although one of the best ways to get an understanding of *Artemis* would be to c
 ### Arrows <img src="https://raw.githubusercontent.com/nicholas-hoy-champain/narrative-system-project/d8e41bfca6e25fc062ffbac8ebde975d6accd94c/Assets/Artemis/Editor/Resources/branch-arrow.png" alt="Branch Arrow by Lorc" height="50px;" align="right">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
-- <ins>ID:</ins> string used to access the databases found in the fletchers it is connected to.
+- <ins>ID:</ins> string used to access the database found in the fletcher it is connected to.
 - <ins>Priority Value:</ins> int value used by the archer
 - <ins>Rule:</ins> flags that must be set to specified criteria (otherwise the datapoint will be skipped over by the archer)
 - <ins>How to handle busy:</ins> Enum. If the fletchers tries to fire the data point, but the delivery actor is busy, what is done? There are a couple options:
@@ -57,7 +57,7 @@ When recency bias is *off*, arrows of equal value (greater than 0) will be deliv
 
 When recency bias is *on*, the most recently added data point is the one that will delivered first. This was what _Project Nautilus_ utilized for the managerial AI, PASSION. If the player managed to do A and B before they get to the next narrative trigger, and both A and B added commentary the player can receive from PASSION, it made more sense that PASSION commented on the most recent action of the player, to make things feel reactive. Instead of a queue, the PQ becomes a "priority *stack*."
 
-### Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/quiver.png" alt="Quiver by Delapouite" height="50px;" align="right">
+### Arrow Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/quiver.png" alt="Quiver by Delapouite" height="50px;" align="right">
 
 Can be prompted to dump into a archer of the designer's choosing. These dumps are where recency bias being on or off on your archer are very important. More capabilities and options for bundles are planned for the future, but for now there aren't many.
 
