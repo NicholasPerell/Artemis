@@ -18,6 +18,13 @@ namespace Artemis
                                       //REFRESH_INCLUDING_BUNDLES_EVERYTHING
         }
 
+        public enum ChooseSamePriority
+        {
+            STACK,
+            QUEUE,
+            RANDOM
+        }
+
         [Space]
         [SerializeField]
         List<Arrow> defaultContents;
