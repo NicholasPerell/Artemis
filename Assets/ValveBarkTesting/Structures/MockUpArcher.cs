@@ -61,11 +61,11 @@ namespace Artemis
         /// <summary>
         /// Cleans out any null Keys or Values
         /// </summary>
-        private void CleanBBundleList()
+        private void CleanBundleList()
         {
             for (int i = bundleHistory.Count - 1; i >= 0; i--)
             {
-                if (bundleHistory[i].Equals(null))
+                if (bundleHistory[i].bundle == null)
                 {
                     bundleHistory.RemoveAt(i);
                 }
@@ -122,7 +122,7 @@ namespace Artemis
             }
             else
             {
-                CleanBBundleList();
+                CleanBundleList();
             }
         }
 

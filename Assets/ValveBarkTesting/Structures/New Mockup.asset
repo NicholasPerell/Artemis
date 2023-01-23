@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edcadba4856ec6a4b84313830371e19d, type: 3}
   m_Name: New Mockup
   m_EditorClassIdentifier: 
-  loops: 0
-  includeBundlesInLoop: 0
+  loops: 1
+  includeBundlesInLoop: 1
+  includeHigherPrioritiesInLoop: 1
+  discardArrowsAfterUse: 1
+  defaultContents:
+  - {fileID: 11400000, guid: 1ffc867ee438ccb429fd77871cfcb0ef, type: 2}
+  - {fileID: 11400000, guid: b0a1b5515c27c5945bc64e8fa1412477, type: 2}
+  - {fileID: 11400000, guid: 186cfc568f77f8d4bacc3aef09978f03, type: 2}
+  - {fileID: 11400000, guid: 9f471c53e55c86647ae831056dcfc6ff, type: 2}
+  - {fileID: 11400000, guid: 7d1ab753133275e4aba739dc4ac89233, type: 2}
+  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
+  tempArrowBundle: {fileID: 0}
