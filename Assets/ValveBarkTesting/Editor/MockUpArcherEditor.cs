@@ -13,12 +13,23 @@ namespace Artemis.EditorIntegration
         bool showDataStructuring = true;
         bool showPreview = true;
 
+        string partitionInfo = "One way to further optimize the Archer's decision-making process is by choosing symbol flags to be in every single arrow the Archer will consider. Knowing these, the arrows can be divvied up into seperate tables to pull from, allowing the Archer to skip assessing the arrows in other tables.";
+
         public override void OnInspectorGUI()
         {
 
             MockUpArcher mockUp = (MockUpArcher)target;
 
             DrawDefaultInspector();
+
+            if (GUILayout.Button("Initialize"))
+            {
+            }
+            EditorGUI.BeginDisabledGroup(!Application.isPlaying);
+            if (GUILayout.Button("Attempt Delivery"))
+            {
+            }
+            EditorGUI.EndDisabledGroup();
 
             EditorGUILayout.Space();
             showDescisionMaking = EditorGUILayout.BeginFoldoutHeaderGroup(showDescisionMaking, "Decision Making");
@@ -34,6 +45,9 @@ namespace Artemis.EditorIntegration
                 {
                     mockUp.includeBundlesInLoop = EditorGUILayout.Toggle("\u21B3 Include Bundles", mockUp.includeBundlesInLoop);
                     mockUp.includeHigherPrioritiesInLoop = EditorGUILayout.Toggle("\u21B3 Include Higher Priorities", mockUp.includeHigherPrioritiesInLoop);
+                    if (GUILayout.Button("Set To Looped State"))
+                    {
+                    }
                 }
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
@@ -70,6 +84,8 @@ namespace Artemis.EditorIntegration
             if(showDataStructuring)
             {
 
+                EditorGUILayout.HelpBox(partitionInfo, MessageType.Info);
+
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
 
@@ -80,7 +96,7 @@ namespace Artemis.EditorIntegration
             //if (showPreview)
             //{
 
-
+            
 
             //}
             //EditorGUILayout.EndFoldoutHeaderGroup();
