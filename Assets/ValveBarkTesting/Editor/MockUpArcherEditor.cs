@@ -8,37 +8,83 @@ namespace Artemis.EditorIntegration
     [CustomEditor(typeof(MockUpArcher))]
     public class MockUpArcherEditor : Editor
     {
+        bool showBundleOptions = true;
+        bool showDescisionMaking = true;
+        bool showDataStructuring = true;
+        bool showPreview = true;
+
         public override void OnInspectorGUI()
         {
 
-
             MockUpArcher mockUp = (MockUpArcher)target;
 
-
-            //DrawDefaultInspector();
-
-            EditorGUILayout.HelpBox("This is a help box", MessageType.Info);
-
-            if (GUILayout.Button("Press me!"))
-            {
-                Debug.Log("Button pressed");
-            }
+            DrawDefaultInspector();
 
             EditorGUILayout.Space();
+            showDescisionMaking = EditorGUILayout.BeginFoldoutHeaderGroup(showDescisionMaking, "Decision Making");
+            if (showDescisionMaking)
+            {
+                mockUp.SetChoosingSamePriority((Archer.ChooseSamePriority)EditorGUILayout.EnumPopup("Handling Same Priority", mockUp.GetChoosingSamePriority()));
 
+                mockUp.discardArrowsAfterUse = EditorGUILayout.Toggle("Discard Arrows After Use", mockUp.discardArrowsAfterUse);
 
-            mockUp.SetChoosingSamePriority((Archer.ChooseSamePriority)EditorGUILayout.EnumPopup("Handling Same Priority", mockUp.GetChoosingSamePriority()));
+                mockUp.loops = EditorGUILayout.Toggle("Loops", mockUp.loops);
+
+                if (mockUp.loops)
+                {
+                    mockUp.includeBundlesInLoop = EditorGUILayout.Toggle("\u21B3 Include Bundles", mockUp.includeBundlesInLoop);
+                    mockUp.includeHigherPrioritiesInLoop = EditorGUILayout.Toggle("\u21B3 Include Higher Priorities", mockUp.includeHigherPrioritiesInLoop);
+                }
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
 
             EditorGUILayout.Space();
-
-            mockUp.loops = EditorGUILayout.Toggle("Loops", mockUp.loops);
-
-            if (mockUp.loops)
+            showBundleOptions = EditorGUILayout.BeginFoldoutHeaderGroup(showBundleOptions, "Arrow Bundles");
+            if (showBundleOptions)
             {
-                mockUp.includeBundlesInLoop = EditorGUILayout.Toggle("\u21B3 Include Bundles", mockUp.includeBundlesInLoop);
-                mockUp.includeHigherPrioritiesInLoop = EditorGUILayout.Toggle("\u21B3 Include Higher Priorities", mockUp.includeHigherPrioritiesInLoop);
-            }
+                mockUp.tempArrowBundle = (ArrowBundle)EditorGUILayout.ObjectField("Temp Bundle ", mockUp.tempArrowBundle, typeof(ArrowBundle), false);
+                if (GUILayout.Button("Dump Bundle"))
+                {
+                    mockUp.DumpBundle(mockUp.tempArrowBundle);
+                    mockUp.tempArrowBundle = null;
+                }
+                if (GUILayout.Button("Drop Bundle"))
+                {
+                    mockUp.RemoveBundle(mockUp.tempArrowBundle);
+                    mockUp.tempArrowBundle = null;
+                }
 
+                EditorGUILayout.Space();
+
+                EditorGUI.BeginDisabledGroup(true);
+                foreach (MockUpArcher.BundleLog e in mockUp.GetBundleHistory())
+                {
+                    EditorGUILayout.ObjectField(e.isAdding ? "+" : "-", e.bundle, typeof(ArrowBundle), false);
+                }
+                EditorGUI.EndDisabledGroup();
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
+            EditorGUILayout.Space();
+            showDataStructuring = EditorGUILayout.BeginFoldoutHeaderGroup(showDataStructuring, "Data Structuring");
+            if(showDataStructuring)
+            {
+
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Preview");
+            //showPreview = EditorGUILayout.BeginFoldoutHeaderGroup(showPreview, "Preview");
+            //if (showPreview)
+            //{
+
+
+
+            //}
+            //EditorGUILayout.EndFoldoutHeaderGroup();
         }
+
     }
 }

@@ -8,26 +8,6 @@ namespace Artemis
     public class ArrowBundle : ScriptableObject
     {
         [SerializeField]
-        Arrow[] narrativeDataPoints;
-        [Space]
-        [SerializeField]
-        Archer sendTo;
-        bool sentOut = false;
-
-        public void Init()
-        {
-            sentOut = false;
-        }
-
-        public bool SendBundle()
-        {
-            bool success = !sentOut;
-            if (success)
-            {
-                sendTo.RecieveBundle(narrativeDataPoints);
-                sentOut = true;
-            }
-            return success;
-        }
+        Arrow[] arrows;
     }
 }

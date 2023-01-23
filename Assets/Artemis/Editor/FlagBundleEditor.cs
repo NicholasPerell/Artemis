@@ -16,8 +16,6 @@ namespace Artemis.EditorIntegration
 
             DrawDefaultInspector();
 
-            //e.tempFlag = (Flag)EditorGUILayout.ObjectField("Flag ", e.tempFlag, typeof(Flag), false);
-
             if (GUILayout.Button("Add To List"))
             {
 
