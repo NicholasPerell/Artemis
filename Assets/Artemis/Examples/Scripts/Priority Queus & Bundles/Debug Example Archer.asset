@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
   m_Name: Debug Example Archer
   m_EditorClassIdentifier: 
+  loops: 1
+  includeBundlesInLoop: 0
+  includeHigherPrioritiesInLoop: 0
+  discardArrowsAfterUse: 1
   defaultContents:
   - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
   - {fileID: 11400000, guid: bb33a576e6b2e6c468325aaf0f4ee066, type: 2}
@@ -31,22 +35,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bf15acfdab66834aa083d1ce28d1111, type: 2}
   - {fileID: 11400000, guid: 1337ee4f11bb41c408a6d05d530653a1, type: 2}
   - {fileID: 11400000, guid: cd7af124a4b005248ba4738bb9622931, type: 2}
-  recencyBias: 1
-  priorityQueue:
-    mRecencyBias: 1
-    mList:
-    - mValue: {fileID: 11400000, guid: cd7af124a4b005248ba4738bb9622931, type: 2}
-      mPriority: -6
-    - mValue: {fileID: 11400000, guid: db65b7f32ef181e479b788a689b71c34, type: 2}
-      mPriority: -3
-    - mValue: {fileID: 11400000, guid: 8bf15acfdab66834aa083d1ce28d1111, type: 2}
-      mPriority: -2
-    - mValue: {fileID: 11400000, guid: 1337ee4f11bb41c408a6d05d530653a1, type: 2}
-      mPriority: -1
-  generalPool:
-  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
-  - {fileID: 11400000, guid: bb33a576e6b2e6c468325aaf0f4ee066, type: 2}
-  - {fileID: 11400000, guid: bb33a576e6b2e6c468325aaf0f4ee066, type: 2}
-  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
-  - {fileID: 11400000, guid: bb33a576e6b2e6c468325aaf0f4ee066, type: 2}
-  - {fileID: 11400000, guid: 549e8b703c09583489f3511c6823d376, type: 2}
+  tempArrowBundle: {fileID: 0}

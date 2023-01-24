@@ -11,9 +11,8 @@ namespace Artemis.EditorIntegration
         bool showBundleOptions = true;
         bool showDescisionMaking = true;
         bool showDataStructuring = true;
-        bool showPreview = true;
 
-        string partitionInfo = "One way to further optimize the Archer's decision-making process is by choosing symbol flags to be in every single arrow the Archer will consider. Knowing these, the arrows can be divvied up into seperate tables to pull from, allowing the Archer to skip assessing the arrows in other tables.";
+        string partitionInfo = "By choosing symbol flags to be in every single arrow an Archer will consider, the arrows can be divvied up into seperate tables.";
 
         public override void OnInspectorGUI()
         {
@@ -92,14 +91,6 @@ namespace Artemis.EditorIntegration
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Preview");
-            //showPreview = EditorGUILayout.BeginFoldoutHeaderGroup(showPreview, "Preview");
-            //if (showPreview)
-            //{
-
-            
-
-            //}
-            //EditorGUILayout.EndFoldoutHeaderGroup();
         }
 
     }
