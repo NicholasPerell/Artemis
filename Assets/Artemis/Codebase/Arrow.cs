@@ -136,6 +136,24 @@ namespace Artemis
         }
 #endif
 
+        public bool TryGetFlagEqualsValue(FlagID id, out float value)
+        {
+            bool success = false;
+            value = -1;
+
+            if(rule.HasKey(id))
+            {
+                Criterion criterion = rule[id];
+                if(criterion.GetComparisonType() == CriterionComparisonType.EQUALS)
+                {
+                    value = criterion.getA();
+                    success = true;
+                }
+            }
+
+            return success;
+        }
+
         public int GetRuleSize()
         {
             return rule.Count;

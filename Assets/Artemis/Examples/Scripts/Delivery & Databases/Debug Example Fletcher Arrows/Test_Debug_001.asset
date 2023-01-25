@@ -37,14 +37,14 @@ MonoBehaviour:
         comparisonType: 0
     - Key: 8
       Value:
-        lhs: 1
-        rhs: 1
+        lhs: 0
+        rhs: 0
         flagIdChecked: 8
         comparisonType: 0
     - Key: 9
       Value:
-        lhs: 0
-        rhs: 0
+        lhs: 1
+        rhs: 1
         flagIdChecked: 9
         comparisonType: 0
     - Key: 10

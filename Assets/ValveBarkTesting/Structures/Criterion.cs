@@ -151,5 +151,15 @@ namespace Artemis
         {
             return flagIdChecked.CompareTo(other.GetStateChecked());
         }
+
+        public float getA()
+        {
+            return lhs;
+        }
+
+        public float getB()
+        {
+            return rhs;
+        }
     }
 }

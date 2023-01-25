@@ -11,33 +11,34 @@ using UnityEditor;
 namespace Artemis
 {
     //[CreateAssetMenu(fileName = "New Artemis Narrative System", menuName = "Artemis/Overall Narrative System")]
+    [FilePath("Assets/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
     {
         [SerializeField]
-        private List<FlagID> flagsIdsToKeep;
+        private List<FlagID> flagsIdsToKeep = new List<FlagID>();
 
         [HideInInspector]
-        private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes;
+        private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes = new SortedStrictDictionary<FlagID, Flag.ValueType>();
 
         [HideInInspector]
-        private SortedStrictDictionary<FlagID, InternalSymbolCompiler> flagSymbolTypes;
+        private SortedStrictDictionary<FlagID, InternalSymbolCompiler> flagSymbolTypes = new SortedStrictDictionary<FlagID, InternalSymbolCompiler>();
 
         //For managing internal symbols
         [HideInInspector]
-        private SortedStrictList<FlagID> idsUsed;
+        private SortedStrictList<FlagID> idsUsed = new SortedStrictList<FlagID>();
         [HideInInspector]
-        private SortedStrictDictionary<string, int> toAdd;
+        private SortedStrictDictionary<string, int> toAdd = new SortedStrictDictionary<string, int>();
         [HideInInspector]
-        private SortedStrictList<int> intsReadyToConvert;
+        private SortedStrictList<int> intsReadyToConvert = new SortedStrictList<int>();
         [HideInInspector]
-        private List<FlagID> toRemove;
+        private List<FlagID> toRemove = new List<FlagID>();
 
         //TO DO: convert to list
         [SerializeField]
-        public FlagBundle[] globallyLoadedFlagBundles;
+        public FlagBundle[] globallyLoadedFlagBundles = new FlagBundle[0];
 
         [HideInInspector]
-        private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections;
+        private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections = new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
 
         public void Awake()
         {
@@ -140,6 +141,8 @@ namespace Artemis
                 id = FlagID.INVALID;
             }
 
+            Modify();
+
             return id;
         }
 
@@ -169,18 +172,21 @@ namespace Artemis
             }
 
             EditorUtility.SetDirty(this);
+
+            Modify();
         }
 
         private string GetContainingFolder()
         {
             string rtn = AssetDatabase.GetAssetPath(this);
-            rtn = rtn.Substring(0, rtn.LastIndexOf('/'));
+            //rtn = rtn.Substring(0, rtn.LastIndexOf('/'));
+            rtn = "Assets/Artemis";
             return rtn;
         }
 
         private string GetFlagRepoFolderName()
         {
-            return this.name + " Flag Repo";
+            return this.name + "Artemis Flag Repo";
         }
 
         public void WriteFlagEnumScript()
@@ -251,6 +257,7 @@ namespace Artemis
                 flagSymbolTypes[i].Value.WriteFlagEnumScript();
             }
 
+            Modify();
         }
 
         private int FindValidUnusedFlagIDNumber()
@@ -332,8 +339,10 @@ namespace Artemis
         }
 
         [ContextMenu("Reset Entirely")]
-        private void Reset()
+        public void Reset()
         {
+
+            flagsIdsToKeep.Clear();
             toAdd.Clear();
             toRemove.Clear();
             intsReadyToConvert.Clear();
@@ -343,7 +352,13 @@ namespace Artemis
             flagSymbolTypes.Clear();
 
             WriteFlagEnumScript();
+            Modify();
         }
 #endif
+
+        private void Modify()
+        {
+            Save(true);
+        }
     }
 }

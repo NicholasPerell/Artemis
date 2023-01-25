@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Artemis
 {
-    //[CreateAssetMenu(fileName = "New Artemis Narrative Priority Queue", menuName = "Artemis/Narrative Priority Queue")]
     public class Archer : ScriptableObject
     {
         public struct BundleLog
@@ -26,6 +26,14 @@ namespace Artemis
             STACK,
             RANDOM
         }
+
+        //New Listings
+        [SerializeField]
+        List<Arrow> overallData;
+        [SerializeField]
+        List<FlagID> partitioningFlags;
+        [SerializeField]
+        SortedStrictDictionary<string, List<Arrow>> partitionedData;
 
         //TODO: Scrap
         [HideInInspector]
@@ -59,66 +67,163 @@ namespace Artemis
         [HideInInspector]
         public ArrowBundle tempArrowBundle;
         [HideInInspector]
-        private List<BundleLog> bundleHistory;
+        private List<BundleLog> bundleHistory = new List<BundleLog>();
 
         public bool IsEmpty { get { return priorityQueue.IsEmpty() && generalPool.Count == 0; } }
 
-        [ContextMenu("Init")]
         public void Init()
         {
-            Refresh(true);
+            Refresh(true,false);
         }
 
-        void Refresh(bool includePriorityQueue)
+        private void Refresh(bool includeNonZeroPriority, bool includeBundles)
         {
-            generalPool = new List<Arrow>();
-            generalPool.AddRange(defaultContents);
-            priorityQueue = new PriorityQueue<Arrow>(true);
+            overallData = new List<Arrow>();
+            partitionedData = new SortedStrictDictionary<string, List<Arrow>>();
 
-            for (int i = generalPool.Count - 1; i > 1; i--)
+            foreach (Arrow arrow in defaultContents)
             {
-                int rnd = UnityEngine.Random.Range(0, i + 1);
-                Arrow tmp = generalPool[rnd];
-                generalPool[rnd] = generalPool[i];
-                generalPool[i] = tmp;
+                if(arrow.GetPriority() == 0 || includeNonZeroPriority)
+                RecieveDataPoint(arrow);
             }
 
-            for (int i = generalPool.Count - 1; i >= 0; i--)
+            if (includeBundles)
             {
-                Arrow tmp = generalPool[i];
-                if (tmp.IsPriority())
+                foreach(BundleLog log in bundleHistory)
                 {
-                    if (includePriorityQueue)
+                    if(log.isAdding)
                     {
-                        priorityQueue.Enqueue(tmp, -tmp.GetPriority());
+                        DumpArrowsOfBundle(log.bundle);
                     }
-                    generalPool.RemoveAt(i);
+                    else
+                    {
+                        DropArrowsOfBundle(log.bundle);
+                    }
                 }
             }
+            else
+            {
+                bundleHistory.Clear();
+            }
         }
 
-        public void RecieveBundle(Arrow[] narrativeDataPoints)
+        public void SetLoopedState()
         {
-            foreach (Arrow e in narrativeDataPoints)
-            {
-                RecieveDataPoint(e);
-            }
+            Refresh(includeHigherPrioritiesInLoop, includeBundlesInLoop);
         }
 
         public void RecieveDataPoint(Arrow dataPoint)
         {
-            if (dataPoint.IsPriority())
+            //Overall Data
+            if (overallData.Count != 0)
             {
-                priorityQueue.Enqueue(dataPoint, -dataPoint.GetPriority());
+                int i;
+                for (i = 0; i < overallData.Count; i++)
+                {
+                    bool insertable;
+                    if(recencyBias)
+                    {
+                        insertable = overallData[i].GetPriority() <= dataPoint.GetPriority();
+                    }
+                    else
+                    {
+                        insertable = overallData[i].GetPriority() < dataPoint.GetPriority();
+                    }
+
+                    if(insertable)
+                    {
+                        break;
+                    }
+                }
+                overallData.Insert(i, dataPoint);
             }
             else
             {
-                int rnd = UnityEngine.Random.Range(0, generalPool.Count);
-                generalPool.Insert(rnd, dataPoint);
+                overallData.Add(dataPoint);
+            }
+
+            //Partitioned Data
+            if(partitioningFlags.Count != 0)
+            {
+
+                /*Float to string and then back
+                //StringBuilder stringBuilder = new StringBuilder();
+                //float value;
+                //char[] valConvert;
+
+                
+                //foreach (FlagID id in partitioningFlags)
+                //{
+                //    dataPoint.TryGetFlagEqualsValue(id, out value);
+                //    valConvert = Encoding.ASCII.GetChars(BitConverter.GetBytes(value));
+                //    stringBuilder.Append(valConvert);
+                //}
+                //string key = stringBuilder.ToString();
+                //if (!partitionedData.HasKey(key))
+                //{
+                //    partitionedData.Add(key, new List<Arrow>());
+                //}
+
+                ////Debug
+                //stringBuilder.Clear();
+                //int charArrLength = key.Length / partitioningFlags.Count;
+                //for (int i = 0; i < partitioningFlags.Count; i++)
+                //{
+                //    valConvert = key.Substring(i * charArrLength, charArrLength).ToCharArray();
+                //    byte[] b = Encoding.ASCII.GetBytes(valConvert);
+                //    Debug.LogError(b.Length);
+                //    value = BitConverter.ToSingle(b);
+                //    stringBuilder.Append(value);
+                //    stringBuilder.Append(" ");
+                //}
+                //Debug.Log(stringBuilder.ToString());*/
+
+                StringBuilder stringBuilder = new StringBuilder();
+                float value;
+                foreach (FlagID id in partitioningFlags)
+                {
+                    dataPoint.TryGetFlagEqualsValue(id, out value);
+                    stringBuilder.Append(value);
+                    stringBuilder.Append('#');
+                }
+                string key = stringBuilder.ToString();
+                if (!partitionedData.HasKey(key))
+                {
+                    partitionedData.Add(key, new List<Arrow>());
+                }
+
+                List<Arrow> bucket = partitionedData[key];
+
+                if (bucket.Count != 0)
+                {
+                    int i;
+                    for (i = 0; i < bucket.Count; i++)
+                    {
+                        bool insertable;
+                        if (recencyBias)
+                        {
+                            //TODO: Consider putting this and the overall version into a function
+                            insertable = bucket[i].GetPriority() <= dataPoint.GetPriority();
+                        }
+                        else
+                        {
+                            insertable = bucket[i].GetPriority() < dataPoint.GetPriority();
+                        }
+
+                        if (insertable)
+                        {
+                            break;
+                        }
+                    }
+                    bucket.Insert(i, dataPoint);
+                }
+                else
+                {
+                    bucket.Add(dataPoint);
+                }
             }
         }
 
-        [ContextMenu("Attempt Delivery")]
         public bool AttemptDelivery()
         {
             if (IsEmpty)
@@ -188,12 +293,52 @@ namespace Artemis
             bool temp = AttemptDelivery();
         }
 
-        public void SetChoosingSamePriority(Archer.ChooseSamePriority _chooseSamePriority)
+        public void SetChoosingSamePriority(ChooseSamePriority _chooseSamePriority)
         {
             chooseSamePriority = _chooseSamePriority;
+            if((_chooseSamePriority == ChooseSamePriority.QUEUE && recencyBias)
+                || (_chooseSamePriority == ChooseSamePriority.STACK && !recencyBias))
+            {
+                FlipRecencyBias();
+            }
         }
 
-        public Archer.ChooseSamePriority GetChoosingSamePriority()
+        private void FlipRecencyBias()
+        {
+            recencyBias = !recencyBias;
+
+            FlipArrowList(overallData);
+            for(int i = 0; i < partitionedData.Count; i++)
+            {
+                FlipArrowList(partitionedData[i].Value);
+            }
+        }
+
+        private void FlipArrowList(List<Arrow> toFlip)
+        {
+            if(toFlip.Count <= 1)
+            {
+                return;
+            }
+
+            int targetIndex = 0;
+            int targetPriority = toFlip[0].GetPriority();
+            int tempPriority;
+            int i;
+            for (i = 1; i < toFlip.Count; i++)
+            {
+                tempPriority = toFlip[i].GetPriority();
+                if (targetPriority != tempPriority)
+                {
+                    toFlip.Reverse(targetIndex, i - targetIndex);
+                    targetIndex = i;
+                    targetPriority = toFlip[i].GetPriority();
+                }
+            }
+            toFlip.Reverse(targetIndex, i - targetIndex);
+        }
+
+        public ChooseSamePriority GetChoosingSamePriority()
         {
             return chooseSamePriority;
         }
@@ -217,20 +362,31 @@ namespace Artemis
 
         private void DumpArrowsOfBundle(ArrowBundle toDump)
         {
+            if(toDump == null)
+            {
+                return;
+            }
+
             foreach (Arrow e in toDump.arrows)
             {
                 RecieveDataPoint(e);
             }
         }
 
-        public void RemoveBundle(ArrowBundle toDrop)
+        public void DropBundle(ArrowBundle toDrop)
         {
-            RemoveArrowsOfBundle(toDrop);
+            DropArrowsOfBundle(toDrop);
             LogBundleHistory(toDrop, false);
         }
 
-        private void RemoveArrowsOfBundle(ArrowBundle toDrop)
+        //Should it remove all instances of that arrow?
+        private void DropArrowsOfBundle(ArrowBundle toDrop)
         {
+            if (toDrop == null)
+            {
+                return;
+            }
+
             foreach (Arrow e in toDrop.arrows)
             {
                 //TODO

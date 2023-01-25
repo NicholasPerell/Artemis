@@ -65,5 +65,11 @@ MonoBehaviour:
         rhs: 1e-45
         flagIdChecked: 7
         comparisonType: 8
+    - Key: 8
+      Value:
+        lhs: 0
+        rhs: 0
+        flagIdChecked: 8
+        comparisonType: 0
   howToHandleBusy: 0
   howPriorityCalculated: 0

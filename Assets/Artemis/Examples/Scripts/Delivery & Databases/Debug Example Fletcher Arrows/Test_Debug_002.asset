@@ -35,11 +35,11 @@ MonoBehaviour:
         rhs: 0
         flagIdChecked: 2
         comparisonType: 0
-    - Key: 10
+    - Key: 8
       Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 10
+        flagIdChecked: 8
         comparisonType: 0
     - Key: 11
       Value:

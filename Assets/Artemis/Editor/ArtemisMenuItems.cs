@@ -6,6 +6,12 @@ namespace Artemis.EditorIntegration
 {
     public class ArtemisMenuItems
     {
+        [MenuItem("Artemis/Reset Goddess")]
+        private static void Help()
+        {
+            Goddess.instance.Reset();
+        }
+
         [MenuItem("Assets/Create/Artemis/Archer")]
         private static void CreateArcher()
         {
