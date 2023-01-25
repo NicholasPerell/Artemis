@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -29,11 +30,13 @@ namespace Artemis
 
         //New Listings
         [SerializeField]
-        List<Arrow> overallData;
+        List<Arrow> overallData = new List<Arrow>();
         [SerializeField]
-        List<FlagID> partitioningFlags;
+        List<FlagID> partitioningFlags = new List<FlagID>();
         [SerializeField]
-        SortedStrictDictionary<string, List<Arrow>> partitionedData;
+        List<FlagID> tempPartitioningFlags = new List<FlagID>();
+        [SerializeField]
+        SortedStrictDictionary<string, List<Arrow>> partitionedData = new SortedStrictDictionary<string, List<Arrow>>();
 
         //TODO: Scrap
         [HideInInspector]
@@ -69,7 +72,7 @@ namespace Artemis
         [HideInInspector]
         private List<BundleLog> bundleHistory = new List<BundleLog>();
 
-        public bool IsEmpty { get { return priorityQueue.IsEmpty() && generalPool.Count == 0; } }
+        public bool IsEmpty { get { return overallData.Count == 0; } }
 
         public void Init()
         {
@@ -145,39 +148,6 @@ namespace Artemis
             //Partitioned Data
             if(partitioningFlags.Count != 0)
             {
-
-                /*Float to string and then back
-                //StringBuilder stringBuilder = new StringBuilder();
-                //float value;
-                //char[] valConvert;
-
-                
-                //foreach (FlagID id in partitioningFlags)
-                //{
-                //    dataPoint.TryGetFlagEqualsValue(id, out value);
-                //    valConvert = Encoding.ASCII.GetChars(BitConverter.GetBytes(value));
-                //    stringBuilder.Append(valConvert);
-                //}
-                //string key = stringBuilder.ToString();
-                //if (!partitionedData.HasKey(key))
-                //{
-                //    partitionedData.Add(key, new List<Arrow>());
-                //}
-
-                ////Debug
-                //stringBuilder.Clear();
-                //int charArrLength = key.Length / partitioningFlags.Count;
-                //for (int i = 0; i < partitioningFlags.Count; i++)
-                //{
-                //    valConvert = key.Substring(i * charArrLength, charArrLength).ToCharArray();
-                //    byte[] b = Encoding.ASCII.GetBytes(valConvert);
-                //    Debug.LogError(b.Length);
-                //    value = BitConverter.ToSingle(b);
-                //    stringBuilder.Append(value);
-                //    stringBuilder.Append(" ");
-                //}
-                //Debug.Log(stringBuilder.ToString());*/
-
                 StringBuilder stringBuilder = new StringBuilder();
                 float value;
                 foreach (FlagID id in partitioningFlags)
@@ -301,6 +271,53 @@ namespace Artemis
             {
                 FlipRecencyBias();
             }
+        }
+
+        public void Repartition()
+        {
+            partitionedData = new SortedStrictDictionary<string, List<Arrow>>();
+
+            //Validate flags
+            partitioningFlags = new List<FlagID>(tempPartitioningFlags.Distinct().ToList());
+            partitioningFlags.Remove(FlagID.INVALID);
+            for (int i = partitioningFlags.Count - 1; i >= 0; i--)
+            {
+                if(Goddess.instance.GetFlagValueType(partitioningFlags[i]) != Flag.ValueType.SYMBOL)
+                {
+                    partitioningFlags.RemoveAt(i);
+                }
+            }
+
+
+            if (partitioningFlags.Count != 0)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                float value;
+                string key;
+                foreach (Arrow arrow in overallData)
+                {
+                    stringBuilder.Clear();
+                    foreach (FlagID id in partitioningFlags)
+                    {
+                        arrow.TryGetFlagEqualsValue(id, out value);
+                        stringBuilder.Append((int)value);
+                        stringBuilder.Append('#');
+                    }
+                    key = stringBuilder.ToString();
+
+                    if (!partitionedData.HasKey(key))
+                    {
+                        partitionedData.Add(key, new List<Arrow>());
+                    }
+
+                    partitionedData[key].Add(arrow);
+
+                    Debug.Log(key + " " + arrow.name);
+
+                }
+            }
+
+            tempPartitioningFlags = new List<FlagID>(partitioningFlags);
         }
 
         private void FlipRecencyBias()

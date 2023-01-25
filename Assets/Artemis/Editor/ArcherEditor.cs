@@ -17,30 +17,39 @@ namespace Artemis.EditorIntegration
         SerializedProperty overallData;
         SerializedProperty partitioningFlags;
         SerializedProperty partitionedData;
+        SerializedProperty defaultContents;
+        SerializedProperty tempPartitioningFlags;
 
         protected virtual void OnEnable()
         {
             overallData = serializedObject.FindProperty("overallData");
             partitioningFlags = serializedObject.FindProperty("partitioningFlags");
             partitionedData = serializedObject.FindProperty("partitionedData");
+            defaultContents = serializedObject.FindProperty("defaultContents");
+            tempPartitioningFlags = serializedObject.FindProperty("tempPartitioningFlags");
         }
 
         public override void OnInspectorGUI()
         {
             Archer archer = (Archer)target;
 
-            DrawDefaultInspector();
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(defaultContents);
 
             EditorGUI.BeginChangeCheck();
+            bool changed = false;
 
             if (GUILayout.Button("Initialize"))
             {
                 archer.Init();
+                changed = true;
             }
             EditorGUI.BeginDisabledGroup(!Application.isPlaying);
             if (GUILayout.Button("Attempt Delivery"))
             {
                 archer.IgnoreSuccessAttemptDelivery();
+                changed = true;
             }
             EditorGUI.EndDisabledGroup();
 
@@ -61,6 +70,7 @@ namespace Artemis.EditorIntegration
                     if (GUILayout.Button("Set To Looped State"))
                     {
                         archer.SetLoopedState();
+                        changed = true;
                     }
                 }
             }
@@ -75,11 +85,13 @@ namespace Artemis.EditorIntegration
                 {
                     archer.DumpBundle(archer.tempArrowBundle);
                     archer.tempArrowBundle = null;
+                    changed = true;
                 }
                 if (GUILayout.Button("Drop Bundle"))
                 {
                     archer.DropBundle(archer.tempArrowBundle);
                     archer.tempArrowBundle = null;
+                    changed = true;
                 }
 
                 EditorGUILayout.Space();
@@ -94,25 +106,36 @@ namespace Artemis.EditorIntegration
             EditorGUILayout.EndFoldoutHeaderGroup();
 
             EditorGUILayout.Space();
-            showDataStructuring = EditorGUILayout.BeginFoldoutHeaderGroup(showDataStructuring, "Data Structuring");
-            if (showDataStructuring)
+            EditorGUILayout.Space();
+            EditorGUILayout.HelpBox(partitionInfo, MessageType.Info);
+            EditorGUILayout.PropertyField(tempPartitioningFlags, new GUIContent("Temp Partition Flags"));
+            if (GUILayout.Button("Partition"))
             {
-
-                EditorGUILayout.HelpBox(partitionInfo, MessageType.Info);
-
+                archer.Repartition();
+                changed = true;
             }
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            GUIStyle partitionLayoutStyle = new GUIStyle(EditorStyles.label);
+            partitionLayoutStyle.alignment = TextAnchor.MiddleCenter;
+            string partitionOfficialText = "";
+            for (int i = 0; i < partitioningFlags.arraySize; i++)
+            {
+                partitionOfficialText += partitioningFlags.GetArrayElementAtIndex(i).enumNames[partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex];
+                if (i + 1 < partitioningFlags.arraySize)
+                {
+                    partitionOfficialText += "—";
+                }
+            }
+
+            if (partitionOfficialText.Length > 0)
+            {
+                EditorGUILayout.LabelField(partitionOfficialText, partitionLayoutStyle);
+            }
+
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Preview",EditorStyles.boldLabel);
             if (partitioningFlags.arraySize > 0)
             {
-                //Test finding values
-
-                for(int l = 0; l < partitioningFlags.arraySize; l++)
-                EditorGUILayout.HelpBox("" + partitioningFlags.GetArrayElementAtIndex(l).enumNames[partitioningFlags.GetArrayElementAtIndex(l).enumValueIndex],MessageType.Info);
-
-
                 SerializedProperty tempProperty2k;
                 SerializedProperty tempProperty2v;
                 SerializedProperty tempProperty3;
@@ -134,7 +157,6 @@ namespace Artemis.EditorIntegration
                     {
                         value = float.Parse(keyStrings[i]);
 
-
                         System.Type enumType = Goddess.instance.GetFlagSymbolType(Enum.Parse<FlagID>(partitioningFlags.GetArrayElementAtIndex(i).enumNames[partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex]));
                         if (enumType != null)
                         {
@@ -145,13 +167,11 @@ namespace Artemis.EditorIntegration
                         sectionName += Mathf.FloorToInt(value);
                         if(i + 1 < partitioningFlags.arraySize)
                         {
-                            sectionName += "-";
+                            sectionName += "—";
                         }
                     }
                     
                     EditorGUILayout.LabelField(sectionName);
-
-
 
                     for (int k = 0; k < tempProperty2v.arraySize; k++)
                     {
@@ -160,6 +180,7 @@ namespace Artemis.EditorIntegration
                         EditorGUILayout.ObjectField(tempProperty3, new GUIContent(""));
                         EditorGUI.EndDisabledGroup();
                     }
+                    EditorGUILayout.Space();
                 }
             }
             else
@@ -174,7 +195,9 @@ namespace Artemis.EditorIntegration
                 EditorGUI.EndDisabledGroup();
             }
 
-            if (EditorGUI.EndChangeCheck())
+            serializedObject.ApplyModifiedProperties();
+
+            if (EditorGUI.EndChangeCheck() || changed)
             {
                 EditorUtility.SetDirty(archer);
                 AssetDatabase.SaveAssets();

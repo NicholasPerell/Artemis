@@ -7,7 +7,7 @@ using UnityEngine;
 public class SortedStrictDictionary<K,V> where K : IComparable
 {
     [SerializeField]
-    List<Tuple> list;
+    List<Tuple> list = new List<Tuple>();
 
     //Created in place of KeyValuePairs to allow for serialization
     [System.Serializable]
