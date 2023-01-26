@@ -158,7 +158,7 @@ namespace Artemis
                     for (i = 0; i < list.Count; i++)
                     {
                         bool insertable;
-                        if (recencyBias)
+                        if (recencyBias || returningArrow)
                         {
                             insertable = list[i].GetPriority() <= dataPoint.GetPriority();
                         }
@@ -477,9 +477,25 @@ namespace Artemis
                 return;
             }
 
+            StringBuilder stringBuilder = new StringBuilder();
+            float value;
             foreach (Arrow e in toDrop.arrows)
             {
-                //TODO
+                if(overallData.Remove(e))
+                {
+                    stringBuilder.Clear();
+                    foreach (FlagID id in partitioningFlags)
+                    {
+                        e.TryGetFlagEqualsValue(id, out value);
+                        stringBuilder.Append(value);
+                        stringBuilder.Append('#');
+                    }
+                    string key = stringBuilder.ToString();
+                    if (partitionedData.HasKey(key))
+                    {
+                        partitionedData[key].Remove(e);
+                    }
+                }
             }
         }
 
