@@ -38,12 +38,6 @@ namespace Artemis
         [SerializeField]
         SortedStrictDictionary<string, List<Arrow>> partitionedData = new SortedStrictDictionary<string, List<Arrow>>();
 
-        //TODO: Scrap
-        [HideInInspector]
-        PriorityQueue<Arrow> priorityQueue; //for reactivity and recency. Priority value > 0
-        [HideInInspector]
-        List<Arrow> generalPool; //for when there's nothing w/ priority. Priority value == 0
-
         //When Empty
         [HideInInspector]
         public bool loops;
