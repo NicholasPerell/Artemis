@@ -44,6 +44,11 @@ namespace Artemis
         {
         }
 
+        private void OnEnable()
+        {
+            hideFlags &= ~HideFlags.NotEditable;
+        }
+
         public Flag.ValueType GetFlagValueType(FlagID id)
         {
             return flagValueTypes[id];
@@ -356,7 +361,7 @@ namespace Artemis
         }
 #endif
 
-        private void Modify()
+        public void Modify()
         {
             Save(true);
         }
