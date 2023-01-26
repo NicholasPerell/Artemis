@@ -68,7 +68,7 @@ namespace Artemis.EditorIntegration
                     archer.includeHigherPrioritiesInLoop = EditorGUILayout.Toggle("\u21B3 Include Higher Priorities", archer.includeHigherPrioritiesInLoop);
                     if (GUILayout.Button("Set To Looped State"))
                     {
-                        archer.SetLoopedState();
+                        archer.SetToLoopedState();
                         changed = true;
                     }
                 }

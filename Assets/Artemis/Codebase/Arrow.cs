@@ -58,6 +58,23 @@ namespace Artemis
             }
         }
 
+        public void IgnoreSuccessAttemptLoneDelivery()
+        {
+            bool success = AttemptLoneDelivery(null);
+        }
+
+        public bool AttemptLoneDelivery(FlagBundle[] importedStates)
+        {
+            bool success = false;
+
+            if(CondtionsMet(importedStates))
+            {
+                success = Fire(null, importedStates);
+            }
+
+            return success;
+        }
+
         public bool Fire(Archer sender, FlagBundle[] importedStates)
         {
             return fletcher.ProcessDataPoint(this, sender, importedStates);
@@ -75,8 +92,11 @@ namespace Artemis
 
         public bool CondtionsMet(FlagBundle[] importedStates)
         {
-            //TODO: Allow for more than the global states to be loaded
-            //TODO: Check for ANY type values
+            //TODO: Check for "ANY" or "ALL" type values
+            if(importedStates == null)
+            {
+                importedStates = new FlagBundle[0];
+            }
             FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles;
             int[] globalIndecies = new int[globalStates.Length];
             int[] importedIndecies = new int[importedStates.Length];

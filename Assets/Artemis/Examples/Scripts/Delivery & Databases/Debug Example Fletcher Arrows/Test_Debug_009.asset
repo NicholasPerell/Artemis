@@ -19,8 +19,8 @@ MonoBehaviour:
     list:
     - Key: 0
       Value:
-        lhs: 3
-        rhs: 3
+        lhs: 0
+        rhs: 0
         flagIdChecked: 0
         comparisonType: 0
     - Key: 1
@@ -37,8 +37,8 @@ MonoBehaviour:
         comparisonType: 0
     - Key: 8
       Value:
-        lhs: 1
-        rhs: 1
+        lhs: 0
+        rhs: 0
         flagIdChecked: 8
         comparisonType: 0
     - Key: 15

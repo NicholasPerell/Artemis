@@ -97,7 +97,10 @@ namespace Artemis
                 }
                 else
                 {
-                    pair.mArcher.ReturnDataPoint(pair.mArrow);
+                    if (pair.mArcher != null)
+                    {
+                        pair.mArcher.ReturnDataPoint(pair.mArrow);
+                    }
                     ProcessEnd();
                 }
             }

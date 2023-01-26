@@ -96,7 +96,7 @@ namespace Artemis
                 {
                     if(log.isAdding)
                     {
-                        DumpArrowsOfBundle(log.bundle);
+                        DumpArrowsOfBundle(log.bundle, includeNonZeroPriority);
                     }
                     else
                     {
@@ -110,98 +110,23 @@ namespace Artemis
             }
         }
 
-        public void SetLoopedState()
+        public void SetToLoopedState()
         {
             Refresh(includeHigherPrioritiesInLoop, includeBundlesInLoop);
         }
         
         public void ReturnDataPoint(Arrow dataPoint)
         {
-            //Overall Data
-            if (overallData.Count != 0)
+            if (discardArrowsAfterUse)
             {
-                int i;
-                for (i = 0; i < overallData.Count; i++)
-                {
-                    if (overallData[i].GetPriority() <= dataPoint.GetPriority())
-                    {
-                        break;
-                    }
-                }
-                overallData.Insert(i, dataPoint);
-            }
-            else
-            {
-                overallData.Add(dataPoint);
-            }
-
-            //Partitioned Data
-            if (partitioningFlags.Count != 0)
-            {
-                StringBuilder stringBuilder = new StringBuilder();
-                float value;
-                foreach (FlagID id in partitioningFlags)
-                {
-                    dataPoint.TryGetFlagEqualsValue(id, out value);
-                    stringBuilder.Append(value);
-                    stringBuilder.Append('#');
-                }
-                string key = stringBuilder.ToString();
-                if (!partitionedData.HasKey(key))
-                {
-                    partitionedData.Add(key, new List<Arrow>());
-                }
-
-                List<Arrow> bucket = partitionedData[key];
-
-                if (bucket.Count != 0)
-                {
-                    int i;
-                    for (i = 0; i < bucket.Count; i++)
-                    {
-                        if (bucket[i].GetPriority() <= dataPoint.GetPriority())
-                        {
-                            break;
-                        }
-                    }
-                    bucket.Insert(i, dataPoint);
-                }
-                else
-                {
-                    bucket.Add(dataPoint);
-                }
+                RecieveDataPoint(dataPoint, true);
             }
         }
 
-        public void RecieveDataPoint(Arrow dataPoint)
+        public void RecieveDataPoint(Arrow dataPoint, bool returningArrow = false)
         {
             //Overall Data
-            if (overallData.Count != 0)
-            {
-                int i;
-                for (i = 0; i < overallData.Count; i++)
-                {
-                    bool insertable;
-                    if(recencyBias)
-                    {
-                        insertable = overallData[i].GetPriority() <= dataPoint.GetPriority();
-                    }
-                    else
-                    {
-                        insertable = overallData[i].GetPriority() < dataPoint.GetPriority();
-                    }
-
-                    if(insertable)
-                    {
-                        break;
-                    }
-                }
-                overallData.Insert(i, dataPoint);
-            }
-            else
-            {
-                overallData.Add(dataPoint);
-            }
+            InsertDataPointIntoList(dataPoint, overallData, returningArrow);
 
             //Partitioned Data
             if(partitioningFlags.Count != 0)
@@ -219,23 +144,27 @@ namespace Artemis
                 {
                     partitionedData.Add(key, new List<Arrow>());
                 }
+                InsertDataPointIntoList(dataPoint, partitionedData[key], returningArrow);
+            }
+        }
 
-                List<Arrow> bucket = partitionedData[key];
-
-                if (bucket.Count != 0)
+        private void InsertDataPointIntoList(Arrow dataPoint, List<Arrow> list, bool returningArrow)
+        {
+            if (list.Count != 0)
+            {
+                int i;
+                if (dataPoint.IsPriority())
                 {
-                    int i;
-                    for (i = 0; i < bucket.Count; i++)
+                    for (i = 0; i < list.Count; i++)
                     {
                         bool insertable;
                         if (recencyBias)
                         {
-                            //TODO: Consider putting this and the overall version into a function
-                            insertable = bucket[i].GetPriority() <= dataPoint.GetPriority();
+                            insertable = list[i].GetPriority() <= dataPoint.GetPriority();
                         }
                         else
                         {
-                            insertable = bucket[i].GetPriority() < dataPoint.GetPriority();
+                            insertable = list[i].GetPriority() < dataPoint.GetPriority();
                         }
 
                         if (insertable)
@@ -243,12 +172,23 @@ namespace Artemis
                             break;
                         }
                     }
-                    bucket.Insert(i, dataPoint);
                 }
                 else
                 {
-                    bucket.Add(dataPoint);
+                    for (i = 0; i < list.Count; i++)
+                    {
+                        if (!list[i].IsPriority())
+                        {
+                            i = UnityEngine.Random.Range(i, list.Count + 1);
+                            break;
+                        }
+                    }
                 }
+                list.Insert(i, dataPoint);
+            }
+            else
+            {
+                list.Add(dataPoint);
             }
         }
 
@@ -267,50 +207,72 @@ namespace Artemis
                     importedStates = new FlagBundle[0];
                 }
 
-                ref List<Arrow> bucketToUse = ref overallData;
+                List<Arrow> bucketToUse = overallData;
 
                 if(partitioningFlags.Count > 0)
                 {
-                    bucketToUse = ref overallData;
                     //TODO: Determine the bucket using the flags
                     FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles;
                     int[] globalIndecies = new int[globalStates.Length];
                     int[] importedIndecies = new int[importedStates.Length];
                     Array.Fill(globalIndecies, 0);
                     Array.Fill(importedIndecies, 0);
+
+                    StringBuilder stringBuilder = new StringBuilder();
+                    float value = -1;
+                    bool located;
+                    Flag targetFlag;
+                    foreach (FlagID targetId in partitioningFlags)
+                    {
+                        located = false;
+                        for (int j = 0; j < globalStates.Length && !located; j++)
+                        {
+                            if (globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))
+                            {
+                                located = true;
+                                value = targetFlag.GetValue();
+                            }
+                        }
+                        for (int j = 0; j < importedStates.Length && !located; j++)
+                        {
+                            if (importedStates[j].flagsUsed.LinearSearch(targetId, ref importedIndecies[j], out targetFlag))
+                            {
+                                located = true;
+                                value = targetFlag.GetValue();
+                            }
+                        }
+
+                        if (!located)
+                        {
+                            value = -1;
+                        }
+                        stringBuilder.Append(value);
+                        stringBuilder.Append('#');
+                    }
+                    string key = stringBuilder.ToString();
+                    if (partitionedData.HasKey(key))
+                    {
+                        bucketToUse = partitionedData[key];
+                    }
+                    else
+                    {
+                        bucketToUse = new List<Arrow>();
+                    }
                 }
 
                 bool flagMeetsConditions;
                 int i = 0;
-                if (chooseSamePriority != ChooseSamePriority.RANDOM) //QUEUE or STACK
-                {
-                    for (; i < bucketToUse.Count; i++)
-                    {
-                        if (!bucketToUse[i].IsPriority())
-                        {
-                            break;
-                        }
-                        flagMeetsConditions = bucketToUse[i].CondtionsMet(importedStates);
-                        if (flagMeetsConditions)
-                        {
-                            success = bucketToUse[i].Fire(this, importedStates);
-                            Debug.Log("Firing " + bucketToUse[i].GetArrowID());
-                            if (success && discardArrowsAfterUse)
-                            {
-                                bucketToUse.RemoveAt(i);
-                                break;
-                            }
-                        }
-                    }
-                }
-                if((chooseSamePriority == ChooseSamePriority.RANDOM) //RANDOM...
-                    || (!success && i < bucketToUse.Count && !bucketToUse[i].IsPriority())) //...or the other options have reached the priority 0 options
+                if (chooseSamePriority == ChooseSamePriority.RANDOM) //RANDOM
                 {
                     List<int> foundArrowIndecies = new List<int>();
                     int highestPriorityFound = -1;
                     bool anyArrowFound = false;
                     for (; i < bucketToUse.Count; i++)
                     {
+                        if (!bucketToUse[i].IsPriority())
+                        {
+                            break;
+                        }
                         if (anyArrowFound && highestPriorityFound > bucketToUse[i].GetPriority())
                         {
                             break;
@@ -324,16 +286,46 @@ namespace Artemis
                         }
                     }
 
-                    if(anyArrowFound)
+                    if (anyArrowFound)
                     {
-                        int usedArrowIndex = foundArrowIndecies[UnityEngine.Random.Range(0,foundArrowIndecies.Count)];
+                        int usedArrowIndex = foundArrowIndecies[UnityEngine.Random.Range(0, foundArrowIndecies.Count)];
                         success = bucketToUse[usedArrowIndex].Fire(this, importedStates);
                         if (success && discardArrowsAfterUse)
                         {
+                            if (!ReferenceEquals(bucketToUse, overallData))
+                            {
+                                overallData.Remove(bucketToUse[usedArrowIndex]);
+                            }
                             bucketToUse.RemoveAt(usedArrowIndex);
                         }
                     }
                 }
+                if ((chooseSamePriority != ChooseSamePriority.RANDOM) //QUEUE, STACK...
+                    || (!success && i < bucketToUse.Count && !bucketToUse[i].IsPriority())) //...or RANDOM has reached the priority 0 options, which are already jumbled up
+                {
+                    for (; i < bucketToUse.Count; i++)
+                    {
+                        flagMeetsConditions = bucketToUse[i].CondtionsMet(importedStates);
+                        if (flagMeetsConditions)
+                        {
+                            success = bucketToUse[i].Fire(this, importedStates);
+                            if (success && discardArrowsAfterUse)
+                            {
+                                if (!ReferenceEquals(bucketToUse, overallData))
+                                {
+                                    overallData.Remove(bucketToUse[i]);
+                                }
+                                bucketToUse.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (IsEmpty && loops)
+            {
+                SetToLoopedState();
             }
 
             return success;
@@ -392,9 +384,6 @@ namespace Artemis
                     }
 
                     partitionedData[key].Add(arrow);
-
-                    Debug.Log(key + " " + arrow.name);
-
                 }
             }
 
@@ -458,7 +447,7 @@ namespace Artemis
             LogBundleHistory(toDump, true);
         }
 
-        private void DumpArrowsOfBundle(ArrowBundle toDump)
+        private void DumpArrowsOfBundle(ArrowBundle toDump, bool includeNonZeroPriority = true)
         {
             if(toDump == null)
             {
@@ -467,7 +456,10 @@ namespace Artemis
 
             foreach (Arrow e in toDump.arrows)
             {
-                RecieveDataPoint(e);
+                if (includeNonZeroPriority || !e.IsPriority())
+                {
+                    RecieveDataPoint(e);
+                }
             }
         }
 

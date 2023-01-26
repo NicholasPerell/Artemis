@@ -15,5 +15,5 @@ MonoBehaviour:
   symbolTypeName: 
   flagValueType: 0
   flagId: 5
-  value: 0
-  boolValue: 0
+  value: 75
+  boolValue: 1
