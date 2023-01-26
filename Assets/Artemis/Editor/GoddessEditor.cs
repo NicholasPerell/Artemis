@@ -10,6 +10,7 @@ namespace Artemis.EditorIntegration
     {
         public override void OnInspectorGUI()
         {
+            EditorGUI.BeginChangeCheck();
             Goddess e = (Goddess)target;
 
             DrawDefaultInspector();
@@ -21,11 +22,11 @@ namespace Artemis.EditorIntegration
                 EditorGUILayout.LabelField(id.ToString(), e.GetFlagValueType(id).ToString());
             }
 
-            EditorGUI.BeginChangeCheck();
 
 
             if (EditorGUI.EndChangeCheck())
             {
+                e.Modify();
                 EditorUtility.SetDirty(e);
                 AssetDatabase.SaveAssets();
                 Repaint();
