@@ -58,9 +58,9 @@ namespace Artemis
             }
         }
 
-        public bool Deliver(Archer sender)
+        public bool Fire(Archer sender, FlagBundle[] importedStates)
         {
-            return fletcher.ProcessDataPoint(this, sender);
+            return fletcher.ProcessDataPoint(this, sender, importedStates);
         }
 
         public bool IsPriority()
@@ -73,16 +73,15 @@ namespace Artemis
             return priorityValue;
         }
 
-        public bool CondtionsMet()
+        public bool CondtionsMet(FlagBundle[] importedStates)
         {
             //TODO: Allow for more than the global states to be loaded
             //TODO: Check for ANY type values
             FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles;
-            int[] startIndex = new int[globalStates.Length];
-            for (int i = 0; i < startIndex.Length; i++)
-            {
-                startIndex[i] = 0;
-            }
+            int[] globalIndecies = new int[globalStates.Length];
+            int[] importedIndecies = new int[importedStates.Length];
+            Array.Fill(globalIndecies, 0);
+            Array.Fill(importedIndecies, 0);
 
             FlagID targetId = FlagID.INVALID;
             Criterion targetCriterion;
@@ -96,7 +95,7 @@ namespace Artemis
                 located = false;
                 for (int j = 0; j < globalStates.Length && !located; j++)
                 {
-                    if(globalStates[j].flagsUsed.LinearSearch(targetId, ref startIndex[j], out targetFlag))
+                    if(globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))
                     {
                         located = true;
                         if(!targetCriterion.Compare(targetFlag.GetValue()))
@@ -106,8 +105,20 @@ namespace Artemis
                         }
                     }
                 }
+                for (int j = 0; j < importedStates.Length && !located; j++)
+                {
+                    if (importedStates[j].flagsUsed.LinearSearch(targetId, ref importedIndecies[j], out targetFlag))
+                    {
+                        located = true;
+                        if (!targetCriterion.Compare(targetFlag.GetValue()))
+                        {
+                            //The criterion was failed to be met!
+                            return false;
+                        }
+                    }
+                }
 
-                if(!located)
+                if (!located)
                 {
                     //Flag not found in any state!
                     return false;

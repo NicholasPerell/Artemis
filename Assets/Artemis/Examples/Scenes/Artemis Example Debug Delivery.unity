@@ -308,7 +308,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  timeBetweenFires: 0.1
+  timeBetweenFires: 3
 --- !u!114 &842927796
 MonoBehaviour:
   m_ObjectHideFlags: 0

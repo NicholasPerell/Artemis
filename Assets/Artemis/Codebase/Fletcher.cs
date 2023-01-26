@@ -11,16 +11,30 @@ namespace Artemis
 {
     public abstract class PreDictionaryFletcher : ScriptableObject
     {
+        [System.Serializable]
+        struct ArrowFiringData
+        {
+            public Arrow mArrow;
+            public Archer mArcher;
+            public FlagBundle[] mImportedStates;
 
-        private List<KeyValuePair<Arrow, Archer>> queue;
+            public ArrowFiringData(Arrow _arrow, Archer _archer, FlagBundle[] _importedStates)
+            {
+                mArrow = _arrow;
+                mArcher = _archer;
+                mImportedStates = _importedStates;
+            }
+        }
+
+        private List<ArrowFiringData> queue;
         public const string CRITERIA_KEY_WORD = "COND";
 
         private void Awake()
         {
-            queue = new List<KeyValuePair<Arrow, Archer>>();
+            queue = new List<ArrowFiringData>();
         }
 
-        public bool ProcessDataPoint(Arrow dataPoint, Archer sender)
+        public bool ProcessDataPoint(Arrow dataPoint, Archer sender, FlagBundle[] importedStates)
         {
             bool successfullyProcessed = false;
 
@@ -30,10 +44,10 @@ namespace Artemis
             {
                 if (queue == null)
                 {
-                    queue = new List<KeyValuePair<Arrow, Archer>>();
+                    queue = new List<ArrowFiringData>();
                 }
 
-                KeyValuePair<Arrow, Archer> storedPairing = new KeyValuePair<Arrow, Archer>(dataPoint, sender);
+                ArrowFiringData storedPairing = new ArrowFiringData(dataPoint, sender, importedStates);
 
                 switch (decision)
                 {
@@ -75,15 +89,15 @@ namespace Artemis
         {
             if (queue.Count > 0)
             {
-                KeyValuePair<Arrow, Archer> pair = queue[0];
+                ArrowFiringData pair = queue[0];
                 queue.RemoveAt(0);
-                if (pair.Key.CondtionsMet())
+                if (pair.mArrow.CondtionsMet(pair.mImportedStates))
                 {
-                    Send(pair.Key.GetArrowID());
+                    Send(pair.mArrow.GetArrowID());
                 }
                 else
                 {
-                    pair.Value.RecieveDataPoint(pair.Key);
+                    pair.mArcher.ReturnDataPoint(pair.mArrow);
                     ProcessEnd();
                 }
             }

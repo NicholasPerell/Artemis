@@ -10,7 +10,6 @@ namespace Artemis.EditorIntegration
     {
         bool showBundleOptions = true;
         bool showDescisionMaking = true;
-        bool showDataStructuring = true;
 
         string partitionInfo = "By choosing symbol flags to be in every single arrow an Archer will consider, the arrows can be divvied up into seperate tables.";
 
