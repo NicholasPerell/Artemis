@@ -469,7 +469,7 @@ namespace Artemis
             LogBundleHistory(toDrop, false);
         }
 
-        //Should it remove all instances of that arrow?
+        //Should it remove all instances of that arrow? 
         private void DropArrowsOfBundle(ArrowBundle toDrop)
         {
             if (toDrop == null)
