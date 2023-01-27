@@ -8,12 +8,24 @@ namespace Artemis.EditorIntegration
     [CustomEditor(typeof(Goddess))]
     public class GoddessEditor : Editor
     {
+        SerializedProperty flagsIdsToKeep;
+        SerializedProperty globallyLoadedFlagBundles;
+
+        protected virtual void OnEnable()
+        {
+            flagsIdsToKeep = serializedObject.FindProperty("flagsIdsToKeep");
+            globallyLoadedFlagBundles = serializedObject.FindProperty("globallyLoadedFlagBundles");
+        }
+
         public override void OnInspectorGUI()
         {
             EditorGUI.BeginChangeCheck();
             Goddess e = (Goddess)target;
 
-            DrawDefaultInspector();
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(flagsIdsToKeep);
+            EditorGUILayout.PropertyField(globallyLoadedFlagBundles);
 
             EditorGUILayout.Space();
             FlagID[] flagIds = e.GetFlagIDs();
@@ -22,7 +34,7 @@ namespace Artemis.EditorIntegration
                 EditorGUILayout.LabelField(id.ToString(), e.GetFlagValueType(id).ToString());
             }
 
-
+            serializedObject.ApplyModifiedProperties();
 
             if (EditorGUI.EndChangeCheck())
             {

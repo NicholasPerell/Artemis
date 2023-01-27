@@ -13,5 +13,113 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagsIdsToKeep: 
+  flagValueTypes:
+    list:
+    - Key: 0
+      Value: 2
+    - Key: 1
+      Value: 1
+    - Key: 2
+      Value: 1
+    - Key: 3
+      Value: 0
+    - Key: 4
+      Value: 0
+    - Key: 5
+      Value: 0
+    - Key: 6
+      Value: 0
+    - Key: 7
+      Value: 0
+    - Key: 8
+      Value: 2
+    - Key: 9
+      Value: 1
+    - Key: 10
+      Value: 1
+    - Key: 11
+      Value: 1
+    - Key: 12
+      Value: 1
+    - Key: 13
+      Value: 1
+    - Key: 14
+      Value: 1
+    - Key: 15
+      Value: 1
+    - Key: 16
+      Value: 1
+  flagSymbolTypes:
+    list:
+    - Key: 0
+      Value:
+        idsUsed:
+          list: 00000000010000000200000003000000
+        enumName: CONCEPT_ID
+    - Key: 8
+      Value:
+        idsUsed:
+          list: 0000000001000000
+        enumName: WHO_ID
+  idsUsed:
+    list: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000
+  toAdd:
+    list: []
+  intsReadyToConvert:
+    list: 
+  toRemove: 
   globallyLoadedFlagBundles:
   - {fileID: 11400000, guid: ba9c2d63a1aa5fd4ea0b55f9bb9ff640, type: 2}
+  flagIDConnections:
+    list:
+    - Key: 0
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 1
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 2
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 3
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 4
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 5
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 6
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 7
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 8
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 9
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 10
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 11
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 12
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 13
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 14
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 15
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+    - Key: 16
+      Value:
+      - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}

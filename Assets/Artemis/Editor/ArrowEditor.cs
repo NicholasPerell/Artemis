@@ -12,8 +12,6 @@ namespace Artemis.EditorIntegration
         {
             Arrow e = (Arrow)target;
 
-            //DrawDefaultInspector();
-
             EditorGUI.BeginChangeCheck();
 
             //Delivery System

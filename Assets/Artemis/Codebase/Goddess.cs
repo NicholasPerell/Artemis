@@ -17,27 +17,26 @@ namespace Artemis
         [SerializeField]
         private List<FlagID> flagsIdsToKeep = new List<FlagID>();
 
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes = new SortedStrictDictionary<FlagID, Flag.ValueType>();
 
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictDictionary<FlagID, InternalSymbolCompiler> flagSymbolTypes = new SortedStrictDictionary<FlagID, InternalSymbolCompiler>();
 
         //For managing internal symbols
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictList<FlagID> idsUsed = new SortedStrictList<FlagID>();
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictDictionary<string, int> toAdd = new SortedStrictDictionary<string, int>();
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictList<int> intsReadyToConvert = new SortedStrictList<int>();
-        [HideInInspector]
+        [SerializeField]
         private List<FlagID> toRemove = new List<FlagID>();
 
-        //TO DO: convert to list
         [SerializeField]
         public FlagBundle[] globallyLoadedFlagBundles = new FlagBundle[0];
 
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections = new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
 
         public void Awake()

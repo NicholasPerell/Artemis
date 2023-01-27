@@ -36,7 +36,7 @@ namespace Artemis
         SortedStrictDictionary<FlagID, Criterion> rule;
         [SerializeField]
         HowToHandleBusy howToHandleBusy = HowToHandleBusy.QUEUE;
-        [HideInInspector]
+        [SerializeField]
         public HowPriorityCalculated howPriorityCalculated = HowPriorityCalculated.SET_VALUE;
 
         public void Rewrite(string _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy, HowPriorityCalculated _howPriorityCalculated)
