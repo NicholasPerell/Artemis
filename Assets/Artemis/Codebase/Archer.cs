@@ -219,9 +219,6 @@ namespace Artemis
 
         public bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)
         {
-            //TODO:
-            // - Allow ANY/ALL values
-
             bool success = false;
 
             if (!IsEmpty)
@@ -240,7 +237,7 @@ namespace Artemis
                 }
                 else if(all.Length > 0) //Determine if there are any partition flags being set to ALL
                 {
-                    partitioningFlagsAlled = all.Intersect(partitioningFlags).ToList();
+                    partitioningFlagsAlled = all.Distinct().Intersect(partitioningFlags).ToList();
                 }
 
                 //Determine bucket(s) in use
@@ -404,14 +401,14 @@ namespace Artemis
                 bool singleBucket = bucketsToUse.Count == 1;
                 bool anyArrowFound = false;
                 List<Arrow> currentBucket;
-                Arrow currentArrow; //TODO: Replace the too long [][] with this
+                Arrow currentArrow;
                 for (int bucketIndex = 0; bucketIndex < bucketsToUse.Count; bucketIndex++)
                 {
-                    currentBucket = bucketsToUse[bucketIndex];//TODO: Replace the too long [][] with this
+                    currentBucket = bucketsToUse[bucketIndex];
 
+                    arrowIndex = 0;
                     if (chooseSamePriority == ChooseSamePriority.RANDOM) //RANDOM
                     {
-                        List<int> foundArrowIndecies = new List<int>();
                         int highestPriorityFound;
                         if (arrowsToConsider.Count == 0)
                         {
@@ -424,18 +421,19 @@ namespace Artemis
 
                         for (; arrowIndex < currentBucket.Count; arrowIndex++)
                         {
-                            if (singleBucket && !currentBucket[arrowIndex].IsPriority())
+                            currentArrow = currentBucket[arrowIndex];
+                            if (singleBucket && !currentArrow.IsPriority())
                             {
                                 break;
                             }
-                            if (anyArrowFound && highestPriorityFound > currentBucket[arrowIndex].GetPriority())
+                            if (anyArrowFound && highestPriorityFound > currentArrow.GetPriority())
                             {
                                 break;
                             }
-                            flagMeetsConditions = currentBucket[arrowIndex].CondtionsMet(importedStates, all);
+                            flagMeetsConditions = currentArrow.CondtionsMet(importedStates, all);
                             if (flagMeetsConditions)
                             {
-                                if(highestPriorityFound < currentBucket[arrowIndex].GetPriority() && arrowsToConsider.Count != 0)
+                                if(highestPriorityFound < currentArrow.GetPriority() && arrowsToConsider.Count != 0)
                                 {
                                     arrowsToConsider.Clear();
                                     bucketsToConsider.Clear();
@@ -443,7 +441,7 @@ namespace Artemis
                                 arrowsToConsider.Add(arrowIndex);
                                 bucketsToConsider.Add(bucketIndex);
 
-                                highestPriorityFound = currentBucket[arrowIndex].GetPriority();
+                                highestPriorityFound = currentArrow.GetPriority();
                                 anyArrowFound = true;
                             }
                         }
@@ -467,25 +465,26 @@ namespace Artemis
                     {
                         for (; arrowIndex < bucketsToUse[bucketIndex].Count; arrowIndex++)
                         {
+                            currentArrow = currentBucket[arrowIndex];
                             if(arrowsToConsider.Count != 0)
                             {
-                                if(bucketsToUse[bucketsToConsider[0]][arrowsToConsider[0]].GetPriority() > currentBucket[arrowIndex].GetPriority())
+                                if(bucketsToUse[bucketsToConsider[0]][arrowsToConsider[0]].GetPriority() > currentArrow.GetPriority())
                                 {
                                     break;
                                 }
                             }
 
-                            flagMeetsConditions = currentBucket[arrowIndex].CondtionsMet(importedStates, all);
+                            flagMeetsConditions = currentArrow.CondtionsMet(importedStates, all);
                             if (flagMeetsConditions)
                             {
                                 if (singleBucket)
                                 {
-                                    success = currentBucket[arrowIndex].Fire(this, importedStates, all);
+                                    success = currentArrow.Fire(this, importedStates, all);
                                     if (success && discardArrowsAfterUse)
                                     {
                                         if (!ReferenceEquals(currentBucket, overallData))
                                         {
-                                            overallData.Remove(currentBucket[arrowIndex]);
+                                            overallData.Remove(currentArrow);
                                         }
                                         currentBucket.RemoveAt(arrowIndex);
                                     }
@@ -493,14 +492,14 @@ namespace Artemis
                                 }
                                 else
                                 {
-                                    if (arrowsToConsider.Count != 0)
+                                    if (arrowsToConsider.Count != 0 && currentArrow.IsPriority())
                                     {
+                                        bool higherPriority = bucketsToUse[bucketsToConsider[0]][arrowsToConsider[0]].GetPriority() < currentArrow.GetPriority();
                                         bool mostRecent = ordersToUse[bucketsToConsider[0]][arrowsToConsider[0]] < ordersToUse[bucketIndex][arrowIndex];
-                                        if (mostRecent == recencyBias)
+                                        if (higherPriority || mostRecent == recencyBias)
                                         {
                                             arrowsToConsider[0] = arrowIndex;
                                             bucketsToConsider[0] = bucketIndex;
-                                            break;
                                         }
                                     }
                                     else
@@ -508,6 +507,7 @@ namespace Artemis
                                         arrowsToConsider.Add(arrowIndex);
                                         bucketsToConsider.Add(bucketIndex);
                                     }
+                                    break;
                                 }
                             }
                         }
@@ -521,6 +521,10 @@ namespace Artemis
                     success = usedArrow.Fire(this, importedStates, all);
                     if (success && discardArrowsAfterUse)
                     {
+                        if (!ReferenceEquals(bucketsToUse[bucketsToConsider[usedIndex]], overallData))
+                        {
+                            overallData.Remove(usedArrow);
+                        }
                         bucketsToUse[bucketsToConsider[usedIndex]].RemoveAt(arrowsToConsider[usedIndex]);
                         ordersToUse[bucketsToConsider[usedIndex]].RemoveAt(arrowsToConsider[usedIndex]);
                     }

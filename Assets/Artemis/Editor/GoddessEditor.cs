@@ -34,6 +34,12 @@ namespace Artemis.EditorIntegration
                 EditorGUILayout.LabelField(id.ToString(), e.GetFlagValueType(id).ToString());
             }
 
+            EditorGUILayout.Space();
+            if(GUILayout.Button("RESET \u26A0"))
+            {
+                e.Reset();
+            }
+
             serializedObject.ApplyModifiedProperties();
 
             if (EditorGUI.EndChangeCheck())

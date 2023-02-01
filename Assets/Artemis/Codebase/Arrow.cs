@@ -113,17 +113,23 @@ namespace Artemis
             Criterion targetCriterion;
             Flag targetFlag;
             bool located = false;
+            int allIndex = 0;
             for(int i = 0; i < rule.Count; i++)
             {
                 targetId = rule[i].Key;
                 targetCriterion = rule[i].Value;
 
                 located = false;
-                for (int j = 0; j < all.Length && !located; j++)
+                for (; allIndex < all.Length && !located; allIndex++)
                 {
-                    if (globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))
+                    int cmp = targetId.CompareTo(all[allIndex]);
+                    if (cmp == 0)
                     {
                         located = true;
+                    }
+                    else if(cmp < 0)
+                    {
+                        break;
                     }
                 }
                 for (int j = 0; j < globalStates.Length && !located; j++)

@@ -19,6 +19,18 @@ namespace Artemis
 		TRUEB_3 = 13,
 		FALSEB_3 = 14,
 		TRUEB_4 = 15,
-		FALSEB_4 = 16
+		FALSEB_4 = 16,
+		FALSEB_5 = 17,
+		FALSEB_6 = 18,
+		FALSEB_7 = 19,
+		FALSEB_8 = 20,
+		FALSEB_9 = 21,
+		FALSEB_10 = 22,
+		FALSEB_11 = 23,
+		FALSEB_12 = 24,
+		FALSEB_13 = 25,
+		GR = 26,
+		LE = 27,
+		GE = 28
 	}
 }

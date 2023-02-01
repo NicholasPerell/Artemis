@@ -15,5 +15,5 @@ MonoBehaviour:
   symbolTypeName: Artemis.CONCEPT_ID
   flagValueType: 2
   flagId: 0
-  value: 1
-  boolValue: 1
+  value: 0
+  boolValue: 0

@@ -15,5 +15,5 @@ MonoBehaviour:
   symbolTypeName: Artemis.WHO_ID
   flagValueType: 2
   flagId: 8
-  value: 0
-  boolValue: 0
+  value: 1
+  boolValue: 1

@@ -37,8 +37,8 @@ MonoBehaviour:
         comparisonType: 0
     - Key: 8
       Value:
-        lhs: 0
-        rhs: 0
+        lhs: 2
+        rhs: 2
         flagIdChecked: 8
         comparisonType: 0
     - Key: 15
@@ -53,5 +53,5 @@ MonoBehaviour:
         rhs: 0
         flagIdChecked: 16
         comparisonType: 0
-  howToHandleBusy: 4
+  howToHandleBusy: 1
   howPriorityCalculated: 0

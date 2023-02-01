@@ -9,7 +9,7 @@ public class PersistentEventOnTime : MonoBehaviour
     private UnityEvent onFire;
     [Space]
     [SerializeField]
-    [Range(0.1f, 3.0f)]
+    [Range(0.001f, 3.0f)]
     private float timeBetweenFires = 3.0f;
     private float timer;
     void Start()
@@ -41,7 +41,7 @@ public class PersistentEventOnTime : MonoBehaviour
     Artemis.Archer archer;
     void WhenFiresCodedDebug()
     {
-        archer.AttemptDelivery(null, new Artemis.FlagID[] { Artemis.FlagID.EQ, Artemis.FlagID.WHO });
+        archer.AttemptDelivery(null, new Artemis.FlagID[] { Artemis.FlagID.EQ, Artemis.FlagID.WHO, Artemis.FlagID.FALSEA});
     }
 
 }
