@@ -100,8 +100,8 @@ The narrative system keeps track of if flag IDs are being used by any of the arr
  - [x] Archers tracking what bundles have been dumped into or dumped from it.
  - [x] Flag Bundles that can be loaded in or out as needed to cut down the number of items.
  - [x] Hierarchal partitioning[^3] options for Archers to optimize their decision making process.
+ - [x] "All" listing to allow certain flags to be skipped to widen who is allowed to respond.
  - [ ] Custom Editors. 🛠️ (Currently in Progress!)
- - [ ] "Any / All" keywords to allow certain flags to be skipped to widen who is allowed to respond.
  - [ ] Save/load capabilities for the whole narrative.
  - [ ] New documentation.
  - [ ] More examples and scenes demonstrating how you can use *Artemis*!
