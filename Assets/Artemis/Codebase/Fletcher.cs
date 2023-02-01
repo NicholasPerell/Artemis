@@ -17,12 +17,14 @@ namespace Artemis
             public Arrow mArrow;
             public Archer mArcher;
             public FlagBundle[] mImportedStates;
+            public FlagID[] mAll;
 
-            public ArrowFiringData(Arrow _arrow, Archer _archer, FlagBundle[] _importedStates)
+            public ArrowFiringData(Arrow _arrow, Archer _archer, FlagBundle[] _importedStates, FlagID[] _all)
             {
                 mArrow = _arrow;
                 mArcher = _archer;
                 mImportedStates = _importedStates;
+                mAll = _all;
             }
         }
 
@@ -34,7 +36,7 @@ namespace Artemis
             queue = new List<ArrowFiringData>();
         }
 
-        public bool ProcessDataPoint(Arrow dataPoint, Archer sender, FlagBundle[] importedStates)
+        public bool ProcessDataPoint(Arrow dataPoint, Archer sender, FlagBundle[] importedStates, FlagID[] all)
         {
             bool successfullyProcessed = false;
 
@@ -47,7 +49,7 @@ namespace Artemis
                     queue = new List<ArrowFiringData>();
                 }
 
-                ArrowFiringData storedPairing = new ArrowFiringData(dataPoint, sender, importedStates);
+                ArrowFiringData storedPairing = new ArrowFiringData(dataPoint, sender, importedStates, all);
 
                 switch (decision)
                 {
@@ -91,7 +93,7 @@ namespace Artemis
             {
                 ArrowFiringData pair = queue[0];
                 queue.RemoveAt(0);
-                if (pair.mArrow.CondtionsMet(pair.mImportedStates))
+                if (pair.mArrow.CondtionsMet(pair.mImportedStates, pair.mAll))
                 {
                     Send(pair.mArrow.GetArrowID());
                 }

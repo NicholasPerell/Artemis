@@ -63,21 +63,21 @@ namespace Artemis
             bool success = AttemptLoneDelivery(null);
         }
 
-        public bool AttemptLoneDelivery(FlagBundle[] importedStates)
+        public bool AttemptLoneDelivery(FlagBundle[] importedStates, FlagID[] all = null)
         {
             bool success = false;
 
-            if(CondtionsMet(importedStates))
+            if(CondtionsMet(importedStates, all))
             {
-                success = Fire(null, importedStates);
+                success = Fire(null, importedStates, all);
             }
 
             return success;
         }
 
-        public bool Fire(Archer sender, FlagBundle[] importedStates)
+        public bool Fire(Archer sender, FlagBundle[] importedStates, FlagID[] all = null)
         {
-            return fletcher.ProcessDataPoint(this, sender, importedStates);
+            return fletcher.ProcessDataPoint(this, sender, importedStates, all);
         }
 
         public bool IsPriority()
@@ -90,13 +90,19 @@ namespace Artemis
             return priorityValue;
         }
 
-        public bool CondtionsMet(FlagBundle[] importedStates)
+        public bool CondtionsMet(FlagBundle[] importedStates, FlagID[] all = null)
         {
-            //TODO: Check for "ANY" or "ALL" type values
+            //Null checks
             if(importedStates == null)
             {
                 importedStates = new FlagBundle[0];
             }
+            if (all == null)
+            {
+                all = new FlagID[0];
+            }
+            Array.Sort(all);
+
             FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles;
             int[] globalIndecies = new int[globalStates.Length];
             int[] importedIndecies = new int[importedStates.Length];
@@ -113,6 +119,13 @@ namespace Artemis
                 targetCriterion = rule[i].Value;
 
                 located = false;
+                for (int j = 0; j < all.Length && !located; j++)
+                {
+                    if (globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))
+                    {
+                        located = true;
+                    }
+                }
                 for (int j = 0; j < globalStates.Length && !located; j++)
                 {
                     if(globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))

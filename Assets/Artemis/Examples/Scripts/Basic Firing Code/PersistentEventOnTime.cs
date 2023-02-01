@@ -20,6 +20,7 @@ public class PersistentEventOnTime : MonoBehaviour
     void OnEnable()
     {
         timer = 0;
+        onFire.AddListener(WhenFiresCodedDebug);
     }
 
     // Update is called once per frame
@@ -34,6 +35,13 @@ public class PersistentEventOnTime : MonoBehaviour
                 timer = 0;
             }
         }
+    }
+
+    [SerializeField]
+    Artemis.Archer archer;
+    void WhenFiresCodedDebug()
+    {
+        archer.AttemptDelivery(null, new Artemis.FlagID[] { Artemis.FlagID.EQ, Artemis.FlagID.WHO });
     }
 
 }

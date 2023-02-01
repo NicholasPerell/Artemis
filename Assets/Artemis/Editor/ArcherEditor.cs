@@ -147,7 +147,7 @@ namespace Artemis.EditorIntegration
                 for (int j = 0; j < tempProperty.arraySize; j++)
                 {
                     tempProperty2k = tempProperty.GetArrayElementAtIndex(j).FindPropertyRelative("Key");
-                    tempProperty2v = tempProperty.GetArrayElementAtIndex(j).FindPropertyRelative("Value");
+                    tempProperty2v = tempProperty.GetArrayElementAtIndex(j).FindPropertyRelative("Value").FindPropertyRelative("mArrows");
 
                     keyStrings = tempProperty2k.stringValue.Split('#',StringSplitOptions.RemoveEmptyEntries);
 
