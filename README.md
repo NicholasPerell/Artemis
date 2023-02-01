@@ -19,7 +19,7 @@ This branch is currently working towards **Version 0.2**! It's currently much le
 - The base code for Artemis's...
   - <ins>Arrows</ins> for each deliverable narrative beat, with ID's, priority values, and what criteria need to be met. 
   - <ins>Archers</ins>, which use the priority values (and when they were added to the archer) to determine which of a group of arrows should be delivered.
-  - <ins>Arrow Bundles</ins>, which can be prompted to dump into a archer of the designer's choosing.
+  - <ins>Arrow Bundles</ins>, which can be prompted to dump into (or drop from) archers of the designer's choosing.
   - <ins>Flags</ins>, which store the values that is evaluated for an Arrow's criteria.
   - <ins>Flag Bundles</ins>, which bundle up flags into groups, to load and unload them as necessary to optimize the process.
   - <ins>Fletchers</ins>, which parse .CSV's[^sheets] to generate the databases full of the relevant information needed to direct the...
@@ -40,13 +40,13 @@ Although one of the best ways to get an understanding of *Artemis* would be to c
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
 - <ins>ID:</ins> string used to access the database found in the fletcher it is connected to.
-- <ins>Priority Value:</ins> int value used by the archer
-- <ins>Rule:</ins> flags that must be set to specified criteria (otherwise the datapoint will be skipped over by the archer)
-- <ins>How to handle busy:</ins> Enum. If the fletchers tries to fire the data point, but the delivery actor is busy, what is done? There are a couple options:
+- <ins>Priority Value:</ins> int value used by the archer. Can use the "COND" keyword to get the number of criteria in the rule.
+- <ins>Rule:</ins> flags that must be set to specified criteria (otherwise the arrow will be skipped over by the archer)
+- <ins>How to handle busy:</ins> if the archer tries to fire the arrow, but the bow is busy, what is done? There are a couple options:
   - CANCEL: Retreat! Return the arrow back to the archer that chose it.
-  - QUEUE: Add the datapoint to a queue and wait until the fletcher/bow gets around to it.
+  - QUEUE: Add the arrow to a queue and wait until the fletcher/bow gets around to it.
   - INTERRUPT: Abruptly stop what the delivery actor is doing to deliver a narrative beat, and have it do this one.
-  - DELETE: Don't play it, but don't return it to the archer. Discard the arrow entirely.
+  - DELETE: Don't play it, but don't return it to the archer. If the Archer discards arrows, this'll discard the arrow entirely.
   - FRONT_OF_QUEUE: Similar to the queue, but make it cut to the front of the queue.
 
 ### Archers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bowman.png?raw=true" alt="Bowman by Lorc" height="50px;" align="right">
