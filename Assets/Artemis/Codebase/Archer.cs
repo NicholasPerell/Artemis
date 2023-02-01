@@ -245,7 +245,7 @@ namespace Artemis
                 List<List<uint>> ordersToUse = new List<List<uint>>();
                 bucketsToUse.Add(overallData);
 
-                if(partitioningFlags.Count > 0 && (partitioningFlagsAlled == null || partitioningFlagsAlled.Count != partitioningFlags.Count))
+                if(partitioningFlags.Count > 0)
                 {
                     bucketsToUse.Clear();
 
