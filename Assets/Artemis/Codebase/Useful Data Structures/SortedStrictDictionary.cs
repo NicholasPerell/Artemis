@@ -11,7 +11,7 @@ public class SortedStrictDictionary<K,V> where K : IComparable
 
     //Created in place of KeyValuePairs to allow for serialization
     [System.Serializable]
-    public struct Tuple
+    public struct Tuple : IComparable<Tuple>
     {
         public K Key;
         public V Value;
@@ -20,6 +20,11 @@ public class SortedStrictDictionary<K,V> where K : IComparable
         {
             Key = _key;
             Value = _value;
+        }
+
+        public int CompareTo(Tuple other)
+        {
+            return Key.CompareTo(other.Key);
         }
     }
 
@@ -71,12 +76,11 @@ public class SortedStrictDictionary<K,V> where K : IComparable
 
     public void Remove(K key)
     {
-        V tempVal;
-        int startInt = 0;
-        //TODO: Add a binary search method for this
-        if(LinearSearch(key, ref startInt, out tempVal))
+        V tempVal = default(V);
+        int foundIndex = list.BinarySearch(new Tuple(key, tempVal));
+        if (foundIndex > -1)
         {
-            list.RemoveAt(startInt - 1);
+            list.RemoveAt(foundIndex);
         }
     }
 
@@ -100,24 +104,23 @@ public class SortedStrictDictionary<K,V> where K : IComparable
     {
         get 
         {
-            V value;
-            int startIndex = 0;
+            V value = default(V);
+            int foundIndex = list.BinarySearch(new Tuple(key, value));
 
-            //TODO: Add a binary search method for this
-            LinearSearch(key, ref startIndex, out value);
+            if(foundIndex > -1)
+            {
+                value = list[foundIndex].Value;
+            }
 
             return value; 
         }
 
         set
         {
-            V find = default(V);
-            int startIndex = 0;
-
-            //TODO: Add a binary search method for this
-            if(LinearSearch(key, ref startIndex, out find))
+            int foundIndex = list.BinarySearch(new Tuple(key, value));
+            if (foundIndex > -1)
             {
-                list[startIndex - 1] = new Tuple(key,value);
+                list[foundIndex] = new Tuple(key,value);
             }
             else
             {
@@ -128,10 +131,8 @@ public class SortedStrictDictionary<K,V> where K : IComparable
 
     public bool HasKey(K key)
     {
-        V tempVal;
-        int tempInt = 0;
-        //TODO: Add a binary search method for this
-        return LinearSearch(key, ref tempInt, out tempVal);
+        V tempVal = default(V);
+        return list.BinarySearch(new Tuple(key, tempVal)) > -1;
     }
 
     public bool HasValue(V value)
