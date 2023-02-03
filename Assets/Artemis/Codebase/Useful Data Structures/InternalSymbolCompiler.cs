@@ -17,24 +17,26 @@ namespace Artemis
         //For managing internal symbols
         [SerializeField]
         private SortedStrictList<int> idsUsed;
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictDictionary<string, int> toAdd;
-        [HideInInspector]
+        [SerializeField]
         private SortedStrictList<int> intsReadyToConvert;
-        [HideInInspector]
+        [SerializeField]
         private List<int> toRemove;
 
-        [HideInInspector]
+        [SerializeField]
         private string fileLocation;
         [SerializeField]
         private string enumName;
         [SerializeField]
         private System.Type enumType = null;
 
+        private const int INVALID = -1;
+
         public InternalSymbolCompiler(string _fileLocation, string _enumPrefix)
         {
             fileLocation = _fileLocation;
-            enumName = _enumPrefix + "_ID";
+            enumName = _enumPrefix.ElementAt(0) + _enumPrefix.Substring(1).ToLower() + "ID";
 
             idsUsed = new SortedStrictList<int>();
             toAdd = new SortedStrictDictionary<string, int>();
@@ -42,32 +44,11 @@ namespace Artemis
             toRemove = new List<int>();
 
             CheckForCompiledScript();
-
-            string relativePath = fileLocation + enumName + ".cs";
-            string path;
-            path = Application.dataPath;
-            path = path.Substring(0, path.Length - 6); //removes the "Assets"
-            path += relativePath;
-
         }
 
         ~InternalSymbolCompiler()
         {
-
             enumType = null;
-
-            //Determine File Path
-            string relativePath = fileLocation + enumName + ".cs";
-            string path;
-            path = Application.dataPath;
-            path = path.Substring(0, path.Length - 6); //removes the "Assets"
-            path += relativePath;
-
-            //Delete unused script
-            if (!File.Exists(path))
-            {
-                File.Delete(path);
-            }
         }
 
         void CheckForCompiledScript()
@@ -81,6 +62,18 @@ namespace Artemis
             int elementInt;
 
             CheckForCompiledScript();
+
+            if(enumType != null)
+            {
+                idsUsed.Clear();
+                foreach (int e in Enum.GetValues(enumType))
+                {
+                    if (e != INVALID)
+                    {
+                        idsUsed.Add(e);
+                    }
+                }
+            }
 
             //Remove unused enums
             for (int i = 0; i < toRemove.Count; i++)
@@ -120,12 +113,6 @@ namespace Artemis
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
             path += relativePath;
 
-            //Write new script
-            if (!File.Exists(path))
-            {
-                File.Create(path);
-            }
-
             File.WriteAllText(path, stringBuilder.ToString());
 
             //Reset toAdd/Remove
@@ -137,11 +124,25 @@ namespace Artemis
             CheckForCompiledScript();
         }
 
+        public void DeleteFlagEnumScript()
+        {
+            //Determine File Path
+            string relativePath = fileLocation + enumName + ".cs";
+            string path = "";
+
+            path = Application.dataPath;
+            path = path.Substring(0, path.Length - 6); //removes the "Assets"
+            path += relativePath;
+
+            //Delete unused script
+            AssetDatabase.DeleteAsset(relativePath);
+            enumType = null;
+        }
+
         private int FindValidIdNumber()
         {
             int rtn;
             int start;
-            int invalid = -1;
 
             if (intsReadyToConvert.Count == 0)
             {
@@ -166,7 +167,7 @@ namespace Artemis
 
             start = rtn;
 
-            while (rtn == invalid || idsUsed.Has(rtn) || intsReadyToConvert.Has(rtn))
+            while (rtn == INVALID || idsUsed.Has(rtn) || intsReadyToConvert.Has(rtn))
             {
                 rtn++;
                 if (rtn == int.MaxValue)
@@ -178,12 +179,12 @@ namespace Artemis
                 {
                     //Looped the whole way around and had no luck!
                     Debug.LogError("You've run out of space for flags to be tracked. That's over (2^32)-1 flags!");
-                    rtn = invalid;
+                    rtn = INVALID;
                     break;
                 }
             }
 
-            if (rtn != invalid)
+            if (rtn != INVALID)
             {
                 intsReadyToConvert.Add(rtn);
             }

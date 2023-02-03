@@ -118,7 +118,14 @@ namespace Artemis.EditorIntegration
             string partitionOfficialText = "";
             for (int i = 0; i < partitioningFlags.arraySize; i++)
             {
-                partitionOfficialText += partitioningFlags.GetArrayElementAtIndex(i).enumNames[partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex];
+                if (partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex > -1 && partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex < partitioningFlags.GetArrayElementAtIndex(i).enumNames.Length)
+                {
+                    partitionOfficialText += partitioningFlags.GetArrayElementAtIndex(i).enumNames[partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex];
+                }
+                else
+                {
+                    partitionOfficialText += partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex;
+                }
                 if (i + 1 < partitioningFlags.arraySize)
                 {
                     partitionOfficialText += "—";
@@ -155,8 +162,11 @@ namespace Artemis.EditorIntegration
                     for(int i = 0; i < partitioningFlags.arraySize; i++)
                     {
                         value = float.Parse(keyStrings[i]);
-
-                        System.Type enumType = Goddess.instance.GetFlagSymbolType(Enum.Parse<FlagID>(partitioningFlags.GetArrayElementAtIndex(i).enumNames[partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex]));
+                        System.Type enumType = null;
+                        if (partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex > -1 && partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex < partitioningFlags.GetArrayElementAtIndex(i).enumNames.Length)
+                        {
+                            enumType = Goddess.instance.GetFlagSymbolType(Enum.Parse<FlagID>(partitioningFlags.GetArrayElementAtIndex(i).enumNames[partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex]));
+                        }
                         if (enumType != null)
                         {
                             var takeIn = (System.Enum)System.Enum.Parse(enumType, "" + (Mathf.FloorToInt(value)));

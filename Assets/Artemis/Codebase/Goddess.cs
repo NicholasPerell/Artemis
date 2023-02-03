@@ -97,6 +97,7 @@ namespace Artemis
                         }
                         else if (originalValueType == Flag.ValueType.SYMBOL)
                         {
+                            flagSymbolTypes[id].DeleteFlagEnumScript();
                             flagSymbolTypes.Remove(id);
                         }
                     }
@@ -171,6 +172,7 @@ namespace Artemis
                     flagIDConnections.Remove(id);
                     flagValueTypes.Remove(id);
                     toRemove.Add(id);
+                    flagSymbolTypes[id].DeleteFlagEnumScript();
                     flagSymbolTypes.Remove(id);
                 }
             }
@@ -182,6 +184,7 @@ namespace Artemis
 
         private string GetContainingFolder()
         {
+            //TODO: Sort out what to do about AssetPath nolonger working
             string rtn = AssetDatabase.GetAssetPath(this);
             //rtn = rtn.Substring(0, rtn.LastIndexOf('/'));
             rtn = "Assets/Artemis";
@@ -239,12 +242,6 @@ namespace Artemis
             path = Application.dataPath;
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
             path +=  relativePath;
-
-            //Write new script
-            if(!File.Exists(path))
-            {
-                File.Create(path);
-            }
 
             File.WriteAllText(path,stringBuilder.ToString());
 
@@ -342,20 +339,34 @@ namespace Artemis
             return rtn;
         }
 
-        [ContextMenu("Reset Entirely")]
         public void Reset()
         {
 
             flagsIdsToKeep.Clear();
             toAdd.Clear();
-            toRemove.Clear();
             intsReadyToConvert.Clear();
             flagValueTypes.Clear();
             flagIDConnections.Clear();
-            idsUsed.Clear();
-            flagSymbolTypes.Clear();
+            for(int i = flagSymbolTypes.Count - 1; i >= 0; i--)
+            {
+                flagSymbolTypes[i].Value.DeleteFlagEnumScript();
+                flagSymbolTypes.RemoveAt(i);
+            }
+            globallyLoadedFlagBundles = new FlagBundle[0];
+
+            foreach (FlagID e in Enum.GetValues(typeof(FlagID)))
+            {
+                if (e != FlagID.INVALID)
+                {
+                    toRemove.Add(e);
+                }
+            }
 
             WriteFlagEnumScript();
+
+            toRemove.Clear();
+            idsUsed.Clear();
+
             Modify();
         }
 #endif

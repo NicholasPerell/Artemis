@@ -79,12 +79,24 @@ MonoBehaviour:
       Value:
         idsUsed:
           list: 00000000010000000200000003000000
-        enumName: CONCEPT_ID
+        toAdd:
+          list: []
+        intsReadyToConvert:
+          list: 
+        toRemove: 
+        fileLocation: Assets/Artemis/Artemis Flag Repo/
+        enumName: ConceptID
     - Key: 8
       Value:
         idsUsed:
           list: 0000000001000000020000000300000004000000
-        enumName: WHO_ID
+        toAdd:
+          list: []
+        intsReadyToConvert:
+          list: 
+        toRemove: 
+        fileLocation: Assets/Artemis/Artemis Flag Repo/
+        enumName: WhoID
   idsUsed:
     list: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c000000
   toAdd:
@@ -92,8 +104,7 @@ MonoBehaviour:
   intsReadyToConvert:
     list: 
   toRemove: 
-  globallyLoadedFlagBundles:
-  - {fileID: 11400000, guid: ba9c2d63a1aa5fd4ea0b55f9bb9ff640, type: 2}
+  globallyLoadedFlagBundles: []
   flagIDConnections:
     list:
     - Key: 0

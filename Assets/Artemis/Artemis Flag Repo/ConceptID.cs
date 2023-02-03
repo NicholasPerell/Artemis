@@ -1,11 +1,11 @@
 namespace Artemis
 {
-	public enum CONCEPT_ID
+	public enum ConceptID
 	{
 		INVALID = -1,
+		IDLE = 3,
 		LIFE = 0,
 		MOMDAD = 1,
-		RELOADING = 2,
-		IDLE = 3
+		RELOADING = 2
 	}
 }
