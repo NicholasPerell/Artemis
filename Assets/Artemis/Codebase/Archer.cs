@@ -28,6 +28,41 @@ namespace Artemis
             RANDOM
         }
 
+        [System.Serializable]
+        private struct ComparableIntArray : System.IComparable
+        {
+            [SerializeField]
+            private int[] mArray;
+
+            public ComparableIntArray(int[] array)
+            {
+                mArray = array;
+            }
+
+            private int CompareToSame(ComparableIntArray obj)
+            {
+                if(mArray.Length.CompareTo(obj.mArray.Length) != 0)
+                {
+                    return mArray.Length.CompareTo(obj.mArray.Length);
+                }
+
+                for(int i = 0; i < mArray.Length; i++)
+                {
+                    if (mArray[i].CompareTo(obj.mArray[i]) != 0)
+                    {
+                        return mArray[i].CompareTo(obj.mArray[i]);
+                    }
+                }
+
+                return 0;
+            }
+
+            public int CompareTo(object obj)
+            {
+                return CompareToSame((ComparableIntArray)obj);
+            }
+        }
+
         //New Listings
         [SerializeField]
         List<Arrow> overallData = new List<Arrow>();
@@ -36,7 +71,7 @@ namespace Artemis
         [SerializeField]
         List<FlagID> tempPartitioningFlags = new List<FlagID>();
         [SerializeField]
-        SortedStrictDictionary<string, OrderedArrowList> partitionedData = new SortedStrictDictionary<string, OrderedArrowList>();
+        SortedStrictDictionary<ComparableIntArray, OrderedArrowList> partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
         //When Empty
         [HideInInspector]
@@ -95,7 +130,7 @@ namespace Artemis
         {
             mInsertionOrder = 0;
             overallData = new List<Arrow>();
-            partitionedData = new SortedStrictDictionary<string, OrderedArrowList>();
+            partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
             foreach (Arrow arrow in defaultContents)
             {
@@ -144,15 +179,14 @@ namespace Artemis
             //Partitioned Data
             if(partitioningFlags.Count != 0)
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 float value;
-                foreach (FlagID id in partitioningFlags)
+                int[] array = new int[partitioningFlags.Count];
+                for (int i = 0; i < partitioningFlags.Count; i++)
                 {
-                    dataPoint.TryGetFlagEqualsValue(id, out value);
-                    stringBuilder.Append(value);
-                    stringBuilder.Append('#');
+                    dataPoint.TryGetFlagEqualsValue(partitioningFlags[i], out value);
+                    array[i] = (int)value;
                 }
-                string key = stringBuilder.ToString();
+                ComparableIntArray key = new ComparableIntArray(array);
                 if (!partitionedData.HasKey(key))
                 {
                     partitionedData.Add(key, OrderedArrowList.Init());
@@ -255,7 +289,7 @@ namespace Artemis
                     Array.Fill(globalIndecies, 0);
                     Array.Fill(importedIndecies, 0);
                     StringBuilder stringBuilder = new StringBuilder();
-                    string key;
+                    ComparableIntArray key;
 
                     if (partitioningFlagsAlled == null)
                     {
@@ -263,8 +297,13 @@ namespace Artemis
                         float value = -1;
                         bool located;
                         Flag targetFlag;
-                        foreach (FlagID targetId in partitioningFlags)
+                        FlagID targetId;
+
+                        int[] array = new int[partitioningFlags.Count];
+
+                        for(int i = 0; i < partitioningFlags.Count; i++)
                         {
+                            targetId = partitioningFlags[i];
                             located = false;
                             for (int j = 0; j < globalStates.Length && !located; j++)
                             {
@@ -287,10 +326,9 @@ namespace Artemis
                             {
                                 value = -1;
                             }
-                            stringBuilder.Append(value);
-                            stringBuilder.Append('#');
+                            array[i] = (int)value;
                         }
-                        key = stringBuilder.ToString();
+                        key = new ComparableIntArray(array);
                         if (partitionedData.HasKey(key))
                         {
                             bucketsToUse.Add(partitionedData[key].mArrows);
@@ -303,10 +341,11 @@ namespace Artemis
                     }
                     else
                     {
-                        string[] keyParts = new string[partitioningFlags.Count];
+                        int[] keyParts = new int[partitioningFlags.Count];
                         int[] indeciesOfPartitioned = new int[partitioningFlags.Count];
                         int[] indeciesOfAlled = new int[partitioningFlagsAlled.Count];
                         Array[] possibleAlledValues = new Array[partitioningFlags.Count];
+
 
                         //Determine the set value for non-ALL partitioning flags
                         for (int i = 0; i < indeciesOfPartitioned.Length; i++)
@@ -352,7 +391,7 @@ namespace Artemis
                                     value = -1;
                                 }
 
-                                keyParts[idIndex] = value + "#";
+                                keyParts[idIndex] = (int)value;
                             }
                         }
 
@@ -371,15 +410,11 @@ namespace Artemis
                                 int currentAlledValue = scratch % possibleAlledValues[j].Length;
                                 scratch /= possibleAlledValues[j].Length;
 
-                                keyParts[indeciesOfAlled[j]] = (int)possibleAlledValues[j].GetValue(currentAlledValue) + "#";
+                                keyParts[indeciesOfAlled[j]] = (int)possibleAlledValues[j].GetValue(currentAlledValue);
                             }
 
-                            stringBuilder.Clear();
-                            for(int j = 0; j < keyParts.Length; j++)
-                            {
-                                stringBuilder.Append(keyParts[j]);
-                            }
-                            key = stringBuilder.ToString();
+                            key = new ComparableIntArray(keyParts);
+
                             if (partitionedData.HasKey(key))
                             {
                                 bucketsToUse.Add(partitionedData[key].mArrows);
@@ -557,7 +592,7 @@ namespace Artemis
         public void Repartition()
         {
             mInsertionOrder = 0;
-            partitionedData = new SortedStrictDictionary<string, OrderedArrowList>();
+            partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
             //Validate flags
             partitioningFlags = new List<FlagID>(tempPartitioningFlags.Distinct().ToList());
@@ -573,20 +608,18 @@ namespace Artemis
 
             if (partitioningFlags.Count != 0)
             {
-                StringBuilder stringBuilder = new StringBuilder();
                 float value;
-                string key;
+                int[] array;
+                ComparableIntArray key;
                 foreach (Arrow arrow in overallData)
                 {
-                    stringBuilder.Clear();
-                    foreach (FlagID id in partitioningFlags)
+                    array = new int[partitioningFlags.Count];
+                    for(int i = 0; i < partitioningFlags.Count; i++)
                     {
-                        arrow.TryGetFlagEqualsValue(id, out value);
-                        stringBuilder.Append((int)value);
-                        stringBuilder.Append('#');
+                        arrow.TryGetFlagEqualsValue(partitioningFlags[i], out value);
+                        array[i] = (int)value;
                     }
-                    key = stringBuilder.ToString();
-
+                    key = new ComparableIntArray(array);
                     if (!partitionedData.HasKey(key))
                     {
                         partitionedData.Add(key, OrderedArrowList.Init());
@@ -698,20 +731,20 @@ namespace Artemis
                 return;
             }
 
-            StringBuilder stringBuilder = new StringBuilder();
             float value;
+            int[] array;
+            ComparableIntArray key;
             foreach (Arrow e in toDrop.arrows)
             {
                 if(overallData.Remove(e))
                 {
-                    stringBuilder.Clear();
-                    foreach (FlagID id in partitioningFlags)
+                    array = new int[partitioningFlags.Count];
+                    for (int i = 0; i < partitioningFlags.Count; i++)
                     {
-                        e.TryGetFlagEqualsValue(id, out value);
-                        stringBuilder.Append(value);
-                        stringBuilder.Append('#');
+                        e.TryGetFlagEqualsValue(partitioningFlags[i], out value);
+                        array[i] = (int)value;
                     }
-                    string key = stringBuilder.ToString();
+                    key = new ComparableIntArray(array);
                     if (partitionedData.HasKey(key))
                     {
                         OrderedArrowList bucket = partitionedData[key];

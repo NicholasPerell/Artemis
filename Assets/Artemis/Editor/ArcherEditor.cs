@@ -146,22 +146,26 @@ namespace Artemis.EditorIntegration
                 SerializedProperty tempProperty2v;
                 SerializedProperty tempProperty3;
 
-                string[] keyStrings;
+                int[] keyParts;
                 string sectionName = "";
                 float value;
 
                 SerializedProperty tempProperty = partitionedData.FindPropertyRelative("list");
                 for (int j = 0; j < tempProperty.arraySize; j++)
                 {
-                    tempProperty2k = tempProperty.GetArrayElementAtIndex(j).FindPropertyRelative("Key");
+                    tempProperty2k = tempProperty.GetArrayElementAtIndex(j).FindPropertyRelative("Key").FindPropertyRelative("mArray");
                     tempProperty2v = tempProperty.GetArrayElementAtIndex(j).FindPropertyRelative("Value").FindPropertyRelative("mArrows");
 
-                    keyStrings = tempProperty2k.stringValue.Split('#',StringSplitOptions.RemoveEmptyEntries);
+                    keyParts = new int[tempProperty2k.arraySize];
+                    for (int i = 0; i < tempProperty2k.arraySize; i++)
+                    {
+                        keyParts[i] = tempProperty2k.GetArrayElementAtIndex(i).intValue;
+                    }
 
                     sectionName = "";
-                    for(int i = 0; i < partitioningFlags.arraySize; i++)
+                    for(int i = 0; i < keyParts.Length; i++)
                     {
-                        value = float.Parse(keyStrings[i]);
+                        value = keyParts[i];
                         System.Type enumType = null;
                         if (partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex > -1 && partitioningFlags.GetArrayElementAtIndex(i).enumValueIndex < partitioningFlags.GetArrayElementAtIndex(i).enumNames.Length)
                         {
