@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3a7195cd6cceb4fb680098c3302dd7, type: 3}
   m_Name: CONCEPT
   m_EditorClassIdentifier: 
-  symbolTypeName: Artemis.CONCEPT_ID
+  symbolTypeName: Artemis.ConceptID
   flagValueType: 2
-  flagId: 0
+  flagId: 31
   value: 0
   boolValue: 0

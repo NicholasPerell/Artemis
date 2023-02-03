@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   symbolTypeName: 
   flagValueType: 0
-  flagId: 5
-  value: 75
-  boolValue: 1
+  flagId: 36
+  value: 0
+  boolValue: 0
