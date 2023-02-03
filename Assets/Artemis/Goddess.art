@@ -15,67 +15,67 @@ MonoBehaviour:
   flagsIdsToKeep: 
   flagValueTypes:
     list:
-    - Key: 0
+    - Key: 31
       Value: 2
-    - Key: 1
+    - Key: 32
       Value: 1
-    - Key: 2
+    - Key: 33
       Value: 1
-    - Key: 3
+    - Key: 34
       Value: 0
-    - Key: 4
+    - Key: 35
       Value: 0
-    - Key: 5
+    - Key: 36
       Value: 0
-    - Key: 6
+    - Key: 37
       Value: 0
-    - Key: 7
+    - Key: 38
       Value: 0
-    - Key: 8
+    - Key: 39
       Value: 2
-    - Key: 9
+    - Key: 40
       Value: 1
-    - Key: 10
+    - Key: 41
       Value: 1
-    - Key: 11
+    - Key: 42
       Value: 1
-    - Key: 12
+    - Key: 43
       Value: 1
-    - Key: 13
+    - Key: 44
       Value: 1
-    - Key: 14
+    - Key: 45
       Value: 1
-    - Key: 15
+    - Key: 46
       Value: 1
-    - Key: 16
+    - Key: 47
       Value: 1
-    - Key: 17
+    - Key: 48
       Value: 1
-    - Key: 18
+    - Key: 49
       Value: 1
-    - Key: 19
+    - Key: 50
       Value: 1
-    - Key: 20
+    - Key: 51
       Value: 1
-    - Key: 21
+    - Key: 52
       Value: 1
-    - Key: 22
+    - Key: 53
       Value: 1
-    - Key: 23
+    - Key: 54
       Value: 1
-    - Key: 24
+    - Key: 55
       Value: 1
-    - Key: 25
+    - Key: 56
       Value: 1
-    - Key: 26
+    - Key: 57
       Value: 0
-    - Key: 27
+    - Key: 58
       Value: 0
-    - Key: 28
+    - Key: 59
       Value: 0
   flagSymbolTypes:
     list:
-    - Key: 0
+    - Key: 31
       Value:
         idsUsed:
           list: 00000000010000000200000003000000
@@ -86,7 +86,7 @@ MonoBehaviour:
         toRemove: 
         fileLocation: Assets/Artemis/Artemis Flag Repo/
         enumName: ConceptID
-    - Key: 8
+    - Key: 39
       Value:
         idsUsed:
           list: 0000000001000000020000000300000004000000
@@ -98,7 +98,7 @@ MonoBehaviour:
         fileLocation: Assets/Artemis/Artemis Flag Repo/
         enumName: WhoID
   idsUsed:
-    list: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c000000
+    list: 1f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b000000
   toAdd:
     list: []
   intsReadyToConvert:
@@ -107,90 +107,90 @@ MonoBehaviour:
   globallyLoadedFlagBundles: []
   flagIDConnections:
     list:
-    - Key: 0
+    - Key: 31
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 1
+    - Key: 32
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 2
+    - Key: 33
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 3
+    - Key: 34
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 4
+    - Key: 35
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 5
+    - Key: 36
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 6
+    - Key: 37
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 7
+    - Key: 38
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 8
+    - Key: 39
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 9
+    - Key: 40
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 10
+    - Key: 41
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 11
+    - Key: 42
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 12
+    - Key: 43
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 13
+    - Key: 44
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 14
+    - Key: 45
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 15
+    - Key: 46
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 16
+    - Key: 47
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 17
+    - Key: 48
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 18
+    - Key: 49
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 19
+    - Key: 50
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 20
+    - Key: 51
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 21
+    - Key: 52
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 22
+    - Key: 53
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 23
+    - Key: 54
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 24
+    - Key: 55
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 25
+    - Key: 56
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 26
+    - Key: 57
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 27
+    - Key: 58
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
-    - Key: 28
+    - Key: 59
       Value:
       - {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}

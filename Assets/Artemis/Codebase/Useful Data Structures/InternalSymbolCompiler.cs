@@ -194,10 +194,9 @@ namespace Artemis
 
         public int FindValueOfString(string id)
         {
-            id = id.ToUpper();
             object symbol = null;
             CheckForCompiledScript();
-            if (enumType != null && System.Enum.TryParse(enumType, id, out symbol))
+            if (enumType != null && System.Enum.TryParse(enumType, id, true, out symbol))
             {
                 return (int)symbol;
             }
@@ -220,10 +219,9 @@ namespace Artemis
 
         public void SetToRemove(string id)
         {
-            id = id.ToUpper();
             object symbol = null;
             CheckForCompiledScript();
-            if (enumType != null && System.Enum.TryParse(enumType, id, out symbol))
+            if (enumType != null && System.Enum.TryParse(enumType, id, true, out symbol))
             {
                 SetToRemove((int)symbol);
             }
@@ -236,8 +234,13 @@ namespace Artemis
 
         public string FindNameOfValue(int id)
         {
-            string result = Enum.GetName(enumType, id);
+            string result = id + "";
 
+            CheckForCompiledScript();
+            if (enumType != null)
+            {
+                result = Enum.GetName(enumType, id);
+            }
 
             if(result == id + "")
             {

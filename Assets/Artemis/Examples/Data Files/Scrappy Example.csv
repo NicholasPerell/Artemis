@@ -1,0 +1,6 @@
+ID,Priority Value,Flags,How to handle busy,Debug Message,Log Type,Time (s)
+ChrisHurt,0,"Concept = Dying, Who = Chris",CANCEL,Test 0,DEFAULT,0.3
+KyleChrisHurtA,0,"Who =Kyle, Concept = FriendDying",QUEUE,Test 1,DEFAULT,0.3
+KyleChrisHurtB,0,"Who =Kyle, Concept = KyleChrisHurtA, !In_Danger",QUEUE,Test 1,DEFAULT,0.3
+KyleAnyoneHurt,3,"Who = Kyle, Concept = FriendDying, WhoDying = Chris",INTERRUPT,Test 2,ERROR,0.3
+END,,,,,,

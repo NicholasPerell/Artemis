@@ -169,7 +169,10 @@ namespace Artemis
                 AssetDatabase.CreateFolder(GetContainingFolder(), GetArrowFolderName());
             }
 
-            internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/",typeof(T).ToString() + "_arrows");
+            if (internalSymbolCompiler == null)
+            {
+                internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", typeof(T).ToString() + "_arrows");
+            }
 
             //Parse CSV
             fgCSVReader.LoadFromString(csvFile.text, BASE_COLUMNS + columnsToReadFrom, AddToDatabase);
@@ -178,7 +181,7 @@ namespace Artemis
             foreach (int e in notBeingUsed)
             {
                 internalSymbolCompiler.SetToRemove(e);
-                tmp = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + e + ".asset";
+                tmp = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + internalSymbolCompiler.FindNameOfValue(e) + ".asset";
                 if (AssetDatabase.LoadAssetAtPath<Arrow>(tmp) != null)
                 {
                     AssetDatabase.DeleteAsset(tmp);

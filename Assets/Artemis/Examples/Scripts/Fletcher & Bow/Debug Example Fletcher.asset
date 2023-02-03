@@ -15,14 +15,164 @@ MonoBehaviour:
   csvFile: {fileID: 4900000, guid: dde5b3aa10e47e443a26f0b36cb5b605, type: 3}
   columnsToReadFrom: 3
   database:
-    list: []
-  internalSymbolCompiler:
-    idsUsed:
-      list: 
-    toAdd:
-      list: []
-    intsReadyToConvert:
-      list: 
-    toRemove: 
-    fileLocation: 
-    enumName: 
+    list:
+    - Key: 0
+      Value:
+        message: Test 0
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 1
+      Value:
+        message: Test 1
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 2
+      Value:
+        message: Test 2
+        messageType: 1
+        timeSystemIsBusy: 0.3
+    - Key: 3
+      Value:
+        message: Test 3
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 4
+      Value:
+        message: Test 4
+        messageType: 2
+        timeSystemIsBusy: 0.3
+    - Key: 5
+      Value:
+        message: Test 5
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 6
+      Value:
+        message: Test 6
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 7
+      Value:
+        message: Test 7
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 8
+      Value:
+        message: Test 8
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 9
+      Value:
+        message: Test 9
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 10
+      Value:
+        message: Test 10
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 11
+      Value:
+        message: Test 11
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 12
+      Value:
+        message: Test 12
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 13
+      Value:
+        message: Test 13
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 14
+      Value:
+        message: Test 14
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 15
+      Value:
+        message: Test 15
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 16
+      Value:
+        message: Test 16
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 17
+      Value:
+        message: Test 17
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 18
+      Value:
+        message: Test 18
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 19
+      Value:
+        message: Test 19
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 20
+      Value:
+        message: Test 20
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 21
+      Value:
+        message: Test 21
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 22
+      Value:
+        message: Test 22
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 23
+      Value:
+        message: Test 23
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 24
+      Value:
+        message: Test 24
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 25
+      Value:
+        message: Test 25
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 26
+      Value:
+        message: Test 26
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 27
+      Value:
+        message: Test 27
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 28
+      Value:
+        message: Test 28
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 29
+      Value:
+        message: Test 29
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 30
+      Value:
+        message: Test 30
+        messageType: 0
+        timeSystemIsBusy: 0.3
+    - Key: 31
+      Value:
+        message: Test 31
+        messageType: 0
+        timeSystemIsBusy: 0.3

@@ -172,7 +172,7 @@ namespace Artemis
                     flagIDConnections.Remove(id);
                     flagValueTypes.Remove(id);
                     toRemove.Add(id);
-                    flagSymbolTypes[id].DeleteFlagEnumScript();
+                    flagSymbolTypes[id]?.DeleteFlagEnumScript();
                     flagSymbolTypes.Remove(id);
                 }
             }
@@ -321,7 +321,7 @@ namespace Artemis
 
             if(flagSymbolTypes.HasKey(id))
             {
-                rtn = flagSymbolTypes[id].FindValueOfString(enumPossibly);
+                rtn = flagSymbolTypes[id].FindValueOfString(enumPossibly.ToUpper());
             }
 
             return rtn;

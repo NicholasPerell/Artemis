@@ -3,10 +3,10 @@ namespace Artemis
 	public enum WhoID
 	{
 		INVALID = -1,
-		MARCUS = 0,
-		LIAM = 1,
-		NICK = 2,
+		BOB = 4,
 		DONISI = 3,
-		BOB = 4
+		LIAM = 1,
+		MARCUS = 0,
+		NICK = 2
 	}
 }
