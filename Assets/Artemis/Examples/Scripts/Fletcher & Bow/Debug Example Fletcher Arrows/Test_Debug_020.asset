@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d6c426b21345840a5ce7617c156483, type: 3}
   m_Name: Test_Debug_020
   m_EditorClassIdentifier: 
-  id: Test_Debug_020
+  id: 20
   fletcher: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
   priorityValue: 0
   rule:

@@ -94,10 +94,9 @@ public class SortedStrictDictionary<K,V> where K : IComparable
         list = new List<Tuple>();
     }
 
-
-    public Tuple this[int key]
+    public Tuple GetTupleAtIndex(int index)
     {
-        get { return list[key]; }
+        return list[index];
     }
 
     public V this[K key]
@@ -145,6 +144,18 @@ public class SortedStrictDictionary<K,V> where K : IComparable
             }
         }
         return false;
+    }
+
+    public int IndexOfValue(V value)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (value.Equals(list[i].Value))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public bool LinearSearch(K key, out V foundValue)

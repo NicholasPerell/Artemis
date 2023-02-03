@@ -108,13 +108,15 @@ namespace Artemis
             }
         }
 
-        protected abstract void Send(string id);
+        protected abstract void Send(int id);
         protected abstract bool IsBusy();
         protected abstract void AbruptEnd();
 
 #if UNITY_EDITOR
         public abstract void DeliverySystemDatabase();
 #endif
+
+        public abstract Type GetSymbolType();
     }
 
     public abstract class Fletcher<T> : PreDictionaryFletcher
@@ -124,16 +126,18 @@ namespace Artemis
         private TextAsset csvFile;
         [SerializeField]
         [Tooltip("Number of columns in the CSV used to generate the data structures in each database. Number does not include the base 5 columns.")]
-        protected int columnsToReadFrom;
+        private int columnsToReadFrom;
         [SerializeField]
-        private SortedStrictDictionary<string,T> database;
+        private SortedStrictDictionary<int,T> database;
 
         private const int BASE_COLUMNS = 4;
 
         [HideInInspector]
+        private InternalSymbolCompiler internalSymbolCompiler = null;
+        [HideInInspector]
         private List<string> flagsBeingUsed;
         [HideInInspector]
-        private List<string> notBeingUsed;
+        private List<int> notBeingUsed;
         [HideInInspector]
         private List<string> flagsNoLongerBeingUsed;
 
@@ -143,7 +147,7 @@ namespace Artemis
         public override void DeliverySystemDatabase()
         {
             //List used to track what IDs need to be deleted
-            notBeingUsed = new List<string>();
+            notBeingUsed = new List<int>();
             if (database != null)
             {
                 notBeingUsed = database.GetKeyList();
@@ -157,7 +161,7 @@ namespace Artemis
             flagsBeingUsed.Clear();
 
             //Reset databases
-            database = new SortedStrictDictionary<string, T>();
+            database = new SortedStrictDictionary<int, T>();
 
             //Check for folder
             if (!AssetDatabase.IsValidFolder(GetContainingFolder() + "/" + GetArrowFolderName()))
@@ -165,12 +169,15 @@ namespace Artemis
                 AssetDatabase.CreateFolder(GetContainingFolder(), GetArrowFolderName());
             }
 
+            internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/",typeof(T).ToString() + "_arrows");
+
             //Parse CSV
             fgCSVReader.LoadFromString(csvFile.text, BASE_COLUMNS + columnsToReadFrom, AddToDatabase);
 
             string tmp;
-            foreach (string e in notBeingUsed)
+            foreach (int e in notBeingUsed)
             {
+                internalSymbolCompiler.SetToRemove(e);
                 tmp = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + e + ".asset";
                 if (AssetDatabase.LoadAssetAtPath<Arrow>(tmp) != null)
                 {
@@ -183,6 +190,7 @@ namespace Artemis
                 Goddess.instance.DisconnectFlag(e, this);
             }
 
+            internalSymbolCompiler.WriteFlagEnumScript();
             Goddess.instance.WriteFlagEnumScript();
 
             EditorUtility.SetDirty(this);
@@ -244,10 +252,10 @@ namespace Artemis
             if (!invalid)
             {
                 //1) Add to the official database
-                database.Add(currentLine.cell[0].value, data);
+                int _id = internalSymbolCompiler.FindValueOfString(currentLine.cell[0].value);
+                database.Add(_id, data);
 
                 //2) Add/update asset
-                string _id = currentLine.cell[0].value;
                 PreDictionaryFletcher _systemScriptable = this;
                 int _priorityValue = 0;
                 Arrow.HowPriorityCalculated _howPriorityCalculated = Arrow.HowPriorityCalculated.SET_VALUE;
@@ -294,7 +302,7 @@ namespace Artemis
                     _howToHandleBusy = Arrow.HowToHandleBusy.CANCEL;
                 }
 
-                Arrow dataPoint = AssetDatabase.LoadAssetAtPath<Arrow>(GetContainingFolder() + "/" + GetArrowFolderName() + "/" + _id + ".asset");
+                Arrow dataPoint = AssetDatabase.LoadAssetAtPath<Arrow>(GetContainingFolder() + "/" + GetArrowFolderName() + "/" + currentLine.cell[0].value + ".asset");
 
                 bool exists = dataPoint != null;
 
@@ -311,7 +319,7 @@ namespace Artemis
                 }
                 else
                 {
-                    AssetDatabase.CreateAsset(dataPoint, GetContainingFolder() + "/" + GetArrowFolderName() + "/" + _id + ".asset");
+                    AssetDatabase.CreateAsset(dataPoint, GetContainingFolder() + "/" + GetArrowFolderName() + "/" + currentLine.cell[0].value + ".asset");
                 }
 
                 //3) remove from list of uninvolved Assets for clean up later
@@ -639,7 +647,7 @@ namespace Artemis
         }
 #endif
 
-        public bool FindData(string id, out T value)
+        public bool FindData(int id, out T value)
         {
             value = default(T);
             bool success = database.HasKey(id);
@@ -674,7 +682,7 @@ namespace Artemis
             return inSceneObject;
         }
 
-        protected override void Send(string id)
+        protected override void Send(int id)
         {
             T value;
             if (FindData(id, out value))
@@ -694,5 +702,10 @@ namespace Artemis
         }
 
         protected abstract bool SetUpDataFromCells(string[] dataToInterpret, out T valueDetermined);
+
+        public override Type GetSymbolType()
+        {
+            return internalSymbolCompiler.GetEnumType();
+        }
     }
 }

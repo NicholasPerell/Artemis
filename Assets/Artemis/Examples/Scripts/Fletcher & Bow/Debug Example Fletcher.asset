@@ -11,168 +11,18 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 415c62343185c3047a154bef3128ca5f, type: 3}
   m_Name: Debug Example Fletcher
-  m_EditorClassIdentifier: Assembly-CSharp::DebugDelivery
+  m_EditorClassIdentifier: 
   csvFile: {fileID: 4900000, guid: dde5b3aa10e47e443a26f0b36cb5b605, type: 3}
   columnsToReadFrom: 3
   database:
-    list:
-    - Key: Test_Debug_000
-      Value:
-        message: Test 0
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_001
-      Value:
-        message: Test 1
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_002
-      Value:
-        message: Test 2
-        messageType: 1
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_003
-      Value:
-        message: Test 3
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_004
-      Value:
-        message: Test 4
-        messageType: 2
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_005
-      Value:
-        message: Test 5
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_006
-      Value:
-        message: Test 6
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_007
-      Value:
-        message: Test 7
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_008
-      Value:
-        message: Test 8
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_009
-      Value:
-        message: Test 9
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_010
-      Value:
-        message: Test 10
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_011
-      Value:
-        message: Test 11
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_012
-      Value:
-        message: Test 12
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_013
-      Value:
-        message: Test 13
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_014
-      Value:
-        message: Test 14
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_015
-      Value:
-        message: Test 15
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_016
-      Value:
-        message: Test 16
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_017
-      Value:
-        message: Test 17
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_018
-      Value:
-        message: Test 18
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_019
-      Value:
-        message: Test 19
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_020
-      Value:
-        message: Test 20
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_021
-      Value:
-        message: Test 21
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_022
-      Value:
-        message: Test 22
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_023
-      Value:
-        message: Test 23
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_024
-      Value:
-        message: Test 24
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_025
-      Value:
-        message: Test 25
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_026
-      Value:
-        message: Test 26
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_027
-      Value:
-        message: Test 27
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_028
-      Value:
-        message: Test 28
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_029
-      Value:
-        message: Test 29
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_030
-      Value:
-        message: Test 30
-        messageType: 0
-        timeSystemIsBusy: 0.3
-    - Key: Test_Debug_031
-      Value:
-        message: Test 31
-        messageType: 0
-        timeSystemIsBusy: 0.3
+    list: []
+  internalSymbolCompiler:
+    idsUsed:
+      list: 
+    toAdd:
+      list: []
+    intsReadyToConvert:
+      list: 
+    toRemove: 
+    fileLocation: 
+    enumName: 

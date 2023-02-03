@@ -224,8 +224,8 @@ namespace Artemis
 
             for (int i = 0; i < toAdd.Count; i++)
             {
-                elementName = toAdd[i].Key;
-                elementInt = toAdd[i].Value;
+                elementName = toAdd.GetTupleAtIndex(i).Key;
+                elementInt = toAdd.GetTupleAtIndex(i).Value;
                 elementID = (FlagID)elementInt;
 
                 idsUsed.Add(elementID);
@@ -255,7 +255,7 @@ namespace Artemis
             //Write the other enum scripts
             for (int i = 0; i < flagSymbolTypes.Count; i++)
             {
-                flagSymbolTypes[i].Value.WriteFlagEnumScript();
+                flagSymbolTypes.GetTupleAtIndex(i).Value.WriteFlagEnumScript();
             }
 
             Modify();
@@ -349,7 +349,7 @@ namespace Artemis
             flagIDConnections.Clear();
             for(int i = flagSymbolTypes.Count - 1; i >= 0; i--)
             {
-                flagSymbolTypes[i].Value.DeleteFlagEnumScript();
+                flagSymbolTypes.GetTupleAtIndex(i).Value.DeleteFlagEnumScript();
                 flagSymbolTypes.RemoveAt(i);
             }
             globallyLoadedFlagBundles = new FlagBundle[0];

@@ -95,8 +95,8 @@ namespace Artemis
 
             for (int i = 0; i < toAdd.Count; i++)
             {
-                elementName = toAdd[i].Key;
-                elementInt = toAdd[i].Value;
+                elementName = toAdd.GetTupleAtIndex(i).Key; //TODO: Consider a GetKey or GetValue method instead?
+                elementInt = toAdd.GetTupleAtIndex(i).Value;
 
                 idsUsed.Add(elementInt);
 
@@ -178,7 +178,7 @@ namespace Artemis
                 if (rtn == start)
                 {
                     //Looped the whole way around and had no luck!
-                    Debug.LogError("You've run out of space for flags to be tracked. That's over (2^32)-1 flags!");
+                    UnityEngine.Debug.LogError("You've run out of space for flags to be tracked. That's over (2^32)-1 flags!");
                     rtn = INVALID;
                     break;
                 }
@@ -216,6 +216,39 @@ namespace Artemis
 
                 return newIdValue;
             }
+        }
+
+        public void SetToRemove(string id)
+        {
+            id = id.ToUpper();
+            object symbol = null;
+            CheckForCompiledScript();
+            if (enumType != null && System.Enum.TryParse(enumType, id, out symbol))
+            {
+                SetToRemove((int)symbol);
+            }
+        }
+
+        public void SetToRemove(int id)
+        {
+            toRemove.Add(id);
+        }
+
+        public string FindNameOfValue(int id)
+        {
+            string result = Enum.GetName(enumType, id);
+
+
+            if(result == id + "")
+            {
+                int index = toAdd.IndexOfValue(id);
+                if (index > -1)
+                {
+                    result = toAdd.GetTupleAtIndex(index).Key;
+                }
+            }
+
+            return result;
         }
 
         public System.Type GetEnumType()

@@ -20,7 +20,7 @@ namespace Artemis.EditorIntegration
             EditorGUI.EndDisabledGroup();
 
             //ID
-            EditorGUILayout.LabelField("Arrow ID", e.GetArrowID()+"");
+            EditorGUILayout.LabelField("Arrow ID", System.Enum.GetName(e.GetSymbolType(), e.GetArrowID()));
 
             //Priority
             EditorGUILayout.Space();

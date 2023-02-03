@@ -39,7 +39,7 @@ namespace Artemis
             Flag[] rtn = new Flag[flagsUsed.Count];
             for (int i = 0; i < flagsUsed.Count; i++)
             {
-                rtn[i] = flagsUsed[i].Value;
+                rtn[i] = flagsUsed.GetTupleAtIndex(i).Value;
             }
             return rtn;
         }

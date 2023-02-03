@@ -25,9 +25,10 @@ namespace Artemis
         }
 
         [SerializeField]
-        string id;
+        int id;
         [SerializeField]
         PreDictionaryFletcher fletcher;
+
         [Space]
         [SerializeField]
         [Min(0)]
@@ -39,7 +40,7 @@ namespace Artemis
         [SerializeField]
         public HowPriorityCalculated howPriorityCalculated = HowPriorityCalculated.SET_VALUE;
 
-        public void Rewrite(string _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy, HowPriorityCalculated _howPriorityCalculated)
+        public void Rewrite(int _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy, HowPriorityCalculated _howPriorityCalculated)
         {
             id = _id;
             fletcher = _systemScriptable;
@@ -116,8 +117,8 @@ namespace Artemis
             int allIndex = 0;
             for(int i = 0; i < rule.Count; i++)
             {
-                targetId = rule[i].Key;
-                targetCriterion = rule[i].Value;
+                targetId = rule.GetTupleAtIndex(i).Key;
+                targetCriterion = rule.GetTupleAtIndex(i).Value;
 
                 located = false;
                 for (; allIndex < all.Length && !located; allIndex++)
@@ -175,7 +176,7 @@ namespace Artemis
 
             for(int i = 0; i < rule.Count; i++)
             {
-                rtn += rule[i].Value.GetStringRepresentation();
+                rtn += rule.GetTupleAtIndex(i).Value.GetStringRepresentation();
                 if(i < rule.Count - 1)
                 {
                     rtn += "\n";
@@ -219,9 +220,14 @@ namespace Artemis
             return fletcher;
         }
 
-        public string GetArrowID()
+        public int GetArrowID()
         {
             return id;
+        }
+
+        public Type GetSymbolType()
+        {
+            return fletcher.GetSymbolType();
         }
 
         public HowPriorityCalculated GetHowPriorityCalculated()

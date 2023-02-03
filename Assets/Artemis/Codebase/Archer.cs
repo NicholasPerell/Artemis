@@ -643,7 +643,7 @@ namespace Artemis
             OrderedArrowList temp;
             for(int i = 0; i < partitionedData.Count; i++)
             {
-                temp = partitionedData[i].Value;
+                temp = partitionedData.GetTupleAtIndex(i).Value;
                 FlipArrowList(temp.mArrows,temp.mOrder);
             }
         }
