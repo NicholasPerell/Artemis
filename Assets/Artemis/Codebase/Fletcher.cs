@@ -126,7 +126,7 @@ namespace Artemis
         [Tooltip("Number of columns in the CSV used to generate the data structures in each database. Number does not include the base 5 columns.")]
         protected int columnsToReadFrom;
         [SerializeField]
-        private StringSortingDictionary<T> database;
+        private SortedStrictDictionary<string,T> database;
 
         private const int BASE_COLUMNS = 4;
 
@@ -157,7 +157,7 @@ namespace Artemis
             flagsBeingUsed.Clear();
 
             //Reset databases
-            database = new StringSortingDictionary<T>();
+            database = new SortedStrictDictionary<string, T>();
 
             //Check for folder
             if (!AssetDatabase.IsValidFolder(GetContainingFolder() + "/" + GetArrowFolderName()))
@@ -642,7 +642,7 @@ namespace Artemis
         public bool FindData(string id, out T value)
         {
             value = default(T);
-            bool success = database.ContainsKey(id);
+            bool success = database.HasKey(id);
             if (success)
             {
                 value = database[id];

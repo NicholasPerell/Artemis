@@ -194,4 +194,14 @@ public class SortedStrictDictionary<K,V> where K : IComparable
     }
 
     public int Count => list.Count;
+
+    public List<K> GetKeyList()
+    {
+        List<K> keyList = new List<K>();
+        foreach(Tuple e in list)
+        {
+            keyList.Add(e.Key);
+        }
+        return keyList;
+    }
 }
