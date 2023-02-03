@@ -30,24 +30,14 @@ namespace Artemis
         [SerializeField]
         float value = 0;
 
-        [SerializeField]
-        bool boolValue = false;
-
         public void SetValue(float _value)
         {
-            boolValue = _value != 0;
             value = _value;
         }
 
         public void SetValue(bool _value)
         {
-            boolValue = _value;
             value = _value ? 1 : 0;
-        }
-
-        public bool GetBoolValue()
-        {
-            return boolValue;
         }
 
         public float GetValue()
@@ -73,7 +63,6 @@ namespace Artemis
         public void SetValueType(ValueType type)
         {
             flagValueType = type;
-            
         }
 
         public System.Type GetSymbolType()
