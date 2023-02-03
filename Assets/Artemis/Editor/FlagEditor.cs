@@ -5,10 +5,30 @@ using UnityEditor;
 
 namespace Artemis.EditorIntegration
 {
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(Flag))]
     public class FlagEditor : Editor
     {
+        SerializedProperty valueProperty;
+
+        private void OnEnable()
+        {
+            valueProperty = serializedObject.FindProperty("value");
+        }
+
         public override void OnInspectorGUI()
+        {
+            if (targets.Length == 1)
+            {
+                OnSingleInspectorGUI();
+            }
+            else
+            {
+                OnMultipleInspectorGUI();
+            }
+        }
+
+        private void OnSingleInspectorGUI()
         {
             Flag e = (Flag)target;
 
@@ -29,6 +49,7 @@ namespace Artemis.EditorIntegration
                 Repaint();
             }
 
+
             if (flagId != FlagID.INVALID)
             {
                 EditorGUILayout.LabelField("Flag ID", flagId.ToString());
@@ -42,7 +63,7 @@ namespace Artemis.EditorIntegration
                         e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
                         break;
                     case Flag.ValueType.SYMBOL:
-                        var takeIn = EditorGUILayout.EnumPopup("Value", (System.Enum)System.Enum.Parse(e.GetSymbolType(),""+(Mathf.FloorToInt(e.GetValue()))));
+                        var takeIn = EditorGUILayout.EnumPopup("Value", (System.Enum)System.Enum.Parse(e.GetSymbolType(), "" + (Mathf.FloorToInt(e.GetValue()))));
                         e.SetValue((int)((object)takeIn));
                         break;
                     default:
@@ -57,7 +78,7 @@ namespace Artemis.EditorIntegration
                 {
                     Flag.ValueType temp = Goddess.instance.GetFlagValueType(e.GetFlagId());
                     e.SetValueType(temp);
-                    if(temp == Flag.ValueType.SYMBOL)
+                    if (temp == Flag.ValueType.SYMBOL)
                     {
                         e.SetSymbolType(Goddess.instance.GetFlagSymbolType(e.GetFlagId()));
                     }
@@ -67,6 +88,168 @@ namespace Artemis.EditorIntegration
             if (EditorGUI.EndChangeCheck())
             {
                 EditorUtility.SetDirty(e);
+                AssetDatabase.SaveAssets();
+                Repaint();
+            }
+        }
+
+        private void OnMultipleInspectorGUI()
+        {
+            Flag[] flags = new Flag[targets.Length];
+            for (int i = 0; i < flags.Length; i++)
+            {
+                flags[i] = (Flag)targets[i];
+            }
+
+            serializedObject.Update();
+
+            EditorGUI.BeginChangeCheck();
+
+            Flag.ValueType valueType = flags[0].GetValueType();
+            FlagID flagId = flags[0].GetFlagId();
+
+            //Turn this into a check inside its class?
+            FlagID tempFlagId;
+            int validityAmount = 0;
+            foreach (Flag flag in flags)
+            {
+                tempFlagId = flag.GetFlagId();
+                if (tempFlagId.ToString() == ((int)tempFlagId).ToString())
+                {
+                    flag.SetFlagId(FlagID.INVALID);
+                    tempFlagId = FlagID.INVALID;
+
+                    //Repaint!
+                    EditorUtility.SetDirty(flag);
+                    AssetDatabase.SaveAssets();
+                    Repaint();
+                }
+
+                if(flagId != tempFlagId)
+                {
+                    flagId = FlagID.INVALID;
+                }
+
+                if(valueType != flag.GetValueType())
+                {
+                    valueType = Flag.ValueType.INVALID;
+                }
+
+                if(tempFlagId == FlagID.INVALID)
+                {
+                    validityAmount--;
+                }
+                else
+                {
+                    validityAmount++;
+                }
+            }
+
+            if (validityAmount == flags.Length) //All valid Flag IDs
+            {
+                if (flagId != FlagID.INVALID)
+                {
+                    EditorGUILayout.LabelField("Flag ID", flagId.ToString());
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("Flag ID", "—");
+                }
+
+                switch (valueType)
+                {
+                    case Flag.ValueType.FLOAT:
+                        EditorGUILayout.PropertyField(valueProperty, new GUIContent("Value"));
+                        break;
+                    case Flag.ValueType.BOOL:
+                        bool oldBoolValue = flags[0].GetValue() == 1;
+                        if (valueProperty.hasMultipleDifferentValues)
+                        {
+                            EditorGUI.showMixedValue = true;
+                            oldBoolValue = false;
+                        }
+                        bool newBoolValue = EditorGUILayout.Toggle("Value", oldBoolValue);
+                        if(oldBoolValue != newBoolValue)
+                        {
+                            foreach(Flag flag in flags)
+                            {
+                                flag.SetValue(newBoolValue);
+                            }
+                        }
+                        if(valueProperty.hasMultipleDifferentValues)
+                        {
+                            EditorGUI.showMixedValue = false;
+                        }
+                        break;
+                    case Flag.ValueType.SYMBOL:
+                        if (flagId != FlagID.INVALID)
+                        {
+                            int oldEnumValue = Mathf.FloorToInt(flags[0].GetValue());
+                            if (valueProperty.hasMultipleDifferentValues)
+                            {
+                                EditorGUI.showMixedValue = true;
+                                oldEnumValue = int.MaxValue; //This value isn't reached for any of the compiled enum flags
+                            }
+                            var takeIn = EditorGUILayout.EnumPopup("Value", (System.Enum)System.Enum.Parse(flags[0].GetSymbolType(), "" + (oldEnumValue)));
+                            int newEnumValue = (int)((object)takeIn);
+                            if (oldEnumValue != newEnumValue)
+                            {
+                                foreach (Flag flag in flags)
+                                {
+                                    flag.SetValue(newEnumValue);
+                                }
+                            }
+                            if (valueProperty.hasMultipleDifferentValues)
+                            {
+                                EditorGUI.showMixedValue = false;
+                            }
+                        }
+                        else
+                        {
+                            EditorGUILayout.LabelField("Value", "—");
+                        }
+                        break;
+                    default:
+                        EditorGUILayout.LabelField("Value", "—");
+                        break;
+                }
+            }
+            else if(validityAmount == -flags.Length) //All invalid Flag IDs
+            {
+                flags[0].SetFlagId((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
+
+                FlagID tempId = flags[0].GetFlagId();
+                if (tempId != FlagID.INVALID)
+                {
+                    Flag.ValueType tempValueType = Goddess.instance.GetFlagValueType(tempId);
+                    flags[0].SetValueType(tempValueType);
+
+                    System.Type tempSymbolType = null;
+                    if (tempValueType == Flag.ValueType.SYMBOL)
+                    {
+                        tempSymbolType = Goddess.instance.GetFlagSymbolType(tempId);
+                    }
+
+                    foreach (Flag flag in flags)
+                    {
+                        flag.SetFlagId(tempId);
+                        flag.SetValueType(tempValueType);
+                        if (tempValueType == Flag.ValueType.SYMBOL)
+                        {
+                            flag.SetSymbolType(tempSymbolType);
+                        }
+                    }
+                }
+            }
+
+            serializedObject.ApplyModifiedProperties();
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                foreach (Flag flag in flags)
+                {
+                    EditorUtility.SetDirty(flag);
+                }
                 AssetDatabase.SaveAssets();
                 Repaint();
             }
