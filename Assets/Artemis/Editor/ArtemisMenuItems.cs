@@ -53,7 +53,6 @@ namespace Artemis.EditorIntegration
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            EditorUtility.FocusProjectWindow();
         }
 
         [MenuItem("Assets/Create/Artemis/Flags/Flag Bundle")]
