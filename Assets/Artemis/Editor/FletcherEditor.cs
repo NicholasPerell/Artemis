@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace Artemis.EditorIntegration
 {
-    [CustomEditor(typeof(PreDictionaryFletcher))]
+    [CustomEditor(typeof(PreDictionaryFletcher),true)]
     public class PreDictionaryFletcherEditor : Editor
     {
         public override void OnInspectorGUI()
@@ -13,6 +13,11 @@ namespace Artemis.EditorIntegration
             PreDictionaryFletcher e = (PreDictionaryFletcher)target;
 
             DrawDefaultInspector();
+
+            if (GUILayout.Button("Parse CSV into database"))
+            {
+                e.DeliverySystemDatabase();
+            }
 
             EditorGUI.BeginChangeCheck();
 
@@ -46,4 +51,5 @@ namespace Artemis.EditorIntegration
             return tex;
         }
     }
+
 }

@@ -125,6 +125,7 @@ namespace Artemis
         [SerializeField]
         private TextAsset csvFile;
         [SerializeField]
+        [Min(0)]
         [Tooltip("Number of columns in the CSV used to generate the data structures in each database. Number does not include the base 5 columns.")]
         private int columnsToReadFrom;
         [SerializeField]
