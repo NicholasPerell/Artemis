@@ -18,8 +18,11 @@ namespace Artemis.EditorIntegration
 
         public override void OnInspectorGUI()
         {
-
             ArrowBundle e = (ArrowBundle)target;
+
+            //Figure out why Resources works in the Ink Package but not in Artemis
+            //AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/quiver.png"));
 
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();
@@ -33,25 +36,6 @@ namespace Artemis.EditorIntegration
                 AssetDatabase.SaveAssets();
                 Repaint();
             }
-        }
-
-        public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
-        {
-            ArrowBundle example = (ArrowBundle)target;
-
-            if (example == null)
-                return null;
-
-            Texture2D tex = new Texture2D(width, height);
-            Texture2D copyFrom;
-
-            //Figure out why Resources works in the Ink Package but not in Artemis
-            //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/quiver.png");
-
-            EditorUtility.CopySerialized(copyFrom, tex);
-
-            return tex;
         }
     }
 }

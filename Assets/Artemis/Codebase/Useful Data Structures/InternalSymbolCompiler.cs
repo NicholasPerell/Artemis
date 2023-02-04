@@ -51,6 +51,14 @@ namespace Artemis
             enumType = null;
         }
 
+        public void SetLocation(string _fileLocation, string _enumPrefix)
+        {
+            fileLocation = _fileLocation;
+            enumName = _enumPrefix.ElementAt(0) + _enumPrefix.Substring(1).ToLower() + "ID";
+            CheckForCompiledScript();
+
+        }
+
         void CheckForCompiledScript()
         {
             enumType = System.Type.GetType("Artemis."+enumName);

@@ -134,12 +134,16 @@ namespace Artemis
         private const int BASE_COLUMNS = 4;
 
         [HideInInspector]
-        private InternalSymbolCompiler internalSymbolCompiler = null;
+        [SerializeField]
+        private InternalSymbolCompiler internalSymbolCompiler;
         [HideInInspector]
+        [SerializeField]
         private List<string> flagsBeingUsed;
         [HideInInspector]
+        [SerializeField]
         private List<int> notBeingUsed;
         [HideInInspector]
+        [SerializeField]
         private List<string> flagsNoLongerBeingUsed;
 
         Bow<T> inSceneObject;
@@ -174,6 +178,7 @@ namespace Artemis
             {
                 internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", typeof(T).ToString() + "_arrows");
             }
+            internalSymbolCompiler.SetLocation(GetContainingFolder() + "/" + GetArrowFolderName() + "/", typeof(T).ToString() + "_arrows");
 
             //Parse CSV
             fgCSVReader.LoadFromString(csvFile.text, BASE_COLUMNS + columnsToReadFrom, AddToDatabase);

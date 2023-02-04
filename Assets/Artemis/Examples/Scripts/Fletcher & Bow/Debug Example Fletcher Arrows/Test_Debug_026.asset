@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test_Debug_026
   m_EditorClassIdentifier: 
   id: 62
-  fletcher: {fileID: 11400000, guid: f1447cbb0a68ef94a91d01b919b47531, type: 2}
+  fletcher: {fileID: 11400000, guid: 5ae98de649bde344491a8b1ed8971550, type: 2}
   priorityValue: 2
   rule:
     list:

@@ -32,6 +32,9 @@ namespace Artemis.EditorIntegration
         {
             Archer archer = (Archer)target;
 
+            EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/bowman.png"));
+
+
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(defaultContents);
@@ -216,25 +219,6 @@ namespace Artemis.EditorIntegration
                 AssetDatabase.SaveAssets();
                 Repaint();
             }
-        }
-
-        public override Texture2D RenderStaticPreview(string assetPath, UnityEngine.Object[] subAssets, int width, int height)
-        {
-            Archer example = (Archer)target;
-
-            if (example == null)
-                return null;
-
-            Texture2D tex = new Texture2D(width, height);
-            Texture2D copyFrom;
-
-            //Figure out why Resources works in the Ink Package but not in Artemis
-            //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/bowman.png");
-
-            EditorUtility.CopySerialized(copyFrom, tex);
-
-            return tex;
         }
     }
 }
