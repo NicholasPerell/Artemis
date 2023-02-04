@@ -5,18 +5,28 @@ using UnityEditor;
 
 namespace Artemis.EditorIntegration
 {
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(ArrowBundle))]
     public class ArrowBundleEditor : Editor
     {
+        SerializedProperty arrowsProperty;
+
+        private void OnEnable()
+        {
+            arrowsProperty = serializedObject.FindProperty("arrows");
+        }
+
         public override void OnInspectorGUI()
         {
+
             ArrowBundle e = (ArrowBundle)target;
 
-            DrawDefaultInspector();
-
             EditorGUI.BeginChangeCheck();
+            serializedObject.Update();
 
+            EditorGUILayout.PropertyField(arrowsProperty, new GUIContent("Arrows"));
 
+            serializedObject.ApplyModifiedProperties();
             if (EditorGUI.EndChangeCheck())
             {
                 EditorUtility.SetDirty(e);

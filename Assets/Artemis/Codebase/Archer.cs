@@ -709,7 +709,7 @@ namespace Artemis
                 return;
             }
 
-            foreach (Arrow e in toDump.arrows)
+            foreach (Arrow e in toDump.GetArrows())
             {
                 if (includeNonZeroPriority || !e.IsPriority())
                 {
@@ -734,7 +734,7 @@ namespace Artemis
             float value;
             int[] array;
             ComparableIntArray key;
-            foreach (Arrow e in toDrop.arrows)
+            foreach (Arrow e in toDrop.GetArrows())
             {
                 if(overallData.Remove(e))
                 {

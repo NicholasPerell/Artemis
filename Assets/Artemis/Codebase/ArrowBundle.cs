@@ -8,6 +8,11 @@ namespace Artemis
     public class ArrowBundle : ScriptableObject
     {
         [SerializeField]
-        public Arrow[] arrows { get;  private set; }
+        private Arrow[] arrows;
+
+        public Arrow[] GetArrows()
+        {
+            return arrows;
+        }
     }
 }
