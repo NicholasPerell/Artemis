@@ -18,14 +18,17 @@ namespace Artemis.EditorIntegration
 
         public override void OnInspectorGUI()
         {
-            if (targets.Length == 1)
-            {
-                OnSingleInspectorGUI();
-            }
-            else
-            {
-                OnMultipleInspectorGUI();
-            }
+            OnMultipleInspectorGUI();
+
+
+            //if (targets.Length == 1)
+            //{
+            //    OnSingleInspectorGUI();
+            //}
+            //else
+            //{
+            //    OnMultipleInspectorGUI();
+            //}
         }
 
         private void OnSingleInspectorGUI()
@@ -253,6 +256,8 @@ namespace Artemis.EditorIntegration
                 AssetDatabase.SaveAssets();
                 Repaint();
             }
+
+            
         }
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
@@ -270,9 +275,9 @@ namespace Artemis.EditorIntegration
 
             string fileSuffix = "";
 
-            if(example.GetFlagId() != FlagID.INVALID)
+            if (example.GetFlagId() != FlagID.INVALID)
             {
-                switch(example.GetValueType())
+                switch (example.GetValueType())
                 {
                     case Flag.ValueType.FLOAT:
                         fileSuffix = " Float";
@@ -289,7 +294,7 @@ namespace Artemis.EditorIntegration
             }
             else
             {
-                if(example.GetValueType() == Flag.ValueType.INVALID)
+                if (example.GetValueType() == Flag.ValueType.INVALID)
                 {
                     fileSuffix = " Unknown";
                 }
