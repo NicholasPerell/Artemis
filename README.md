@@ -66,7 +66,7 @@ This is what tries to choose which arrow should be shot. Arrows with a priority 
 - <ins>Arrow Bundles:</ins> the history of droping (adding) or dumping (removing) arrows from an Archer is saved.
 - <ins>Partition Flags:</ins> an important piece of optimization the developers can decide to use. By choosing SYMBOL flags to be in every single arrow an Archer will consider, the arrows can be divved up into seperate tables[^3].
 
-The archer is prompted by calling `bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)`. `importedStates` is the list of flag bundles evaluated for considering arrow criteria. Any FlagIDs in `all` will be skipped over and assumed as being met—the use being it could essentially allows *any* character to respond (instead of just one), allowing for self-branching conversations[^3].
+The archer is prompted by calling `bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)`. `importedStates` is the list of flag bundles evaluated for considering arrow criteria. Any FlagIDs in `all` will be skipped over and assumed as being met—the use being it could essentially allow *any* character to respond (instead of just one), making for self-branching conversations[^3].
 
 ### Arrow Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/quiver.png" alt="Quiver by Delapouite" height="50px;" align="right">
 
