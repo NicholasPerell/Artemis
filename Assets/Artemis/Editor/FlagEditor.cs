@@ -18,86 +18,6 @@ namespace Artemis.EditorIntegration
 
         public override void OnInspectorGUI()
         {
-            OnMultipleInspectorGUI();
-
-
-            //if (targets.Length == 1)
-            //{
-            //    OnSingleInspectorGUI();
-            //}
-            //else
-            //{
-            //    OnMultipleInspectorGUI();
-            //}
-        }
-
-        private void OnSingleInspectorGUI()
-        {
-            Flag e = (Flag)target;
-
-            EditorGUI.BeginChangeCheck();
-
-            Flag.ValueType valueType = e.GetValueType();
-            FlagID flagId = e.GetFlagId();
-
-            //Turn this into a check inside its class?
-            if (flagId.ToString() == ((int)flagId).ToString())
-            {
-                e.SetFlagId(FlagID.INVALID);
-                flagId = FlagID.INVALID;
-
-                //Repaint!
-                EditorUtility.SetDirty(e);
-                AssetDatabase.SaveAssets();
-                Repaint();
-            }
-
-
-            if (flagId != FlagID.INVALID)
-            {
-                EditorGUILayout.LabelField("Flag ID", flagId.ToString());
-
-                switch (valueType)
-                {
-                    case Flag.ValueType.FLOAT:
-                        e.SetValue(EditorGUILayout.FloatField("Value", e.GetValue()));
-                        break;
-                    case Flag.ValueType.BOOL:
-                        e.SetValue(EditorGUILayout.Toggle("Value", e.GetValue() == 1));
-                        break;
-                    case Flag.ValueType.SYMBOL:
-                        var takeIn = EditorGUILayout.EnumPopup("Value", (System.Enum)System.Enum.Parse(e.GetSymbolType(), "" + (Mathf.FloorToInt(e.GetValue()))));
-                        e.SetValue((int)((object)takeIn));
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                e.SetFlagId((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
-
-                if (e.GetFlagId() != FlagID.INVALID)
-                {
-                    Flag.ValueType temp = Goddess.instance.GetFlagValueType(e.GetFlagId());
-                    e.SetValueType(temp);
-                    if (temp == Flag.ValueType.SYMBOL)
-                    {
-                        e.SetSymbolType(Goddess.instance.GetFlagSymbolType(e.GetFlagId()));
-                    }
-                }
-            }
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                EditorUtility.SetDirty(e);
-                AssetDatabase.SaveAssets();
-                Repaint();
-            }
-        }
-
-        private void OnMultipleInspectorGUI()
-        {
             Flag[] flags = new Flag[targets.Length];
             for (int i = 0; i < flags.Length; i++)
             {
@@ -128,17 +48,17 @@ namespace Artemis.EditorIntegration
                     Repaint();
                 }
 
-                if(flagId != tempFlagId)
+                if (flagId != tempFlagId)
                 {
                     flagId = FlagID.INVALID;
                 }
 
-                if(valueType != flag.GetValueType())
+                if (valueType != flag.GetValueType())
                 {
                     valueType = Flag.ValueType.INVALID;
                 }
 
-                if(tempFlagId == FlagID.INVALID)
+                if (tempFlagId == FlagID.INVALID)
                 {
                     validityAmount--;
                 }
@@ -172,14 +92,14 @@ namespace Artemis.EditorIntegration
                             oldBoolValue = false;
                         }
                         bool newBoolValue = EditorGUILayout.Toggle("Value", oldBoolValue);
-                        if(oldBoolValue != newBoolValue)
+                        if (oldBoolValue != newBoolValue)
                         {
-                            foreach(Flag flag in flags)
+                            foreach (Flag flag in flags)
                             {
                                 flag.SetValue(newBoolValue);
                             }
                         }
-                        if(valueProperty.hasMultipleDifferentValues)
+                        if (valueProperty.hasMultipleDifferentValues)
                         {
                             EditorGUI.showMixedValue = false;
                         }
@@ -217,7 +137,7 @@ namespace Artemis.EditorIntegration
                         break;
                 }
             }
-            else if(validityAmount == -flags.Length) //All invalid Flag IDs
+            else if (validityAmount == -flags.Length) //All invalid Flag IDs
             {
                 flags[0].SetFlagId((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
 
@@ -256,8 +176,6 @@ namespace Artemis.EditorIntegration
                 AssetDatabase.SaveAssets();
                 Repaint();
             }
-
-            
         }
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
