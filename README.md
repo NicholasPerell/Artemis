@@ -4,13 +4,11 @@
 
 # ARTEMIS
 
-*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.com/). With the narrative programming done for *[Project Nautilus](https://store.steampowered.com/app/1953870/Project_Nautilus/)*'s narrative system as a basis, the hope is to expand the code to work for anyone's means for delivery (not just emails and subtitled voicelines in *PN*).
-
-As opposed to gems for giving writer the ability to deliver narrative directly, like *Ink* and *Yarnspinner*, Artemus is about the logic that decides what should be deliveried to ensure the narrative beats feel reactive, appropriate, and timely.
+*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.com/). For games where the order of who you talk to or what you do is variable, Artemis accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
 
 ## Inspirations
 
-As discussed in [this mircotalk @ The Loaf](https://www.youtube.com/watch?v=iQEwtDx63fw), _Project Nautilus_ took heavy inspiration from _Hades_'s priority queues[^1] and _Firewatch_'s Delilah brain[^2]. However, not every game has nearly as much written content as _Hades_; _Project Nautilus_ used a priority *stack* for there to be recency bias (which *Artemis* allows you to choose between), and *Artemis* will also take inspiration from _Left 4 Dead 2_'s Dynamic Dialog[^3].
+As discussed in [this mircotalk @ The Loaf](https://www.youtube.com/watch?v=iQEwtDx63fw), _Project Nautilus_ took heavy inspiration from _Hades_'s priority queues[^1] and _Firewatch_'s Delilah brain[^2]. However, not every game has nearly as much written content as _Hades_; _Project Nautilus_ used a priority *stack* for there to be a recency bias (which *Artemis* allows you to choose), and *Artemis* also takes inspiration from _Left 4 Dead 2_'s Dynamic Dialog[^3].
 
 ## What's Currently Here
 
@@ -27,19 +25,19 @@ This branch is currently working towards **Version 0.2**! It's currently much le
   - <ins>Goddess (Narrative System)</ins>, which tracks all the true/false flags the arrows use.
 - Example for how the code can be used
   - An example .CSV[^sheets] file.
-  - Children scripts of the Fletchers & Bows to deliver debug log messages with a delay before another message can be sent
-  - An Editor script that gives the Debug Fletchers to have a button in its inspector to trigger the .CSV[^sheets] parsing.
-    - It is reccomended you copy this to use it for your own Fletchers scripts
+  - Children scripts of the Fletchers & Bows to deliver debug log messages with a delay before another message can be sent.
   - A scene that initializes an example archer then triggers narrative delivery from the archer at a rate that demonstrates the settings each data point can have save for what to do if the bow is busy.
 
 ## File-By-File Explanation
 
-Although one of the best ways to get an understanding of *Artemis* would be to check out the examples made, it's worth documenting the target purpose of each of the previously listed items.
+Although one of the best ways to get an understanding of *Artemis* would be to check out the example made, it's worth documenting the target purpose of each of the previously listed items. A good way to imagine it:
+
+> The *fletcher* makes and stockpiles the *arrows*, and the *archer* decides which arrow to shoot. The archer can get more arrows from (or throw away some in) an *arrow bundle*, and she uses her *bow* to fire them. An arrow checks if certain *flags* are met to consider it appropriate to use, and *flag bundles* can be loaded as needed to optimize the process.
 
 ### Arrows <img src="https://raw.githubusercontent.com/nicholas-hoy-champain/narrative-system-project/d8e41bfca6e25fc062ffbac8ebde975d6accd94c/Assets/Artemis/Editor/Resources/branch-arrow.png" alt="Branch Arrow by Lorc" height="50px;" align="right">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
-- <ins>ID:</ins> string used to access the database found in the fletcher it is connected to.
+- <ins>ID:</ins> used to access the database found in the fletcher it is connected to.
 - <ins>Priority Value:</ins> int value used by the archer. Can use the "COND" keyword to get the number of criteria in the rule.
 - <ins>Rule:</ins> flags that must be set to specified criteria (otherwise the arrow will be skipped over by the archer)
 - <ins>How to handle busy:</ins> if the archer tries to fire the arrow, but the bow is busy, what is done? There are a couple options:
@@ -49,17 +47,45 @@ Stores the most basic information for each possible piece of narrative delivery.
   - DELETE: Don't play it, but don't return it to the archer. If the Archer discards arrows, this'll discard the arrow entirely.
   - FRONT_OF_QUEUE: Similar to the queue, but make it cut to the front of the queue.
 
+Arrows can also be prompted to fire on their own without going through the process of being in an archer. This is useful for cases where an arrow is fired in response to a different arrow finishing.
+
 ### Archers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bowman.png?raw=true" alt="Bowman by Lorc" height="50px;" align="right">
 
-This is what tries to choose which arrow should be shot. Currently uses a priority queue, or PQ. Arrows with a priority of 0 are placed in a "general pool" with a random order. Higher values are given priority above lower values. Instead of being random, there is a checkbox in the inspector about if the PQ should have "recency bais."
+This is what tries to choose which arrow should be shot. Arrows with a priority of 0 are placed in a "general pool" with a random order. Higher values are given priority above lower values. The data presented to the user includes:
 
-When recency bias is *off*, arrows of equal value (greater than 0) will be delivered in the order they were added to the PQ. Hence the term "priority *queue*." 
+- <ins>Default Contents:</ins> the arrows the archer has on hand when she's initialized.
+- <ins>Decision Making:</ins> the logic of the archer, as set by the developers.
+  - <ins>Handling Same Priority:</ins> when there are arrows of a same priority value greater than 0, how does the archer determine which arrow to shoot?
+    - QUEUE: First of those arrows to go in, the first of those arrows to go out.
+    - STACK: Latest of those arrows to go in, the first of those arrows to go out.
+    - RANDOM: Chooses which of those arrows at random.
+  - <ins>Discard Arrows After Use:</ins> is an arrow removed from circulation after being used?
+  - <ins>Loops:</ins> when the archer is out of any arrows to consider, is there a refresh that occurs?
+    - <ins>Include Bundles:</ins> if refreshing includes the arrow bundles' dump and drop history.
+    - <ins>Include Higher Priorities:</ins> if refreshing includes arrows with a priority of greater than 0.
+- <ins>Arrow Bundles:</ins> the history of droping (adding) or dumping (removing) arrows from an Archer is saved.
+- <ins>Partition Flags:</ins> an important piece of optimization the developers can decide to use. By choosing SYMBOL flags to be in every single arrow an Archer will consider, the arrows can be divved up into seperate tables[^3].
 
-When recency bias is *on*, the most recently added data point is the one that will delivered first. This was what _Project Nautilus_ utilized for the managerial AI, PASSION. If the player managed to do A and B before they get to the next narrative trigger, and both A and B added commentary the player can receive from PASSION, it made more sense that PASSION commented on the most recent action of the player, to make things feel reactive. Instead of a queue, the PQ becomes a "priority *stack*."
+The archer is prompted by calling `bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)`. `importedStates` is the list of flag bundles evaluated for considering arrow criteria. Any FlagIDs in `all` will be skipped over and assumed as being met—the use being it could essentially allows *any* character to respond (instead of just one), allowing for self-branching conversations[^3].
 
 ### Arrow Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/quiver.png" alt="Quiver by Delapouite" height="50px;" align="right">
 
-Can be prompted to dump into a archer of the designer's choosing. These dumps are where recency bias being on or off on your archer are very important. More capabilities and options for bundles are planned for the future, but for now there aren't many.
+List of arrows. Can be dumped into or droped from a archer. These dumps are where <ins>Handling Same Priority</ins> on your archer are very important.
+
+### Flags
+
+Objects which store the values that is evaluated for an Arrow's criteria. Data stored in each flag include:
+- <ins>ID:</ins> enum value used to sort flags.
+- <ins>Value:</ins> this value is internally stored as a float, but can be presented a variety of ways:
+  - FLOAT: a number.
+  - BOOL: true or false.
+  - SYMBOL: an enum value.
+
+### Flag Bundles
+
+Sorted list of flags. Flags in these lists can't have the same flag ID. Loading these in or out helps speed through the evaluation process on arrows.
+
+If there are any null items in your flag bundle, you can try to remove an empty list. If there are missing items (you deleted the flag assets before removing it from the bundle) the previous solution doesn't work on, you can clear the bundle in the context menu **⋮**.
 
 ### Fletchers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/table.png" alt="Table by Delapouite" height="50px;" align="right">
 
@@ -87,23 +113,25 @@ When attaching the delivery actor monobehavior to a game object, make sure the "
 
 Singleton that facilitates the Flag ID.
 
-The narrative system keeps track of if flag IDs are being used by any of the arrows generated by the fletchers. By default, if a flag IDs has not a single data point checking it for being true or false, that flag ID will be deleted. However, in the inspector the narrative system has a "Flags ID to Keep" array. Flag IDs in this array will not be deleted by this scrubbing.
+The narrative system keeps track of if flag IDs are being used by any of the arrows generated by the fletchers. By default, if a flag IDs has not a single data point checking it for being true or false, that flag ID will be deleted. However, in the inspector the narrative system has a <ins>Flags ID to Keep</ins> array. Flag IDs in this array will not be deleted by this scrubbing.
+
+Another important value the Goddess has is the <ins>Globally Loaded Flag Bundles</ins> array. All attemps at delivery from archers or arrows will take the flags here into account.
 
 ## Future Plans / Progress towards 0.2
 
 *Artemis* was intially a 6-week project. Given what's here, it has some ways to go with being a robust Unity package, and Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
 
  - [x] The option to make the priority value based off the number of flags it sets off (as opposed to a static value) so *Artemis* can instead emulate bark systems in games like in Left 4 Dead 2[^3].
- - [x] Looking for alternatives to strings for ID's because having symbols would run much better[^3].
+ - [x] Looking for alternatives to strings for ID's because having symbols would run much better[^3]. This also helps manage the possible flags[^whyenum].
  - [x] Giving archers options in regards to refreshing when they're out of arrows.
  - [x] Alternatives to a priority queue for an archer's logic. (ex: ranks the arrows by value, but will pull from most valuable arrows at random as if it's another general pool)
  - [x] Archers tracking what bundles have been dumped into or dumped from it.
  - [x] Flag Bundles that can be loaded in or out as needed to cut down the number of items.
  - [x] Hierarchal partitioning[^3] options for Archers to optimize their decision making process.
  - [x] "All" listing to allow certain flags to be skipped to widen who is allowed to respond.
- - [ ] Custom Editors. 🛠️ (Currently in Progress!)
+ - [x] Custom Editors. 
  - [ ] Save/load capabilities for the whole narrative.
- - [ ] New documentation.
+ - [ ] New documentation. 🛠️ (Currently in Progress!)
  - [ ] More examples and scenes demonstrating how you can use *Artemis*!
 
 ## Credits
@@ -135,4 +163,4 @@ Used for the header image & _Artemis_'s Gizmos/Icons
 [^1]: [People Make Games's video on _Hades_](https://www.youtube.com/watch?v=bwdYL0KFA_U)
 [^2]: [Chris Remo's 2019 GDC talk on _Firewatch_](https://www.youtube.com/watch?v=RVFyRV43Ei8)
 [^3]: [Elan Ruskin's 2012 GDC talk on Valve's games](https://www.youtube.com/watch?v=tAbBID3N64A)
-[^whyasset]: In [Chris Remo's 2019 GDC talk on _Firewatch_](https://www.youtube.com/watch?v=RVFyRV43Ei8), Remo discussed how their Delilah Brain was also just as much a "best practices" of checking the repository for if a string/flag was made with a slightly different name. Having these generate as assets that can be located in one folder makes it easier to check for that (as opposed to combing through numerous .CSV's row by row).
+[^whyenum]: In [Chris Remo's 2019 GDC talk on _Firewatch_](https://www.youtube.com/watch?v=RVFyRV43Ei8), Remo discussed how their Delilah Brain was also just as much a "best practices" of checking the repository for if a flag was made with a slightly different name. Having these generate as assets and enum values that can be located in one spot makes it easier to check for that (as opposed to combing through numerous .CSV's row by row).
