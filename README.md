@@ -12,7 +12,7 @@ As discussed in [this mircotalk @ The Loaf](https://www.youtube.com/watch?v=iQEw
 
 ## What's Currently Here
 
-This branch is currently working towards **Version 0.2**! It's currently much less user friendly than hoped, but currently in this repository you can find a Unity Project that includes:
+This branch is currently working towards **Version 0.2**! In this repository you can find a Unity Project that includes:
 
 - The base code for Artemis's...
   - <ins>Arrows</ins> for each deliverable narrative beat, with ID's, priority values, and what criteria need to be met. 
