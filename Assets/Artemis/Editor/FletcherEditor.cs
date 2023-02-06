@@ -12,7 +12,7 @@ namespace Artemis.EditorIntegration
         {
             PreDictionaryFletcher e = (PreDictionaryFletcher)target;
 
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/table.png"));
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Fletcher.png"));
 
             EditorGUI.BeginChangeCheck();
 

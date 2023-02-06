@@ -12,7 +12,7 @@ namespace Artemis.EditorIntegration
         {
             Arrow e = (Arrow)target;
 
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/branch-arrow.png"));
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Arrow.png"));
 
             EditorGUI.BeginChangeCheck();
 

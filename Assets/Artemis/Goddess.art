@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52dea9d8cbf3ec41ac81669310c2d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flagsIdsToKeep: 
+  flagsIdsToKeep: 00000000
   flagValueTypes:
     list:
     - Key: 31

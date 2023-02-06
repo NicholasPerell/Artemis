@@ -198,13 +198,13 @@ namespace Artemis.EditorIntegration
                 switch (example.GetValueType())
                 {
                     case Flag.ValueType.FLOAT:
-                        fileSuffix = " Float";
+                        fileSuffix = "Float";
                         break;
                     case Flag.ValueType.BOOL:
-                        fileSuffix = " Bool";
+                        fileSuffix = "Bool";
                         break;
                     case Flag.ValueType.SYMBOL:
-                        fileSuffix = " Symbol";
+                        fileSuffix = "Symbol";
                         break;
                     default:
                         break;
@@ -214,15 +214,15 @@ namespace Artemis.EditorIntegration
             {
                 if (example.GetValueType() == Flag.ValueType.INVALID)
                 {
-                    fileSuffix = " Unknown";
+                    fileSuffix = "Unknown";
                 }
                 else
                 {
-                    fileSuffix = " Issue";
+                    fileSuffix = "Issue";
                 }
             }
 
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArtemisFlag Icon" + fileSuffix + ".png");
+            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Flag" + fileSuffix + ".png");
 
             EditorUtility.CopySerialized(copyFrom, tex);
 

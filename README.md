@@ -1,4 +1,4 @@
-<img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/75b912e8a91b51cb0f8fffab753287d8f3f26d27/Assets/Artemis/Artemis%20Title.png" alt="Artemis Logo. Book aura icon & High shot icon by Lorc." height="152px;" align="center">
+<img src="Assets/Artemis/Editor/Artemis Title.png" alt="Artemis Logo." height="152px;" align="center">
 
 >*May your aim be true.*
 
@@ -34,7 +34,7 @@ Although one of the best ways to get an understanding of *Artemis* would be to c
 
 > The *fletcher* makes and stockpiles the *arrows*, and the *archer* decides which arrow to shoot. The archer can get more arrows from (or throw away some in) an *arrow bundle*, and she uses her *bow* to fire them. An arrow checks if certain *flags* are met to consider it appropriate to use, and *flag bundles* can be loaded as needed to optimize the process.
 
-### Arrows <img src="https://raw.githubusercontent.com/nicholas-hoy-champain/narrative-system-project/d8e41bfca6e25fc062ffbac8ebde975d6accd94c/Assets/Artemis/Editor/Resources/branch-arrow.png" alt="Branch Arrow by Lorc" height="50px;" align="right">
+### Arrows <img src="Assets/Artemis/Editor/Resources/Arrow.png" alt="Arrow" height="50px;" align="right">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
 - <ins>ID:</ins> used to access the database found in the fletcher it is connected to.
@@ -49,7 +49,7 @@ Stores the most basic information for each possible piece of narrative delivery.
 
 Arrows can also be prompted to fire on their own without going through the process of being in an archer. This is useful for cases where an arrow is fired in response to a different arrow finishing.
 
-### Archers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bowman.png?raw=true" alt="Bowman by Lorc" height="50px;" align="right">
+### Archers <img src="Assets/Artemis/Editor/Resources/Archer.png" alt="Archer" height="50px;" align="right">
 
 This is what tries to choose which arrow should be shot. Arrows with a priority of 0 are placed in a "general pool" with a random order. Higher values are given priority above lower values. The data presented to the user includes:
 
@@ -68,11 +68,11 @@ This is what tries to choose which arrow should be shot. Arrows with a priority 
 
 The archer is prompted by calling `bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)`. `importedStates` is the list of flag bundles evaluated for considering arrow criteria. Any FlagIDs in `all` will be skipped over and assumed as being met—the use being it could essentially allow *any* character to respond (instead of just one), making for self-branching conversations[^3].
 
-### Arrow Bundles <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/quiver.png" alt="Quiver by Delapouite" height="50px;" align="right">
+### Arrow Bundles <img src="Assets/Artemis/Editor/Resources/ArrowBundle.png" alt="Arrow Bundle" height="50px;" align="right">
 
 List of arrows. Can be dumped into or droped from a archer. These dumps are where <ins>Handling Same Priority</ins> on your archer are very important.
 
-### Flags
+### Flags <img src="Assets/Artemis/Editor/Resources/Flag.png" alt="Flag" height="50px;" align="right">
 
 Objects which store the values that is evaluated for an Arrow's criteria. Data stored in each flag include:
 - <ins>ID:</ins> enum value used to sort flags.
@@ -81,13 +81,13 @@ Objects which store the values that is evaluated for an Arrow's criteria. Data s
   - BOOL: true or false.
   - SYMBOL: an enum value.
 
-### Flag Bundles
+### Flag Bundles <img src="Assets/Artemis/Editor/Resources/FlagBundle.png" alt="Flag Bundle" height="50px;" align="right">
 
 Sorted list of flags. Flags in these lists can't have the same flag ID. Loading these in or out helps speed through the evaluation process on arrows.
 
 If there are any null items in your flag bundle, you can try to remove an empty list. If there are missing items (you deleted the flag assets before removing it from the bundle) the previous solution doesn't work on, you can clear the bundle in the context menu **⋮**.
 
-### Fletchers <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/table.png" alt="Table by Delapouite" height="50px;" align="right">
+### Fletchers <img src="Assets/Artemis/Editor/Resources/Fletcher.png" alt="Fletcher" height="50px;" align="right">
 
 _Artemis_'s base fletchers script is an abstract template class, where you will want to define:
  1. The information that needs be stored in a database for the delivery actor to deliver the narrative how you want it.
@@ -96,7 +96,7 @@ _Artemis_'s base fletchers script is an abstract template class, where you will 
 
 To reiterate something said prior: The example folder has an Editor script that gives the Debug Fletchers to have a button in its inspector to trigger the .CSV[^sheets] parsing. It is reccomended you copy this to use it for your own Fletchers scripts.
 
-### Bows <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/bow-arrow.png?raw=true" alt="Bow Arrow by Delapouite" height="50px;" align="right">
+### Bows <img src="Assets/Artemis/Editor/Resources/Bow.png" alt="Bow" height="50px;" align="right">
 
 Another whose base script is an abstract template class. The typing on the template class should be the same as the fletchers you want it to work with. This is where things go from decision to full delivery.
 
@@ -109,7 +109,7 @@ To properly set up a script for a delivery actor:
 
 When attaching the delivery actor monobehavior to a game object, make sure the "Fletchers" in the inspector is set to the fletchers you want the actor to be paired with.
 
-### Goddess (Narrative System) <img src="https://github.com/nicholas-hoy-champain/narrative-system-project/blob/dev/Assets/Artemis/Editor/Resources/night-sky.png?raw=true" alt="Night Sky by Lorc" height="50px;" align="right">
+### Goddess (Narrative System) <img src="Assets/Artemis/Editor/Resources/Goddess.png" alt="Goddess" height="50px;" align="right">
 
 Singleton that facilitates the Flag ID. Found at `Window/Artemis Goddess`
 

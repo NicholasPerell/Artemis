@@ -23,7 +23,7 @@ namespace Artemis.EditorIntegration
             Goddess e = (Goddess)target;
 
             //TODO: Get Goddess to use its icon
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/night-sky.png"));
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Goddess.png"));
 
 
             serializedObject.Update();
@@ -39,7 +39,7 @@ namespace Artemis.EditorIntegration
             }
 
             EditorGUILayout.Space();
-            if(GUILayout.Button("RESET \u26A0"))
+            if (GUILayout.Button("RESET \u26A0"))
             {
                 e.Reset();
             }
@@ -56,3 +56,4 @@ namespace Artemis.EditorIntegration
         }
     }
 }
+   

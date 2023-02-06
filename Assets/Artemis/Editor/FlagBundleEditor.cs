@@ -12,7 +12,7 @@ namespace Artemis.EditorIntegration
         {
             FlagBundle e = (FlagBundle)target;
             
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArtemisFlag Bundle Icon.png"));
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/FlagBundle.png"));
 
             EditorGUI.BeginChangeCheck();
 

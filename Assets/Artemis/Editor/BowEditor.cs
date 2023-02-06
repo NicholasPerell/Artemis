@@ -12,7 +12,7 @@ namespace Artemis.EditorIntegration
         {
             Bow e = (Bow)target;
             
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/bow-arrow.png"));
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Bow.png"));
             
             DrawDefaultInspector();
 

@@ -2,22 +2,4 @@ Artemis (An Ongoing Narrative Programming Project)
 =====
 Made by Nicholas Perell
 CSV Parsing Scripts contributed by Brandon "bb" Boras
-
-
-Game-icons.net (used for images for the different objects)
-===== 
-Archer - Bowman by Lorc
-Flag - Flying flag icon by Lorc
-Bundle - Quiver by Delapouite
-Arrow - Branch Arrow by Lorc
-Goddess - Night Sky by Lorc
-Fletcher - Table by Delapouite
-Bow - Bow Arrow by Delapouite
-Flag State - Database by Delapouite  
-Subicon of the symbol flags - Price tag by Delapouite
-Subicon of the bool flags - Check mark by Delapouite
-Artemis Logo - Book Aura & High Shot by Lorc
-
-Flaticons.com
-=====
-Subicon of the float flags: Range icons created by Freepik
+Art by Crystal Wong

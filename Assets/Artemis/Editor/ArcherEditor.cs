@@ -32,7 +32,7 @@ namespace Artemis.EditorIntegration
         {
             Archer archer = (Archer)target;
 
-            EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/bowman.png"));
+            EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Archer.png"));
 
 
             serializedObject.Update();

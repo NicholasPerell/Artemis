@@ -20,9 +20,9 @@ namespace Artemis.EditorIntegration
         {
             ArrowBundle e = (ArrowBundle)target;
 
-            //Figure out why Resources works in the Ink Package but not in Artemis
+            //TODO: Figure out why Resources works in the Ink Package but not in Artemis
             //AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/quiver.png"));
+            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArrowBundle.png"));
 
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();
