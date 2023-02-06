@@ -1,4 +1,4 @@
-<img src="Assets/Artemis/Editor/Artemis Title.png" alt="Artemis Logo." height="152px;" align="center">
+<img src="Assets/Artemis/Artemis Title.png" alt="Artemis Logo." height="152px;" align="center">
 
 >*May your aim be true.*
 
