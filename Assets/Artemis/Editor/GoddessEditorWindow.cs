@@ -12,7 +12,7 @@ namespace Artemis.EditorIntegration
         {
             // Get existing open window or if none, make a new one:
             GoddessEditorWindow window = (GoddessEditorWindow)EditorWindow.GetWindow(typeof(GoddessEditorWindow));
-            window.titleContent = new GUIContent("Goddess");
+            window.titleContent = new GUIContent("Goddess", AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Goddess.png"));
             window.Show();
         }
 

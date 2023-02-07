@@ -10,6 +10,7 @@ namespace Artemis.EditorIntegration
     {
         SerializedProperty flagsIdsToKeep;
         SerializedProperty globallyLoadedFlagBundles;
+        Vector2 scrollPos;
 
         protected virtual void OnEnable()
         {
@@ -22,8 +23,11 @@ namespace Artemis.EditorIntegration
             EditorGUI.BeginChangeCheck();
             Goddess e = (Goddess)target;
 
-            //TODO: Get Goddess to use its icon
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Goddess.png"));
+            GUILayout.BeginHorizontal();
+            int iconSize = 70;
+            GUILayout.Space((EditorGUIUtility.currentViewWidth / 2) - (iconSize/2));
+            GUILayout.Label(AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Goddess.png"), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
+            GUILayout.EndHorizontal();
 
 
             serializedObject.Update();
@@ -32,11 +36,21 @@ namespace Artemis.EditorIntegration
             EditorGUILayout.PropertyField(globallyLoadedFlagBundles);
 
             EditorGUILayout.Space();
+
+
+
+
+            scrollPos = GUILayout.BeginScrollView(scrollPos, false, true);
+
+
             FlagID[] flagIds = e.GetFlagIDs();
             foreach (FlagID id in flagIds)
             {
                 EditorGUILayout.LabelField(id.ToString(), e.GetFlagValueType(id).ToString());
             }
+
+
+            GUILayout.EndScrollView();
 
             EditorGUILayout.Space();
             if (GUILayout.Button("RESET \u26A0"))
@@ -56,4 +70,3 @@ namespace Artemis.EditorIntegration
         }
     }
 }
-   
