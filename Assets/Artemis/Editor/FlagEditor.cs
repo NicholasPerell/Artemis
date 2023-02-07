@@ -36,17 +36,8 @@ namespace Artemis.EditorIntegration
             int validityAmount = 0;
             foreach (Flag flag in flags)
             {
+                flag.ValidateFlag();
                 tempFlagId = flag.GetFlagID();
-                if (tempFlagId.ToString() == ((int)tempFlagId).ToString())
-                {
-                    flag.SetFlagID(FlagID.INVALID);
-                    tempFlagId = FlagID.INVALID;
-
-                    //Repaint!
-                    EditorUtility.SetDirty(flag);
-                    AssetDatabase.SaveAssets();
-                    Repaint();
-                }
 
                 if (flagId != tempFlagId)
                 {
@@ -139,28 +130,12 @@ namespace Artemis.EditorIntegration
             }
             else if (validityAmount == -flags.Length) //All invalid Flag IDs
             {
-                flags[0].SetFlagID((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
-
-                FlagID tempId = flags[0].GetFlagID();
+                FlagID tempId = (FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId);
                 if (tempId != FlagID.INVALID)
                 {
-                    Flag.ValueType tempValueType = Goddess.instance.GetFlagValueType(tempId);
-                    flags[0].SetValueType(tempValueType);
-
-                    System.Type tempSymbolType = null;
-                    if (tempValueType == Flag.ValueType.SYMBOL)
-                    {
-                        tempSymbolType = Goddess.instance.GetFlagSymbolType(tempId);
-                    }
-
                     foreach (Flag flag in flags)
                     {
-                        flag.SetFlagID(tempId);
-                        flag.SetValueType(tempValueType);
-                        if (tempValueType == Flag.ValueType.SYMBOL)
-                        {
-                            flag.SetSymbolType(tempSymbolType);
-                        }
+                        flag.InitFlag(tempId);
                     }
                 }
             }

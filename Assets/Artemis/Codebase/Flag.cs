@@ -50,7 +50,28 @@ namespace Artemis
             return flagID;
         }
 
-        public void SetFlagID(FlagID _flagID)
+        public void InitFlag(FlagID _flagID)
+        {
+            if(flagID == FlagID.INVALID && _flagID != FlagID.INVALID)
+            {
+                SetFlagID(_flagID);
+                SetValueType(Goddess.instance.GetFlagValueType(_flagID));
+                if (GetValueType() == ValueType.SYMBOL)
+                {
+                    SetSymbolType(Goddess.instance.GetFlagSymbolType(_flagID));
+                }
+            }
+        }
+
+        public void ValidateFlag()
+        {
+           if (flagID.ToString() == ((int)flagID).ToString())
+            {
+                SetFlagID(FlagID.INVALID);
+            }
+        }
+
+        private void SetFlagID(FlagID _flagID)
         {
             flagID = _flagID;
         }
@@ -60,7 +81,7 @@ namespace Artemis
             return flagValueType;
         }
 
-        public void SetValueType(ValueType type)
+        private void SetValueType(ValueType type)
         {
             flagValueType = type;
         }
@@ -80,7 +101,7 @@ namespace Artemis
             return symbolType;
         }
 
-        public void SetSymbolType(Type type)
+        private void SetSymbolType(Type type)
         {
             symbolType = type;
             symbolTypeName = type.FullName;
