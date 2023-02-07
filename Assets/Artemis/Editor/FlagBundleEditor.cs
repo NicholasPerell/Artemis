@@ -50,7 +50,7 @@ namespace Artemis.EditorIntegration
             EditorGUI.BeginDisabledGroup(true);
             foreach (Flag flag in flags)
             {
-                EditorGUILayout.ObjectField(flag.GetFlagId().ToString(), flag, typeof(Flag), false);
+                EditorGUILayout.ObjectField(flag.GetFlagID().ToString(), flag, typeof(Flag), false);
             }
             EditorGUI.EndDisabledGroup();
 

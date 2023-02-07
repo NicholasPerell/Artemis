@@ -174,11 +174,13 @@ namespace Artemis
                 AssetDatabase.CreateFolder(GetContainingFolder(), GetArrowFolderName());
             }
 
+            string arrowPrefix = typeof(T).ToString();
+            arrowPrefix = arrowPrefix.Replace('.', '_');
             if (internalSymbolCompiler == null)
             {
-                internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", typeof(T).ToString() + "_arrows");
+                internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
             }
-            internalSymbolCompiler.SetLocation(GetContainingFolder() + "/" + GetArrowFolderName() + "/", typeof(T).ToString() + "_arrows");
+            internalSymbolCompiler.SetLocation(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
 
             //Parse CSV
             fgCSVReader.LoadFromString(csvFile.text, BASE_COLUMNS + columnsToReadFrom, AddToDatabase);

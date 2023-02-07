@@ -29,14 +29,14 @@ namespace Artemis
         float lhs, rhs;
 
         [SerializeField]
-        FlagID flagIdChecked;
+        FlagID flagIDChecked;
 
         [SerializeField]
         CriterionComparisonType comparisonType;
 
         public Criterion(FlagID _stateChecked, CriterionComparisonType _comparisonType, float a, float b = 0)
         {
-            flagIdChecked = _stateChecked;
+            flagIDChecked = _stateChecked;
             comparisonType = _comparisonType;
 
             lhs = 0;
@@ -90,7 +90,7 @@ namespace Artemis
 
         public FlagID GetStateChecked()
         {
-            return flagIdChecked;
+            return flagIDChecked;
         }
 
         public CriterionComparisonType GetComparisonType()
@@ -105,42 +105,42 @@ namespace Artemis
             switch (comparisonType)
             {
                 case CriterionComparisonType.EQUALS:
-                    switch (Goddess.instance.GetFlagValueType(flagIdChecked))
+                    switch (Goddess.instance.GetFlagValueType(flagIDChecked))
                     {
                         case Flag.ValueType.BOOL:
-                            rtn += flagIdChecked.ToString() + " = " + (lhs == 1).ToString().ToUpper();
+                            rtn += flagIDChecked.ToString() + " = " + (lhs == 1).ToString().ToUpper();
                             break;
                         case Flag.ValueType.FLOAT:
-                            rtn += flagIdChecked.ToString() + " = " + lhs;
+                            rtn += flagIDChecked.ToString() + " = " + lhs;
                             break;
                         case Flag.ValueType.SYMBOL:
-                            rtn += flagIdChecked.ToString() + " = " + (System.Enum)System.Enum.Parse(Goddess.instance.GetFlagSymbolType(flagIdChecked), "" + (Mathf.FloorToInt(lhs)));
+                            rtn += flagIDChecked.ToString() + " = " + (System.Enum)System.Enum.Parse(Goddess.instance.GetFlagSymbolType(flagIDChecked), "" + (Mathf.FloorToInt(lhs)));
                             break;
                     }
                     break;
                 case CriterionComparisonType.GREATER:
-                    rtn += flagIdChecked.ToString() + " > " + (rhs - float.Epsilon);
+                    rtn += flagIDChecked.ToString() + " > " + (rhs - float.Epsilon);
                     break;
                 case CriterionComparisonType.LESS:
-                    rtn += flagIdChecked.ToString() + " < " + (lhs + float.Epsilon);
+                    rtn += flagIDChecked.ToString() + " < " + (lhs + float.Epsilon);
                     break;
                 case CriterionComparisonType.GREATER_EQUAL:
-                    rtn += flagIdChecked.ToString() + " >= " + (rhs);
+                    rtn += flagIDChecked.ToString() + " >= " + (rhs);
                     break;
                 case CriterionComparisonType.LESS_EQUAL:
-                    rtn += flagIdChecked.ToString() + " <= " + (lhs);
+                    rtn += flagIDChecked.ToString() + " <= " + (lhs);
                     break;
                 case CriterionComparisonType.RANGE_OPEN:
-                    rtn += (lhs + float.Epsilon) + " > " + flagIdChecked.ToString() + " > " + (rhs - float.Epsilon);
+                    rtn += (lhs + float.Epsilon) + " > " + flagIDChecked.ToString() + " > " + (rhs - float.Epsilon);
                     break;
                 case CriterionComparisonType.RANGE_CLOSED:
-                    rtn += (lhs) + " >= " + flagIdChecked.ToString() + " >= " + (rhs);
+                    rtn += (lhs) + " >= " + flagIDChecked.ToString() + " >= " + (rhs);
                     break;
                 case CriterionComparisonType.RANGE_OPEN_CLOSED:
-                    rtn += (lhs + float.Epsilon) + " > " + flagIdChecked.ToString() + " >= " + (rhs);
+                    rtn += (lhs + float.Epsilon) + " > " + flagIDChecked.ToString() + " >= " + (rhs);
                     break;
                 case CriterionComparisonType.RANGE_CLOSED_OPEN:
-                    rtn += (lhs) + " >= " + flagIdChecked.ToString() + " > " + (rhs - float.Epsilon);
+                    rtn += (lhs) + " >= " + flagIDChecked.ToString() + " > " + (rhs - float.Epsilon);
                     break;
             }
 
@@ -149,7 +149,7 @@ namespace Artemis
 
         public int CompareTo(Criterion other)
         {
-            return flagIdChecked.CompareTo(other.GetStateChecked());
+            return flagIDChecked.CompareTo(other.GetStateChecked());
         }
 
         public float getA()

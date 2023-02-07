@@ -25,7 +25,7 @@ namespace Artemis
         ValueType flagValueType = ValueType.INVALID;
 
         [SerializeField]
-        FlagID flagId = FlagID.INVALID;
+        FlagID flagID = FlagID.INVALID;
 
         [SerializeField]
         float value = 0;
@@ -45,14 +45,14 @@ namespace Artemis
             return value;
         }
 
-        public FlagID GetFlagId()
+        public FlagID GetFlagID()
         {
-            return flagId;
+            return flagID;
         }
 
-        public void SetFlagId(FlagID _flagId)
+        public void SetFlagID(FlagID _flagID)
         {
-            flagId = _flagId;
+            flagID = _flagID;
         }
 
         public ValueType GetValueType()

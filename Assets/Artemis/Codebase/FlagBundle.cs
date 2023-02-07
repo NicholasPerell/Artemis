@@ -15,7 +15,7 @@ namespace Artemis
         {
             if(_flag != null)
             {
-                flagsUsed.Add(_flag.GetFlagId(), _flag);
+                flagsUsed.Add(_flag.GetFlagID(), _flag);
             }
         }
 
@@ -25,7 +25,7 @@ namespace Artemis
             {
                 if (flagsUsed.HasValue(_flag))
                 {
-                    flagsUsed.Remove(_flag.GetFlagId());
+                    flagsUsed.Remove(_flag.GetFlagID());
                 }
             }
             else

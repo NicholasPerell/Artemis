@@ -29,17 +29,17 @@ namespace Artemis.EditorIntegration
             EditorGUI.BeginChangeCheck();
 
             Flag.ValueType valueType = flags[0].GetValueType();
-            FlagID flagId = flags[0].GetFlagId();
+            FlagID flagId = flags[0].GetFlagID();
 
             //Turn this into a check inside its class?
             FlagID tempFlagId;
             int validityAmount = 0;
             foreach (Flag flag in flags)
             {
-                tempFlagId = flag.GetFlagId();
+                tempFlagId = flag.GetFlagID();
                 if (tempFlagId.ToString() == ((int)tempFlagId).ToString())
                 {
-                    flag.SetFlagId(FlagID.INVALID);
+                    flag.SetFlagID(FlagID.INVALID);
                     tempFlagId = FlagID.INVALID;
 
                     //Repaint!
@@ -139,9 +139,9 @@ namespace Artemis.EditorIntegration
             }
             else if (validityAmount == -flags.Length) //All invalid Flag IDs
             {
-                flags[0].SetFlagId((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
+                flags[0].SetFlagID((FlagID)EditorGUILayout.EnumPopup("Flag ID", flagId));
 
-                FlagID tempId = flags[0].GetFlagId();
+                FlagID tempId = flags[0].GetFlagID();
                 if (tempId != FlagID.INVALID)
                 {
                     Flag.ValueType tempValueType = Goddess.instance.GetFlagValueType(tempId);
@@ -155,7 +155,7 @@ namespace Artemis.EditorIntegration
 
                     foreach (Flag flag in flags)
                     {
-                        flag.SetFlagId(tempId);
+                        flag.SetFlagID(tempId);
                         flag.SetValueType(tempValueType);
                         if (tempValueType == Flag.ValueType.SYMBOL)
                         {
@@ -193,7 +193,7 @@ namespace Artemis.EditorIntegration
 
             string fileSuffix = "";
 
-            if (example.GetFlagId() != FlagID.INVALID)
+            if (example.GetFlagID() != FlagID.INVALID)
             {
                 switch (example.GetValueType())
                 {

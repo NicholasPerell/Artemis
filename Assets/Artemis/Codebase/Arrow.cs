@@ -110,20 +110,20 @@ namespace Artemis
             Array.Fill(globalIndecies, 0);
             Array.Fill(importedIndecies, 0);
 
-            FlagID targetId = FlagID.INVALID;
+            FlagID targetID = FlagID.INVALID;
             Criterion targetCriterion;
             Flag targetFlag;
             bool located = false;
             int allIndex = 0;
             for(int i = 0; i < rule.Count; i++)
             {
-                targetId = rule.GetTupleAtIndex(i).Key;
+                targetID = rule.GetTupleAtIndex(i).Key;
                 targetCriterion = rule.GetTupleAtIndex(i).Value;
 
                 located = false;
                 for (; allIndex < all.Length && !located; allIndex++)
                 {
-                    int cmp = targetId.CompareTo(all[allIndex]);
+                    int cmp = targetID.CompareTo(all[allIndex]);
                     if (cmp == 0)
                     {
                         located = true;
@@ -135,7 +135,7 @@ namespace Artemis
                 }
                 for (int j = 0; j < globalStates.Length && !located; j++)
                 {
-                    if(globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))
+                    if(globalStates[j].flagsUsed.LinearSearch(targetID, ref globalIndecies[j], out targetFlag))
                     {
                         located = true;
                         if(!targetCriterion.Compare(targetFlag.GetValue()))
@@ -147,7 +147,7 @@ namespace Artemis
                 }
                 for (int j = 0; j < importedStates.Length && !located; j++)
                 {
-                    if (importedStates[j].flagsUsed.LinearSearch(targetId, ref importedIndecies[j], out targetFlag))
+                    if (importedStates[j].flagsUsed.LinearSearch(targetID, ref importedIndecies[j], out targetFlag))
                     {
                         located = true;
                         if (!targetCriterion.Compare(targetFlag.GetValue()))

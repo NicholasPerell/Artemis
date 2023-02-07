@@ -15,7 +15,7 @@ namespace Artemis
     public class Goddess : ScriptableSingleton<Goddess>
     {
         [SerializeField]
-        private List<FlagID> flagsIdsToKeep = new List<FlagID>();
+        private List<FlagID> flagsIDsToKeep = new List<FlagID>();
 
         [SerializeField]
         private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes = new SortedStrictDictionary<FlagID, Flag.ValueType>();
@@ -119,11 +119,11 @@ namespace Artemis
             else
             {
 
-                int newIdValue = FindValidUnusedFlagIDNumber();
-                if (newIdValue != (int)FlagID.INVALID)
+                int newIDValue = FindValidUnusedFlagIDNumber();
+                if (newIDValue != (int)FlagID.INVALID)
                 {
-                    toAdd.Add(name, newIdValue);
-                    id = (FlagID)newIdValue;
+                    toAdd.Add(name, newIDValue);
+                    id = (FlagID)newIDValue;
 
                     flagValueTypes.Add(id, valueType);
                     flagIDConnections.Add(id, new List<PreDictionaryFletcher>());
@@ -167,7 +167,7 @@ namespace Artemis
                     flagIDConnections[id].Remove(connector);
                 }
 
-                if (flagIDConnections[id].Count == 0 && !flagsIdsToKeep.Contains(id))
+                if (flagIDConnections[id].Count == 0 && !flagsIDsToKeep.Contains(id))
                 {
                     flagIDConnections.Remove(id);
                     flagValueTypes.Remove(id);
@@ -342,7 +342,7 @@ namespace Artemis
         public void Reset()
         {
 
-            flagsIdsToKeep.Clear();
+            flagsIDsToKeep.Clear();
             toAdd.Clear();
             intsReadyToConvert.Clear();
             flagValueTypes.Clear();

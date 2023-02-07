@@ -147,7 +147,7 @@ namespace Artemis
             enumType = null;
         }
 
-        private int FindValidIdNumber()
+        private int FindValidIDNumber()
         {
             int rtn;
             int start;
@@ -214,14 +214,14 @@ namespace Artemis
             }
             else
             {
-                int newIdValue = FindValidIdNumber();
+                int newIDValue = FindValidIDNumber();
 
-                if (newIdValue != -1)
+                if (newIDValue != -1)
                 {
-                    toAdd.Add(id, newIdValue);
+                    toAdd.Add(id, newIDValue);
                 }
 
-                return newIdValue;
+                return newIDValue;
             }
         }
 

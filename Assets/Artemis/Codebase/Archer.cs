@@ -297,17 +297,17 @@ namespace Artemis
                         float value = -1;
                         bool located;
                         Flag targetFlag;
-                        FlagID targetId;
+                        FlagID targetID;
 
                         int[] array = new int[partitioningFlags.Count];
 
                         for(int i = 0; i < partitioningFlags.Count; i++)
                         {
-                            targetId = partitioningFlags[i];
+                            targetID = partitioningFlags[i];
                             located = false;
                             for (int j = 0; j < globalStates.Length && !located; j++)
                             {
-                                if (globalStates[j].flagsUsed.LinearSearch(targetId, ref globalIndecies[j], out targetFlag))
+                                if (globalStates[j].flagsUsed.LinearSearch(targetID, ref globalIndecies[j], out targetFlag))
                                 {
                                     located = true;
                                     value = targetFlag.GetValue();
@@ -315,7 +315,7 @@ namespace Artemis
                             }
                             for (int j = 0; j < importedStates.Length && !located; j++)
                             {
-                                if (importedStates[j].flagsUsed.LinearSearch(targetId, ref importedIndecies[j], out targetFlag))
+                                if (importedStates[j].flagsUsed.LinearSearch(targetID, ref importedIndecies[j], out targetFlag))
                                 {
                                     located = true;
                                     value = targetFlag.GetValue();
