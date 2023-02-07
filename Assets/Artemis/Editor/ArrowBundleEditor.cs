@@ -18,11 +18,11 @@ namespace Artemis.EditorIntegration
 
         public override void OnInspectorGUI()
         {
-            ArrowBundle e = (ArrowBundle)target;
+            ArrowBundle arrowBundle = (ArrowBundle)target;
 
             //TODO: Figure out why Resources works in the Ink Package but not in Artemis
             //AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArrowBundle.png"));
+            EditorGUIUtility.SetIconForObject(arrowBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArrowBundle.png"));
 
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();
@@ -32,7 +32,7 @@ namespace Artemis.EditorIntegration
             serializedObject.ApplyModifiedProperties();
             if (EditorGUI.EndChangeCheck())
             {
-                EditorUtility.SetDirty(e);
+                EditorUtility.SetDirty(arrowBundle);
                 AssetDatabase.SaveAssets();
                 Repaint();
             }

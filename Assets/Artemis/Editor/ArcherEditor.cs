@@ -46,9 +46,9 @@ namespace Artemis.EditorIntegration
 
             EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Archer.png"));
 
-
             serializedObject.Update();
 
+            //Default contents
             EditorGUILayout.PropertyField(defaultContents);
 
             EditorGUI.BeginChangeCheck();
@@ -67,6 +67,7 @@ namespace Artemis.EditorIntegration
             }
             EditorGUI.EndDisabledGroup();
 
+            //Decision making
             EditorGUILayout.Space();
             showDescisionMaking = EditorGUILayout.BeginFoldoutHeaderGroup(showDescisionMaking, "Decision Making");
             if (showDescisionMaking)
@@ -89,6 +90,7 @@ namespace Artemis.EditorIntegration
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
 
+            //Arrow bundles
             EditorGUILayout.Space();
             showBundleOptions = EditorGUILayout.BeginFoldoutHeaderGroup(showBundleOptions, "Arrow Bundles");
             if (showBundleOptions)
@@ -118,10 +120,11 @@ namespace Artemis.EditorIntegration
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
 
+            //Partitioning Flags
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             EditorGUILayout.HelpBox(partitionInfo, MessageType.Info);
-            EditorGUILayout.PropertyField(tempPartitioningFlags, new GUIContent("Temp Partition Flags"));
+            EditorGUILayout.PropertyField(tempPartitioningFlags, new GUIContent("Temp Partitioning Flags"));
             if (GUILayout.Button("Partition"))
             {
                 archer.Repartition();
@@ -146,11 +149,13 @@ namespace Artemis.EditorIntegration
                 }
             }
 
+            //Partioning Key
             if (partitionOfficialText.Length > 0)
             {
                 EditorGUILayout.LabelField(partitionOfficialText, partitionLayoutStyle);
             }
 
+            //Preview
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Preview",EditorStyles.boldLabel);
             if (partitioningFlags.arraySize > 0)

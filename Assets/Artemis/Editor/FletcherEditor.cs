@@ -10,9 +10,9 @@ namespace Artemis.EditorIntegration
     {
         public override void OnInspectorGUI()
         {
-            PreDictionaryFletcher e = (PreDictionaryFletcher)target;
+            PreDictionaryFletcher preDictionaryFletcher = (PreDictionaryFletcher)target;
 
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Fletcher.png"));
+            EditorGUIUtility.SetIconForObject(preDictionaryFletcher, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Fletcher.png"));
 
             EditorGUI.BeginChangeCheck();
 
@@ -20,12 +20,12 @@ namespace Artemis.EditorIntegration
 
             if (GUILayout.Button("Parse CSV into database"))
             {
-                e.DeliverySystemDatabase();
+                preDictionaryFletcher.DeliverySystemDatabase();
             }
 
             if (EditorGUI.EndChangeCheck())
             {
-                EditorUtility.SetDirty(e);
+                EditorUtility.SetDirty(preDictionaryFletcher);
                 AssetDatabase.SaveAssets();
                 Repaint();
             }

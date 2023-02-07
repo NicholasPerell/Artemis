@@ -5,14 +5,14 @@ using UnityEditor;
 
 namespace Artemis.EditorIntegration
 {
-    [CustomEditor(typeof(Bow), true)]
+    [CustomEditor(typeof(PreTemplateBow), true)]
     public class BowEditor : Editor
     {
         public override void OnInspectorGUI()
         {
-            Bow e = (Bow)target;
+            PreTemplateBow preTemplateBow = (PreTemplateBow)target;
             
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Bow.png"));
+            EditorGUIUtility.SetIconForObject(preTemplateBow, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Bow.png"));
             
             DrawDefaultInspector();
 
@@ -21,7 +21,7 @@ namespace Artemis.EditorIntegration
 
             if (EditorGUI.EndChangeCheck())
             {
-                EditorUtility.SetDirty(e);
+                EditorUtility.SetDirty(preTemplateBow);
                 AssetDatabase.SaveAssets();
                 Repaint();
             }

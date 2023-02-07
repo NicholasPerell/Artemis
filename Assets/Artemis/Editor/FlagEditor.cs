@@ -163,9 +163,6 @@ namespace Artemis.EditorIntegration
             Texture2D tex = new Texture2D(width, height);
             Texture2D copyFrom;
 
-            //Figure out why Resources works in the Ink Package but not in Artemis
-            //copyFrom = AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-
             string fileSuffix = "";
 
             if (example.GetFlagID() != FlagID.INVALID)

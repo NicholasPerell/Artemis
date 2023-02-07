@@ -10,9 +10,9 @@ namespace Artemis.EditorIntegration
     {
         public override void OnInspectorGUI()
         {
-            FlagBundle e = (FlagBundle)target;
+            FlagBundle flagBundle = (FlagBundle)target;
             
-            EditorGUIUtility.SetIconForObject(e, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/FlagBundle.png"));
+            EditorGUIUtility.SetIconForObject(flagBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/FlagBundle.png"));
 
             EditorGUI.BeginChangeCheck();
 
@@ -21,31 +21,31 @@ namespace Artemis.EditorIntegration
             if (GUILayout.Button("Add To List"))
             {
 
-                if (e.tempFlags != null)
+                if (flagBundle.tempFlags != null)
                 {
-                    foreach (Flag flag in e.tempFlags)
+                    foreach (Flag flag in flagBundle.tempFlags)
                     {
-                        e.Add(flag);
+                        flagBundle.Add(flag);
                     }
-                    e.tempFlags = null;
+                    flagBundle.tempFlags = null;
                 }
             }
             if (GUILayout.Button("Remove From List"))
             {
-                if(e.tempFlags == null)
+                if(flagBundle.tempFlags == null)
                 {
-                    e.tempFlags = new Flag[1];
+                    flagBundle.tempFlags = new Flag[1];
                 }
 
-                foreach (Flag flag in e.tempFlags)
+                foreach (Flag flag in flagBundle.tempFlags)
                 {
-                    e.Remove(flag);
+                    flagBundle.Remove(flag);
                 }
-                e.tempFlags = null;
+                flagBundle.tempFlags = null;
             }
 
             EditorGUILayout.Space();
-            Flag[] flags = e.ToValueArray();
+            Flag[] flags = flagBundle.ToValueArray();
 
             EditorGUI.BeginDisabledGroup(true);
             foreach (Flag flag in flags)
@@ -56,7 +56,7 @@ namespace Artemis.EditorIntegration
 
             if (EditorGUI.EndChangeCheck())
             {
-                EditorUtility.SetDirty(e);
+                EditorUtility.SetDirty(flagBundle);
                 AssetDatabase.SaveAssets();
                 Repaint();
             }

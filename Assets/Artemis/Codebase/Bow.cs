@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Artemis
 {
-    public abstract class Bow : MonoBehaviour
+    public abstract class PreTemplateBow : MonoBehaviour
     {
 
     }
 
-    public abstract class Bow<T> : Bow
+    public abstract class Bow<T> : PreTemplateBow
     {
         [Space]
         [SerializeField]
