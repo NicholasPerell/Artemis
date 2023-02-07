@@ -4,11 +4,11 @@
 
 # ARTEMIS
 
-*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.com/). For games where the order of who you talk to or what you do is variable, Artemis accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
+*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.com/). For games where the order of who you talk to or what you do is variable, *Artemis* accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
 
 ## Inspirations
 
-As discussed in [this mircotalk @ The Loaf](https://www.youtube.com/watch?v=iQEwtDx63fw), _Project Nautilus_ took heavy inspiration from _Hades_'s priority queues[^1] and _Firewatch_'s Delilah brain[^2]. However, not every game has nearly as much written content as _Hades_; _Project Nautilus_ used a priority *stack* for there to be a recency bias (which *Artemis* allows you to choose), and *Artemis* also takes inspiration from _Left 4 Dead 2_'s Dynamic Dialog[^3].
+_Artemis_ took heavy inspiration from _Hades_'s priority queues[^1], _Firewatch_'s Delilah brain[^2], and _Left 4 Dead 2_'s Dynamic Dialog[^3].
 
 ## What's Currently Here
 
