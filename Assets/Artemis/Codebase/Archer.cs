@@ -74,31 +74,31 @@ namespace Artemis
         SortedStrictDictionary<ComparableIntArray, OrderedArrowList> partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
         //When Empty
-        [HideInInspector]
-        public bool loops;
-        [HideInInspector]
-        public bool includeBundlesInLoop;
-        [HideInInspector]
-        public bool includeHigherPrioritiesInLoop;
+        [SerializeField]
+        private bool loops;
+        [SerializeField]
+        private bool includeBundlesInLoop;
+        [SerializeField]
+        private bool includeHigherPrioritiesInLoop;
 
         //Delete Arrows?
-        [HideInInspector]
-        public bool discardArrowsAfterUse = true;
+        [SerializeField]
+        private bool discardArrowsAfterUse = true;
 
         //Non-Value Priorities
-        [HideInInspector]
+        [SerializeField]
         Archer.ChooseSamePriority chooseSamePriority;
-        [HideInInspector]
-        bool recencyBias;
+        [SerializeField]
+        private bool recencyBias;
 
         //Init Contents
         [SerializeField]
         public List<Arrow> defaultContents;
 
         //Bundles
-        [HideInInspector]
+        [SerializeField]
         public ArrowBundle tempArrowBundle;
-        [HideInInspector]
+        [SerializeField]
         private List<BundleLog> bundleHistory = new List<BundleLog>();
 
         [SerializeField]
@@ -579,6 +579,7 @@ namespace Artemis
             bool temp = AttemptDelivery(null);
         }
 
+#if UNITY_EDITOR
         public void SetChoosingSamePriority(ChooseSamePriority _chooseSamePriority)
         {
             chooseSamePriority = _chooseSamePriority;
@@ -588,6 +589,7 @@ namespace Artemis
                 FlipRecencyBias();
             }
         }
+#endif
 
         public void Repartition()
         {
@@ -765,7 +767,8 @@ namespace Artemis
 
             if (bundle != null)
             {
-                bool inverseExists = false;
+                //TODO: Evaluate if it's worth finding out a system for canceling out that doesn't break from drop-dump patterns
+                /*bool inverseExists = false;
 
                 for (int i = 0; i < bundleHistory.Count; i++)
                 {
@@ -780,7 +783,9 @@ namespace Artemis
                 if (!inverseExists)
                 {
                     bundleHistory.Add(new BundleLog(bundle, isAdding));
-                }
+                }*/
+
+                bundleHistory.Add(new BundleLog(bundle, isAdding));
             }
             else
             {

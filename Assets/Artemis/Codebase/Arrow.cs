@@ -38,7 +38,7 @@ namespace Artemis
         [SerializeField]
         HowToHandleBusy howToHandleBusy = HowToHandleBusy.QUEUE;
         [SerializeField]
-        public HowPriorityCalculated howPriorityCalculated = HowPriorityCalculated.SET_VALUE;
+        private HowPriorityCalculated howPriorityCalculated = HowPriorityCalculated.SET_VALUE;
 
         public void Rewrite(int _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy, HowPriorityCalculated _howPriorityCalculated)
         {

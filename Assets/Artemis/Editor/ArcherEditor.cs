@@ -19,6 +19,12 @@ namespace Artemis.EditorIntegration
         SerializedProperty defaultContents;
         SerializedProperty tempPartitioningFlags;
 
+        SerializedProperty loops;
+        SerializedProperty includeBundlesInLoop;
+        SerializedProperty includeHigherPrioritiesInLoop;
+
+        SerializedProperty discardArrowsAfterUse;
+
         protected virtual void OnEnable()
         {
             overallData = serializedObject.FindProperty("overallData");
@@ -26,6 +32,12 @@ namespace Artemis.EditorIntegration
             partitionedData = serializedObject.FindProperty("partitionedData");
             defaultContents = serializedObject.FindProperty("defaultContents");
             tempPartitioningFlags = serializedObject.FindProperty("tempPartitioningFlags");
+
+            loops = serializedObject.FindProperty("loops");
+            includeBundlesInLoop = serializedObject.FindProperty("includeBundlesInLoop");
+            includeHigherPrioritiesInLoop = serializedObject.FindProperty("includeHigherPrioritiesInLoop");
+
+            discardArrowsAfterUse = serializedObject.FindProperty("discardArrowsAfterUse");
         }
 
         public override void OnInspectorGUI()
@@ -61,14 +73,13 @@ namespace Artemis.EditorIntegration
             {
                 archer.SetChoosingSamePriority((Archer.ChooseSamePriority)EditorGUILayout.EnumPopup("Handling Same Priority", archer.GetChoosingSamePriority()));
 
-                archer.discardArrowsAfterUse = EditorGUILayout.Toggle("Discard Arrows After Use", archer.discardArrowsAfterUse);
+                EditorGUILayout.PropertyField(discardArrowsAfterUse, new GUIContent("Discard Arrows After Use"));
 
-                archer.loops = EditorGUILayout.Toggle("Loops", archer.loops);
-
-                if (archer.loops)
+                EditorGUILayout.PropertyField(loops, new GUIContent("Loops"));
+                if (loops.boolValue)
                 {
-                    archer.includeBundlesInLoop = EditorGUILayout.Toggle("\u21B3 Include Bundles", archer.includeBundlesInLoop);
-                    archer.includeHigherPrioritiesInLoop = EditorGUILayout.Toggle("\u21B3 Include Higher Priorities", archer.includeHigherPrioritiesInLoop);
+                    EditorGUILayout.PropertyField(includeBundlesInLoop, new GUIContent("\u21B3 Include Bundles"));
+                    EditorGUILayout.PropertyField(includeHigherPrioritiesInLoop, new GUIContent("\u21B3 Include Higher Priorities"));
                     if (GUILayout.Button("Set To Looped State"))
                     {
                         archer.SetToLoopedState();
@@ -139,7 +150,6 @@ namespace Artemis.EditorIntegration
             {
                 EditorGUILayout.LabelField(partitionOfficialText, partitionLayoutStyle);
             }
-
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Preview",EditorStyles.boldLabel);
