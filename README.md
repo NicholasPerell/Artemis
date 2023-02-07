@@ -8,7 +8,7 @@
 
 ## Inspirations
 
-_Artemis_ took heavy inspiration from _Hades_'s priority queues[^1], _Firewatch_'s Delilah brain[^2], and _Left 4 Dead 2_'s Dynamic Dialog[^3].
+_Artemis_ takes inspiration from _Hades_'s priority queues[^1], _Firewatch_'s Delilah brain[^2], and _Left 4 Dead 2_'s Dynamic Dialog[^3].
 
 ## What's Currently Here
 
