@@ -128,7 +128,7 @@ MonoBehaviour:
         mOrder: 010000000f000000
   loops: 1
   includeBundlesInLoop: 1
-  includeHigherPrioritiesInLoop: 0
+  includeHigherPrioritiesInLoop: 1
   discardArrowsAfterUse: 1
   defaultContents:
   - {fileID: 11400000, guid: f8ffd90002f172b4b9d54cf856d29a79, type: 2}

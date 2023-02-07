@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   symbolTypeName: Artemis.WhoID
   flagValueType: 2
-  flagId: 39
+  flagID: 39
   value: 0
