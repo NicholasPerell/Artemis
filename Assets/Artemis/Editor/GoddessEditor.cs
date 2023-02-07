@@ -29,7 +29,6 @@ namespace Artemis.EditorIntegration
             GUILayout.Label(AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Goddess.png"), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
             GUILayout.EndHorizontal();
 
-
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(flagsIdsToKeep);
@@ -37,19 +36,12 @@ namespace Artemis.EditorIntegration
 
             EditorGUILayout.Space();
 
-
-
-
             scrollPos = GUILayout.BeginScrollView(scrollPos, false, true);
-
-
             FlagID[] flagIds = e.GetFlagIDs();
             foreach (FlagID id in flagIds)
             {
                 EditorGUILayout.LabelField(id.ToString(), e.GetFlagValueType(id).ToString());
             }
-
-
             GUILayout.EndScrollView();
 
             EditorGUILayout.Space();
