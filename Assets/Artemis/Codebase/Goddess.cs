@@ -183,9 +183,7 @@ namespace Artemis
 
         private string GetContainingFolder()
         {
-            //TODO: Sort out what to do about AssetPath nolonger working
             string rtn = AssetDatabase.GetAssetPath(this);
-            //rtn = rtn.Substring(0, rtn.LastIndexOf('/'));
             rtn = "Assets/Artemis";
             return rtn;
         }

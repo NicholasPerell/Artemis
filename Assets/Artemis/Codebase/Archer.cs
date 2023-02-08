@@ -102,7 +102,7 @@ namespace Artemis
         private List<BundleLog> bundleHistory = new List<BundleLog>();
 
         [SerializeField]
-        private uint mInsertionOrder;
+        private uint insertionOrder;
 
         [System.Serializable]
         private struct OrderedArrowList
@@ -128,14 +128,16 @@ namespace Artemis
 
         private void Refresh(bool includeNonZeroPriority, bool includeBundles)
         {
-            mInsertionOrder = 0;
+            insertionOrder = 0;
             overallData = new List<Arrow>();
             partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
             foreach (Arrow arrow in defaultContents)
             {
-                if(arrow.GetPriority() == 0 || includeNonZeroPriority)
-                RecieveDataPoint(arrow);
+                if (arrow.GetPriority() == 0 || includeNonZeroPriority)
+                {
+                    RecieveArrow(arrow);
+                }
             }
 
             if (includeBundles)
@@ -163,18 +165,18 @@ namespace Artemis
             Refresh(includeHigherPrioritiesInLoop, includeBundlesInLoop);
         }
         
-        public void ReturnArrow(Arrow dataPoint)
+        public void ReturnArrow(Arrow arrow)
         {
             if (discardArrowsAfterUse)
             {
-                RecieveDataPoint(dataPoint, true);
+                RecieveArrow(arrow, true);
             }
         }
 
-        public void RecieveDataPoint(Arrow dataPoint, bool returningArrow = false)
+        public void RecieveArrow(Arrow arrow, bool returningArrow = false)
         {
             //Overall Data
-            InsertDataPointIntoList(dataPoint, overallData, returningArrow);
+            InsertArrowIntoList(arrow, overallData, returningArrow);
 
             //Partitioned Data
             if(partitioningFlags.Count != 0)
@@ -183,7 +185,7 @@ namespace Artemis
                 int[] array = new int[partitioningFlags.Count];
                 for (int i = 0; i < partitioningFlags.Count; i++)
                 {
-                    dataPoint.TryGetFlagEqualsValue(partitioningFlags[i], out value);
+                    arrow.TryGetFlagEqualsValue(partitioningFlags[i], out value);
                     array[i] = (int)value;
                 }
                 ComparableIntArray key = new ComparableIntArray(array);
@@ -192,61 +194,63 @@ namespace Artemis
                     partitionedData.Add(key, OrderedArrowList.Init());
                 }
                 OrderedArrowList bucket = partitionedData[key];
-                InsertDataPointIntoList(dataPoint, bucket.mArrows, returningArrow, bucket.mOrder);
+                InsertArrowIntoList(arrow, bucket.mArrows, returningArrow, bucket.mOrder);
             }
 
-            mInsertionOrder++;
+            insertionOrder++;
         }
 
-        private void InsertDataPointIntoList(Arrow dataPoint, List<Arrow> list, bool returningArrow, List<uint> orders = null)
+        private void InsertArrowIntoList(Arrow arrow, List<Arrow> list, bool returningArrow, List<uint> orders = null)
         {
-            if(list != null)
-            if (list.Count != 0)
+            if (list != null)
             {
-                int i;
-                if (dataPoint.IsPriority())
+                if (list.Count != 0)
                 {
-                    for (i = 0; i < list.Count; i++)
+                    int i;
+                    if (arrow.IsPriority())
                     {
-                        bool insertable;
-                        if (recencyBias || returningArrow)
+                        for (i = 0; i < list.Count; i++)
                         {
-                            insertable = list[i].GetPriority() <= dataPoint.GetPriority();
-                        }
-                        else
-                        {
-                            insertable = list[i].GetPriority() < dataPoint.GetPriority();
-                        }
+                            bool insertable;
+                            if (recencyBias || returningArrow)
+                            {
+                                insertable = list[i].GetPriority() <= arrow.GetPriority();
+                            }
+                            else
+                            {
+                                insertable = list[i].GetPriority() < arrow.GetPriority();
+                            }
 
-                        if (insertable)
-                        {
-                            break;
+                            if (insertable)
+                            {
+                                break;
+                            }
                         }
+                    }
+                    else
+                    {
+                        for (i = 0; i < list.Count; i++)
+                        {
+                            if (!list[i].IsPriority())
+                            {
+                                i = UnityEngine.Random.Range(i, list.Count + 1);
+                                break;
+                            }
+                        }
+                    }
+                    list.Insert(i, arrow);
+                    if (orders != null)
+                    {
+                        orders.Insert(i, insertionOrder);
                     }
                 }
                 else
                 {
-                    for (i = 0; i < list.Count; i++)
+                    list.Add(arrow);
+                    if (orders != null)
                     {
-                        if (!list[i].IsPriority())
-                        {
-                            i = UnityEngine.Random.Range(i, list.Count + 1);
-                            break;
-                        }
+                        orders.Add(insertionOrder);
                     }
-                }
-                list.Insert(i, dataPoint);
-                if(orders != null)
-                {
-                    orders.Insert(i, mInsertionOrder);
-                }
-            }
-            else
-            {
-                list.Add(dataPoint);
-                if (orders != null)
-                {
-                    orders.Add(mInsertionOrder);
                 }
             }
         }
@@ -593,7 +597,7 @@ namespace Artemis
 
         public void Repartition()
         {
-            mInsertionOrder = 0;
+            insertionOrder = 0;
             partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
             //Validate flags
@@ -629,8 +633,8 @@ namespace Artemis
 
                     OrderedArrowList bucket = partitionedData[key];
                     bucket.mArrows.Add(arrow);
-                    bucket.mOrder.Add(mInsertionOrder);
-                    mInsertionOrder++;
+                    bucket.mOrder.Add(insertionOrder);
+                    insertionOrder++;
                 }
             }
 
@@ -711,11 +715,11 @@ namespace Artemis
                 return;
             }
 
-            foreach (Arrow e in toDump.GetArrows())
+            foreach (Arrow arrow in toDump.GetArrows())
             {
-                if (includeNonZeroPriority || !e.IsPriority())
+                if (includeNonZeroPriority || !arrow.IsPriority())
                 {
-                    RecieveDataPoint(e);
+                    RecieveArrow(arrow);
                 }
             }
         }
@@ -736,21 +740,21 @@ namespace Artemis
             float value;
             int[] array;
             ComparableIntArray key;
-            foreach (Arrow e in toDrop.GetArrows())
+            foreach (Arrow arrow in toDrop.GetArrows())
             {
-                if(overallData.Remove(e))
+                if(overallData.Remove(arrow))
                 {
                     array = new int[partitioningFlags.Count];
                     for (int i = 0; i < partitioningFlags.Count; i++)
                     {
-                        e.TryGetFlagEqualsValue(partitioningFlags[i], out value);
+                        arrow.TryGetFlagEqualsValue(partitioningFlags[i], out value);
                         array[i] = (int)value;
                     }
                     key = new ComparableIntArray(array);
                     if (partitionedData.HasKey(key))
                     {
                         OrderedArrowList bucket = partitionedData[key];
-                        int index = bucket.mArrows.IndexOf(e);
+                        int index = bucket.mArrows.IndexOf(arrow);
                         bucket.mArrows.RemoveAt(index);
                         bucket.mOrder.RemoveAt(index);
                     }
