@@ -16,169 +16,169 @@ MonoBehaviour:
   columnsToReadFrom: 3
   database:
     list:
-    - Key: 164
+    - Key: 201
       Value:
         message: Test 0
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 165
+    - Key: 202
       Value:
         message: Test 1
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 166
+    - Key: 203
       Value:
         message: Test 2
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 167
+    - Key: 204
       Value:
         message: Test 3
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 168
+    - Key: 205
       Value:
         message: Test 4
         messageType: 2
         timeSystemIsBusy: 0.3
-    - Key: 169
+    - Key: 206
       Value:
         message: Test 5
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 170
+    - Key: 207
       Value:
         message: Test 6
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 171
+    - Key: 208
       Value:
         message: Test 7
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 172
+    - Key: 209
       Value:
         message: Test 8
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 173
+    - Key: 210
       Value:
         message: Test 9
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 174
+    - Key: 211
       Value:
         message: Test 10
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 175
+    - Key: 212
       Value:
         message: Test 11
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 176
+    - Key: 213
       Value:
         message: Test 12
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 177
+    - Key: 214
       Value:
         message: Test 13
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 178
+    - Key: 215
       Value:
         message: Test 14
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 179
+    - Key: 216
       Value:
         message: Test 15
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 180
+    - Key: 217
       Value:
         message: Test 16
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 181
+    - Key: 218
       Value:
         message: Test 17
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 182
+    - Key: 219
       Value:
         message: Test 18
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 183
+    - Key: 220
       Value:
         message: Test 19
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 184
+    - Key: 221
       Value:
         message: Test 20
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 185
+    - Key: 222
       Value:
         message: Test 21
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 186
+    - Key: 223
       Value:
         message: Test 22
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 187
+    - Key: 224
       Value:
         message: Test 23
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 188
+    - Key: 225
       Value:
         message: Test 24
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 189
+    - Key: 226
       Value:
         message: Test 25
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 190
+    - Key: 227
       Value:
         message: Test 26
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 191
+    - Key: 228
       Value:
         message: Test 27
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 192
+    - Key: 229
       Value:
         message: Test 28
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 193
+    - Key: 230
       Value:
         message: Test 29
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 194
+    - Key: 231
       Value:
         message: Test 30
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 195
+    - Key: 232
       Value:
         message: Test 31
         messageType: 0
         timeSystemIsBusy: 0.3
-  internalSymbolCompiler:
+  arrowIDCompiler:
     idsUsed:
-      list: a4000000a5000000a6000000a7000000a8000000a9000000aa000000ab000000ac000000ad000000ae000000af000000b0000000b1000000b2000000b3000000b4000000b5000000b6000000b7000000b8000000b9000000ba000000bb000000bc000000bd000000be000000bf000000c0000000c1000000c2000000c3000000
+      list: c9000000ca000000cb000000cc000000cd000000ce000000cf000000d0000000d1000000d2000000d3000000d4000000d5000000d6000000d7000000d8000000d9000000da000000db000000dc000000dd000000de000000df000000e0000000e1000000e2000000e3000000e4000000e5000000e6000000e7000000e8000000
     toAdd:
       list: []
     intsReadyToConvert:
@@ -386,5 +386,16 @@ MonoBehaviour:
   - CL
   - OC
   - CO
-  notBeingUsed: 
-  flagsNoLongerBeingUsed: []
+  arrowsNotBeingUsed: c4000000c5000000c6000000c7000000c8000000
+  flagsNoLongerBeingUsed:
+  - IN_DANGER
+  - WHODYING
+  - WHODYING
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H

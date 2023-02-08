@@ -7,6 +7,8 @@ namespace Artemis
 		LIAM = 1,
 		NICK = 2,
 		DONISI = 3,
-		BOB = 4
+		BOB = 4,
+		CHRIS = 5,
+		KYLE = 6
 	}
 }

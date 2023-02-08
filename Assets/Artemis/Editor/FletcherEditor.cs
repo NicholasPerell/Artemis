@@ -20,7 +20,7 @@ namespace Artemis.EditorIntegration
 
             if (GUILayout.Button("Parse CSV into database"))
             {
-                preDictionaryFletcher.DeliverySystemDatabase();
+                preDictionaryFletcher.GeneratorArrowDatabase();
             }
 
             if (EditorGUI.EndChangeCheck())

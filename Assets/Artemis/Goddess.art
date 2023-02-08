@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52dea9d8cbf3ec41ac81669310c2d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flagsIdsToKeep: 00000000
+  flagsIDsToKeep: 
   flagValueTypes:
     list:
     - Key: 31
@@ -78,7 +78,7 @@ MonoBehaviour:
     - Key: 31
       Value:
         idsUsed:
-          list: 00000000010000000200000003000000
+          list: 00000000010000000200000003000000040000000500000006000000
         toAdd:
           list: []
         intsReadyToConvert:
@@ -89,7 +89,7 @@ MonoBehaviour:
     - Key: 39
       Value:
         idsUsed:
-          list: 0000000001000000020000000300000004000000
+          list: 00000000010000000200000003000000040000000500000006000000
         toAdd:
           list: []
         intsReadyToConvert:

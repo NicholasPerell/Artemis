@@ -163,7 +163,7 @@ namespace Artemis
             Refresh(includeHigherPrioritiesInLoop, includeBundlesInLoop);
         }
         
-        public void ReturnDataPoint(Arrow dataPoint)
+        public void ReturnArrow(Arrow dataPoint)
         {
             if (discardArrowsAfterUse)
             {

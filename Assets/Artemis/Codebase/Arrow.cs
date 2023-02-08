@@ -20,8 +20,9 @@ namespace Artemis
             CANCEL = 0,
             QUEUE = 1,
             INTERRUPT = 2,
-            DELETE = 3,
-            FRONT_OF_QUEUE = 4
+            INTERRUPT_CLEAR_QUEUE = 3,
+            DELETE = 4,
+            FRONT_OF_QUEUE = 5
         }
 
         [SerializeField]
@@ -40,6 +41,7 @@ namespace Artemis
         [SerializeField]
         private HowPriorityCalculated howPriorityCalculated = HowPriorityCalculated.SET_VALUE;
 
+#if UNITY_EDITOR
         public void Rewrite(int _id, PreDictionaryFletcher _systemScriptable, int _priorityValue, SortedStrictDictionary<FlagID,Criterion> _rule, HowToHandleBusy _howToHandleBusy, HowPriorityCalculated _howPriorityCalculated)
         {
             id = _id;
@@ -58,6 +60,7 @@ namespace Artemis
                 priorityValue += rule.Count;
             }
         }
+#endif
 
         public void IgnoreSuccessAttemptLoneDelivery()
         {
@@ -78,7 +81,7 @@ namespace Artemis
 
         public bool Fire(Archer sender, FlagBundle[] importedStates, FlagID[] all = null)
         {
-            return fletcher.ProcessDataPoint(this, sender, importedStates, all);
+            return fletcher.ProcessArrow(this, sender, importedStates, all);
         }
 
         public bool IsPriority()
@@ -167,7 +170,6 @@ namespace Artemis
 
             return true;
         }
-
 
 #if UNITY_EDITOR
         public string RecieveRuleStringRepresentation()

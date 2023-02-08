@@ -10,7 +10,6 @@ using UnityEditor;
 #endif
 namespace Artemis
 {
-    //[CreateAssetMenu(fileName = "New Artemis Narrative System", menuName = "Artemis/Overall Narrative System")]
     [FilePath("Assets/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
     {

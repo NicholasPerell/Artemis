@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using System;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -14,17 +12,17 @@ namespace Artemis
         [System.Serializable]
         struct ArrowFiringData
         {
-            public Arrow mArrow;
-            public Archer mArcher;
-            public FlagBundle[] mImportedStates;
-            public FlagID[] mAll;
+            public Arrow arrow;
+            public Archer archer;
+            public FlagBundle[] importedStates;
+            public FlagID[] all;
 
             public ArrowFiringData(Arrow _arrow, Archer _archer, FlagBundle[] _importedStates, FlagID[] _all)
             {
-                mArrow = _arrow;
-                mArcher = _archer;
-                mImportedStates = _importedStates;
-                mAll = _all;
+                arrow = _arrow;
+                archer = _archer;
+                importedStates = _importedStates;
+                all = _all;
             }
         }
 
@@ -36,11 +34,9 @@ namespace Artemis
             queue = new List<ArrowFiringData>();
         }
 
-        public bool ProcessDataPoint(Arrow dataPoint, Archer sender, FlagBundle[] importedStates, FlagID[] all)
+        public bool ProcessArrow(Arrow arrow, Archer sender, FlagBundle[] importedStates, FlagID[] all)
         {
             bool successfullyProcessed = false;
-
-            Arrow.HowToHandleBusy decision = dataPoint.GetWhenBusyDescision();
 
             if (IsBusy())
             {
@@ -49,7 +45,8 @@ namespace Artemis
                     queue = new List<ArrowFiringData>();
                 }
 
-                ArrowFiringData storedPairing = new ArrowFiringData(dataPoint, sender, importedStates, all);
+                Arrow.HowToHandleBusy decision = arrow.GetWhenBusyDescision();
+                ArrowFiringData storedGrouping = new ArrowFiringData(arrow, sender, importedStates, all);
 
                 switch (decision)
                 {
@@ -57,30 +54,43 @@ namespace Artemis
                         successfullyProcessed = false;
                         break;
                     case Arrow.HowToHandleBusy.QUEUE:
-                        queue.Add(storedPairing);
+                        queue.Add(storedGrouping);
                         successfullyProcessed = true;
                         break;
                     case Arrow.HowToHandleBusy.INTERRUPT:
                         AbruptEnd();
-                        Send(dataPoint.GetArrowID());
+                        Send(arrow.GetArrowID());
+                        successfullyProcessed = true;
+                        break;
+                    case Arrow.HowToHandleBusy.INTERRUPT_CLEAR_QUEUE:
+                        AbruptEnd();
+                        Send(arrow.GetArrowID());
+                        foreach(ArrowFiringData data in queue)
+                        {
+                            if (data.archer != null)
+                            {
+                                data.archer.ReturnArrow(data.arrow);
+                            }
+                        }
+                        queue.Clear();
                         successfullyProcessed = true;
                         break;
                     case Arrow.HowToHandleBusy.DELETE:
                         successfullyProcessed = true;
                         break;
                     case Arrow.HowToHandleBusy.FRONT_OF_QUEUE:
-                        queue.Insert(0, storedPairing);
+                        queue.Insert(0, storedGrouping);
                         successfullyProcessed = true;
                         break;
                     default:
-                        Debug.LogError(dataPoint.name + " has invalid whenAlreadyVoicePlaying value.");
+                        Debug.LogError(arrow.name + " has invalid whenAlreadyVoicePlaying value.");
                         successfullyProcessed = false;
                         break;
                 }
             }
             else
             {
-                Send(dataPoint.GetArrowID());
+                Send(arrow.GetArrowID());
                 successfullyProcessed = true;
             }
 
@@ -91,17 +101,17 @@ namespace Artemis
         {
             if (queue.Count > 0)
             {
-                ArrowFiringData pair = queue[0];
+                ArrowFiringData grouping = queue[0];
                 queue.RemoveAt(0);
-                if (pair.mArrow.CondtionsMet(pair.mImportedStates, pair.mAll))
+                if (grouping.arrow.CondtionsMet(grouping.importedStates, grouping.all))
                 {
-                    Send(pair.mArrow.GetArrowID());
+                    Send(grouping.arrow.GetArrowID());
                 }
                 else
                 {
-                    if (pair.mArcher != null)
+                    if (grouping.archer != null)
                     {
-                        pair.mArcher.ReturnDataPoint(pair.mArrow);
+                        grouping.archer.ReturnArrow(grouping.arrow);
                     }
                     ProcessEnd();
                 }
@@ -113,7 +123,7 @@ namespace Artemis
         protected abstract void AbruptEnd();
 
 #if UNITY_EDITOR
-        public abstract void DeliverySystemDatabase();
+        public abstract void GeneratorArrowDatabase();
 #endif
 
         public abstract Type GetSymbolType();
@@ -135,13 +145,13 @@ namespace Artemis
 
         [HideInInspector]
         [SerializeField]
-        private InternalSymbolCompiler internalSymbolCompiler;
+        private InternalSymbolCompiler arrowIDCompiler;
         [HideInInspector]
         [SerializeField]
         private List<string> flagsBeingUsed;
         [HideInInspector]
         [SerializeField]
-        private List<int> notBeingUsed;
+        private List<int> arrowsNotBeingUsed;
         [HideInInspector]
         [SerializeField]
         private List<string> flagsNoLongerBeingUsed;
@@ -149,23 +159,28 @@ namespace Artemis
         Bow<T> inSceneObject;
 
 #if UNITY_EDITOR
-        public override void DeliverySystemDatabase()
+        public override void GeneratorArrowDatabase()
         {
-            //List used to track what IDs need to be deleted
-            notBeingUsed = new List<int>();
+            //List used to track what Arrows need to be deleted
+            arrowsNotBeingUsed = new List<int>();
             if (database != null)
             {
-                notBeingUsed = database.GetKeyList();
+                arrowsNotBeingUsed = database.GetKeyList();
             }
-            flagsBeingUsed ??= new List<string>();
-            flagsNoLongerBeingUsed = new List<string>();
-            foreach (string e in flagsBeingUsed)
+
+            //List used to track what Flag IDs need to be disconnected
+            if(flagsBeingUsed == null)
             {
-                flagsNoLongerBeingUsed.Add(e);
+                flagsBeingUsed = new List<string>();
+            }
+            flagsNoLongerBeingUsed = new List<string>();
+            foreach (string flag in flagsBeingUsed)
+            {
+                flagsNoLongerBeingUsed.Add(flag);
             }
             flagsBeingUsed.Clear();
 
-            //Reset databases
+            //Reset database
             database = new SortedStrictDictionary<int, T>();
 
             //Check for folder
@@ -174,34 +189,41 @@ namespace Artemis
                 AssetDatabase.CreateFolder(GetContainingFolder(), GetArrowFolderName());
             }
 
+            //Generate the internalSymbolCompiler for the arrow IDs
             string arrowPrefix = typeof(T).ToString();
-            arrowPrefix = arrowPrefix.Replace('.', '_');
-            if (internalSymbolCompiler == null)
+            arrowPrefix = arrowPrefix.Replace('.', '_'); //Prevents namespaces from causing compilation errors
+            if (arrowIDCompiler == null)
             {
-                internalSymbolCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
+                arrowIDCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
             }
-            internalSymbolCompiler.SetLocation(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
+            arrowIDCompiler.SetLocation(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
 
             //Parse CSV
             fgCSVReader.LoadFromString(csvFile.text, BASE_COLUMNS + columnsToReadFrom, AddToDatabase);
 
-            string tmp;
-            foreach (int e in notBeingUsed)
+            //Delete the unused arrow assets
+            string pathOfArrowToDelete;
+            foreach (int arrowID in arrowsNotBeingUsed)
             {
-                internalSymbolCompiler.SetToRemove(e);
-                tmp = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + internalSymbolCompiler.FindNameOfValue(e) + ".asset";
-                if (AssetDatabase.LoadAssetAtPath<Arrow>(tmp) != null)
+                if (arrowIDCompiler != null)
                 {
-                    AssetDatabase.DeleteAsset(tmp);
+                    arrowIDCompiler.SetToRemove(arrowID);
+                }
+                pathOfArrowToDelete = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + arrowIDCompiler.FindNameOfValue(arrowID) + ".asset";
+                if (AssetDatabase.LoadAssetAtPath<Arrow>(pathOfArrowToDelete) != null)
+                {
+                    AssetDatabase.DeleteAsset(pathOfArrowToDelete);
                 }
             }
 
-            foreach (string e in flagsNoLongerBeingUsed)
+            //Disconnect unused flags
+            foreach (string flag in flagsNoLongerBeingUsed)
             {
-                Goddess.instance.DisconnectFlag(e, this);
+                Goddess.instance.DisconnectFlag(flag, this);
             }
 
-            internalSymbolCompiler.WriteFlagEnumScript();
+            //Compile arrow and flag IDs
+            arrowIDCompiler.WriteFlagEnumScript();
             Goddess.instance.WriteFlagEnumScript();
 
             EditorUtility.SetDirty(this);
@@ -211,12 +233,19 @@ namespace Artemis
         {
             bool invalid = false;
 
-            //Datapoints must have an ID
-            if (currentLine.cell[0] == null || currentLine.cell[0].value == "" || currentLine.cell[0].value == "END")
+            //Arrows must have an ID
+            if (currentLine.cell[0] == null || currentLine.cell[0].value == "" || currentLine.cell[0].value == "END" || !IsFlagNameValid(currentLine.cell[0].value))
             {
-                if (currentLine.cell[0].value != "END")
+                if (currentLine.cell[0] == null || currentLine.cell[0].value != "END")
                 {
-                    Debug.LogError("ID was not found");
+                    if (currentLine.cell[0] != null || !IsFlagNameValid(currentLine.cell[0].value))
+                    {
+                        Debug.LogError("\""+ currentLine.cell[0].value + "\" is not a valid ID");
+                    }
+                    else
+                    {
+                        Debug.LogError("ID was not found");
+                    }
                 }
                 invalid = true;
             }
@@ -263,7 +292,7 @@ namespace Artemis
             if (!invalid)
             {
                 //1) Add to the official database
-                int _id = internalSymbolCompiler.FindValueOfString(currentLine.cell[0].value);
+                int _id = arrowIDCompiler.FindValueOfString(currentLine.cell[0].value);
                 database.Add(_id, data);
 
                 //2) Add/update asset
@@ -313,28 +342,28 @@ namespace Artemis
                     _howToHandleBusy = Arrow.HowToHandleBusy.CANCEL;
                 }
 
-                Arrow dataPoint = AssetDatabase.LoadAssetAtPath<Arrow>(GetContainingFolder() + "/" + GetArrowFolderName() + "/" + currentLine.cell[0].value + ".asset");
+                Arrow arrow = AssetDatabase.LoadAssetAtPath<Arrow>(GetContainingFolder() + "/" + GetArrowFolderName() + "/" + currentLine.cell[0].value + ".asset");
 
-                bool exists = dataPoint != null;
+                bool exists = arrow != null;
 
                 if (!exists)
                 {
-                    dataPoint = ScriptableObject.CreateInstance<Arrow>();
+                    arrow = ScriptableObject.CreateInstance<Arrow>();
                 }
 
-                dataPoint.Rewrite(_id, _systemScriptable, _priorityValue, _rule, _howToHandleBusy, _howPriorityCalculated);
+                arrow.Rewrite(_id, _systemScriptable, _priorityValue, _rule, _howToHandleBusy, _howPriorityCalculated);
 
                 if (exists)
                 {
-                    EditorUtility.SetDirty(dataPoint);
+                    EditorUtility.SetDirty(arrow);
                 }
                 else
                 {
-                    AssetDatabase.CreateAsset(dataPoint, GetContainingFolder() + "/" + GetArrowFolderName() + "/" + currentLine.cell[0].value + ".asset");
+                    AssetDatabase.CreateAsset(arrow, GetContainingFolder() + "/" + GetArrowFolderName() + "/" + currentLine.cell[0].value + ".asset");
                 }
 
                 //3) remove from list of uninvolved Assets for clean up later
-                notBeingUsed.Remove(_id);
+                arrowsNotBeingUsed.Remove(_id);
             }
         }
 
@@ -379,14 +408,25 @@ namespace Artemis
             if (hasGreat)
             {
                 valueType = Flag.ValueType.FLOAT;
-                valid = !hasEx && !hasLess;
+                valid = !hasLess;
                 if (valid)
                 {
                     valid = IsValidLessGreat(input, '>', out a, out flag);
-                    if (!valid)
+                    if(valid)
+                    {
+                        if (hasEq)
+                        {
+                            compareType = CriterionComparisonType.GREATER_EQUAL;
+                        }
+                        else
+                        {
+                            compareType = CriterionComparisonType.GREATER;
+                        }
+                    }
+                    else
                     {
                         tmp = input.Split('>');
-                        valid = tmp.Length == 3;
+                        valid = tmp.Length == 3; //Check for if it's a range (ex: a >= x >= b)
                         if (valid)
                         {
                             bool hasLeftEq = tmp[1].IndexOf('=') != -1;
@@ -447,17 +487,6 @@ namespace Artemis
 
                         }
                     }
-                    else
-                    {
-                        if (hasEq)
-                        {
-                            compareType = CriterionComparisonType.GREATER_EQUAL;
-                        }
-                        else
-                        {
-                            compareType = CriterionComparisonType.GREATER;
-                        }
-                    }
                 }
             }
             else if (hasLess)
@@ -473,6 +502,70 @@ namespace Artemis
                     else
                     {
                         compareType = CriterionComparisonType.LESS;
+                    }
+                }
+                else
+                {
+                    tmp = input.Split('<');
+                    valid = tmp.Length == 3; //Check for if it's a range (ex: b <= x <= a)
+                    if (valid)
+                    {
+                        bool hasLeftEq = tmp[1].IndexOf('=') != -1;
+                        bool hasRightEq = tmp[2].IndexOf('=') != -1;
+
+                        int leftStartIndex = hasLeftEq ? 1 : 0;
+                        int rightStartIndex = hasRightEq ? 1 : 0;
+
+                        if (float.TryParse(tmp[0], out b)
+                            && float.TryParse(tmp[2].Substring(rightStartIndex), out a))
+                        {
+                            flag = tmp[1].Substring(leftStartIndex).Trim();
+                            valid = IsFlagNameValid(flag);
+                            if (valid)
+                            {
+                                //String
+                                string output = b + " <";
+                                if (hasLeftEq)
+                                {
+                                    output += "=";
+                                }
+                                output += " " + flag + " <";
+                                if (hasRightEq)
+                                {
+                                    output += "=";
+                                }
+                                output += " " + a;
+                                Debug.Log(output);
+
+                                if (hasLeftEq)
+                                {
+                                    if (hasRightEq)
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_CLOSED;
+                                    }
+                                    else
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_OPEN_CLOSED;
+                                    }
+                                }
+                                else
+                                {
+                                    if (hasRightEq)
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_CLOSED_OPEN;
+                                    }
+                                    else
+                                    {
+                                        compareType = CriterionComparisonType.RANGE_OPEN;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            valid = false;
+                        }
+
                     }
                 }
             }
@@ -515,10 +608,6 @@ namespace Artemis
                             {
                                 valid = false;
                             }
-
-                            //a = 25;
-                            //compareType = CriterionComparisonType.EQUALS;
-                            //Debug.Log(flag + " = " + enumPossibly);
                         }
                     }
                 }
@@ -676,12 +765,12 @@ namespace Artemis
             rtn = rtn.Substring(0, rtn.LastIndexOf('/'));
             return rtn;
         }
-#endif
 
         private string GetArrowFolderName()
         {
             return name + " Arrows";
         }
+#endif
 
         public void SetInSceneObject(Bow<T> _value)
         {
@@ -716,7 +805,7 @@ namespace Artemis
 
         public override Type GetSymbolType()
         {
-            return internalSymbolCompiler.GetEnumType();
+            return arrowIDCompiler.GetEnumType();
         }
     }
 }

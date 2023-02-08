@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d6c426b21345840a5ce7617c156483, type: 3}
   m_Name: Test_Debug_015
   m_EditorClassIdentifier: 
-  id: 179
+  id: 216
   fletcher: {fileID: 11400000, guid: 5ae98de649bde344491a8b1ed8971550, type: 2}
   priorityValue: 0
   rule:
@@ -21,37 +21,37 @@ MonoBehaviour:
       Value:
         lhs: 0
         rhs: 0
-        flagIdChecked: 31
+        flagIDChecked: 31
         comparisonType: 0
     - Key: 32
       Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 32
+        flagIDChecked: 32
         comparisonType: 0
     - Key: 33
       Value:
         lhs: 0
         rhs: 0
-        flagIdChecked: 33
+        flagIDChecked: 33
         comparisonType: 0
     - Key: 39
       Value:
         lhs: 2
         rhs: 2
-        flagIdChecked: 39
+        flagIDChecked: 39
         comparisonType: 0
     - Key: 46
       Value:
         lhs: 1
         rhs: 1
-        flagIdChecked: 46
+        flagIDChecked: 46
         comparisonType: 0
     - Key: 50
       Value:
         lhs: 0
         rhs: 0
-        flagIdChecked: 50
+        flagIDChecked: 50
         comparisonType: 0
   howToHandleBusy: 1
   howPriorityCalculated: 0
