@@ -296,7 +296,7 @@ MonoBehaviour:
   onFire:
     m_PersistentCalls:
       m_Calls: []
-  timeBetweenFires: 0.25
+  timeBetweenFires: 1.37
   archer: {fileID: 11400000, guid: 7c7b7db778a05d04f9adaca6f3fa6f4c, type: 2}
 --- !u!114 &842927796
 MonoBehaviour:

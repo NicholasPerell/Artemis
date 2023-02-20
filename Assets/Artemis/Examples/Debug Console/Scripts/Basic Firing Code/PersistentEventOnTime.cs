@@ -41,7 +41,7 @@ public class PersistentEventOnTime : MonoBehaviour
     Artemis.Archer archer;
     void WhenFiresCodedDebug()
     {
-        //archer.AttemptDelivery(null, new Artemis.FlagID[] { Artemis.FlagID.EQ, Artemis.FlagID.WHO, Artemis.FlagID.FALSEA});
+        archer.AttemptDelivery(null, new Artemis.FlagID[] { Artemis.FlagID.EQ, Artemis.FlagID.WHO, Artemis.FlagID.FALSEA});
     }
 
 }
