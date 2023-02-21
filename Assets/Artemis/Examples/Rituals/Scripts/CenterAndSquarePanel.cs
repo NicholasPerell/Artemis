@@ -23,7 +23,15 @@ namespace Artemis.Example.Rituals
 
         private void Update()
         {
+            Reposition();
             Resize();
+        }
+
+        private void Reposition()
+        {
+            rect.anchorMin = 0.5f * Vector2.one;
+            rect.anchorMax = 0.5f * Vector2.one;
+            rect.anchoredPosition = Vector2.zero;
         }
 
         private void Resize()
