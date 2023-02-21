@@ -256,15 +256,13 @@ MonoBehaviour:
     numberOfRooms: 16
   - material: {fileID: 2100000, guid: 64709572c2629254c9a9306ae5625f57, type: 2}
     gridSize: {x: 12, y: 12}
-    numberOfRooms: 24
+    numberOfRooms: 25
   - material: {fileID: 2100000, guid: fcd2407df6f076146bcd776be582f68f, type: 2}
-    gridSize: {x: 20, y: 20}
-    numberOfRooms: 32
+    gridSize: {x: 15, y: 15}
+    numberOfRooms: 33
   - material: {fileID: 2100000, guid: 779ad358e79fbc2429cf403413d0c063, type: 2}
     gridSize: {x: 3, y: 3}
     numberOfRooms: 1
-  startingRoomMaterial: {fileID: 2100000, guid: a738fd05b348cf04d9d5d915455c8bf6, type: 2}
-  endRoomMaterial: {fileID: 2100000, guid: 779ad358e79fbc2429cf403413d0c063, type: 2}
   tierGrids: []
 --- !u!4 &526272921
 Transform:

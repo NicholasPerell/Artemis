@@ -148,11 +148,6 @@ namespace Artemis.Example.Rituals
         TierSettings[] tiers;
 
         [SerializeField]
-        Material startingRoomMaterial;
-        [SerializeField]
-        Material endRoomMaterial;
-
-        [SerializeField]
         GridData[] tierGrids;
 
         int attempts;
