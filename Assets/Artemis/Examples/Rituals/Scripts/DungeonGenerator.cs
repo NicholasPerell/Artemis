@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.Sprites;
 
 namespace Artemis.Example.Rituals
 {
@@ -10,6 +12,9 @@ namespace Artemis.Example.Rituals
         public Material material;
         public Vector2Int gridSize;
         public int numberOfRooms;
+
+        [Space]
+        public TileBase floorTile;
     }
 
     [System.Serializable]
@@ -139,8 +144,71 @@ namespace Artemis.Example.Rituals
         }
     }
 
+    [System.Serializable]
+    public struct RoomData
+    {
+        public int tier;
+        public int doors;
+        public Vector2Int coords;
+        public bool visted;
+
+        public void Init(int _tier, Vector2Int _coords)
+        {
+            tier = _tier;
+            coords = _coords;
+            doors = 0;
+            visted = false;
+        }
+
+        public void MarkDoor(int index)
+        {
+            doors |= 1 << index;
+        }
+    }
+
     public class DungeonGenerator : MonoBehaviour
     {
+        //TODO: make ComparableIntArray into its own script over in Dev
+        [System.Serializable]
+        private struct ComparableIntArray : System.IComparable
+        {
+            [SerializeField]
+            private int[] mArray;
+
+            public ComparableIntArray(int[] array)
+            {
+                mArray = array;
+            }
+
+            public ComparableIntArray(Vector2Int array)
+            {
+                mArray = new int[2] { array.x, array.y };
+            }
+
+            private int CompareToSame(ComparableIntArray obj)
+            {
+                if (mArray.Length.CompareTo(obj.mArray.Length) != 0)
+                {
+                    return mArray.Length.CompareTo(obj.mArray.Length);
+                }
+
+                for (int i = 0; i < mArray.Length; i++)
+                {
+                    if (mArray[i].CompareTo(obj.mArray[i]) != 0)
+                    {
+                        return mArray[i].CompareTo(obj.mArray[i]);
+                    }
+                }
+
+                return 0;
+            }
+
+            public int CompareTo(object obj)
+            {
+                return CompareToSame((ComparableIntArray)obj);
+            }
+        }
+
         [SerializeField]
         GameObject cube;
 
@@ -150,11 +218,18 @@ namespace Artemis.Example.Rituals
         [SerializeField]
         GridData[] tierGrids;
 
+        [SerializeField]
+        SortedStrictDictionary<ComparableIntArray,RoomData> fullDungeonRooms;
+
+        [SerializeField]
+        Tilemap tilemap;
+
         int attempts;
 
         void OnEnable()
         {
             GenerateDungeon();
+            GenerateRooms();
         }
 
         void OnDisable()
@@ -167,11 +242,20 @@ namespace Artemis.Example.Rituals
 
         void GenerateDungeon()
         {
-            attempts = 0;
-            tierGrids = new GridData[tiers.Length];
-            for (int i = 0; i < tiers.Length; i++)
+            bool success = false;
+            while (!success)
             {
-                GenerateTier(i);
+                success = true;
+                attempts = 0;
+                tierGrids = new GridData[tiers.Length];
+                for (int i = 0; i < tiers.Length; i++)
+                {
+                    GenerateTier(i);
+                    if(tierGrids[i].rooms.Count < tiers[i].numberOfRooms / 2)
+                    {
+                        success = false;
+                    }
+                }
             }
         }
 
@@ -219,7 +303,7 @@ namespace Artemis.Example.Rituals
 
             int tempDequeuedIndex;
             int tempNeighborIndex;
-            while (queue.Count > 0 && tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms)
+            while (queue.Count > 0 && tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms + 1)
             {
                 tempDequeuedIndex = queue.Dequeue();
                 for (int i = 0; i < traversalNodes.Length; i++)
@@ -268,7 +352,7 @@ namespace Artemis.Example.Rituals
             }
             tierGrids[tierIndex].endRoom = tierGrids[tierIndex].IndexToPosition(endingRoomIndex);
 
-            if (tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms && attempts < 100)
+            if (tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms && attempts < 1000)
             {
                 attempts++;
                 for (int i = transform.childCount - 1; i >= transform.childCount - tierGrids[tierIndex].rooms.Count; i--)
@@ -277,18 +361,60 @@ namespace Artemis.Example.Rituals
                 }
                 GenerateTier(tierIndex);
             }
-            else if (attempts == 100)
+            else if (attempts == 1000)
             {
                 for (int i = transform.childCount - 1; i >= 0; i--)
                 {
                     Destroy(transform.GetChild(i).gameObject);
                 }
-                GenerateDungeon();
             }
             else
             {
                 attempts = 0;
             }
         }
+
+        void GenerateRooms()
+        {
+            fullDungeonRooms = new SortedStrictDictionary<ComparableIntArray,RoomData>();
+            RoomData roomData;
+            Vector2Int coords;
+            for(int i = 0; i < tierGrids.Length; i++)
+            {
+                foreach (int room in tierGrids[i].rooms)
+                {
+                    coords = tierGrids[i].IndexToPosition(room) + tierGrids[i].offset;
+                    roomData = new RoomData();
+                    roomData.Init(i, coords);
+                    fullDungeonRooms.Add(new ComparableIntArray(coords), roomData);
+                }
+            }
+
+            tilemap.ClearAllTiles();
+            Vector2Int[] traversalNodes = new Vector2Int[] { Vector2Int.left, Vector2Int.right, Vector2Int.down, Vector2Int.up };
+            ComparableIntArray comparableIntArray;
+            for (int i = 0; i < fullDungeonRooms.Count; i++)
+            {
+                //Check for Neighbors
+                roomData = fullDungeonRooms.GetTupleAtIndex(i).Value;
+                coords = roomData.coords;
+                for(int j = 0; j < traversalNodes.Length; j++)
+                {
+                    comparableIntArray = new ComparableIntArray(coords + traversalNodes[j]);
+                    if(fullDungeonRooms.HasKey(comparableIntArray))
+                    {
+                        fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(i).Key].MarkDoor(j);
+                    }
+                }
+
+                //Paint Tilemap
+                Vector3Int center = new Vector3Int(coords.x * 17, coords.y * 9);
+
+                tilemap.SetTile(center, tiers[roomData.tier].floorTile);
+                tilemap.SetTile(center + new Vector3Int(16,8,0), tiers[roomData.tier].floorTile);
+                tilemap.BoxFill(center + new Vector3Int(1, 1, 0), tiers[roomData.tier].floorTile, center.x, center.y, center.x + 16, center.y + 8);
+            }
+                tilemap.RefreshAllTiles();
+        }
     }
-}
+}   
