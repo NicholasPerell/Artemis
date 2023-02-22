@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 526272921}
   - component: {fileID: 526272920}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Dungeon Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
