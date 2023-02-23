@@ -243,7 +243,7 @@ namespace Artemis.Example.Rituals
         SortedStrictDictionary<ComparableIntArray,RoomData> fullDungeonRooms;
 
         [SerializeField]
-        Tilemap tilemap;
+        Tilemap visualTilemap;
 
         int attempts;
 
@@ -289,13 +289,18 @@ namespace Artemis.Example.Rituals
             int[] traversalNodes = new int[] { -1, 1, -gridSize.x, gridSize.x };
 
             int startingIndex;
-            if (tierIndex == 0)
+            if (tierIndex == 0 || tierIndex == tiers.Length - 1)
             {
                 startingIndex = gridSize.x / 2;
             }
             else
             {
                 startingIndex = tierGrids[tierIndex].PositionToIndex(gridSize / 2);
+
+            }
+
+            if (tierIndex != 0)
+            { 
                 tierGrids[tierIndex].DetermineOffset(tierGrids[tierIndex - 1]);
                 for (int i = tierIndex - 1; i >= 0; i--)
                 {
@@ -394,7 +399,7 @@ namespace Artemis.Example.Rituals
                 }
             }
 
-            tilemap.ClearAllTiles();
+            visualTilemap.ClearAllTiles();
             Vector2Int[] traversalNodes = new Vector2Int[] { Vector2Int.left, Vector2Int.right, Vector2Int.down, Vector2Int.up };
             ComparableIntArray comparableIntArray;
             for (int i = 0; i < fullDungeonRooms.Count; i++)
@@ -416,7 +421,7 @@ namespace Artemis.Example.Rituals
                 //Paint Tilemap
                 DrawRoom(roomData);
             }
-            tilemap.RefreshAllTiles();
+            visualTilemap.RefreshAllTiles();
         }
 
         void DrawRoom(RoomData roomData)
@@ -430,41 +435,41 @@ namespace Artemis.Example.Rituals
             TierSettings tierTiles = tiers[roomData.tier];
 
             //Set Tiles at corners (otherwise the drawing may be out of bounds)
-            tilemap.SetTile(bottomLeftCorner, tierTiles.wallCenter);
-            tilemap.SetTile(topRightCorner, tierTiles.wallCenter);
+            visualTilemap.SetTile(bottomLeftCorner, tierTiles.wallCenter);
+            visualTilemap.SetTile(topRightCorner, tierTiles.wallCenter);
 
             //Wall Center
-            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(0, 1, 0), tiers[roomData.tier].wallCenter, bottomLeftCorner.x, bottomLeftCorner.y, topLeftCorner.x, topLeftCorner.y);
-            tilemap.BoxFill(topRightCorner + new Vector3Int(0, -1, 0), tiers[roomData.tier].wallCenter, bottomRightCorner.x, bottomRightCorner.y, topRightCorner.x, topRightCorner.y);
+            visualTilemap.BoxFill(bottomLeftCorner + new Vector3Int(0, 1, 0), tiers[roomData.tier].wallCenter, bottomLeftCorner.x, bottomLeftCorner.y, topLeftCorner.x, topLeftCorner.y);
+            visualTilemap.BoxFill(topRightCorner + new Vector3Int(0, -1, 0), tiers[roomData.tier].wallCenter, bottomRightCorner.x, bottomRightCorner.y, topRightCorner.x, topRightCorner.y);
 
             //Floor Center
-            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 2, 0), tiers[roomData.tier].floorCenter, bottomLeftCorner.x + 2, bottomLeftCorner.y + 2, topRightCorner.x - 2, topRightCorner.y - 2);
+            visualTilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 2, 0), tiers[roomData.tier].floorCenter, bottomLeftCorner.x + 2, bottomLeftCorner.y + 2, topRightCorner.x - 2, topRightCorner.y - 2);
 
             //Left/West Side
-            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(1, 1, 0), tiers[roomData.tier].wallWest, bottomLeftCorner.x + 1, bottomLeftCorner.y + 1, topLeftCorner.x + 1, topLeftCorner.y - 1);
-            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 2, 0), tiers[roomData.tier].floorWest, bottomLeftCorner.x + 2, bottomLeftCorner.y + 2, topLeftCorner.x + 2, topLeftCorner.y - 2);
+            visualTilemap.BoxFill(bottomLeftCorner + new Vector3Int(1, 1, 0), tiers[roomData.tier].wallWest, bottomLeftCorner.x + 1, bottomLeftCorner.y + 1, topLeftCorner.x + 1, topLeftCorner.y - 1);
+            visualTilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 2, 0), tiers[roomData.tier].floorWest, bottomLeftCorner.x + 2, bottomLeftCorner.y + 2, topLeftCorner.x + 2, topLeftCorner.y - 2);
 
             //Right/East Side
-            tilemap.BoxFill(bottomRightCorner + new Vector3Int(-1, 1, 0), tiers[roomData.tier].wallEast, bottomRightCorner.x - 1, bottomRightCorner.y + 1, topRightCorner.x - 1, topRightCorner.y - 1);
-            tilemap.BoxFill(bottomRightCorner + new Vector3Int(-2, 2, 0), tiers[roomData.tier].floorEast, bottomRightCorner.x - 2, bottomRightCorner.y + 2, topRightCorner.x - 2, topRightCorner.y - 2);
+            visualTilemap.BoxFill(bottomRightCorner + new Vector3Int(-1, 1, 0), tiers[roomData.tier].wallEast, bottomRightCorner.x - 1, bottomRightCorner.y + 1, topRightCorner.x - 1, topRightCorner.y - 1);
+            visualTilemap.BoxFill(bottomRightCorner + new Vector3Int(-2, 2, 0), tiers[roomData.tier].floorEast, bottomRightCorner.x - 2, bottomRightCorner.y + 2, topRightCorner.x - 2, topRightCorner.y - 2);
 
             //Bottom/South Side
-            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 0, 0), tiers[roomData.tier].wallSouth, bottomLeftCorner.x + 2, bottomLeftCorner.y, bottomRightCorner.x - 2 , bottomRightCorner.y);
-            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(3, 1, 0), tiers[roomData.tier].floorSouth, bottomLeftCorner.x + 3, bottomLeftCorner.y + 1, bottomRightCorner.x - 3, bottomRightCorner.y + 1);
+            visualTilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 0, 0), tiers[roomData.tier].wallSouth, bottomLeftCorner.x + 2, bottomLeftCorner.y, bottomRightCorner.x - 2 , bottomRightCorner.y);
+            visualTilemap.BoxFill(bottomLeftCorner + new Vector3Int(3, 1, 0), tiers[roomData.tier].floorSouth, bottomLeftCorner.x + 3, bottomLeftCorner.y + 1, bottomRightCorner.x - 3, bottomRightCorner.y + 1);
 
             //Top/North Side
-            tilemap.BoxFill(topLeftCorner + new Vector3Int(2, 0, 0), tiers[roomData.tier].wallNorth, topLeftCorner.x + 2, topLeftCorner.y, topRightCorner.x - 2, topRightCorner.y);
-            tilemap.BoxFill(topLeftCorner + new Vector3Int(3, -1, 0), tiers[roomData.tier].floorNorth, topLeftCorner.x + 3, topLeftCorner.y - 1, topRightCorner.x - 3, topRightCorner.y - 1);
+            visualTilemap.BoxFill(topLeftCorner + new Vector3Int(2, 0, 0), tiers[roomData.tier].wallNorth, topLeftCorner.x + 2, topLeftCorner.y, topRightCorner.x - 2, topRightCorner.y);
+            visualTilemap.BoxFill(topLeftCorner + new Vector3Int(3, -1, 0), tiers[roomData.tier].floorNorth, topLeftCorner.x + 3, topLeftCorner.y - 1, topRightCorner.x - 3, topRightCorner.y - 1);
 
             //Set Corners
-            tilemap.SetTile(bottomLeftCorner + new Vector3Int(1, 0, 0), tierTiles.wallSouthWest);
-            tilemap.SetTile(bottomLeftCorner + new Vector3Int(2, 1, 0), tierTiles.floorSouthWest);
-            tilemap.SetTile(bottomRightCorner + new Vector3Int(-1, 0, 0), tierTiles.wallSouthEast);
-            tilemap.SetTile(bottomRightCorner + new Vector3Int(-2, 1, 0), tierTiles.floorSouthEast);
-            tilemap.SetTile(topLeftCorner + new Vector3Int(1, 0, 0), tierTiles.wallNorthWest);
-            tilemap.SetTile(topLeftCorner + new Vector3Int(2, -1, 0), tierTiles.floorNorthWest);
-            tilemap.SetTile(topRightCorner + new Vector3Int(-1, 0, 0), tierTiles.wallNorthEast);
-            tilemap.SetTile(topRightCorner + new Vector3Int(-2, -1, 0), tierTiles.floorNorthEast);
+            visualTilemap.SetTile(bottomLeftCorner + new Vector3Int(1, 0, 0), tierTiles.wallSouthWest);
+            visualTilemap.SetTile(bottomLeftCorner + new Vector3Int(2, 1, 0), tierTiles.floorSouthWest);
+            visualTilemap.SetTile(bottomRightCorner + new Vector3Int(-1, 0, 0), tierTiles.wallSouthEast);
+            visualTilemap.SetTile(bottomRightCorner + new Vector3Int(-2, 1, 0), tierTiles.floorSouthEast);
+            visualTilemap.SetTile(topLeftCorner + new Vector3Int(1, 0, 0), tierTiles.wallNorthWest);
+            visualTilemap.SetTile(topLeftCorner + new Vector3Int(2, -1, 0), tierTiles.floorNorthWest);
+            visualTilemap.SetTile(topRightCorner + new Vector3Int(-1, 0, 0), tierTiles.wallNorthEast);
+            visualTilemap.SetTile(topRightCorner + new Vector3Int(-2, -1, 0), tierTiles.floorNorthEast);
 
             //Doors
             Vector3Int[] traversalNodes = new Vector3Int[4] { new Vector3Int(1,roomHeight/2), new Vector3Int(roomWidth - 2, roomHeight / 2), new Vector3Int(roomWidth / 2, 0), new Vector3Int(roomWidth / 2, roomHeight - 1) };
@@ -473,12 +478,9 @@ namespace Artemis.Example.Rituals
             {
                 if ((roomData.doors & (1 << i)) != 0)
                 {
-                    tilemap.SetTile(new TileChangeData(bottomLeftCorner + traversalNodes[i], tierTiles.doorSouth, Color.white, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, rotationNodes[i]), Vector3.one)), true);
+                    visualTilemap.SetTile(new TileChangeData(bottomLeftCorner + traversalNodes[i], tierTiles.doorSouth, Color.white, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, rotationNodes[i]), Vector3.one)), true);
                 }
             }
-
-            //Flourishes
-
         }
     }
 }   

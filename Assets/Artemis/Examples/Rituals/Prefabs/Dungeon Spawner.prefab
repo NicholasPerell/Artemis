@@ -90,7 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26474ca470f9d4b4dbd4f769d129c51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 281914650534249417, guid: 7bd1c5236f73d984b9cbcf6fd6cd5bd5, type: 3}
   tiers:
   - gridSize: {x: 1, y: 3}
     numberOfRooms: 3
@@ -200,7 +199,7 @@ MonoBehaviour:
   tierGrids: []
   fullDungeonRooms:
     list: []
-  tilemap: {fileID: 829206671255939920}
+  visualTilemap: {fileID: 829206671255939920}
 --- !u!1 &829206671255939925
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +212,7 @@ GameObject:
   - component: {fileID: 829206671255939920}
   - component: {fileID: 829206671255939927}
   m_Layer: 0
-  m_Name: TileMap
+  m_Name: Visual Tile Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
