@@ -6,15 +6,36 @@ using UnityEngine.Sprites;
 
 namespace Artemis.Example.Rituals
 {
+
     [System.Serializable]
     public struct TierSettings
     {
-        public Material material;
         public Vector2Int gridSize;
         public int numberOfRooms;
 
         [Space]
-        public TileBase floorTile;
+        [Header("Tiles")]
+        public TileBase floorNorthWest;
+        public TileBase floorNorth;
+        public TileBase floorNorthEast;
+        public TileBase floorWest;
+        public TileBase floorCenter;
+        public TileBase floorEast;
+        public TileBase floorSouthWest;
+        public TileBase floorSouth;
+        public TileBase floorSouthEast;
+        [Space]
+        public TileBase wallNorthWest;
+        public TileBase wallNorth;
+        public TileBase wallNorthEast;
+        public TileBase wallWest;
+        public TileBase wallCenter;
+        public TileBase wallEast;
+        public TileBase wallSouthWest;
+        public TileBase wallSouth;
+        public TileBase wallSouthEast;
+        [Space]
+        public TileBase doorSouth;
     }
 
     [System.Serializable]
@@ -168,6 +189,9 @@ namespace Artemis.Example.Rituals
 
     public class DungeonGenerator : MonoBehaviour
     {
+        private const int roomWidth = 17;
+        private const int roomHeight = 9;
+
         //TODO: make ComparableIntArray into its own script over in Dev
         [System.Serializable]
         private struct ComparableIntArray : System.IComparable
@@ -210,9 +234,6 @@ namespace Artemis.Example.Rituals
         }
 
         [SerializeField]
-        GameObject cube;
-
-        [SerializeField]
         TierSettings[] tiers;
 
         [SerializeField]
@@ -234,10 +255,7 @@ namespace Artemis.Example.Rituals
 
         void OnDisable()
         {
-            for (int i = transform.childCount - 1; i >= 0; i--)
-            {
-                Destroy(transform.GetChild(i).gameObject);
-            }
+
         }
 
         void GenerateDungeon()
@@ -271,7 +289,6 @@ namespace Artemis.Example.Rituals
             int[] traversalNodes = new int[] { -1, 1, -gridSize.x, gridSize.x };
 
             int startingIndex;
-            GameObject tempSpawnedCube;
             if (tierIndex == 0)
             {
                 startingIndex = gridSize.x / 2;
@@ -285,9 +302,6 @@ namespace Artemis.Example.Rituals
                     tierGrids[tierIndex].PreventOverlap(tierGrids[i], i == tierIndex - 1);
                 }
             }
-
-            tempSpawnedCube = Instantiate(cube, new Vector2(startingIndex % gridSize.x, startingIndex / gridSize.x) + tierGrids[tierIndex].offset, Quaternion.identity, transform);
-            tempSpawnedCube.GetComponent<MeshRenderer>().material = tiers[tierIndex].material;
 
             for (int i = 0; i < traversalNodes.Length; i++)
             {
@@ -317,9 +331,7 @@ namespace Artemis.Example.Rituals
                             tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms && //Still need more rooms
                             Random.value < .5f) //50% of spawning
                         {
-                            //Spawn New Room!
-                            tempSpawnedCube = Instantiate(cube, new Vector2(tempNeighborIndex % gridSize.x, tempNeighborIndex / gridSize.x) + tierGrids[tierIndex].offset, Quaternion.identity, transform);
-                            tempSpawnedCube.GetComponent<MeshRenderer>().material = tiers[tierIndex].material;
+                            //New Room!
                             for (int j = 0; j < traversalNodes.Length; j++)
                             {
                                 if ((tierGrids[tierIndex].grid[tempNeighborIndex].blocked & (1 << j)) == 0 && tempNeighborIndex + traversalNodes[j] > -1 && tempNeighborIndex + traversalNodes[j] < tierGrids[tierIndex].grid.Length)
@@ -355,18 +367,10 @@ namespace Artemis.Example.Rituals
             if (tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms && attempts < 1000)
             {
                 attempts++;
-                for (int i = transform.childCount - 1; i >= transform.childCount - tierGrids[tierIndex].rooms.Count; i--)
-                {
-                    Destroy(transform.GetChild(i).gameObject);
-                }
                 GenerateTier(tierIndex);
             }
             else if (attempts == 1000)
             {
-                for (int i = transform.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(transform.GetChild(i).gameObject);
-                }
             }
             else
             {
@@ -376,10 +380,10 @@ namespace Artemis.Example.Rituals
 
         void GenerateRooms()
         {
-            fullDungeonRooms = new SortedStrictDictionary<ComparableIntArray,RoomData>();
+            fullDungeonRooms = new SortedStrictDictionary<ComparableIntArray, RoomData>();
             RoomData roomData;
             Vector2Int coords;
-            for(int i = 0; i < tierGrids.Length; i++)
+            for (int i = 0; i < tierGrids.Length; i++)
             {
                 foreach (int room in tierGrids[i].rooms)
                 {
@@ -398,23 +402,83 @@ namespace Artemis.Example.Rituals
                 //Check for Neighbors
                 roomData = fullDungeonRooms.GetTupleAtIndex(i).Value;
                 coords = roomData.coords;
-                for(int j = 0; j < traversalNodes.Length; j++)
+                for (int j = 0; j < traversalNodes.Length; j++)
                 {
                     comparableIntArray = new ComparableIntArray(coords + traversalNodes[j]);
-                    if(fullDungeonRooms.HasKey(comparableIntArray))
+                    if (fullDungeonRooms.HasKey(comparableIntArray))
                     {
-                        fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(i).Key].MarkDoor(j);
+                        roomData.MarkDoor(j);
                     }
                 }
 
-                //Paint Tilemap
-                Vector3Int center = new Vector3Int(coords.x * 17, coords.y * 9);
+                fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(i).Key] = roomData;
 
-                tilemap.SetTile(center, tiers[roomData.tier].floorTile);
-                tilemap.SetTile(center + new Vector3Int(16,8,0), tiers[roomData.tier].floorTile);
-                tilemap.BoxFill(center + new Vector3Int(1, 1, 0), tiers[roomData.tier].floorTile, center.x, center.y, center.x + 16, center.y + 8);
+                //Paint Tilemap
+                DrawRoom(roomData);
             }
-                tilemap.RefreshAllTiles();
+            tilemap.RefreshAllTiles();
+        }
+
+        void DrawRoom(RoomData roomData)
+        {
+            Vector2Int coords = roomData.coords;
+            Vector3Int bottomLeftCorner = new Vector3Int(coords.x * roomWidth, coords.y * roomHeight);
+            Vector3Int bottomRightCorner = bottomLeftCorner + Vector3Int.right * (roomWidth - 1);
+            Vector3Int topLeftCorner = bottomLeftCorner + Vector3Int.up * (roomHeight - 1);
+            Vector3Int topRightCorner = bottomLeftCorner + new Vector3Int(roomWidth - 1, roomHeight - 1);
+
+            TierSettings tierTiles = tiers[roomData.tier];
+
+            //Set Tiles at corners (otherwise the drawing may be out of bounds)
+            tilemap.SetTile(bottomLeftCorner, tierTiles.wallCenter);
+            tilemap.SetTile(topRightCorner, tierTiles.wallCenter);
+
+            //Wall Center
+            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(0, 1, 0), tiers[roomData.tier].wallCenter, bottomLeftCorner.x, bottomLeftCorner.y, topLeftCorner.x, topLeftCorner.y);
+            tilemap.BoxFill(topRightCorner + new Vector3Int(0, -1, 0), tiers[roomData.tier].wallCenter, bottomRightCorner.x, bottomRightCorner.y, topRightCorner.x, topRightCorner.y);
+
+            //Floor Center
+            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 2, 0), tiers[roomData.tier].floorCenter, bottomLeftCorner.x + 2, bottomLeftCorner.y + 2, topRightCorner.x - 2, topRightCorner.y - 2);
+
+            //Left/West Side
+            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(1, 1, 0), tiers[roomData.tier].wallWest, bottomLeftCorner.x + 1, bottomLeftCorner.y + 1, topLeftCorner.x + 1, topLeftCorner.y - 1);
+            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 2, 0), tiers[roomData.tier].floorWest, bottomLeftCorner.x + 2, bottomLeftCorner.y + 2, topLeftCorner.x + 2, topLeftCorner.y - 2);
+
+            //Right/East Side
+            tilemap.BoxFill(bottomRightCorner + new Vector3Int(-1, 1, 0), tiers[roomData.tier].wallEast, bottomRightCorner.x - 1, bottomRightCorner.y + 1, topRightCorner.x - 1, topRightCorner.y - 1);
+            tilemap.BoxFill(bottomRightCorner + new Vector3Int(-2, 2, 0), tiers[roomData.tier].floorEast, bottomRightCorner.x - 2, bottomRightCorner.y + 2, topRightCorner.x - 2, topRightCorner.y - 2);
+
+            //Bottom/South Side
+            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(2, 0, 0), tiers[roomData.tier].wallSouth, bottomLeftCorner.x + 2, bottomLeftCorner.y, bottomRightCorner.x - 2 , bottomRightCorner.y);
+            tilemap.BoxFill(bottomLeftCorner + new Vector3Int(3, 1, 0), tiers[roomData.tier].floorSouth, bottomLeftCorner.x + 3, bottomLeftCorner.y + 1, bottomRightCorner.x - 3, bottomRightCorner.y + 1);
+
+            //Top/North Side
+            tilemap.BoxFill(topLeftCorner + new Vector3Int(2, 0, 0), tiers[roomData.tier].wallNorth, topLeftCorner.x + 2, topLeftCorner.y, topRightCorner.x - 2, topRightCorner.y);
+            tilemap.BoxFill(topLeftCorner + new Vector3Int(3, -1, 0), tiers[roomData.tier].floorNorth, topLeftCorner.x + 3, topLeftCorner.y - 1, topRightCorner.x - 3, topRightCorner.y - 1);
+
+            //Set Corners
+            tilemap.SetTile(bottomLeftCorner + new Vector3Int(1, 0, 0), tierTiles.wallSouthWest);
+            tilemap.SetTile(bottomLeftCorner + new Vector3Int(2, 1, 0), tierTiles.floorSouthWest);
+            tilemap.SetTile(bottomRightCorner + new Vector3Int(-1, 0, 0), tierTiles.wallSouthEast);
+            tilemap.SetTile(bottomRightCorner + new Vector3Int(-2, 1, 0), tierTiles.floorSouthEast);
+            tilemap.SetTile(topLeftCorner + new Vector3Int(1, 0, 0), tierTiles.wallNorthWest);
+            tilemap.SetTile(topLeftCorner + new Vector3Int(2, -1, 0), tierTiles.floorNorthWest);
+            tilemap.SetTile(topRightCorner + new Vector3Int(-1, 0, 0), tierTiles.wallNorthEast);
+            tilemap.SetTile(topRightCorner + new Vector3Int(-2, -1, 0), tierTiles.floorNorthEast);
+
+            //Doors
+            Vector3Int[] traversalNodes = new Vector3Int[4] { new Vector3Int(1,roomHeight/2), new Vector3Int(roomWidth - 2, roomHeight / 2), new Vector3Int(roomWidth / 2, 0), new Vector3Int(roomWidth / 2, roomHeight - 1) };
+            float[] rotationNodes = new float[4] { -90, 90, 0, 180 };
+            for (int i = 0; i < traversalNodes.Length; i++)
+            {
+                if ((roomData.doors & (1 << i)) != 0)
+                {
+                    tilemap.SetTile(new TileChangeData(bottomLeftCorner + traversalNodes[i], tierTiles.doorSouth, Color.white, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, rotationNodes[i]), Vector3.one)), true);
+                }
+            }
+
+            //Flourishes
+
         }
     }
 }   

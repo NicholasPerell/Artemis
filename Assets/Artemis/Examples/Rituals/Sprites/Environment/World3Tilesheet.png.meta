@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -2428,14 +2428,14 @@ TextureImporter:
       World3Tilesheet_60: 1269614704
       World3Tilesheet_59: -250713762
       World3Tilesheet_55: -837611057
+      World3Tilesheet_15: 745583361
       World3Tilesheet_17: 1176007677
       World3Tilesheet_6: -772001453
       World3Tilesheet_66: 1090268238
       World3Tilesheet_105: 1322820905
-      World3Tilesheet_15: 745583361
+      World3Tilesheet_94: 193785539
       World3Tilesheet_8: -2028183667
       World3Tilesheet_82: 478429260
-      World3Tilesheet_94: 193785539
       World3Tilesheet_32: -1854754725
       World3Tilesheet_92: -1591440314
       World3Tilesheet_54: 1577888709
