@@ -250,7 +250,6 @@ namespace Artemis.Example.Rituals
         void OnEnable()
         {
             GenerateDungeon();
-            GenerateRooms();
         }
 
         void OnDisable()
@@ -275,6 +274,7 @@ namespace Artemis.Example.Rituals
                     }
                 }
             }
+            GenerateRooms();
         }
 
         void GenerateTier(int tierIndex)

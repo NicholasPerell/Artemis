@@ -107,8 +107,8 @@ namespace Artemis.Example.Rituals
 
             if (lastClick > -1)
             {
-                bars[clicksMade].SetDots(sorterUI.buttons[lastClick], sorterUI.buttons[nextToClick]);
-                bars[clicksMade].gameObject.SetActive(true);
+                bars[clicksMade - 2].SetDots(sorterUI.buttons[lastClick], sorterUI.buttons[nextToClick]);
+                bars[clicksMade - 2].gameObject.SetActive(true);
             }
 
             lastClick = nextToClick;
