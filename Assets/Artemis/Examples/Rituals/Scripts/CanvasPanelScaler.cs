@@ -15,6 +15,15 @@ public class CanvasPanelScaler : MonoBehaviour
 
     RectTransform rect;
 
+    private void OnValidate()
+    {
+        if (rect == null)
+        {
+            rect = GetComponent<RectTransform>();
+        }
+        Resize();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +37,7 @@ public class CanvasPanelScaler : MonoBehaviour
     void Update()
     {
         Resize();
+        Rescale();
     }
 
     private void Resize()
@@ -44,7 +54,10 @@ public class CanvasPanelScaler : MonoBehaviour
 
         //Resizes Panel
         rect.sizeDelta = new Vector2(pixelPerfectCamera.refResolutionX, pixelPerfectCamera.refResolutionY) * resolutionIncrease;
-        //May have to make this lossy at some point
+    }
+
+    private void Rescale()
+    {
         rect.localScale = Vector3.one * (1.0f * pixelPerfectCamera.pixelRatio / resolutionIncrease);
     }
 }
