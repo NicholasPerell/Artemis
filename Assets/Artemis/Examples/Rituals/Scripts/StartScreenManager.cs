@@ -16,7 +16,7 @@ public class StartScreenManager : MonoBehaviour
 
     private void OnEnable()
     {
-        mainCamera.transform.position = new Vector3(0, 0, mainCamera.transform.position.z);
+        mainCamera.transform.position = new Vector3(0, mainCamera.transform.position.y, 0);
         ShowStartScreen();
     }
 

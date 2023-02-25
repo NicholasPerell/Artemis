@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.Sprites;
+using UnityEngine.Events;
 
 namespace Artemis.Example.Rituals
 {
@@ -172,6 +173,7 @@ namespace Artemis.Example.Rituals
         public int doors;
         public Vector2Int coords;
         public bool visted;
+        public RoomLayout layout;
 
         public void Init(int _tier, Vector2Int _coords)
         {
@@ -189,12 +191,12 @@ namespace Artemis.Example.Rituals
 
     public class DungeonGenerator : MonoBehaviour
     {
-        private const int roomWidth = 17;
-        private const int roomHeight = 9;
+        public const int roomWidth = 17;
+        public const int roomHeight = 9;
 
         //TODO: make ComparableIntArray into its own script over in Dev
         [System.Serializable]
-        private struct ComparableIntArray : System.IComparable
+        public struct ComparableIntArray : System.IComparable
         {
             [SerializeField]
             private int[] mArray;
@@ -247,14 +249,18 @@ namespace Artemis.Example.Rituals
 
         int attempts;
 
+        [HideInInspector]
+        public UnityAction<SortedStrictDictionary<ComparableIntArray, RoomData>> scrollComplete;
+
         void OnEnable()
         {
+            visualTilemap.transform.localPosition = new Vector3(-roomWidth / 2.0f, -roomHeight / 2.0f, 0);
             GenerateDungeon();
         }
 
         void OnDisable()
         {
-
+            visualTilemap.ClearAllTiles();
         }
 
         void GenerateDungeon()
@@ -422,6 +428,7 @@ namespace Artemis.Example.Rituals
                 DrawRoom(roomData);
             }
             visualTilemap.RefreshAllTiles();
+            scrollComplete.Invoke(fullDungeonRooms);
         }
 
         void DrawRoom(RoomData roomData)
