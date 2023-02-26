@@ -172,7 +172,7 @@ namespace Artemis.Example.Rituals
         public int tier;
         public int doors;
         public Vector2Int coords;
-        public bool visted;
+        public bool visited;
         public RoomLayout layout;
 
         public void Init(int _tier, Vector2Int _coords)
@@ -180,7 +180,7 @@ namespace Artemis.Example.Rituals
             tier = _tier;
             coords = _coords;
             doors = 0;
-            visted = false;
+            visited = false;
         }
 
         public void MarkDoor(int index)
@@ -247,10 +247,13 @@ namespace Artemis.Example.Rituals
         [SerializeField]
         Tilemap visualTilemap;
 
+        [SerializeField]
+        RoomLayout defaultLayout;
+
         int attempts;
 
         [HideInInspector]
-        public UnityAction<SortedStrictDictionary<ComparableIntArray, RoomData>> scrollComplete;
+        public UnityEvent<SortedStrictDictionary<ComparableIntArray, RoomData>> generationComplete;
 
         void OnEnable()
         {
@@ -422,13 +425,18 @@ namespace Artemis.Example.Rituals
                     }
                 }
 
+
+                //TODO: determine setting up which layout is which
+                roomData.layout = defaultLayout;
+
                 fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(i).Key] = roomData;
+
 
                 //Paint Tilemap
                 DrawRoom(roomData);
             }
             visualTilemap.RefreshAllTiles();
-            scrollComplete.Invoke(fullDungeonRooms);
+            generationComplete.Invoke(fullDungeonRooms);
         }
 
         void DrawRoom(RoomData roomData)
@@ -487,6 +495,12 @@ namespace Artemis.Example.Rituals
                 {
                     visualTilemap.SetTile(new TileChangeData(bottomLeftCorner + traversalNodes[i], tierTiles.doorSouth, Color.white, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, rotationNodes[i]), Vector3.one)), true);
                 }
+            }
+
+            //Flourishes
+            foreach(RoomLayout.UniqueTile uniqueTile in roomData.layout.uniqueTiles)
+            {
+                visualTilemap.SetTile(bottomLeftCorner + new Vector3Int(uniqueTile.position.x, uniqueTile.position.y, 0), uniqueTile.tile);
             }
         }
     }

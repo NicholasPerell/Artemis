@@ -30,6 +30,5 @@ namespace Artemis.Example.Rituals
                 }
             }
         }
-
     }
 }

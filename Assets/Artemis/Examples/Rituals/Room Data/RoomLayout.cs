@@ -29,12 +29,12 @@ namespace Artemis.Example.Rituals
         }
 
         [System.Serializable]
-        public struct UniqueTiles
+        public struct UniqueTile
         {
             public Vector2Int position;
             public TileBase tile;
 
-            public UniqueTiles(Vector2Int _position, TileBase _tile)
+            public UniqueTile(Vector2Int _position, TileBase _tile)
             {
                 position = _position;
                 tile = _tile;
@@ -42,7 +42,7 @@ namespace Artemis.Example.Rituals
         }
 
         public int tier;
-        public List<UniqueTiles> uniqueTiles;
+        public List<UniqueTile> uniqueTiles;
         public List<SpawnLocation> spawnLocations;
     }
 }

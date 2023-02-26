@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f846eb047688c418da8a9295f4eeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: Test0
+  roomName: Test5
   tiers:
   - gridSize: {x: 1, y: 3}
     numberOfRooms: 3
@@ -546,7 +546,7 @@ MonoBehaviour:
     wallSouth: {fileID: 11400000, guid: a2f0282588a165a46832ae379653abdc, type: 2}
     wallSouthEast: {fileID: 11400000, guid: 84782d72c53402044b2695ffb0354c03, type: 2}
     doorSouth: {fileID: 11400000, guid: 188cc6bed001119428eb334df577659a, type: 2}
-  tierPreview: 0
+  tierPreview: 1
   backdropTilemap: {fileID: 1695026035}
   customizedTilemap: {fileID: 170329592}
 --- !u!1 &1562807833

@@ -200,6 +200,10 @@ MonoBehaviour:
   fullDungeonRooms:
     list: []
   visualTilemap: {fileID: 829206671255939920}
+  defaultLayout: {fileID: 11400000, guid: 090df14c1b509ec42a9e6bf953844bab, type: 2}
+  scrollComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &829206671255939925
 GameObject:
   m_ObjectHideFlags: 0

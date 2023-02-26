@@ -104,7 +104,7 @@ namespace Artemis.Example.Rituals
             string filePath = folderPath + "/" + roomName + ".asset";
 
             RoomLayout newLayout = RoomLayout.CreateInstance<RoomLayout>();
-            newLayout.uniqueTiles = new List<RoomLayout.UniqueTiles>();
+            newLayout.uniqueTiles = new List<RoomLayout.UniqueTile>();
             newLayout.spawnLocations = new List<RoomLayout.SpawnLocation>();
 
             newLayout.tier = tierPreview;
@@ -117,14 +117,16 @@ namespace Artemis.Example.Rituals
                     tempTile = customizedTilemap.GetTile(new Vector3Int(x, y));
                     if(tempTile != null)
                     {
-                        newLayout.uniqueTiles.Add(new RoomLayout.UniqueTiles(new Vector2Int(x, y), tempTile));
+                        newLayout.uniqueTiles.Add(new RoomLayout.UniqueTile(new Vector2Int(x, y), tempTile));
                     }
                 }
             }
 
             RoomSpawnIndicator[] spawners = GameObject.FindObjectsOfType<RoomSpawnIndicator>();
+            Vector3 temp;
             foreach(RoomSpawnIndicator spawner in spawners)
             {
+                temp = new Vector3(spawner.transform.position.x, 0, spawner.transform.position.z);
                 newLayout.spawnLocations.Add(new RoomLayout.SpawnLocation(spawner.transform.position, spawner.spawnType));
             }
             
