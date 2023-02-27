@@ -28,41 +28,6 @@ namespace Artemis
             RANDOM
         }
 
-        [System.Serializable]
-        private struct ComparableIntArray : System.IComparable
-        {
-            [SerializeField]
-            private int[] mArray;
-
-            public ComparableIntArray(int[] array)
-            {
-                mArray = array;
-            }
-
-            private int CompareToSame(ComparableIntArray obj)
-            {
-                if(mArray.Length.CompareTo(obj.mArray.Length) != 0)
-                {
-                    return mArray.Length.CompareTo(obj.mArray.Length);
-                }
-
-                for(int i = 0; i < mArray.Length; i++)
-                {
-                    if (mArray[i].CompareTo(obj.mArray[i]) != 0)
-                    {
-                        return mArray[i].CompareTo(obj.mArray[i]);
-                    }
-                }
-
-                return 0;
-            }
-
-            public int CompareTo(object obj)
-            {
-                return CompareToSame((ComparableIntArray)obj);
-            }
-        }
-
         //New Listings
         [SerializeField]
         List<Arrow> overallData = new List<Arrow>();

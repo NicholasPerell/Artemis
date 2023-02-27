@@ -3,109 +3,112 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SortedStrictList<T> where T : IComparable
+namespace Artemis
 {
-    [SerializeField]
-    List<T> list;
-
-    public SortedStrictList()
+    [System.Serializable]
+    public class SortedStrictList<T> where T : IComparable
     {
-        list = new List<T>();
-    }
+        [SerializeField]
+        List<T> list;
 
-    public void Add(T value)
-    {
-        int i;
-        int tmp;
-
-        for (i = 0; i < list.Count; i++)
+        public SortedStrictList()
         {
-            tmp = value.CompareTo(list[i]);
-            if (tmp == 0)
+            list = new List<T>();
+        }
+
+        public void Add(T value)
+        {
+            int i;
+            int tmp;
+
+            for (i = 0; i < list.Count; i++)
             {
-                list[i] = value;
-                break;
+                tmp = value.CompareTo(list[i]);
+                if (tmp == 0)
+                {
+                    list[i] = value;
+                    break;
+                }
+                else if (tmp < 0)
+                {
+                    list.Insert(i, value);
+                    break;
+                }
             }
-            else if (tmp < 0)
+
+            if (i == list.Count)
             {
                 list.Insert(i, value);
-                break;
             }
         }
 
-        if (i == list.Count)
+        public bool Has(T element)
         {
-            list.Insert(i, value);
-        }
-    }
+            int min = 0;
+            int max = list.Count - 1;
+            while (min <= max)
+            {
+                int index = min + (max - min) / 2;
+                if (list[index].CompareTo(element) == 0)
+                {
+                    return true;
+                }
+                else if (list[index].CompareTo(element) < 0)
+                {
+                    min = index + 1;
+                }
+                else
+                {
+                    max = index - 1;
+                }
+            }
 
-    public bool Has(T element)
-    {
-        int min = 0;
-        int max = list.Count - 1;
-        while (min <= max)
+            return false;
+        }
+
+        public void RemoveAt(int i)
         {
-            int index = min + (max - min) / 2;
-            if (list[index].CompareTo(element) == 0)
-            {
-                return true;
-            }
-            else if (list[index].CompareTo(element) < 0)
-            {
-                min = index + 1;
-            }
-            else
-            {
-                max = index - 1;
-            }
+            list.RemoveAt(i);
         }
 
-        return false;
-    }
-
-    public void RemoveAt(int i)
-    {
-        list.RemoveAt(i);
-    }
-
-    public void Remove(T element)
-    {
-        int min = 0;
-        int max = list.Count - 1;
-        while (min <= max)
+        public void Remove(T element)
         {
-            int index = min + (max - min) / 2;
-            if (list[index].CompareTo(element) == 0)
+            int min = 0;
+            int max = list.Count - 1;
+            while (min <= max)
             {
-                list.RemoveAt(index);
-                break;
-            }
-            else if (list[index].CompareTo(element) < 0)
-            {
-                min = index + 1;
-            }
-            else
-            {
-                max = index - 1;
+                int index = min + (max - min) / 2;
+                if (list[index].CompareTo(element) == 0)
+                {
+                    list.RemoveAt(index);
+                    break;
+                }
+                else if (list[index].CompareTo(element) < 0)
+                {
+                    min = index + 1;
+                }
+                else
+                {
+                    max = index - 1;
+                }
             }
         }
-    }
 
-    public void Clear()
-    {
-        list = new List<T>();
-    }
+        public void Clear()
+        {
+            list = new List<T>();
+        }
 
-    public T this[int key]
-    {
-        get { return list[key]; }
-    }
+        public T this[int key]
+        {
+            get { return list[key]; }
+        }
 
-    public int Count => list.Count;
+        public int Count => list.Count;
 
-    public T[] ToArray()
-    {
-        return list.ToArray();
+        public T[] ToArray()
+        {
+            return list.ToArray();
+        }
     }
 }
