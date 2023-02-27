@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 842927796}
   - component: {fileID: 842927795}
   m_Layer: 0
-  m_Name: Firing Unity Events
+  m_Name: Firing Events
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,11 +293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f139cfa235d94b547a87134d4feda37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onFire:
-    m_PersistentCalls:
-      m_Calls: []
-  timeBetweenFires: 1.37
   archer: {fileID: 11400000, guid: 7c7b7db778a05d04f9adaca6f3fa6f4c, type: 2}
+  importedStates: []
+  all: 230000002700000021000000
+  timeBetweenFires: 1.37
 --- !u!114 &842927796
 MonoBehaviour:
   m_ObjectHideFlags: 0

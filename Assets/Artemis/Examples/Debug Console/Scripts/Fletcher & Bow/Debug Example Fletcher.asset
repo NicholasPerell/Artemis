@@ -59,7 +59,7 @@ MonoBehaviour:
     - Key: 209
       Value:
         message: Test 8
-        messageType: 0
+        messageType: 2
         timeSystemIsBusy: 0.3
     - Key: 210
       Value:
@@ -89,7 +89,7 @@ MonoBehaviour:
     - Key: 215
       Value:
         message: Test 14
-        messageType: 0
+        messageType: 2
         timeSystemIsBusy: 0.3
     - Key: 216
       Value:
@@ -99,7 +99,7 @@ MonoBehaviour:
     - Key: 217
       Value:
         message: Test 16
-        messageType: 0
+        messageType: 1
         timeSystemIsBusy: 0.3
     - Key: 218
       Value:
@@ -119,12 +119,12 @@ MonoBehaviour:
     - Key: 221
       Value:
         message: Test 20
-        messageType: 0
+        messageType: 2
         timeSystemIsBusy: 0.3
     - Key: 222
       Value:
         message: Test 21
-        messageType: 0
+        messageType: 1
         timeSystemIsBusy: 0.3
     - Key: 223
       Value:
@@ -134,7 +134,7 @@ MonoBehaviour:
     - Key: 224
       Value:
         message: Test 23
-        messageType: 0
+        messageType: 1
         timeSystemIsBusy: 0.3
     - Key: 225
       Value:
@@ -144,7 +144,7 @@ MonoBehaviour:
     - Key: 226
       Value:
         message: Test 25
-        messageType: 0
+        messageType: 2
         timeSystemIsBusy: 0.3
     - Key: 227
       Value:
@@ -154,7 +154,7 @@ MonoBehaviour:
     - Key: 228
       Value:
         message: Test 27
-        messageType: 0
+        messageType: 1
         timeSystemIsBusy: 0.3
     - Key: 229
       Value:
@@ -169,7 +169,7 @@ MonoBehaviour:
     - Key: 231
       Value:
         message: Test 30
-        messageType: 0
+        messageType: 1
         timeSystemIsBusy: 0.3
     - Key: 232
       Value:
@@ -184,8 +184,8 @@ MonoBehaviour:
     intsReadyToConvert:
       list: 
     toRemove: 
-    fileLocation: Assets/Artemis/Examples/Scripts/Fletcher & Bow/Debug Example Fletcher
-      Arrows/
+    fileLocation: Assets/Artemis/Examples/Debug Console/Scripts/Fletcher & Bow/Debug
+      Example Fletcher Arrows/
     enumName: Artemis_example_artemisdebugdata_arrowsID
   flagsBeingUsed:
   - CONCEPT
@@ -386,16 +386,5 @@ MonoBehaviour:
   - CL
   - OC
   - CO
-  arrowsNotBeingUsed: c4000000c5000000c6000000c7000000c8000000
-  flagsNoLongerBeingUsed:
-  - IN_DANGER
-  - WHODYING
-  - WHODYING
-  - A
-  - B
-  - C
-  - D
-  - E
-  - F
-  - G
-  - H
+  arrowsNotBeingUsed: 
+  flagsNoLongerBeingUsed: []
