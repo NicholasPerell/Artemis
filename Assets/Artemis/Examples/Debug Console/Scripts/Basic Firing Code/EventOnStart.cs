@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EventOnStart : MonoBehaviour
+namespace Artemis.Example
 {
-    [SerializeField]
-    private UnityEvent onFire;
-
-    void Start()
+    public class EventOnStart : MonoBehaviour
     {
-        onFire?.Invoke();
-        Destroy(this);
-    }
+        [SerializeField]
+        private UnityEvent onFire;
 
+        void Start()
+        {
+            onFire?.Invoke();
+            Destroy(this);
+        }
+    }
 }

@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Line
+namespace Artemis
 {
-    int mLength;
-
-    public Line(int length)
+    public class Line
     {
-        mLength = length;
-        Reset();
-    }
+        int mLength;
+
+        public Line(int length)
+        {
+            mLength = length;
+            Reset();
+        }
 
 
-    public Cell[] cell;
+        public Cell[] cell;
 
-    public void Reset()
-    {
-        cell = new Cell[mLength];
-    }
+        public void Reset()
+        {
+            cell = new Cell[mLength];
+        }
 
-    public void SetCell(int cellToSet, Cell newValue)
-    {
-        cell[cellToSet-1] = newValue;
+        public void SetCell(int cellToSet, Cell newValue)
+        {
+            cell[cellToSet - 1] = newValue;
+        }
     }
 }
