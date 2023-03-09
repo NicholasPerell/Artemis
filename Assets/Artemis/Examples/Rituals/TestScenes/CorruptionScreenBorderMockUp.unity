@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 2146588718}
   - component: {fileID: 2146588717}
   m_Layer: 5
-  m_Name: 16 Tile Canvas
+  m_Name: 16x16 Tile Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

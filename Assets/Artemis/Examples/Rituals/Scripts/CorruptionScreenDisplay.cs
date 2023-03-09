@@ -8,6 +8,9 @@ namespace Artemis.Example.Rituals
     public class CorruptionScreenDisplay : MonoBehaviour
     {
         [SerializeField]
+        PlayerCorruption playerCorruption;
+
+        [SerializeField]
         Image sliceDisplay;
 
         [Space]
@@ -47,10 +50,32 @@ namespace Artemis.Example.Rituals
         [Range(0 + float.Epsilon, 1)]
         float lerpToMax = .75f;
 
-        // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
+            if(playerCorruption != null)
+            {
+                baseChance = playerCorruption.GetBaseChance();
+                checkInterval = playerCorruption.GetCheckInterval();
+
+                playerCorruption.ChangedCorruptionChance.AddListener(SetNewCorruptionChance);
+                playerCorruption.Corrupted.AddListener(SetMaxCorruptionDisplay);
+                playerCorruption.StartBuildUp.AddListener(BeginBuildUp);
+            }
+
             BeginBuildUp();
+        }
+
+        private void OnDisable()
+        {
+            if (playerCorruption != null)
+            {
+                baseChance = playerCorruption.GetBaseChance();
+                checkInterval = playerCorruption.GetCheckInterval();
+
+                playerCorruption.ChangedCorruptionChance.RemoveListener(SetNewCorruptionChance);
+                playerCorruption.Corrupted.RemoveListener(SetMaxCorruptionDisplay);
+                playerCorruption.StartBuildUp.RemoveListener(BeginBuildUp);
+            }
         }
 
         // Update is called once per frame
@@ -68,9 +93,10 @@ namespace Artemis.Example.Rituals
             }
         }
 
-        [ContextMenu("ChangeStuffs")]
-        void SetNewCorruptionChance()
+        void SetNewCorruptionChance(float deltaChance)
         {
+            corruptionChance += deltaChance;
+
             float oldTimeLeft = corruptionTimeOfCertainty - timeFilling;
             float newTimeLeft = checkInterval / corruptionChance;
 
@@ -84,10 +110,16 @@ namespace Artemis.Example.Rituals
 
         void BeginBuildUp()
         {
+            maxOut = false;
             timeFilling = 0;
             corruptionChance = baseChance;
             corruptionTimeOfCertainty = checkInterval / corruptionChance;
             baseAmount = 0;
+        }
+
+        void SetMaxCorruptionDisplay()
+        {
+            maxOut = true;
         }
     }
 }

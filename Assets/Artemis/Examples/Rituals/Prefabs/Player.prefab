@@ -64,6 +64,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a5e7228d831ab40b53e55025b5593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkInterval: 1
+  corruptionChance: 0
+  baseChance: 0.01
+  gracePeriod: 0
+  isCorrupted: 0
 --- !u!114 &6374094407279114056
 MonoBehaviour:
   m_ObjectHideFlags: 0
