@@ -10,10 +10,9 @@ public class PlayerHealth : MonoBehaviour
     int maxHealth = 20;
     int health;
 
-    [HideInInspector]
-    public UnityEvent tookDamage;
-    [HideInInspector]
-    public UnityEvent died;
+    public event UnityAction<int> HealthChanged;
+    public event UnityAction tookDamage;
+    public event UnityAction died;
 
     void Start()
     {
@@ -28,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     private void ChangeHealth(int deltaHealth)
     {
         health += deltaHealth;
+        HealthChanged.Invoke(health);
         if(health <= 0)
         {
             died.Invoke();
@@ -36,5 +36,10 @@ public class PlayerHealth : MonoBehaviour
         {
             tookDamage.Invoke();
         }
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 }

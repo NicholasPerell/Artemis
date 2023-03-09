@@ -23,7 +23,7 @@ public class PlayerAnimator : MonoBehaviour
         {
             playerHealth = GetComponent<PlayerHealth>();
         }
-        playerHealth.tookDamage.AddListener(HandleDamaged);
+        playerHealth.tookDamage += HandleDamaged;
     }
 
     private void OnDisable()
@@ -37,7 +37,7 @@ public class PlayerAnimator : MonoBehaviour
         {
             playerHealth = GetComponent<PlayerHealth>();
         }
-        playerHealth.tookDamage.RemoveListener(HandleDamaged);
+        playerHealth.tookDamage -= HandleDamaged;
     }
 
     // Update is called once per frame

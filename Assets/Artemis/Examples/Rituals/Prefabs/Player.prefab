@@ -67,8 +67,17 @@ MonoBehaviour:
   checkInterval: 1
   corruptionChance: 0
   baseChance: 0.01
-  gracePeriod: 0
+  gracePeriod: 5
   isCorrupted: 0
+  Corrupted:
+    m_PersistentCalls:
+      m_Calls: []
+  StartBuildUp:
+    m_PersistentCalls:
+      m_Calls: []
+  ChangedCorruptionChance:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6374094407279114056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,13 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b01c8b773f10b344bfec9eb3da0ef06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  tookDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  died:
-    m_PersistentCalls:
-      m_Calls: []
+  maxHealth: 25
 --- !u!114 &6374094407279114057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ce3a48675ca484197435bcecd2b555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manaMax: 25
+  currentMana: 0
+  manaRegenPerSecond: 1
 --- !u!114 &6374094407279114062
 MonoBehaviour:
   m_ObjectHideFlags: 0
