@@ -442,7 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliceDisplay: {fileID: 2094535282}
   startPixelMultiplier: 10
-  endPixelMultiplier: 1
+  endPixelMultiplier: 1.05
   checkInterval: 1
   corruptionChance: 0
   baseChance: 0.01
@@ -451,6 +451,8 @@ MonoBehaviour:
   baseAmount: 0
   waveFrequency: 6.2831855
   waveAmplitude: 0.1
+  maxOut: 0
+  lerpToMax: 0.75
 --- !u!114 &2094535282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,7 +504,7 @@ GameObject:
   - component: {fileID: 2146588718}
   - component: {fileID: 2146588717}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: 16 Tile Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
