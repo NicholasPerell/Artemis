@@ -3,42 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatBarController : MonoBehaviour
+namespace Artemis.Example.Rituals
 {
-    [SerializeField]
-    PlayerHealth playerHealth;
-    [SerializeField]
-    Image healthBar;
-    float healthMax;
-    [Space]
-    [SerializeField]
-    PlayerMana playerMana;
-    [SerializeField]
-    Image manaBar;
-    float manaMax;
-
-    private void OnEnable()
+    public class PlayerStatBarController : MonoBehaviour
     {
-        healthMax = playerHealth.GetMaxHealth();
-        playerHealth.HealthChanged += DisplayHealth;
+        [SerializeField]
+        PlayerHealth playerHealth;
+        [SerializeField]
+        Image healthBar;
+        float healthMax;
+        [Space]
+        [SerializeField]
+        PlayerMana playerMana;
+        [SerializeField]
+        Image manaBar;
+        float manaMax;
 
-        manaMax = playerMana.GetMaxMana();
-        playerMana.ManaChanged += DisplayMana;
-    }
+        private void OnEnable()
+        {
+            healthMax = playerHealth.GetMaxHealth();
+            playerHealth.HealthChanged += DisplayHealth;
 
-    private void OnDisable()
-    {
-        playerHealth.HealthChanged -= DisplayHealth;
-        playerMana.ManaChanged -= DisplayMana;
-    }
+            manaMax = playerMana.GetMaxMana();
+            playerMana.ManaChanged += DisplayMana;
+        }
 
-    void DisplayHealth(int health)
-    {
-        healthBar.fillAmount = health / healthMax;
-    }
+        private void OnDisable()
+        {
+            playerHealth.HealthChanged -= DisplayHealth;
+            playerMana.ManaChanged -= DisplayMana;
+        }
 
-    void DisplayMana(float mana)
-    {
-        manaBar.fillAmount = mana / manaMax;
+        void DisplayHealth(int health)
+        {
+            healthBar.fillAmount = health / healthMax;
+        }
+
+        void DisplayMana(float mana)
+        {
+            manaBar.fillAmount = mana / manaMax;
+        }
     }
 }

@@ -2,67 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour
+namespace Artemis.Example.Rituals
 {
-    [SerializeField]
-    Animator animator;
-
-    PlayerMovement playerMovement;
-    PlayerHealth playerHealth;
-
-    float isPossessed = 0;
-
-    private void OnEnable()
+    public class PlayerAnimator : MonoBehaviour
     {
-        if(playerMovement == null)
+        [SerializeField]
+        Animator animator;
+
+        PlayerMovement playerMovement;
+        PlayerHealth playerHealth;
+
+        float isPossessed = 0;
+
+        private void OnEnable()
         {
-            playerMovement = GetComponent<PlayerMovement>();
+            if (playerMovement == null)
+            {
+                playerMovement = GetComponent<PlayerMovement>();
+            }
+
+            if (playerHealth == null)
+            {
+                playerHealth = GetComponent<PlayerHealth>();
+            }
+            playerHealth.TookDamage += HandleDamaged;
         }
 
-        if(playerHealth == null)
+        private void OnDisable()
         {
-            playerHealth = GetComponent<PlayerHealth>();
-        }
-        playerHealth.tookDamage += HandleDamaged;
-    }
+            if (playerMovement == null)
+            {
+                playerMovement = GetComponent<PlayerMovement>();
+            }
 
-    private void OnDisable()
-    {
-        if (playerMovement == null)
+            if (playerHealth == null)
+            {
+                playerHealth = GetComponent<PlayerHealth>();
+            }
+            playerHealth.TookDamage -= HandleDamaged;
+        }
+
+        // Update is called once per frame
+        void Update()
         {
-            playerMovement = GetComponent<PlayerMovement>();
+            animator.SetFloat("IsMoving", playerMovement.IsMoving() ? 1 : 0);
+            animator.SetFloat("IsPossessed", isPossessed);
+            Vector2 facing = playerMovement.GetFacing();
+            animator.SetFloat("FacingX", facing.x);
+            animator.SetFloat("FacingY", facing.y);
         }
 
-        if (playerHealth == null)
+        void HandleDamaged()
         {
-            playerHealth = GetComponent<PlayerHealth>();
+            animator.SetTrigger("Hurt");
         }
-        playerHealth.tookDamage -= HandleDamaged;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        animator.SetFloat("IsMoving", playerMovement.IsMoving() ? 1 : 0);
-        animator.SetFloat("IsPossessed", isPossessed);
-        Vector2 facing = playerMovement.GetFacing();
-        animator.SetFloat("FacingX", facing.x);
-        animator.SetFloat("FacingY", facing.y);
-    }
-
-    void HandleDamaged()
-    {
-        animator.SetTrigger("Hurt");
-    }
-
-    void HandleCaught()
-    {
-        animator.SetTrigger("Caught");
-        isPossessed = 1;
-    }
-    void HandleFreed()
-    {
-        animator.SetTrigger("Freed");
-        isPossessed = 0;
+        void HandleCaught()
+        {
+            animator.SetTrigger("Caught");
+            isPossessed = 1;
+        }
+        void HandleFreed()
+        {
+            animator.SetTrigger("Freed");
+            isPossessed = 0;
+        }
     }
 }
