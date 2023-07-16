@@ -4,7 +4,7 @@
 
 # ARTEMIS
 
-*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://www.nicholasperell.com/). For games where the order of who you talk to or what you do is variable, *Artemis* accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
+*Artemis* is an ongoing narrative programming project by [Nicholas Perell](http://www.nicholasperell.com/). For games where the order of who you talk to or what you do is variable, *Artemis* accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
 
 ## Installation
 
