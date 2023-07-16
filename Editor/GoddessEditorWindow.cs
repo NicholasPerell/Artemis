@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     public class GoddessEditorWindow : EditorWindow
     {
-        Editor editor;
+        UnityEditor.Editor editor;
 
         [MenuItem("Window/Artemis Goddess")]
         static void Init()

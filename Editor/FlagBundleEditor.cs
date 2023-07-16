@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(FlagBundle))]
-    public class FlagBundleEditor : Editor
+    public class FlagBundleEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

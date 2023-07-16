@@ -1,0 +1,16 @@
+{
+    "name": "Perell.Artemis.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Perell.Artemis"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

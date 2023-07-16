@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // massive credit to https://github.com/frozax/fgCSVReader
-namespace Artemis
+namespace Perell.Artemis
 {
     public class CSVParserInterface : MonoBehaviour
     {

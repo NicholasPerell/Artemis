@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Artemis
+namespace Perell.Artemis
 {
     public enum CriterionComparisonType
     {

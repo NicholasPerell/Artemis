@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Artemis
+namespace Perell.Artemis
 {
     [System.Serializable]
     public class PriorityQueue<Value>

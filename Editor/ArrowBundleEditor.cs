@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(ArrowBundle))]
-    public class ArrowBundleEditor : Editor
+    public class ArrowBundleEditor : UnityEditor.Editor
     {
         SerializedProperty arrowsProperty;
 

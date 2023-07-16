@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(Goddess))]
-    public class GoddessEditor : Editor
+    public class GoddessEditor : UnityEditor.Editor
     {
         SerializedProperty flagsIdsToKeep;
         SerializedProperty globallyLoadedFlagBundles;

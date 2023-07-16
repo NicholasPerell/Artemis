@@ -3,10 +3,10 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(Archer))]
-    public class ArcherEditor : Editor
+    public class ArcherEditor : UnityEditor.Editor
     {
         bool showBundleOptions = true;
         bool showDescisionMaking = true;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Artemis
+namespace Perell.Artemis
 {
 
     // all bb, 12/24/2021

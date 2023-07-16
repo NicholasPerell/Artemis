@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEditor;
 #endif
 
-namespace Artemis
+namespace Perell.Artemis
 {
     [System.Serializable]
     public class InternalSymbolCompiler
@@ -91,7 +91,7 @@ namespace Artemis
 
             //Build new enum script
             System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder("");
-            stringBuilder.Append("namespace Artemis\n{\n\tpublic enum " + enumName + "\n\t{\n\t\tINVALID = -1");
+            stringBuilder.Append("namespace Perell.Artemis\n{\n\tpublic enum " + enumName + "\n\t{\n\t\tINVALID = -1");
             if (enumType != null)
             {
                 for (int i = 0; i < idsUsed.Count; i++)

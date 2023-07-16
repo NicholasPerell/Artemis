@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Artemis
+namespace Perell.Artemis
 {
     [System.Serializable]
     public struct ComparableIntArray : System.IComparable

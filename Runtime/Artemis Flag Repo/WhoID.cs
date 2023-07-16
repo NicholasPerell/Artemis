@@ -1,4 +1,4 @@
-namespace Artemis
+namespace Perell.Artemis
 {
 	public enum WhoID
 	{

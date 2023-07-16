@@ -12,7 +12,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Artemis
+namespace Perell.Artemis
 {
     public class fgCSVReader
     {

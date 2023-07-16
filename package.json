@@ -1,0 +1,28 @@
+{
+  "name": "com.Perell.Artemis",
+  "version": "0.2.0",
+  "displayName": "Artemis",
+  "description": "Narrative programming package that accesses rules and world state data to give the most appropriate and important delivery.",
+  "unity": "2021.2",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "dependencies": {
+ },
+ "keywords": [
+    "narrative",
+    "tool",
+    "pipeline"
+  ],
+  "author": {
+    "name": "Nicholas Perell",
+    "email": "nicholasperell@gmail.com",
+    "url": "http://www.nicholasperell.com/"
+  }
+   "samples": [
+        {
+            "displayName": "Debug Console",
+            "description": "Contains sample code for a simple debug logger using the Artemis system.",
+            "path": "Samples~/Debug Console"
+        }]
+}

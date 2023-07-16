@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(Flag))]
-    public class FlagEditor : Editor
+    public class FlagEditor : UnityEditor.Editor
     {
         SerializedProperty valueProperty;
 

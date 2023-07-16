@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Artemis
+namespace Perell.Artemis
 {
     public class Archer : ScriptableObject
     {

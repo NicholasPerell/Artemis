@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration 
+namespace Perell.Artemis.Editor 
 {
     public class ArtemisMenuItems
     {

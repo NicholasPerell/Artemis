@@ -5,7 +5,7 @@ using System;
 using UnityEditor;
 #endif
 
-namespace Artemis
+namespace Perell.Artemis
 {
     public abstract class PreDictionaryFletcher : ScriptableObject
     {

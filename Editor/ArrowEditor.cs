@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Artemis.EditorIntegration
+namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(Arrow))]
-    public class ArrowEditor : Editor
+    public class ArrowEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

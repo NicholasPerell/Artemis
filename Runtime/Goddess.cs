@@ -8,7 +8,7 @@ using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-namespace Artemis
+namespace Perell.Artemis
 {
     [FilePath("Assets/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
@@ -184,7 +184,7 @@ namespace Artemis
         private string GetContainingFolder()
         {
             string rtn = AssetDatabase.GetAssetPath(this);
-            rtn = "Assets/Artemis";
+            rtn = "Assets/Artemis/Runtime";
             return rtn;
         }
 
@@ -209,7 +209,7 @@ namespace Artemis
 
             //Build new enum script
             System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder("");
-            stringBuilder.Append("namespace Artemis\n{\n\tpublic enum FlagID\n\t{\n\t\tINVALID = -1");
+            stringBuilder.Append("namespace Perell.Artemis\n{\n\tpublic enum FlagID\n\t{\n\t\tINVALID = -1");
 
             for (int i = 0; i < idsUsed.Count; i++)
             {
