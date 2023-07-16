@@ -1,14 +1,10 @@
 {
-  "name": "com.Perell.Artemis",
+  "name": "com.perell.artemis",
   "version": "0.2.0",
+  "license": "MIT License",
   "displayName": "Artemis",
   "description": "Narrative programming package that accesses rules and world state data to give the most appropriate and important delivery.",
   "unity": "2021.2",
-  "documentationUrl": "https://example.com/",
-  "changelogUrl": "https://example.com/changelog.html",
-  "licensesUrl": "https://example.com/licensing.html",
-  "dependencies": {
- },
  "keywords": [
     "narrative",
     "tool",
@@ -18,7 +14,7 @@
     "name": "Nicholas Perell",
     "email": "nicholasperell@gmail.com",
     "url": "http://www.nicholasperell.com/"
-  }
+  },
    "samples": [
         {
             "displayName": "Debug Console",
