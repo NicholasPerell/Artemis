@@ -6,7 +6,9 @@ using UnityEngine;
 using System.Linq;
 using Perell.Artemis.Generated;
 
+
 #if UNITY_EDITOR
+using UnityEditor.PackageManager;
 using UnityEditor;
 #endif
 namespace Perell.Artemis
@@ -14,6 +16,8 @@ namespace Perell.Artemis
     [FilePath("Assets/Scripts/Generated/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
     {
+        const string CURRENT_VERSION = "0.2.1";
+
         [SerializeField]
         private List<FlagID> flagsIdsToKeep = new List<FlagID>();
 
@@ -57,8 +61,9 @@ namespace Perell.Artemis
             path = Application.dataPath;
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
 
-            //1) delete package flagid
-            AssetDatabase.DeleteAsset("Packages/com.perell.artemis/Runtime/" + nameof(FlagID) + ".cs");
+            //1) delete sample flagid
+            AssetDatabase.DeleteAsset("Assets/Sample/Artemis/"+CURRENT_VERSION+"/Initialize Artemis Then Delete/");
+
 
             //2) create assembly for generated
             relativePath = GetContainingFolder() + "Perell.Artemis.Generated.asmdef";

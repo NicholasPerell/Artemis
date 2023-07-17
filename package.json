@@ -1,6 +1,6 @@
 {
   "name": "com.perell.artemis",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "displayName": "Artemis",
   "description": "Narrative programming package that accesses rules and world-state data to give the most appropriate and important delivery. May your aim be true.",
   "unity": "2021.2",
@@ -17,6 +17,11 @@
     "url": "http://www.nicholasperell.com/"
   },
   "samples": [
+  {
+            "displayName": "Initialize Package",
+            "description": "Contains the necessary starting data to get the program to compile.",
+            "path": "Samples~/Initialize Artemis Then Delete"
+        },
 	{
             "displayName": "Debug Console",
             "description": "Contains sample code for a simple debug logger using the Artemis system.",
