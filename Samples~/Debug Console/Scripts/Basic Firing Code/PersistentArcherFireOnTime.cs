@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Perell.Artemis.Generated;
 
 namespace Perell.Artemis.Example
 {
