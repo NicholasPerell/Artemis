@@ -121,22 +121,14 @@ The narrative system keeps track of if flag IDs are being used by any of the arr
 
 Another important value the Goddess has is the <ins>Globally Loaded Flag Bundles</ins> array. All attemps at delivery from archers or arrows will take the flags here into account.
 
-## Future Plans / Progress towards 0.2
+## Future Plans (0.3 and beyond)
 
-*Artemis* was intially a 6-week project. Given what's here, it has some ways to go with being a robust Unity package, and Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
+Development on *Artemis* has been fueled by a desire to make something both unique and robust for Unity developers. Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
 
- - [x] The option to make the priority value based off the number of flags it sets off (as opposed to a static value) so *Artemis* can instead emulate bark systems in games like in Left 4 Dead 2[^3].
- - [x] Looking for alternatives to strings for ID's because having symbols would run much better[^3]. This also helps manage the possible flags[^whyenum].
- - [x] Giving archers options in regards to refreshing when they're out of arrows.
- - [x] Alternatives to a priority queue for an archer's logic. (ex: ranks the arrows by value, but will pull from most valuable arrows at random as if it's another general pool)
- - [x] Archers tracking what bundles have been dumped into or dumped from it.
- - [x] Flag Bundles that can be loaded in or out as needed to cut down the number of items.
- - [x] Hierarchal partitioning[^3] options for Archers to optimize their decision making process.
- - [x] "All" listing to allow certain flags to be skipped to widen who is allowed to respond.
- - [x] Custom Editors. 
  - [ ] Save/load capabilities for the whole narrative.
- - [ ] New documentation. 🛠️ (Currently in Progress!)
- - [ ] More examples and scenes demonstrating how you can use *Artemis*!
+ - [ ] Additional pipeline options for users to plan out the narrative logic in a way that suits them.
+ - [ ] Debugging tools to analyze the rules, world state data, and archer decision-making.
+ - [ ] More examples and scenes demonstrating how you can use *Artemis*! 🛠️ (Currently in Progress!)
 
 ## Credits
 
