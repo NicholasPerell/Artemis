@@ -16,7 +16,7 @@ namespace Perell.Artemis
     [FilePath("Assets/Scripts/Generated/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
     {
-        const string CURRENT_VERSION = "0.2.1";
+        const string CURRENT_VERSION = "0.2.2";
 
         [SerializeField]
         private List<FlagID> flagsIdsToKeep = new List<FlagID>();
@@ -62,7 +62,7 @@ namespace Perell.Artemis
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
 
             //1) delete sample flagid
-            AssetDatabase.DeleteAsset("Assets/Sample/Artemis/"+CURRENT_VERSION+"/Initialize Artemis Then Delete/");
+            AssetDatabase.DeleteAsset("Assets/Sample/Artemis/"+CURRENT_VERSION+ "/Initialize Package/");
 
 
             //2) create assembly for generated
