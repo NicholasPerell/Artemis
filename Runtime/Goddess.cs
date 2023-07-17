@@ -62,7 +62,7 @@ namespace Perell.Artemis
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
 
             //1) delete sample flagid
-            AssetDatabase.DeleteAsset("Assets/Sample/Artemis/"+CURRENT_VERSION+ "/Initialize Package/");
+            AssetDatabase.DeleteAsset("Assets/Samples/Artemis/"+CURRENT_VERSION+ "/Initialize Package");
 
 
             //2) create assembly for generated
