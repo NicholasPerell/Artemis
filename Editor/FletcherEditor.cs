@@ -12,7 +12,7 @@ namespace Perell.Artemis.Editor
         {
             PreDictionaryFletcher preDictionaryFletcher = (PreDictionaryFletcher)target;
 
-            EditorGUIUtility.SetIconForObject(preDictionaryFletcher, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Fletcher.png"));
+            EditorGUIUtility.SetIconForObject(preDictionaryFletcher, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Fletcher.png"));
 
             EditorGUI.BeginChangeCheck();
 

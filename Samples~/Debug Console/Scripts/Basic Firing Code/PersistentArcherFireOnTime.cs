@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Artemis.Example
+namespace Perell.Artemis.Example
 {
     public class PersistentArcherFireOnTime : MonoBehaviour
     {

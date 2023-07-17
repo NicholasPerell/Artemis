@@ -12,7 +12,7 @@ namespace Perell.Artemis.Editor
         {
             FlagBundle flagBundle = (FlagBundle)target;
             
-            EditorGUIUtility.SetIconForObject(flagBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/FlagBundle.png"));
+            EditorGUIUtility.SetIconForObject(flagBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/FlagBundle.png"));
 
             EditorGUI.BeginChangeCheck();
 

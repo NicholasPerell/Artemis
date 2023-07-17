@@ -12,7 +12,7 @@ namespace Perell.Artemis.Editor
         {
             Arrow arrow = (Arrow)target;
 
-            EditorGUIUtility.SetIconForObject(arrow, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Arrow.png"));
+            EditorGUIUtility.SetIconForObject(arrow, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Arrow.png"));
 
             EditorGUI.BeginChangeCheck();
 

@@ -22,7 +22,7 @@ namespace Perell.Artemis.Editor
 
             //TODO: Figure out why Resources works in the Ink Package but not in Artemis
             //AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            EditorGUIUtility.SetIconForObject(arrowBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/ArrowBundle.png"));
+            EditorGUIUtility.SetIconForObject(arrowBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/ArrowBundle.png"));
 
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();

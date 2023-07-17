@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Artemis.Example
+namespace Perell.Artemis.Example
 {
     public class ArtemisDebugExampleBow : Bow<ArtemisDebugData>
     {

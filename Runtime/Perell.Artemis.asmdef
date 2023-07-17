@@ -1,7 +1,9 @@
 {
     "name": "Perell.Artemis",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Perell.Artemis.Generated"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -4,6 +4,7 @@ using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using Perell.Artemis.Generated;
 
 namespace Perell.Artemis
 {

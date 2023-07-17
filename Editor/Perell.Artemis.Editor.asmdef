@@ -2,7 +2,8 @@
     "name": "Perell.Artemis.Editor",
     "rootNamespace": "",
     "references": [
-        "Perell.Artemis"
+        "Perell.Artemis",
+        "Perell.Artemis.Generated"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

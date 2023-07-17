@@ -2,6 +2,8 @@ using System;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using Perell.Artemis.Generated;
+
 
 namespace Perell.Artemis.Editor
 {
@@ -44,7 +46,7 @@ namespace Perell.Artemis.Editor
         {
             Archer archer = (Archer)target;
 
-            EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Archer.png"));
+            EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Archer.png"));
 
             serializedObject.Update();
 

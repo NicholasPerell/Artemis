@@ -1,4 +1,4 @@
-namespace Artemis
+namespace Perell.Artemis
 {
 	public enum Artemis_example_artemisdebugdata_arrowsID
 	{

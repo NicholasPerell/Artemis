@@ -1,11 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEditor;
+using Perell.Artemis.Generated;
 
 namespace Perell.Artemis.Editor 
 {
     public class ArtemisMenuItems
     {
+        //[MenuItem("Assets/Create/Artemis/", false, 120)]
+        //private static void Empty()
+        //{
+
+        //}
+
         [MenuItem("Assets/Create/Artemis/Archer")]
         private static void CreateArcher()
         {
@@ -37,7 +44,7 @@ namespace Perell.Artemis.Editor
             FlagID[] flagIDs = Goddess.instance.GetFlagIDs();
             Flag flag;
             Object created;
-            for(int i = 0; i < flagIDs.Length; i++)
+            for (int i = 0; i < flagIDs.Length; i++)
             {
                 flag = ScriptableObject.CreateInstance<Flag>();
                 //TO DO: Convert this to a InitFlag(ID) method
@@ -55,6 +62,7 @@ namespace Perell.Artemis.Editor
         {
             CreateArtemisItem(ScriptableObject.CreateInstance<FlagBundle>(), "Flag Bundle");
         }
+
 
         private static void CreateArtemisItem(Object created, string type)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Perell.Artemis.Generated;
 
 namespace Perell.Artemis.Editor
 {
@@ -194,7 +195,7 @@ namespace Perell.Artemis.Editor
                 }
             }
 
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Flag" + fileSuffix + ".png");
+            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Flag" + fileSuffix + ".png");
 
             EditorUtility.CopySerialized(copyFrom, tex);
 

@@ -4,17 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Perell.Artemis.Generated;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 namespace Perell.Artemis
 {
-    [FilePath("Assets/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
+    [FilePath("Assets/Scripts/Generated/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
     {
         [SerializeField]
-        private List<FlagID> flagsIDsToKeep = new List<FlagID>();
+        private List<FlagID> flagsIdsToKeep = new List<FlagID>();
 
         [SerializeField]
         private SortedStrictDictionary<FlagID, Flag.ValueType> flagValueTypes = new SortedStrictDictionary<FlagID, Flag.ValueType>();
@@ -38,18 +39,53 @@ namespace Perell.Artemis
         [SerializeField]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections = new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
 
-        public void Awake()
-        {
-        }
-
         private void OnEnable()
         {
             hideFlags &= ~HideFlags.NotEditable;
+            InitializeScripts();
         }
 
         public Flag.ValueType GetFlagValueType(FlagID id)
         {
             return flagValueTypes[id];
+        }
+
+        private void InitializeScripts()
+        {
+#if UNITY_EDITOR
+            string relativePath, path, totalPath;
+            path = Application.dataPath;
+            path = path.Substring(0, path.Length - 6); //removes the "Assets"
+
+            //1) delete package flagid
+            AssetDatabase.DeleteAsset("Packages/com.perell.artemis/Runtime/" + nameof(FlagID) + ".cs");
+
+            //2) create assembly for generated
+            relativePath = GetContainingFolder() + "Perell.Artemis.Generated.asmdef";
+            totalPath = path + relativePath;
+
+            if (!File.Exists(totalPath))
+            {
+                if (!System.IO.Directory.Exists(totalPath.Substring(0, totalPath.LastIndexOf('/'))))
+                {
+                    System.IO.Directory.CreateDirectory(totalPath.Substring(0, totalPath.LastIndexOf('/')));
+                }
+
+                StreamWriter stream = File.CreateText(totalPath); 
+                stream.Write("{\"name\": \"Perell.Artemis.Generated\",\"rootNamespace\": \"\",\"references\": [],\"includePlatforms\": [],\"excludePlatforms\": [],\"allowUnsafeCode\": false,\"overrideReferences\": false,\"precompiledReferences\": [],\"autoReferenced\": true,\"defineConstraints\": [],\"versionDefines\": [],\"noEngineReferences\": false}");
+                stream.Close();
+                AssetDatabase.ImportAsset(relativePath);
+            }
+
+            //3) create assets flagid
+            relativePath = GetContainingFolder() + "/" + GetFlagRepoFolderName() + "/" + nameof(FlagID) + ".cs";
+            totalPath = path + relativePath;
+
+            if (!File.Exists(path + relativePath))
+            {
+                WriteFlagEnumScript();
+            }
+#endif
         }
 
 #if UNITY_EDITOR
@@ -166,7 +202,7 @@ namespace Perell.Artemis
                     flagIDConnections[id].Remove(connector);
                 }
 
-                if (flagIDConnections[id].Count == 0 && !flagsIDsToKeep.Contains(id))
+                if (flagIDConnections[id].Count == 0 && !flagsIdsToKeep.Contains(id))
                 {
                     flagIDConnections.Remove(id);
                     flagValueTypes.Remove(id);
@@ -184,13 +220,13 @@ namespace Perell.Artemis
         private string GetContainingFolder()
         {
             string rtn = AssetDatabase.GetAssetPath(this);
-            rtn = "Assets/Artemis/Runtime";
+            rtn = "Assets/Scripts/Generated/Artemis/";
             return rtn;
         }
 
         private string GetFlagRepoFolderName()
         {
-            return this.name + "Artemis Flag Repo";
+            return this.name + "FlagEnums";
         }
 
         public void WriteFlagEnumScript()
@@ -209,7 +245,7 @@ namespace Perell.Artemis
 
             //Build new enum script
             System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder("");
-            stringBuilder.Append("namespace Perell.Artemis\n{\n\tpublic enum FlagID\n\t{\n\t\tINVALID = -1");
+            stringBuilder.Append("namespace Perell.Artemis.Generated\n{\n\tpublic enum FlagID\n\t{\n\t\tINVALID = -1");
 
             for (int i = 0; i < idsUsed.Count; i++)
             {
@@ -240,7 +276,21 @@ namespace Perell.Artemis
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
             path +=  relativePath;
 
-            File.WriteAllText(path,stringBuilder.ToString());
+            if (File.Exists(path))
+            {
+                File.WriteAllText(path, stringBuilder.ToString());
+            }
+            else
+            {
+                if (!System.IO.Directory.Exists(path.Substring(0, path.LastIndexOf('/'))))
+                {
+                    System.IO.Directory.CreateDirectory(path.Substring(0, path.LastIndexOf('/')));
+                }
+
+                StreamWriter stream = File.CreateText(path);
+                stream.Write(stringBuilder.ToString());
+                stream.Close();
+            }
 
             //Reset toAdd/Remove
             toAdd.Clear();
@@ -339,7 +389,7 @@ namespace Perell.Artemis
         public void Reset()
         {
 
-            flagsIDsToKeep.Clear();
+            flagsIdsToKeep.Clear();
             toAdd.Clear();
             intsReadyToConvert.Clear();
             flagValueTypes.Clear();

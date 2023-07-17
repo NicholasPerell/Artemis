@@ -12,7 +12,7 @@ namespace Perell.Artemis.Editor
         {
             PreTemplateBow preTemplateBow = (PreTemplateBow)target;
             
-            EditorGUIUtility.SetIconForObject(preTemplateBow, AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Bow.png"));
+            EditorGUIUtility.SetIconForObject(preTemplateBow, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Bow.png"));
             
             DrawDefaultInspector();
 

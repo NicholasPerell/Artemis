@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Perell.Artemis.Generated;
 
 namespace Perell.Artemis.Editor
 {
@@ -27,7 +28,8 @@ namespace Perell.Artemis.Editor
             GUILayout.BeginHorizontal();
             int iconSize = 70;
             GUILayout.Space((EditorGUIUtility.currentViewWidth / 2) - (iconSize/2)); //Space to the left of the icon with the correct sizing to center the icon in the window
-            GUILayout.Label(AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Resources/Goddess.png"), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
+
+            GUILayout.Label(AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Goddess.png"), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
             GUILayout.EndHorizontal();
 
             serializedObject.Update();
