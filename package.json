@@ -26,5 +26,10 @@
             "displayName": "Debug Console",
             "description": "Contains sample code for a simple debug logger using the Artemis system.",
             "path": "Samples~/Debug Console"
+        },
+	{
+            "displayName": "Rituals",
+            "description": "Small game that utilizes Artemis for its narrative calls.",
+            "path": "Samples~/Rituals"
         }]
 }
