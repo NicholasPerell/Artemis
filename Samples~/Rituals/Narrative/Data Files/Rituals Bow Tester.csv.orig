@@ -1,0 +1,9 @@
+ID,Priority Value,Flags,How to handle busy,Dialogue Script,Toggles
+Mage_000,0,,CANCEL,"Sorcerer: Testing 0
+Mage: Testing 1
+Demon_Spirit: Testing 2
+Demon_Boss: Testing 3
+Smith: Testing 4
+Servant: Testing 5
+Narration: Testing 6",
+END,,,,,

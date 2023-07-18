@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b2037bd4a12704cbeabed3fc33599b, type: 3}
+  m_Name: Test2
+  m_EditorClassIdentifier: 
+  tier: 2
+  uniqueTiles:
+  - position: {x: 4, y: 2}
+    tile: {fileID: 11400000, guid: f872451e621ea3f4395b0502ce7b65d1, type: 2}
+  - position: {x: 11, y: 6}
+    tile: {fileID: 11400000, guid: f872451e621ea3f4395b0502ce7b65d1, type: 2}
+  - position: {x: 13, y: 3}
+    tile: {fileID: 11400000, guid: f872451e621ea3f4395b0502ce7b65d1, type: 2}
+  spawnLocations:
+  - position: {x: 3.462657, y: 0, z: 6.5}
+    spawnType: 1
+  - position: {x: 13.42, y: 0, z: 6.476342}
+    spawnType: 2
+  - position: {x: 13.42, y: 0, z: 2.62}
+    spawnType: 3
+  - position: {x: 3.462657, y: 0, z: 2.6436574}
+    spawnType: 0

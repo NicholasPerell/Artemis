@@ -1,10 +1,14 @@
-<img src="Assets/Artemis/Artemis Title.png" alt="Artemis Logo." height="152px;" align="center">
+<img src="Artemis Title.png" alt="Artemis Logo." height="152px;" align="center">
 
 >*May your aim be true.*
 
 # ARTEMIS
 
-*Artemis* is an ongoing narrative programming project by [Nicholas Perell](https://nicholasperell.com/). For games where the order of who you talk to or what you do is variable, *Artemis* accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
+*Artemis* is an ongoing narrative programming project by [Nicholas Perell](http://www.nicholasperell.com/). For games where the order of who you talk to or what you do is variable, *Artemis* accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
+
+## Installation
+
+Use the Package Manager to [add by git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html): `https://github.com/nicholas-hoy-champain/Artemis.git`.
 
 ## Inspirations
 
@@ -34,7 +38,7 @@ Although one of the best ways to get an understanding of *Artemis* would be to c
 
 > The *fletcher* makes and stockpiles the *arrows*, and the *archer* decides which arrow to shoot. The archer can get more arrows from (or throw away some in) an *arrow bundle*, and she uses her *bow* to fire them. An arrow checks if certain *flags* are met to consider it appropriate to use, and *flag bundles* can be loaded as needed to optimize the process.
 
-### Arrows <img src="Assets/Artemis/Editor/Resources/Arrow.png" alt="Arrow" height="50px;" align="right">
+### Arrows <img src="Editor/Icons/Arrow.png" alt="Arrow" height="50px;" align="right">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
 - <ins>ID:</ins> used to access the database found in the fletcher it is connected to.
@@ -49,7 +53,7 @@ Stores the most basic information for each possible piece of narrative delivery.
 
 Arrows can also be prompted to fire on their own without going through the process of being in an archer. This is useful for cases where an arrow is fired in response to a different arrow finishing.
 
-### Archers <img src="Assets/Artemis/Editor/Resources/Archer.png" alt="Archer" height="50px;" align="right">
+### Archers <img src="Editor/Icons/Archer.png" alt="Archer" height="50px;" align="right">
 
 This is what tries to choose which arrow should be shot. Arrows with a priority of 0 are placed in a "general pool" with a random order. Higher values are given priority above lower values. The data presented to the user includes:
 
@@ -68,11 +72,11 @@ This is what tries to choose which arrow should be shot. Arrows with a priority 
 
 The archer is prompted by calling `bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)`. `importedStates` is the list of flag bundles evaluated for considering arrow criteria. Any FlagIDs in `all` will be skipped over and assumed as being met—the use being it could essentially allow *any* character to respond (instead of just one), making for self-branching conversations[^3].
 
-### Arrow Bundles <img src="Assets/Artemis/Editor/Resources/ArrowBundle.png" alt="Arrow Bundle" height="50px;" align="right">
+### Arrow Bundles <img src="Editor/Icons/ArrowBundle.png" alt="Arrow Bundle" height="50px;" align="right">
 
 List of arrows. Can be dumped into or droped from a archer. These dumps are where <ins>Handling Same Priority</ins> on your archer are very important.
 
-### Flags <img src="Assets/Artemis/Editor/Resources/Flag.png" alt="Flag" height="50px;" align="right">
+### Flags <img src="Editor/Icons/Flag.png" alt="Flag" height="50px;" align="right">
 
 Objects which store the values that is evaluated for an Arrow's criteria. Data stored in each flag include:
 - <ins>ID:</ins> enum value used to sort flags.
@@ -81,13 +85,13 @@ Objects which store the values that is evaluated for an Arrow's criteria. Data s
   - BOOL: true or false.
   - SYMBOL: an enum value.
 
-### Flag Bundles <img src="Assets/Artemis/Editor/Resources/FlagBundle.png" alt="Flag Bundle" height="50px;" align="right">
+### Flag Bundles <img src="Editor/Icons/FlagBundle.png" alt="Flag Bundle" height="50px;" align="right">
 
 Sorted list of flags. Flags in these lists can't have the same flag ID. Loading these in or out helps speed through the evaluation process on arrows.
 
 If there are any null items in your flag bundle, you can try to remove an empty list. If there are missing items (you deleted the flag assets before removing it from the bundle) the previous solution doesn't work on, you can clear the bundle in the context menu **⋮**.
 
-### Fletchers <img src="Assets/Artemis/Editor/Resources/Fletcher.png" alt="Fletcher" height="50px;" align="right">
+### Fletchers <img src="Editor/Icons/Fletcher.png" alt="Fletcher" height="50px;" align="right">
 
 _Artemis_'s base fletchers script is an abstract template class, where you will want to define:
  1. The information that needs be stored in a database for the delivery actor to deliver the narrative how you want it.
@@ -96,7 +100,7 @@ _Artemis_'s base fletchers script is an abstract template class, where you will 
 
 To reiterate something said prior: The example folder has an Editor script that gives the Debug Fletchers to have a button in its inspector to trigger the .CSV[^sheets] parsing. It is reccomended you copy this to use it for your own Fletchers scripts.
 
-### Bows <img src="Assets/Artemis/Editor/Resources/Bow.png" alt="Bow" height="50px;" align="right">
+### Bows <img src="Editor/Icons/Bow.png" alt="Bow" height="50px;" align="right">
 
 Another whose base script is an abstract template class. The typing on the template class should be the same as the fletchers you want it to work with. This is where things go from decision to full delivery.
 
@@ -109,7 +113,7 @@ To properly set up a script for a delivery actor:
 
 When attaching the delivery actor monobehavior to a game object, make sure the "Fletchers" in the inspector is set to the fletchers you want the actor to be paired with.
 
-### Goddess (Narrative System) <img src="Assets/Artemis/Editor/Resources/Goddess.png" alt="Goddess" height="50px;" align="right">
+### Goddess (Narrative System) <img src="Editor/Icons/Goddess.png" alt="Goddess" height="50px;" align="right">
 
 Singleton that facilitates the Flag ID. Found at `Window/Artemis Goddess`
 
@@ -117,22 +121,14 @@ The narrative system keeps track of if flag IDs are being used by any of the arr
 
 Another important value the Goddess has is the <ins>Globally Loaded Flag Bundles</ins> array. All attemps at delivery from archers or arrows will take the flags here into account.
 
-## Future Plans / Progress towards 0.2
+## Future Plans (0.3 and beyond)
 
-*Artemis* was intially a 6-week project. Given what's here, it has some ways to go with being a robust Unity package, and Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
+Development on *Artemis* has been fueled by a desire to make something both unique and robust for Unity developers. Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
 
- - [x] The option to make the priority value based off the number of flags it sets off (as opposed to a static value) so *Artemis* can instead emulate bark systems in games like in Left 4 Dead 2[^3].
- - [x] Looking for alternatives to strings for ID's because having symbols would run much better[^3]. This also helps manage the possible flags[^whyenum].
- - [x] Giving archers options in regards to refreshing when they're out of arrows.
- - [x] Alternatives to a priority queue for an archer's logic. (ex: ranks the arrows by value, but will pull from most valuable arrows at random as if it's another general pool)
- - [x] Archers tracking what bundles have been dumped into or dumped from it.
- - [x] Flag Bundles that can be loaded in or out as needed to cut down the number of items.
- - [x] Hierarchal partitioning[^3] options for Archers to optimize their decision making process.
- - [x] "All" listing to allow certain flags to be skipped to widen who is allowed to respond.
- - [x] Custom Editors. 
  - [ ] Save/load capabilities for the whole narrative.
- - [ ] New documentation. 🛠️ (Currently in Progress!)
- - [ ] More examples and scenes demonstrating how you can use *Artemis*!
+ - [ ] Additional pipeline options for users to plan out the narrative logic in a way that suits them.
+ - [ ] Debugging tools to analyze the rules, world state data, and archer decision-making.
+ - [ ] More examples and scenes demonstrating how you can use *Artemis*! 🛠️ (Currently in Progress!)
 
 ## Credits
 
