@@ -589,6 +589,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 465779611}
     m_Modifications:
     - target: {fileID: 1147476865397790081, guid: 2a3487b73bc5eda44ab1f0278138adfc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147476865397790081, guid: 2a3487b73bc5eda44ab1f0278138adfc, type: 3}
       propertyPath: pixelPerfectCamera
       value: 
       objectReference: {fileID: 320713197}
@@ -2329,7 +2333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1715418700
 RectTransform:
   m_ObjectHideFlags: 0
