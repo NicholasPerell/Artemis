@@ -1143,14 +1143,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You, the young sorcerer, only ever wanted one thing: power. \u2026But
-    not like this.\n\nYou summoned the demon and tried to absorb its power, but you
-    were niave to think it would be so easy. Now, you're partially possessed, and
+  m_text: 'You, the young sorcerer, only ever wanted one thing: power. ...But not
+    like this.
+
+
+    You summoned the demon and tried to absorb its power, but you
+    were niave to think it would be so easy. Now, you''re partially possessed, and
     the only way to exorcise this beast from your being is to traverse these ancient
-    ruins to find the only ritual sport in the lands known to achieve such an act.\n\nGood
-    luck."
+    ruins to find the only ritual sport in the lands known to achieve such an act.
+
+
+    Good
+    luck.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a4913cedb1b54be4883263af273d011a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d608011afd0e1b64fb5a7721ad1c63f3, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1778,8 +1784,8 @@ MonoBehaviour:
 
     (https://nicholasperell.itch.io/ritual)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a4913cedb1b54be4883263af273d011a, type: 2}
-  m_sharedMaterial: {fileID: -7020741557392508554, guid: a4913cedb1b54be4883263af273d011a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d608011afd0e1b64fb5a7721ad1c63f3, type: 2}
+  m_sharedMaterial: {fileID: -6599957537440432230, guid: d608011afd0e1b64fb5a7721ad1c63f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1803,7 +1809,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.5
+  m_fontSize: 21.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
