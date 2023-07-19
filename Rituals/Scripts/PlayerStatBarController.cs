@@ -43,5 +43,6 @@ namespace Perell.Artemis.Example.Rituals
         {
             manaBar.fillAmount = mana / manaMax;
         }
+
     }
 }

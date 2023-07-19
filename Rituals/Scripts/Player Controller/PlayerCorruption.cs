@@ -24,12 +24,9 @@ public class PlayerCorruption : MonoBehaviour
     bool isCorrupted;
 
 
-    [HideInInspector]
-    public UnityEvent Corrupted;
-    [HideInInspector]
-    public UnityEvent StartBuildUp;
-    [HideInInspector]
-    public UnityEvent<float> ChangedCorruptionChance;
+    public event UnityAction Corrupted;
+    public event UnityAction StartBuildUp;
+    public event UnityAction<float> ChangedCorruptionChance;
 
     private void OnEnable()
     {

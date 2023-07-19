@@ -64,10 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a5e7228d831ab40b53e55025b5593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkInterval: 1
+  checkInterval: 5
   corruptionChance: 0
-  baseChance: 0.01
-  gracePeriod: 5
+  baseChance: 0.1
+  gracePeriod: 5.5
   isCorrupted: 0
   Corrupted:
     m_PersistentCalls:
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 25
+  invulnerabilityTime: 1
 --- !u!114 &6374094407279114057
 MonoBehaviour:
   m_ObjectHideFlags: 0

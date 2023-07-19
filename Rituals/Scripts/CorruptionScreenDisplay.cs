@@ -57,9 +57,9 @@ namespace Perell.Artemis.Example.Rituals
                 baseChance = playerCorruption.GetBaseChance();
                 checkInterval = playerCorruption.GetCheckInterval();
 
-                playerCorruption.ChangedCorruptionChance.AddListener(SetNewCorruptionChance);
-                playerCorruption.Corrupted.AddListener(SetMaxCorruptionDisplay);
-                playerCorruption.StartBuildUp.AddListener(BeginBuildUp);
+                playerCorruption.ChangedCorruptionChance += SetNewCorruptionChance;
+                playerCorruption.Corrupted += SetMaxCorruptionDisplay;
+                playerCorruption.StartBuildUp += BeginBuildUp;
             }
 
             BeginBuildUp();
@@ -72,9 +72,9 @@ namespace Perell.Artemis.Example.Rituals
                 baseChance = playerCorruption.GetBaseChance();
                 checkInterval = playerCorruption.GetCheckInterval();
 
-                playerCorruption.ChangedCorruptionChance.RemoveListener(SetNewCorruptionChance);
-                playerCorruption.Corrupted.RemoveListener(SetMaxCorruptionDisplay);
-                playerCorruption.StartBuildUp.RemoveListener(BeginBuildUp);
+                playerCorruption.ChangedCorruptionChance -= SetNewCorruptionChance;
+                playerCorruption.Corrupted -= SetMaxCorruptionDisplay;
+                playerCorruption.StartBuildUp -= BeginBuildUp;
             }
         }
 
