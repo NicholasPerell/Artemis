@@ -57,14 +57,14 @@ namespace Perell.Artemis.Example.Rituals
             }
         }
 
-        private void ChangeHealth(int deltaHealth, HealthEffectSource healthEffectSource)
+        public void ChangeHealth(int deltaHealth, HealthEffectSource healthEffectSource)
         {
             if (deltaHealth < 0 && damageCoolDown > 0)
             {
                 return;
             }
 
-            health += deltaHealth;
+            health = Mathf.Clamp(health + deltaHealth, 0, maxHealth);
             HealthChanged.Invoke(health);
             if (health <= 0)
             {

@@ -71,7 +71,7 @@ public class PlayerCorruption : MonoBehaviour
         }
     }
 
-    void AddToCorruptionChance(float deltaChance)
+    public void AddToCorruptionChance(float deltaChance)
     {
         corruptionChance += deltaChance;
         ChangedCorruptionChance?.Invoke(deltaChance);

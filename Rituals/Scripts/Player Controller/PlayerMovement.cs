@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     Vector2 facing;
 
+    Vector3 mouseInWorldSpace;
+    public Vector3 MousePosition { get { return mouseInWorldSpace; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
             movementInput.Normalize();
         }
 
-        Vector3 mouseInWorldSpace = Camera.main.ScreenToWorldPoint(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
+        mouseInWorldSpace = Camera.main.ScreenToWorldPoint(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
         facingInput = new Vector2(mouseInWorldSpace.x - transform.position.x, mouseInWorldSpace.z - transform.position.z);
     }
 

@@ -39,7 +39,7 @@ public class PlayerMana : MonoBehaviour
         ManaChanged?.Invoke(currentMana);
     }
 
-    private void GainMana(float gained)
+    public void GainMana(float gained)
     {
         if (currentMana < manaMax)
         {
