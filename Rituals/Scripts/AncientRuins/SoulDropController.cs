@@ -64,9 +64,9 @@ namespace Perell.Artemis.Example.Rituals
 
         private void AffectPlayer()
         {
-            AncientRuinsManager.PlayerHealth.ChangeHealth(healthIncrease, HealthEffectSource.SOUL);
-            AncientRuinsManager.PlayerMana.GainMana(manaIncrease);
-            AncientRuinsManager.PlayerCorruption.AddToCorruptionChance(corruptionIncrease);
+            AncientRuinsManager.PlayerController.Health.ChangeHealth(healthIncrease, HealthEffectSource.SOUL, transform.position);
+            AncientRuinsManager.PlayerController.Mana.GainMana(manaIncrease);
+            AncientRuinsManager.PlayerController.Corruption.AddToCorruptionChance(corruptionIncrease);
         }
     }
 }

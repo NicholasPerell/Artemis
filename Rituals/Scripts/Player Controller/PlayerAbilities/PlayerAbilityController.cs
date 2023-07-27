@@ -16,7 +16,12 @@ namespace Perell.Artemis.Example.Rituals
 
         abstract protected void OnInitialized();
 
-        public virtual void Release()
+        public void Release()
+        {
+            OnRelease();
+        }
+
+        protected virtual void OnRelease()
         {
 
         }

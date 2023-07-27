@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7480281270368856857}
   m_Layer: 0
   m_Name: Enter Door
-  m_TagString: Untagged
+  m_TagString: Walling
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 7412094324687177210}
   m_Layer: 0
   m_Name: Left Dungeon Door
-  m_TagString: Untagged
+  m_TagString: Walling
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

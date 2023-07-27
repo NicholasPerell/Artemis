@@ -17,6 +17,10 @@ namespace Perell.Artemis.Example.Rituals
 
     public class PlayerHealth : MonoBehaviour
     {
+        public event UnityAction<int> HealthChanged;
+        public event UnityAction TookDamage;
+        public event UnityAction Died;
+
         [SerializeField]
         [Min(1)]
         int maxHealth = 20;
@@ -27,14 +31,13 @@ namespace Perell.Artemis.Example.Rituals
         float invulnerabilityTime = 1;
         float damageCoolDown;
 
-        public event UnityAction<int> HealthChanged;
-        public event UnityAction TookDamage;
-        public event UnityAction Died;
+        Vector3 blockerDirection;
+        float blockerAngle;
 
         private void OnEnable()
         {
             RefreshHealth();
-
+            RemoverBlocker();
             DamagingBox.DamageDelt += ChangeHealth;
         }
 
@@ -57,9 +60,10 @@ namespace Perell.Artemis.Example.Rituals
             }
         }
 
-        public void ChangeHealth(int deltaHealth, HealthEffectSource healthEffectSource)
+        public void ChangeHealth(int deltaHealth, HealthEffectSource healthEffectSource, Vector3 attackerPosition)
         {
-            if (deltaHealth < 0 && damageCoolDown > 0)
+            //Invincibility Frames or Blocking Damage
+            if (deltaHealth < 0 && (damageCoolDown > 0 || CheckIfBlocked(attackerPosition)))
             {
                 return;
             }
@@ -80,6 +84,37 @@ namespace Perell.Artemis.Example.Rituals
         public int GetMaxHealth()
         {
             return maxHealth;
+        }
+
+        private bool CheckIfBlocked(Vector3 attackerPosition)
+        {
+            bool isBlocked = false;
+
+            if(blockerDirection != Vector3.zero)
+            {
+                Vector3 diff = attackerPosition - transform.position;
+                diff.Normalize();
+                isBlocked = Vector3.Dot(diff, blockerDirection) > blockerAngle;
+            }
+
+            return isBlocked;
+        }
+
+        public void SetBlocker(Vector3 direction, float angle)
+        {
+            blockerDirection = direction;
+            blockerAngle = Mathf.Cos(angle * 0.5f);
+        }
+
+        public void RemoverBlocker()
+        {
+            blockerDirection = Vector3.zero;
+            blockerAngle = 0;
+        }
+
+        public void GiveTemporaryInvulnerability(float timeInvulnerable)
+        {
+            damageCoolDown = timeInvulnerable;
         }
     }
 }

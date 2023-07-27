@@ -96,7 +96,7 @@ MonoBehaviour:
   lifespan: 10
   healthIncrease: 4
   manaIncrease: 6
-  corruptionIncrease: 0.01
+  corruptionIncrease: 0
 --- !u!1 &6310632229605847670
 GameObject:
   m_ObjectHideFlags: 0

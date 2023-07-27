@@ -13,13 +13,13 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         int damageAmount;
 
-        public static event UnityAction<int, HealthEffectSource> DamageDelt;
+        public static event UnityAction<int, HealthEffectSource, Vector3> DamageDelt;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Player")
             {
-                DamageDelt?.Invoke(-damageAmount, damageSource);
+                DamageDelt?.Invoke(-damageAmount, damageSource, transform.position);
             }
         }
 
@@ -27,7 +27,7 @@ namespace Perell.Artemis.Example.Rituals
         {
             if (other.gameObject.tag == "Player")
             {
-                DamageDelt?.Invoke(-damageAmount, damageSource);
+                DamageDelt?.Invoke(-damageAmount, damageSource, transform.position);
             }
         }
     }

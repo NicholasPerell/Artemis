@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Perell.Artemis.Example.Rituals
 {
-    public class SlashController : PlayerAbilityController
+    public class MeleeAbilityController : PlayerAbilityController
     {
         [SerializeField]
         float attackTime;

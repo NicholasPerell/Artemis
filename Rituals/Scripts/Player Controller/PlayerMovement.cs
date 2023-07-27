@@ -16,14 +16,19 @@ public class PlayerMovement : MonoBehaviour
     Vector3 mouseInWorldSpace;
     public Vector3 MousePosition { get { return mouseInWorldSpace; } }
 
-    // Start is called before the first frame update
-    void Start()
+    Dictionary<System.Type, float> speedMultipliers;
+
+    private void Awake()
     {
+        speedMultipliers = new Dictionary<System.Type, float>();
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
         canMove = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckForInput();
@@ -51,7 +56,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if(canMove)
         {
-            rb.velocity = new Vector3(movementInput.x,0,movementInput.y) * speed;
+            Vector3 velocity = new Vector3(movementInput.x, 0, movementInput.y) * speed;
+            foreach(var e in speedMultipliers)
+            {
+                velocity *= e.Value;
+            }
+            rb.velocity = velocity;
             facing = facingInput;
         }
         else if(rb.velocity.sqrMagnitude > 0)
@@ -68,5 +78,15 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving()
     {
         return rb.velocity.sqrMagnitude > 0;
+    }
+
+    public void AddSpeedMultiplier(System.Type type, float amount)
+    {
+        speedMultipliers.TryAdd(type, amount);
+    }
+
+    public void RemoveSpeedMultiplier(System.Type type)
+    {
+        speedMultipliers.Remove(type);
     }
 }

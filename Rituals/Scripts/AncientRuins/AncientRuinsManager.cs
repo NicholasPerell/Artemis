@@ -26,9 +26,6 @@ namespace Perell.Artemis.Example.Rituals
         static AncientRuinsManager instance;
         public static Transform Player { get { return instance.player; } }
         public static PlayerController PlayerController { get { return instance.playerController; } }
-        public static PlayerHealth PlayerHealth { get { return instance.playerHealth; } }
-        public static PlayerMana PlayerMana { get { return instance.playerMana; } }
-        public static PlayerCorruption PlayerCorruption { get { return instance.playerCorruption; } }
         public static Transform Dungeon { get { return instance.dungeon; } }
 
         private void Awake()

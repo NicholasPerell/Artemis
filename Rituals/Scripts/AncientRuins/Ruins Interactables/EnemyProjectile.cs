@@ -26,6 +26,10 @@ namespace Perell.Artemis.Example.Rituals
             {
                 Destroy(transform.parent.gameObject, Time.deltaTime);
             }
+            else if (other.tag == "Walling")
+            {
+                Destroy(this.gameObject);
+            }
         }
 
         private void OnTriggerStay(Collider other)
@@ -33,6 +37,10 @@ namespace Perell.Artemis.Example.Rituals
             if (other.gameObject.tag == "Player")
             {
                 Destroy(transform.parent.gameObject, Time.deltaTime);
+            }
+            else if (other.tag == "Walling")
+            {
+                Destroy(this.gameObject);
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -23,9 +24,14 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         Tilemap customizedTilemap;
 
+
         [ContextMenu("Initialize")]
         private void Init()
         {
+
+            SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+
             backdropTilemap.ClearAllTiles();
             customizedTilemap.ClearAllTiles();
             DrawRoom();

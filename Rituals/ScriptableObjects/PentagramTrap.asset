@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d79021edf7fdc54f8762707e24b1784, type: 3}
   m_Name: PentagramTrap
   m_EditorClassIdentifier: 
-  manaCost: 0
-  corruptionAdd: 0
-  cooldownTime: 0
-  prefab: {fileID: 0}
+  manaCost: 15
+  corruptionAdd: 0.1
+  cooldownTime: 1
+  prefab: {fileID: 4171514804924746094, guid: 09168f4e075fcd14cbfd112d0c1f6975, type: 3}
   prefabParent: 1
+  wheelIcon: {fileID: 431413157, guid: c5fb07a9e7a33444fae4dc68aaf04a12, type: 3}

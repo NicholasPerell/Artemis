@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d79021edf7fdc54f8762707e24b1784, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 2
   corruptionAdd: 0
-  prefab: {fileID: 0}
+  cooldownTime: -1
+  prefab: {fileID: 4967821714759715218, guid: ea4ace7f890374441a3209d9c822d0cc, type: 3}
   prefabParent: 0
+  wheelIcon: {fileID: -628410216, guid: c5fb07a9e7a33444fae4dc68aaf04a12, type: 3}

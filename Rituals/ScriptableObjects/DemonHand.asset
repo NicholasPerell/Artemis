@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d79021edf7fdc54f8762707e24b1784, type: 3}
   m_Name: DemonHand
   m_EditorClassIdentifier: 
-  manaCost: 0
-  corruptionAdd: 0
-  prefab: {fileID: 0}
+  manaCost: 25
+  corruptionAdd: 0.2
+  cooldownTime: 0.76
+  prefab: {fileID: 3511752224729887662, guid: fbe3c54fd85c5bc4ca5d499263c55a4d, type: 3}
   prefabParent: 0
+  wheelIcon: {fileID: 948732380, guid: c5fb07a9e7a33444fae4dc68aaf04a12, type: 3}

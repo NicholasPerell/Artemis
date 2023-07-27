@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d79021edf7fdc54f8762707e24b1784, type: 3}
   m_Name: MagicCircle
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 2
   corruptionAdd: 0
-  cooldownTime: 0
-  prefab: {fileID: 0}
+  cooldownTime: 0.25
+  prefab: {fileID: 4082106456221683934, guid: c056aac7a602ba441b3676ab434b3e03, type: 3}
   prefabParent: 1
+  wheelIcon: {fileID: 946843525, guid: b81800c9f4764174dbb6c70e8fdf6a0e, type: 3}

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Perell.Artemis.Example.Rituals
 {
-    [CreateAssetMenu(fileName = "new ability.asset",menuName = "ritualsabilitystat")]
     public class PlayerAbilityData : ScriptableObject
     {
         public enum PrefabIntendedParent
@@ -33,5 +32,10 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         private PrefabIntendedParent prefabParent;
         public PrefabIntendedParent PrefabParent { get { return prefabParent; } }
+
+        [Header("UI")]
+        [SerializeField]
+        Sprite wheelIcon;
+        public Sprite WheelIcon { get { return wheelIcon; } }
     }
 }
