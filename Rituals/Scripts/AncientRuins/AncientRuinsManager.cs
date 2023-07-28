@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,8 +31,8 @@ namespace Perell.Artemis.Example.Rituals
 
         private void Awake()
         {
+            UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
             instance = this;
         }
-
     }
 }

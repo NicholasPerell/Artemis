@@ -23,23 +23,13 @@ namespace Perell.Artemis.Example.Rituals
         EnemyManager enemyManager;
         [SerializeField]
         GameObject spikePrefab;
+        [SerializeField]
+        GameObject powerUpPrefab;
 
         SortedStrictDictionary<DungeonGenerator.ComparableIntArray, RoomData> rooms;
         [Space]
         [SerializeField]
         RoomData currentRoom;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         private void OnEnable()
         {
@@ -107,6 +97,14 @@ namespace Perell.Artemis.Example.Rituals
                             break;
                     }
                 }
+
+                if (currentRoom.layout.abilityData != null)
+                {
+                    GameObject powerUp = Instantiate(powerUpPrefab, Vector3.zero, Quaternion.identity);
+                    powerUp.transform.parent = tilemap.transform;
+                    powerUp.GetComponent<PowerUp>().Initialize(currentRoom.layout.abilityData);
+                }
+
                 currentRoom.visited = true;
             }
 

@@ -44,5 +44,8 @@ namespace Perell.Artemis.Example.Rituals
         public int tier;
         public List<UniqueTile> uniqueTiles;
         public List<SpawnLocation> spawnLocations;
+
+        [HideInInspector]
+        public PlayerAbilityData abilityData = null;
     }
 }

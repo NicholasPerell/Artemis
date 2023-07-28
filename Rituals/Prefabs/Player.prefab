@@ -56,10 +56,9 @@ MonoBehaviour:
   mana: {fileID: 6374094407279114057}
   corruption: {fileID: 6374094407279114059}
   movement: {fileID: 6374094407279114062}
-  playerAbilities:
+  startingAbilities:
   - {fileID: 11400000, guid: 13c6f075663c0264da2f94d9e058070f, type: 2}
   - {fileID: 11400000, guid: e746f4eac58b2b04ea57a56280513714, type: 2}
-  - {fileID: 11400000, guid: c1ea4cb43a413694eb29ab676c420cb1, type: 2}
   demonsAbilities:
   - {fileID: 11400000, guid: 0945ac1fef563bc4f8bb3048fcadf609, type: 2}
   - {fileID: 11400000, guid: f748a85e0a2a222438dfb07d22ceeda2, type: 2}

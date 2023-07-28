@@ -24,14 +24,9 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         Tilemap customizedTilemap;
 
-
         [ContextMenu("Initialize")]
         private void Init()
         {
-
-            SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-
             backdropTilemap.ClearAllTiles();
             customizedTilemap.ClearAllTiles();
             DrawRoom();
@@ -106,8 +101,8 @@ namespace Perell.Artemis.Example.Rituals
             }
 
             string scriptPath = AssetDatabase.GetAssetPath(MonoScript.FromMonoBehaviour(this));
-            string folderPath = scriptPath.Substring(0,scriptPath.LastIndexOf('/')) + "/RoomLayouts";
-            string filePath = folderPath + "/" + roomName + ".asset";
+            string folderPath = scriptPath.Substring(0,scriptPath.LastIndexOf('/')) + "/../../../../ScriptableObjects/RoomLayouts";
+            string filePath = folderPath + $"/Tier{tierPreview}_" + roomName.Trim().Replace(' ','_') + ".asset";
 
             RoomLayout newLayout = RoomLayout.CreateInstance<RoomLayout>();
             newLayout.uniqueTiles = new List<RoomLayout.UniqueTile>();
@@ -142,6 +137,7 @@ namespace Perell.Artemis.Example.Rituals
             }
 
             AssetDatabase.CreateAsset(newLayout,filePath);
+            AssetDatabase.ImportAsset(filePath);
             
             Init();
         }

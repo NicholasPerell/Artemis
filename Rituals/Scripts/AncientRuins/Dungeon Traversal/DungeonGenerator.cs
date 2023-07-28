@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.Sprites;
 using UnityEngine.Events;
+using System;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -13,7 +14,9 @@ namespace Perell.Artemis.Example.Rituals
     {
         public Vector2Int gridSize;
         public int numberOfRooms;
-
+        [Space]
+        public RoomLayout[] layouts;
+        public PlayerAbilityData[] abilities;
         [Space]
         [Header("Tiles")]
         public TileBase floorNorthWest;
@@ -37,6 +40,42 @@ namespace Perell.Artemis.Example.Rituals
         public TileBase wallSouthEast;
         [Space]
         public TileBase doorSouth;
+
+        private List<PlayerAbilityData> unusedAbilities;
+        public PlayerAbilityData GetAbility() => GetRandomFromList<PlayerAbilityData>(ref abilities, ref unusedAbilities);
+
+        private List<RoomLayout> unusedLayouts;
+        public RoomLayout GetLayout() => GetRandomFromList<RoomLayout>(ref layouts, ref unusedLayouts);
+
+        private T GetRandomFromList<T>(ref T[] array, ref List<T> list)
+        {
+            T result = default(T);
+
+            if (array != null && array.Length > 0)
+            {
+                int arrayIndex = UnityEngine.Random.Range(0, array.Length);
+                result = array[arrayIndex];
+
+                if (list == null)
+                {
+                    list = new List<T>();
+                }
+
+                if (list.Count > 0)
+                {
+                    int listIndex = UnityEngine.Random.Range(0, list.Count);
+                    result = list[listIndex];
+                    list.RemoveAt(listIndex);
+                }
+                else
+                {
+                    list.AddRange(array);
+                    list.RemoveAt(arrayIndex);
+                }
+            }
+
+            return result;
+        }
     }
 
     [System.Serializable]
@@ -187,6 +226,8 @@ namespace Perell.Artemis.Example.Rituals
         {
             doors |= 1 << index;
         }
+
+        public bool isDeadEnd => (doors & (doors - 1)) == 0;
     }
 
     public class DungeonGenerator : MonoBehaviour
@@ -249,6 +290,8 @@ namespace Perell.Artemis.Example.Rituals
 
         [SerializeField]
         RoomLayout defaultLayout;
+
+        List<PlayerAbilityData> abilitiesAccountedFor;
 
         int attempts;
 
@@ -343,7 +386,7 @@ namespace Perell.Artemis.Example.Rituals
                             !tierGrids[tierIndex].grid[tempNeighborIndex].occupied && //Not already a room there
                             tierGrids[tierIndex].grid[tempNeighborIndex].neighbors <= 1 && //Only the one neighbor (or less)
                             tierGrids[tierIndex].rooms.Count < tiers[tierIndex].numberOfRooms && //Still need more rooms
-                            Random.value < .5f) //50% of spawning
+                            UnityEngine.Random.value < .5f) //50% of spawning
                         {
                             //New Room!
                             for (int j = 0; j < traversalNodes.Length; j++)
@@ -394,6 +437,19 @@ namespace Perell.Artemis.Example.Rituals
 
         void GenerateRooms()
         {
+            abilitiesAccountedFor = new List<PlayerAbilityData>();
+            try
+            {
+                if (AncientRuinsManager.PlayerController != null)
+                {
+                    abilitiesAccountedFor.AddRange(AncientRuinsManager.PlayerController.CurrentAbilities);
+                }
+            }
+            catch
+            {
+                Debug.LogError("Issue finding the AncientRuinsManager.PlayerController or AncientRuinsManager.PlayerController.CurrentAbilities right now");
+            }
+
             fullDungeonRooms = new SortedStrictDictionary<ComparableIntArray, RoomData>();
             RoomData roomData;
             Vector2Int coords;
@@ -411,32 +467,114 @@ namespace Perell.Artemis.Example.Rituals
             visualTilemap.ClearAllTiles();
             Vector2Int[] traversalNodes = new Vector2Int[] { Vector2Int.left, Vector2Int.right, Vector2Int.down, Vector2Int.up };
             ComparableIntArray comparableIntArray;
+            RoomData neighborFound;
+            List<int> startRoomIndexes = new List<int>();
+            List<int> deadEndIndexes = new List<int>();
+            bool isStartRoom;
             for (int i = 0; i < fullDungeonRooms.Count; i++)
             {
+
                 //Check for Neighbors
+                isStartRoom = false;
                 roomData = fullDungeonRooms.GetTupleAtIndex(i).Value;
                 coords = roomData.coords;
                 for (int j = 0; j < traversalNodes.Length; j++)
                 {
                     comparableIntArray = new ComparableIntArray(coords + traversalNodes[j]);
-                    if (fullDungeonRooms.HasKey(comparableIntArray))
+                    if (fullDungeonRooms.TryGetValue(comparableIntArray, out neighborFound))
                     {
                         roomData.MarkDoor(j);
+                        if(neighborFound.tier < roomData.tier)
+                        {
+                            isStartRoom = true;
+                        }
                     }
                 }
 
+                if(isStartRoom)
+                {
+                    startRoomIndexes.Add(i);
 
-                //TODO: determine setting up which layout is which
-                roomData.layout = defaultLayout;
+                }
+                else if(roomData.isDeadEnd)
+                {
+                    deadEndIndexes.Add(i);
+                }
+                else
+                {
+                    roomData.layout = tiers[roomData.tier].GetLayout();
+                    DrawRoom(roomData);
+                }
 
                 fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(i).Key] = roomData;
 
-
-                //Paint Tilemap
-                DrawRoom(roomData);
             }
+            
+            //Starting Rooms
+            foreach(int index in startRoomIndexes)
+            {
+                roomData = fullDungeonRooms.GetTupleAtIndex(index).Value;
+                roomData.layout = AttemptGenerateAbilityRoomLayout(roomData.tier);
+                DrawRoom(roomData);
+                fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(index).Key] = roomData;
+            }
+
+            //DeadEnd Rooms
+            int randomIndex, temp;
+            for(int i = deadEndIndexes.Count - 1; i > 0; i--) //Shuffle
+            {
+                randomIndex = UnityEngine.Random.Range(0, i + 1);
+                temp = deadEndIndexes[randomIndex];
+                deadEndIndexes[randomIndex] = deadEndIndexes[i];
+                deadEndIndexes[i] = temp;
+            }
+            foreach (int index in deadEndIndexes)
+            {
+                roomData = fullDungeonRooms.GetTupleAtIndex(index).Value;
+                roomData.layout = AttemptGenerateAbilityRoomLayout(roomData.tier);
+                DrawRoom(roomData);
+                fullDungeonRooms[fullDungeonRooms.GetTupleAtIndex(index).Key] = roomData;
+            }
+
             visualTilemap.RefreshAllTiles();
             generationComplete.Invoke(fullDungeonRooms);
+        }
+
+        private RoomLayout AttemptGenerateAbilityRoomLayout(int tierIndex)
+        {
+            ref TierSettings tier = ref tiers[tierIndex];
+            RoomLayout layout;
+            RoomLayout nonAbilityLayout = tier.GetLayout();
+
+            PlayerAbilityData abilityData = null;
+            int getsAttempted = 0;
+            while(abilityData == null && getsAttempted < tier.abilities.Length)
+            {
+                abilityData = tier.GetAbility();
+                if(abilitiesAccountedFor.Contains(abilityData))
+                {
+                    abilityData = null;
+                }
+                getsAttempted++;
+            }
+
+            if(abilityData != null)
+            {
+                layout = RoomLayout.CreateInstance<RoomLayout>();
+                layout.name = $"Tier {tierIndex} {abilityData.name} Ability Room";
+                layout.tier = nonAbilityLayout.tier;
+                layout.uniqueTiles = new List<RoomLayout.UniqueTile>(nonAbilityLayout.uniqueTiles);
+                layout.spawnLocations = new List<RoomLayout.SpawnLocation>();
+                layout.abilityData = abilityData;
+
+                abilitiesAccountedFor.Add(abilityData);
+            }
+            else
+            {
+                layout = nonAbilityLayout;
+            }
+
+            return layout;
         }
 
         void DrawRoom(RoomData roomData)

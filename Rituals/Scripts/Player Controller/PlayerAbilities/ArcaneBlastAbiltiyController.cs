@@ -53,5 +53,14 @@ namespace Perell.Artemis.Example.Rituals
                 Destroy(this.gameObject);
             }
         }
+
+        private void OnDrawGizmos()
+        {
+            SphereCollider sphereCollider = GetComponent<SphereCollider>();
+
+            //Bright Purple
+            Gizmos.color = new Color(191, 64, 191);
+            Gizmos.DrawWireSphere(transform.position + sphereCollider.center, sphereCollider.radius);
+        }
     }
 }

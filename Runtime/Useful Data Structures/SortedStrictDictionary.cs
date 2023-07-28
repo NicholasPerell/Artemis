@@ -131,6 +131,18 @@ namespace Perell.Artemis
             }
         }
 
+        public bool TryGetValue(K key, out V value)
+        {
+            value = default(V);
+            int searchIndex = list.BinarySearch(new Tuple(key, value));
+            bool success = searchIndex > 1;
+            if(success)
+            {
+                value = GetTupleAtIndex(searchIndex).Value;
+            }
+            return success; 
+        }
+
         public bool HasKey(K key)
         {
             V tempVal = default(V);

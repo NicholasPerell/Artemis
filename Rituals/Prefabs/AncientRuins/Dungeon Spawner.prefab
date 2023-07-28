@@ -93,6 +93,9 @@ MonoBehaviour:
   tiers:
   - gridSize: {x: 1, y: 3}
     numberOfRooms: 3
+    layouts:
+    - {fileID: 11400000, guid: a8d2824f88f571943a647b3784053bf0, type: 2}
+    abilities: []
     floorNorthWest: {fileID: 11400000, guid: d48e675cd3a25bf44b67a23d6257d897, type: 2}
     floorNorth: {fileID: 11400000, guid: 5051bd5033ebc844b8b24557a1c1c6c1, type: 2}
     floorNorthEast: {fileID: 11400000, guid: 38d8dea978e13784f8925672c3e75c0d, type: 2}
@@ -114,6 +117,9 @@ MonoBehaviour:
     doorSouth: {fileID: 11400000, guid: 348946444478b49449df22acb9e013fb, type: 2}
   - gridSize: {x: 16, y: 16}
     numberOfRooms: 16
+    layouts:
+    - {fileID: 11400000, guid: da53f4a4bb8474147bdaa1fe634f7c67, type: 2}
+    abilities: []
     floorNorthWest: {fileID: 11400000, guid: d48e675cd3a25bf44b67a23d6257d897, type: 2}
     floorNorth: {fileID: 11400000, guid: 5051bd5033ebc844b8b24557a1c1c6c1, type: 2}
     floorNorthEast: {fileID: 11400000, guid: 38d8dea978e13784f8925672c3e75c0d, type: 2}
@@ -135,6 +141,12 @@ MonoBehaviour:
     doorSouth: {fileID: 11400000, guid: 348946444478b49449df22acb9e013fb, type: 2}
   - gridSize: {x: 12, y: 12}
     numberOfRooms: 25
+    layouts:
+    - {fileID: 11400000, guid: 090df14c1b509ec42a9e6bf953844bab, type: 2}
+    abilities:
+    - {fileID: 11400000, guid: 2bdd101dd3a17ea4e999cec7e6910f33, type: 2}
+    - {fileID: 11400000, guid: 1c83cbaccd5c09d418d97602fe2c635d, type: 2}
+    - {fileID: 11400000, guid: f748a85e0a2a222438dfb07d22ceeda2, type: 2}
     floorNorthWest: {fileID: 11400000, guid: 6954cba60fb724a478980e7b28f09f76, type: 2}
     floorNorth: {fileID: 11400000, guid: f41a9d829bd0023439c9a0740f437277, type: 2}
     floorNorthEast: {fileID: 11400000, guid: 0e2863e073ef9e24c886c0e81cf27306, type: 2}
@@ -156,6 +168,12 @@ MonoBehaviour:
     doorSouth: {fileID: 11400000, guid: 65bc18b45231c5f4784541b0505c273d, type: 2}
   - gridSize: {x: 15, y: 15}
     numberOfRooms: 33
+    layouts:
+    - {fileID: 11400000, guid: 6eb13ecde947b824c928f563f1b84c8d, type: 2}
+    abilities:
+    - {fileID: 11400000, guid: 0945ac1fef563bc4f8bb3048fcadf609, type: 2}
+    - {fileID: 11400000, guid: c1ea4cb43a413694eb29ab676c420cb1, type: 2}
+    - {fileID: 11400000, guid: 0b4c870f52d1b80448ed6e89dde0b0c8, type: 2}
     floorNorthWest: {fileID: 11400000, guid: a95c0d4c99e5df743b60709af8630260, type: 2}
     floorNorth: {fileID: 11400000, guid: 1fedfe896c333a54ab6ac978d60df496, type: 2}
     floorNorthEast: {fileID: 11400000, guid: 6c3a75e15a7082c47b45a24861771b44, type: 2}
@@ -177,6 +195,9 @@ MonoBehaviour:
     doorSouth: {fileID: 11400000, guid: 28df414392fa1d34fa43867fbc72463a, type: 2}
   - gridSize: {x: 3, y: 3}
     numberOfRooms: 1
+    layouts:
+    - {fileID: 11400000, guid: ab9338409d30e8e4bb53219dedc84796, type: 2}
+    abilities: []
     floorNorthWest: {fileID: 11400000, guid: 30537f72967669b4dbf72e6900424565, type: 2}
     floorNorth: {fileID: 11400000, guid: 172ced374b09d824585ff8d7ab2e1b6e, type: 2}
     floorNorthEast: {fileID: 11400000, guid: c2707b6943e8f484680b3d4f6a7238bc, type: 2}
@@ -201,6 +222,7 @@ MonoBehaviour:
     list: []
   visualTilemap: {fileID: 829206671255939920}
   defaultLayout: {fileID: 11400000, guid: a8d2824f88f571943a647b3784053bf0, type: 2}
+  abilitiesAccountedFor: []
   generationComplete:
     m_PersistentCalls:
       m_Calls: []

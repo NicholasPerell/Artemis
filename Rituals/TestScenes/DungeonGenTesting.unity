@@ -1376,6 +1376,7 @@ MonoBehaviour:
   player: {fileID: 1249357860}
   enemyManager: {fileID: 767549342}
   spikePrefab: {fileID: 5188088236119066399, guid: 4a0779644ba958e44ad50b778735bc39, type: 3}
+  powerUpPrefab: {fileID: 5443924386228040717, guid: 5b9607b73da32a14c9971fa46398d406, type: 3}
   currentRoom:
     tier: 0
     doors: 0
@@ -3249,10 +3250,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 829206671209010332, guid: d00e3e5be7941a94ab98874e67732645, type: 3}
-      propertyPath: defaultLayout
-      value: 
-      objectReference: {fileID: 11400000, guid: 090df14c1b509ec42a9e6bf953844bab, type: 2}
     - target: {fileID: 829206671209010333, guid: d00e3e5be7941a94ab98874e67732645, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3372,18 +3369,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 145969155}
     m_Modifications:
-    - target: {fileID: 2237264521025985532, guid: 702b63b6eb6fa254fb42eb18022927bc, type: 3}
-      propertyPath: playerAbilities.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2237264521025985532, guid: 702b63b6eb6fa254fb42eb18022927bc, type: 3}
-      propertyPath: playerAbilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 13c6f075663c0264da2f94d9e058070f, type: 2}
-    - target: {fileID: 2237264521025985532, guid: 702b63b6eb6fa254fb42eb18022927bc, type: 3}
-      propertyPath: playerAbilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: e746f4eac58b2b04ea57a56280513714, type: 2}
     - target: {fileID: 2237264521025985532, guid: 702b63b6eb6fa254fb42eb18022927bc, type: 3}
       propertyPath: playerAbilities.Array.data[2]
       value: 

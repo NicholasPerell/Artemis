@@ -25,7 +25,9 @@ namespace Perell.Artemis.Example.Rituals
         [Space]
         [Header("Abilities")]
         [SerializeField]
+        PlayerAbilityData[] startingAbilities;
         List<PlayerAbilityData> playerAbilities;
+        public PlayerAbilityData[] CurrentAbilities { get { return playerAbilities.ToArray(); } }
         [SerializeField]
         PlayerAbilityData[] demonsAbilities;
         int abilityIndexPrimary = 0;
@@ -59,11 +61,19 @@ namespace Perell.Artemis.Example.Rituals
 
         private void Awake()
         {
+            ResetAbilities();
             abilitiesHeld = new Dictionary<PlayerAbilityData, PlayerAbilityController>();
         }
 
         private void OnEnable()
         {
+            ResetAbilities();
+            OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
+        }
+
+        private void OnDisable()
+        {
+            ResetAbilities();
             OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
         }
 
@@ -71,6 +81,11 @@ namespace Perell.Artemis.Example.Rituals
         {
             RunTimers();
             CheckInputs();
+        }
+
+        private void ResetAbilities()
+        {
+            playerAbilities = new List<PlayerAbilityData>(startingAbilities);
         }
 
         private void RunTimers()
@@ -182,6 +197,15 @@ namespace Perell.Artemis.Example.Rituals
         public int CalcPreviousIndexOfAbilityWheel(int index)
         {
             return index == 0 ? playerAbilities.Count - 1 : index - 1;
+        }
+
+        public void GainAbility(PlayerAbilityData playerAbility)
+        {
+            if(!playerAbilities.Contains(playerAbility))
+            {
+                playerAbilities.Add(playerAbility);
+                OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
+            }
         }
     }
 }
