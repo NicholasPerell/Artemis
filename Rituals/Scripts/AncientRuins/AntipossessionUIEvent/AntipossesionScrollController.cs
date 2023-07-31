@@ -26,10 +26,8 @@ namespace Perell.Artemis.Example.Rituals
         int lastClick;
         int clicksMade;
 
-        [HideInInspector]
-        public UnityEvent scrollComplete;
+        public event UnityAction OnScrollComplete;
 
-        // Start is called before the first frame update
         void Start()
         {
             sorterUI = GetComponent<CircularSorterUI>();
@@ -136,7 +134,7 @@ namespace Perell.Artemis.Example.Rituals
         IEnumerator HoldDisplayBeforeClosing()
         {
             yield return new WaitForSeconds(timeToWaitOnceComplete);
-            scrollComplete.Invoke();
+            OnScrollComplete?.Invoke();
             gameObject.SetActive(false);
         }
     }

@@ -53,6 +53,6 @@ public class LineDrawnBetween : MonoBehaviour
         Vector2 diff = to.anchoredPosition - from.anchoredPosition;
         float length = diff.magnitude;
         rect.sizeDelta = new Vector2(length, lineThickness);
-        rect.SetPositionAndRotation(rect.position, Quaternion.Euler(0,0,-Vector2.SignedAngle(diff,Vector2.right)));
+        rect.localRotation = Quaternion.Euler(0, 0, -Vector2.SignedAngle(diff, Vector2.right));
     }
 }

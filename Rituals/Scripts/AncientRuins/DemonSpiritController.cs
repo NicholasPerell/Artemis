@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.U2D;
 
 namespace Perell.Artemis.Example.Rituals
@@ -20,6 +21,10 @@ namespace Perell.Artemis.Example.Rituals
         [Header("Variables")]
         [SerializeField]
         float spawnOffCameraDistance;
+        [SerializeField]
+        float distanceToConsiderCaught;
+
+        public event UnityAction OnCaughtPlayer;
 
         Transform player;
         Vector2 cameraSize;
@@ -41,6 +46,11 @@ namespace Perell.Artemis.Example.Rituals
         private void Update()
         {
             CheckForEnterCamera();
+        }
+
+        private void FixedUpdate()
+        {
+            CheckForCaughtPlayer();
         }
 
         private void CalculateCameraDistanceVariables()
@@ -97,6 +107,19 @@ namespace Perell.Artemis.Example.Rituals
             if (!previous && onCamera)
             {
                 Instantiate(enterScreenPrefab, transform.position, Quaternion.identity).transform.up = -(player.position - transform.position);
+            }
+        }
+
+        private void CheckForCaughtPlayer()
+        {
+            Collider[] check = Physics.OverlapSphere(transform.position + Vector3.down * .5f, distanceToConsiderCaught);
+            foreach (Collider overlap in check)
+            {
+                if (overlap.tag == "Player")
+                {
+                    OnCaughtPlayer?.Invoke();
+                    break;
+                }
             }
         }
     }

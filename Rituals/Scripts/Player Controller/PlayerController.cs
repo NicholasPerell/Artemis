@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Perell.Artemis.Example.Rituals
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : PossessableMonoBehaviour
     {
         [Header("Components")]
         [SerializeField]
@@ -27,24 +27,24 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         PlayerAbilityData[] startingAbilities;
         List<PlayerAbilityData> playerAbilities;
-        public PlayerAbilityData[] CurrentAbilities { get { return playerAbilities.ToArray(); } }
-        [SerializeField]
-        PlayerAbilityData[] demonsAbilities;
+        public PlayerAbilityData[] StartingAbilities { get { return startingAbilities; } }
         int abilityIndexPrimary = 0;
         int abilityIndexSecondary => CalcNextIndexOfAbilityWheel(abilityIndexPrimary);
         Dictionary<PlayerAbilityData, PlayerAbilityController> abilitiesHeld;
+        [SerializeField]
+        PlayerAbilityData[] demonsAbilities;
+        [SerializeField]
+        [Min(0.1f)]
+        float timeBetweenDemonAbilities = 1;
 
         [SerializeField]
         [Min(1)]
         float scrollSensitivity = 1;
         float scrollTracker;
-        InputsCheckDownUp abilityInputPrimary = new InputsCheckDownUp(new InputCheckDownUp(0));
+        InputsCheckDownUp abilityInputPrimary = new InputsCheckDownUp(new InputCheckDownUp(0), new InputCheckDownUp(KeyCode.Space));
         InputsCheckDownUp abilityInputSecondary = new InputsCheckDownUp(new InputCheckDownUp(1), new InputCheckDownUp(KeyCode.LeftShift));
 
         float cooldownTimer = 0;
-
-        bool possessed = false;
-        public bool IsPossessed { get { return possessed; } }
 
         public Vector3 PlayerPosition => transform.position;
         public Vector3 MousePosition
@@ -57,7 +57,7 @@ namespace Perell.Artemis.Example.Rituals
             }
         }
 
-        public UnityAction<PlayerAbilityData[], int> OnChangedAbilityWheel;
+        public event UnityAction<PlayerAbilityData[], int> OnChangedAbilityWheel;
 
         private void Awake()
         {
@@ -65,22 +65,47 @@ namespace Perell.Artemis.Example.Rituals
             abilitiesHeld = new Dictionary<PlayerAbilityData, PlayerAbilityController>();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             ResetAbilities();
             OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             ResetAbilities();
             OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
+        }
+
+        protected override void OnPossessed(bool isPossessed)
+        {
+            base.OnPossessed(isPossessed);
+            if(isPossessed)
+            {
+                AttemptReleaseAbility(playerAbilities[abilityIndexPrimary]);
+                AttemptReleaseAbility(playerAbilities[abilityIndexSecondary]);
+                cooldownTimer = 0;
+            }
+            else
+            {
+                abilitiesHeld.Clear();
+                cooldownTimer = 0;
+            }
         }
 
         private void Update()
         {
             RunTimers();
-            CheckInputs();
+            if (IsPossessed)
+            {
+                CheckDemonAble();
+            }
+            else
+            {
+                CheckInputs();
+            }
         }
 
         private void ResetAbilities()
@@ -112,6 +137,9 @@ namespace Perell.Artemis.Example.Rituals
             scrollTracker += Input.mouseScrollDelta.y;
             if(Mathf.Abs(scrollTracker) > scrollSensitivity)
             {
+                AttemptReleaseAbility(playerAbilities[abilityIndexPrimary]);
+                AttemptReleaseAbility(playerAbilities[abilityIndexSecondary]);
+
                 int slotsToMove = Mathf.FloorToInt(Mathf.Abs(scrollTracker) / scrollSensitivity);
                 if(scrollTracker < 0)
                 {
@@ -145,6 +173,16 @@ namespace Perell.Artemis.Example.Rituals
             }
         }
 
+        private void CheckDemonAble()
+        {
+            if(cooldownTimer == 0)
+            {
+                abilitiesHeld.Clear();
+                UseAbility(demonsAbilities[Random.Range(0, demonsAbilities.Length)]);
+                cooldownTimer = timeBetweenDemonAbilities;
+            }
+        }
+
         private void AttemptUseAbility(PlayerAbilityData abilityData)
         {
             if (cooldownTimer == 0)
@@ -162,7 +200,6 @@ namespace Perell.Artemis.Example.Rituals
                             abilityObj.transform.parent = transform;
                             break;
                         case PlayerAbilityData.PrefabIntendedParent.TILEMAP:
-                            //TODO
                             abilityObj.transform.parent = AncientRuinsManager.Dungeon;
                             break;
                     }
@@ -172,6 +209,25 @@ namespace Perell.Artemis.Example.Rituals
                     abilitiesHeld.Add(abilityData, abilityController);
                 }
             }
+        }
+
+        private void UseAbility(PlayerAbilityData abilityData)
+        {
+            GameObject abilityObj = Instantiate(abilityData.Prefab, transform.position, Quaternion.identity);
+
+            switch (abilityData.PrefabParent)
+            {
+                case PlayerAbilityData.PrefabIntendedParent.PLAYER:
+                    abilityObj.transform.parent = transform;
+                    break;
+                case PlayerAbilityData.PrefabIntendedParent.TILEMAP:
+                    abilityObj.transform.parent = AncientRuinsManager.Dungeon;
+                    break;
+            }
+
+            PlayerAbilityController abilityController = abilityObj.GetComponent<PlayerAbilityController>();
+            abilityController.Initialize(this);
+            abilitiesHeld.Add(abilityData, abilityController);
         }
 
         private void AttemptReleaseAbility(PlayerAbilityData abilityData)

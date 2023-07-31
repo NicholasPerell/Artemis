@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Perell.Artemis.Example.Rituals
 {
-    public class PlayerAnimator : MonoBehaviour
+    public class PlayerAnimator : PossessableMonoBehaviour
     {
         [SerializeField]
         Animator animator;
@@ -12,10 +12,12 @@ namespace Perell.Artemis.Example.Rituals
         PlayerMovement playerMovement;
         PlayerHealth playerHealth;
 
-        float isPossessed = 0;
+        float isPossessedBlend = 0;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             if (playerMovement == null)
             {
                 playerMovement = GetComponent<PlayerMovement>();
@@ -28,8 +30,10 @@ namespace Perell.Artemis.Example.Rituals
             playerHealth.TookDamage += HandleDamaged;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             if (playerMovement == null)
             {
                 playerMovement = GetComponent<PlayerMovement>();
@@ -42,11 +46,22 @@ namespace Perell.Artemis.Example.Rituals
             playerHealth.TookDamage -= HandleDamaged;
         }
 
-        // Update is called once per frame
+        protected override void OnPossessed(bool isPossessed)
+        {
+            if(isPossessed)
+            {
+                HandleCaught();
+            }
+            else
+            {
+                HandleFreed();
+            }
+        }
+
         void Update()
         {
             animator.SetFloat("IsMoving", playerMovement.IsMoving() ? 1 : 0);
-            animator.SetFloat("IsPossessed", isPossessed);
+            animator.SetFloat("IsPossessed", isPossessedBlend);
             Vector2 facing = playerMovement.GetFacing();
             animator.SetFloat("FacingX", facing.x);
             animator.SetFloat("FacingY", facing.y);
@@ -60,12 +75,12 @@ namespace Perell.Artemis.Example.Rituals
         void HandleCaught()
         {
             animator.SetTrigger("Caught");
-            isPossessed = 1;
+            isPossessedBlend = 1;
         }
         void HandleFreed()
         {
             animator.SetTrigger("Freed");
-            isPossessed = 0;
+            isPossessedBlend = 0;
         }
     }
 }

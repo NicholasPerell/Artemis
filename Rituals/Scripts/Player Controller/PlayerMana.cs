@@ -3,70 +3,78 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerMana : MonoBehaviour
+namespace Perell.Artemis.Example.Rituals
 {
-    [SerializeField]
-    float manaMax;
-    [SerializeField]
-    float currentMana;
-    [SerializeField]
-    float manaRegenPerSecond;
-
-    public event UnityAction<float> ManaChanged;
-
-    private void OnEnable()
+    public class PlayerMana : PossessableMonoBehaviour
     {
-        Refill();
-    }
+        [SerializeField]
+        float manaMax;
+        [SerializeField]
+        float currentMana;
+        [SerializeField]
+        float manaRegenPerSecond;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentMana < manaMax)
+        public event UnityAction<float> ManaChanged;
+
+        protected override void OnEnable()
         {
-            currentMana += manaRegenPerSecond * Time.deltaTime;
-            if (currentMana > manaMax)
+            base.OnEnable();
+            Refill();
+        }
+
+        protected override void OnPossessed(bool isPossessed)
+        {
+            Refill();
+        }
+
+        void Update()
+        {
+            if (currentMana < manaMax)
             {
-                currentMana = manaMax;
+                currentMana += manaRegenPerSecond * Time.deltaTime;
+                if (currentMana > manaMax)
+                {
+                    currentMana = manaMax;
+                }
+                ManaChanged?.Invoke(currentMana);
             }
+        }
+
+        void Refill()
+        {
+            currentMana = manaMax;
             ManaChanged?.Invoke(currentMana);
         }
-    }
 
-    void Refill()
-    {
-        currentMana = manaMax;
-        ManaChanged?.Invoke(currentMana);
-    }
-
-    public void GainMana(float gained)
-    {
-        if (currentMana < manaMax)
+        public void GainMana(float gained)
         {
-            currentMana += gained;
-            if (currentMana > manaMax)
+            if (currentMana < manaMax)
             {
-                currentMana = manaMax;
+                currentMana += gained;
+                if (currentMana > manaMax)
+                {
+                    currentMana = manaMax;
+                }
+                ManaChanged?.Invoke(currentMana);
             }
-            ManaChanged?.Invoke(currentMana);
         }
-    }
 
-    public bool SpendMana(float spent)
-    {
-        if(spent > currentMana)
+        public bool SpendMana(float spent)
         {
-            return false;
+            if (spent > currentMana)
+            {
+                return false;
+            }
+
+            currentMana -= spent;
+            ManaChanged?.Invoke(currentMana);
+
+            return true;
         }
 
-        currentMana -= spent;
-        ManaChanged?.Invoke(currentMana);
-
-        return true;
-    }
-
-    public float GetMaxMana()
-    {
-        return manaMax;
+        public float GetMaxMana()
+        {
+            return manaMax;
+        }
     }
 }

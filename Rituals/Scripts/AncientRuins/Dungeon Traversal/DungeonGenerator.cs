@@ -442,12 +442,19 @@ namespace Perell.Artemis.Example.Rituals
             {
                 if (AncientRuinsManager.PlayerController != null)
                 {
-                    abilitiesAccountedFor.AddRange(AncientRuinsManager.PlayerController.CurrentAbilities);
+                    try
+                    {
+                        abilitiesAccountedFor.AddRange(AncientRuinsManager.PlayerController.StartingAbilities);
+                    }
+                    catch
+                    {
+                        Debug.LogError("Issue finding the AncientRuinsManager.PlayerController.CurrentAbilities right now");
+                    }
                 }
             }
             catch
             {
-                Debug.LogError("Issue finding the AncientRuinsManager.PlayerController or AncientRuinsManager.PlayerController.CurrentAbilities right now");
+                Debug.LogError("Issue finding the AncientRuinsManager.PlayerController right now");
             }
 
             fullDungeonRooms = new SortedStrictDictionary<ComparableIntArray, RoomData>();

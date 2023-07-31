@@ -4863,6 +4863,7 @@ MonoBehaviour:
   trailingParticles: {fileID: 6553868166001420082}
   enterScreenPrefab: {fileID: 1150520591215195990, guid: be9122c0c803f174295c7d881ad333af, type: 3}
   spawnOffCameraDistance: 1
+  distanceToConsiderCaught: 0.25
 --- !u!54 &6553868167524146684
 Rigidbody:
   m_ObjectHideFlags: 0

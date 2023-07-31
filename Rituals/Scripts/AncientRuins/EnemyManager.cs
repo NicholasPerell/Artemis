@@ -14,7 +14,8 @@ namespace Perell.Artemis.Example.Rituals
 
     public class EnemyManager : MonoBehaviour
     {
-        int enemiesAlive;
+        int numEnemiesAlive;
+        List<EnemyHealth> enemiesAlive;
 
         [SerializeField]
         GameObject triclopsPrefab;
@@ -27,7 +28,12 @@ namespace Perell.Artemis.Example.Rituals
 
         public event UnityAction EnemiesClearedOut;
 
-        public bool HasEnemies { get { return enemiesAlive > 0; } }
+        public bool HasEnemies { get { return numEnemiesAlive > 0; } }
+
+        private void Awake()
+        {
+            enemiesAlive = new List<EnemyHealth>();
+        }
 
         public void SpawnEnemy(Vector3 position, EnemyType enemyType)
         {
@@ -47,14 +53,17 @@ namespace Perell.Artemis.Example.Rituals
 
             if (enemySpawned != null)
             {
-                enemiesAlive++;
-                enemySpawned.GetComponentInChildren<EnemyHealth>().EnemyDied += RespondToEnemyDied;
+                numEnemiesAlive++;
+                EnemyHealth enemyHealth = enemySpawned.GetComponentInChildren<EnemyHealth>();
+                enemiesAlive.Add(enemyHealth);
+                enemyHealth.EnemyDied += RespondToEnemyDied;
             }
         }
 
         private void RespondToEnemyDied(EnemyHealth reporter)
         {
-            enemiesAlive--;
+            numEnemiesAlive--;
+            enemiesAlive.Remove(reporter);
             reporter.EnemyDied -= RespondToEnemyDied;
 
             if (!AncientRuinsManager.PlayerController.IsPossessed)
@@ -64,10 +73,30 @@ namespace Perell.Artemis.Example.Rituals
 
             Destroy(reporter.transform.parent.gameObject);
 
-            if(enemiesAlive == 0)
+            if(numEnemiesAlive == 0)
             {
                 EnemiesClearedOut?.Invoke();
             }
+        }
+
+        public Vector3 ClosestEnemyPosition(Vector3 searchingPosition)
+        {
+            Vector3 result = searchingPosition;
+
+            if(HasEnemies)
+            {
+                result = enemiesAlive[0].transform.position;
+                //TODO: use square magnitudes to compare the distances to skip the square root functions
+                for(int i = 1; i < enemiesAlive.Count; i++)
+                {   
+                    if(Vector3.Distance(searchingPosition, result) > Vector3.Distance(searchingPosition, enemiesAlive[i].transform.position))
+                    {
+                        result = enemiesAlive[i].transform.position;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

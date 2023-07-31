@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -156,6 +157,60 @@ namespace Perell.Artemis.Example.Rituals
         private void RespondToEnemiesClearedOut()
         {
             OpenDoors();
+        }
+
+        public Vector2 FindDoorToNextRoom()
+        {
+            Vector2 result = Vector2.zero;
+
+            Vector2Int[] roomTraversalNodes = new Vector2Int[4] { Vector2Int.left, Vector2Int.right, Vector2Int.down, Vector2Int.up };
+            Vector2[] playerTraversalNodes = new Vector2[4] { new Vector2(-6.5f, 0), new Vector2(6.5f, 0), new Vector2(0, -3.5f), new Vector2(0, 3.5f) };
+
+            List<RoomData> seen = new List<RoomData>();
+            Queue<KeyValuePair<RoomData,int>> toSee = new Queue<KeyValuePair<RoomData, int>>();
+            toSee.Enqueue(new KeyValuePair<RoomData, int>(currentRoom,-1));
+
+            KeyValuePair<RoomData, int> currentSearched;
+            RoomData currentNeighbor;
+            int dir;
+
+            StringBuilder searchStepsDebug = new StringBuilder("FindDoorToNextRoom()\nStarting At: " + currentRoom.coords);
+
+            while (toSee.Count > 0 && result == Vector2.zero)
+            {
+                currentSearched = toSee.Dequeue();
+                seen.Add(currentSearched.Key);
+                searchStepsDebug.Append("\nDequeued: " + currentSearched.Key.coords + ", " + currentSearched.Value);
+
+                dir = currentSearched.Value;
+                for (int i = 0; i < 4; i++)
+                {
+                    if(currentSearched.Value == -1)
+                    {
+                        dir = i;
+                    }
+
+                    if (rooms.TryGetValue(new DungeonGenerator.ComparableIntArray(currentSearched.Key.coords + roomTraversalNodes[i]), out currentNeighbor))
+                    {
+                        if(!currentNeighbor.visited)
+                        {
+                            result = playerTraversalNodes[dir];
+                            searchStepsDebug.Append("\nFOUND: " + currentNeighbor.coords +", "+ dir);
+                            break;
+                        }
+                        else if(!seen.Contains(currentNeighbor))
+                        {
+                            searchStepsDebug.Append("\nEnqueued: " + currentNeighbor.coords +", "+ dir);
+
+                            toSee.Enqueue(new KeyValuePair<RoomData, int>(currentNeighbor, dir));
+                        }
+                    }
+                }
+            }
+
+            Debug.Log(searchStepsDebug.ToString());
+
+            return result;
         }
     }
 }
