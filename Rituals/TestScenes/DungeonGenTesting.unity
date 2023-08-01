@@ -3856,6 +3856,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 145969155}
     m_Modifications:
     - target: {fileID: 2237264521025985532, guid: 702b63b6eb6fa254fb42eb18022927bc, type: 3}
+      propertyPath: timeBetweenDemonAbilities
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237264521025985532, guid: 702b63b6eb6fa254fb42eb18022927bc, type: 3}
       propertyPath: playerAbilities.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: f748a85e0a2a222438dfb07d22ceeda2, type: 2}
