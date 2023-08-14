@@ -61,7 +61,7 @@ namespace Perell.Artemis
 
         void CheckForCompiledScript()
         {
-            enumType = System.Type.GetType("Artemis."+enumName);
+            enumType = System.Type.GetType("Perell.Artemis.Generated." + enumName + ", Perell.Artemis.Generated");
         }
 
         public void WriteFlagEnumScript()
@@ -91,7 +91,7 @@ namespace Perell.Artemis
 
             //Build new enum script
             System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder("");
-            stringBuilder.Append("namespace Perell.Artemis\n{\n\tpublic enum " + enumName + "\n\t{\n\t\tINVALID = -1");
+            stringBuilder.Append("namespace Perell.Artemis.Generated\n{\n\tpublic enum " + enumName + "\n\t{\n\t\tINVALID = -1");
             if (enumType != null)
             {
                 for (int i = 0; i < idsUsed.Count; i++)
