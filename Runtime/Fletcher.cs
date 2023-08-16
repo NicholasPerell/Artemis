@@ -771,6 +771,19 @@ namespace Perell.Artemis
         {
             return name + " Arrows";
         }
+
+
+        public Arrow[] RetrieveAllGeneratedArrows()
+        {
+            string arrowLocation = GetContainingFolder() + "/" + GetArrowFolderName() + "/";
+            string[] assets = AssetDatabase.FindAssets("t:Perell.Artemis.Arrow", new string[] { arrowLocation });
+            List<Arrow> arrows = new List<Arrow>();
+            foreach (string asset in assets)
+            {
+                arrows.Add(AssetDatabase.LoadAssetAtPath<Arrow>(AssetDatabase.GUIDToAssetPath(asset)));
+            }
+            return arrows.ToArray();
+        }
 #endif
 
         public void SetInSceneObject(Bow<T> _value)

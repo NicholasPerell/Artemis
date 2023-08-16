@@ -50,5 +50,12 @@ namespace Perell.Artemis
         {
             flagsUsed.Clear();
         }
+
+        public static FlagBundle CreateInstance()
+        {
+            FlagBundle created = ScriptableObject.CreateInstance<FlagBundle>();
+            created.flagsUsed = new SortedStrictDictionary<FlagID, Flag>();
+            return created;
+        }
     }
 }

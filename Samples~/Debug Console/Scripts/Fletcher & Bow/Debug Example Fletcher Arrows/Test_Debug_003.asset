@@ -12,40 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d6c426b21345840a5ce7617c156483, type: 3}
   m_Name: Test_Debug_003
   m_EditorClassIdentifier: 
-  id: 204
+  id: 1388
   fletcher: {fileID: 11400000, guid: 5ae98de649bde344491a8b1ed8971550, type: 2}
   priorityValue: 2
   rule:
     list:
-    - Key: 31
+    - Key: 0
       Value:
         lhs: 2
         rhs: 2
-        flagIDChecked: 31
+        flagIDChecked: 0
         comparisonType: 0
-    - Key: 32
+    - Key: 1
       Value:
         lhs: 1
         rhs: 1
-        flagIDChecked: 32
+        flagIDChecked: 1
         comparisonType: 0
-    - Key: 33
+    - Key: 2
       Value:
         lhs: 0
         rhs: 0
-        flagIDChecked: 33
+        flagIDChecked: 2
         comparisonType: 0
-    - Key: 44
+    - Key: 13
       Value:
         lhs: 1
         rhs: 1
-        flagIDChecked: 44
+        flagIDChecked: 13
         comparisonType: 0
-    - Key: 45
+    - Key: 14
       Value:
         lhs: 0
         rhs: 0
-        flagIDChecked: 45
+        flagIDChecked: 14
         comparisonType: 0
   howToHandleBusy: 4
   howPriorityCalculated: 0

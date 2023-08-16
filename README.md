@@ -8,7 +8,8 @@
 
 ## Installation
 
-Use the Package Manager to [add by git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html): `https://github.com/nicholas-hoy-champain/Artemis.git`.
+1) Use the Package Manager to [add by git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html): `https://github.com/nicholas-hoy-champain/Artemis.git`.
+2) Once installed, click `Import` on the `Initialize Package` sample. This will set up the generated scripts the package requires, like the `FlagID` enum. Only do this once.
 
 ## Inspirations
 

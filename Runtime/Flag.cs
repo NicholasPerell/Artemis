@@ -105,7 +105,7 @@ namespace Perell.Artemis
         private void SetSymbolType(Type type)
         {
             symbolType = type;
-            symbolTypeName = type.FullName;
+            symbolTypeName = type.AssemblyQualifiedName;
         }
     }
 }

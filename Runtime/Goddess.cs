@@ -16,7 +16,7 @@ namespace Perell.Artemis
     [FilePath("Assets/Scripts/Generated/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
     public class Goddess : ScriptableSingleton<Goddess>
     {
-        const string CURRENT_VERSION = "0.2.2";
+        const string CURRENT_VERSION = "0.2.4";
 
         [SerializeField]
         private List<FlagID> flagsIdsToKeep = new List<FlagID>();

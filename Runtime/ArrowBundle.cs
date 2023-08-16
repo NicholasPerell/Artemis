@@ -14,5 +14,12 @@ namespace Perell.Artemis
         {
             return arrows;
         }
+
+        public static ArrowBundle CreateInstance(Arrow[] _arrows)
+        {
+            ArrowBundle created = ScriptableObject.CreateInstance<ArrowBundle>();
+            created.arrows = _arrows;
+            return created;
+        }
     }
 }
