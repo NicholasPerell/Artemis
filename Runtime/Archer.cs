@@ -822,8 +822,6 @@ namespace Perell.Artemis
         public void WriteToBinary(ref BinaryWriter binaryWriter)
         {
             //Overall Data
-            Debug.Log("WriteToBinary overallData.Count: " + overallData.Count);
-
             overallData.WriteToBinary(ref binaryWriter);
 
             //Partitioned Data
@@ -844,7 +842,6 @@ namespace Perell.Artemis
         {
             //Overall Data
             overallData = binaryReader.ReadScriptableObjectList<Arrow>();
-            Debug.Log("ReadFromBinary overallData.Count: " + overallData.Count);
 
             //Partitioned Data
             ComparableIntArray comparableIntArray = new ComparableIntArray();

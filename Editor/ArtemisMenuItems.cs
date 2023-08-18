@@ -2,16 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEditor;
 using Perell.Artemis.Generated;
+using Perell.Artemis.Saving;
 
 namespace Perell.Artemis.Editor 
 {
     public class ArtemisMenuItems
     {
-        //[MenuItem("Assets/Create/Artemis/", false, 120)]
-        //private static void Empty()
-        //{
-
-        //}
 
         [MenuItem("Assets/Create/Artemis/Archer")]
         private static void CreateArcher()
@@ -63,6 +59,11 @@ namespace Perell.Artemis.Editor
             CreateArtemisItem(ScriptableObject.CreateInstance<FlagBundle>(), "Flag Bundle");
         }
 
+        [MenuItem("Assets/Create/Artemis/Data Handler")]
+        private static void CreateDataHandler()
+        {
+            CreateArtemisItem(ScriptableObject.CreateInstance<DataBlockHandler>(), "Data Handler");
+        }
 
         private static void CreateArtemisItem(Object created, string type)
         {

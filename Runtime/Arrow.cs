@@ -250,9 +250,6 @@ namespace Perell.Artemis
 
         public void WriteToBinary(ref BinaryWriter binaryWriter)
         {
-            Debug.Log("WriteToBinary Arrow: " + this.name + "\n" +
-                "WriteToBinary Arrow.fletcher: " + this.fletcher.name);
-
             binaryWriter.Write(this.name);
 
             binaryWriter.Write(this.fletcher.name);
@@ -278,13 +275,10 @@ namespace Perell.Artemis
             this.name = binaryReader.ReadString();
 
             string fletcherName = binaryReader.ReadString();
-            Debug.Log("ReadFromBinary Arrow: " + this.name + "\n" +
-                "Arrow.fletcher: " + fletcherName);
             PreDictionaryFletcher[] fletchers = Resources.FindObjectsOfTypeAll<PreDictionaryFletcher>();
-            Debug.Log(fletchers.Length + " fletchers found");
+            
             for (int i = 0; i < fletchers.Length; i++)
             {
-                Debug.Log(fletchers[i].name + " v.s. " + fletcherName);
                 if (fletchers[i].name == fletcherName)
                 {
                     fletcher = fletchers[i];
