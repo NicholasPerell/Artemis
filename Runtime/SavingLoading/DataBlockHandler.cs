@@ -81,7 +81,12 @@ namespace Perell.Artemis.Saving
 
         public void LoadAsPeristentData(string fileName)
         {
-            string filePath = Application.persistentDataPath + '/' + fileName + BINARY_FILE_EXTENSION;
+            if (!fileName.EndsWith(BINARY_FILE_EXTENSION))
+            {
+                fileName += BINARY_FILE_EXTENSION;
+            }
+
+            string filePath = Application.persistentDataPath + '/' + fileName;
             Debug.Log(this.name + ": Loading from " + filePath);
             FileStream stream;
             stream = File.OpenRead(filePath);
