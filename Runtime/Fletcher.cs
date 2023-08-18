@@ -772,7 +772,6 @@ namespace Perell.Artemis
             return name + " Arrows";
         }
 
-
         public Arrow[] RetrieveAllGeneratedArrows()
         {
             string arrowLocation = GetContainingFolder() + "/" + GetArrowFolderName() + "/";

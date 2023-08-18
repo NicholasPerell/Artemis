@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Perell.Artemis.Saving;
+using System.IO;
 
 namespace Perell.Artemis
 {
     [System.Serializable]
-    public struct ComparableIntArray : System.IComparable
+    public struct ComparableIntArray : System.IComparable, IBinaryReadWriteable
     {
         [SerializeField]
         private int[] mArray;
@@ -44,6 +46,24 @@ namespace Perell.Artemis
         public int CompareTo(object obj)
         {
             return CompareToSame((ComparableIntArray)obj);
+        }
+
+        public void ReadFromBinary(ref BinaryReader binaryReader)
+        {
+            mArray = new int[binaryReader.ReadInt32()];
+            for (int i = 0; i < mArray.Length; i++)
+            {
+                mArray[i] = binaryReader.ReadInt32();
+            }
+        }
+
+        public void WriteToBinary(ref BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(mArray.Length);
+            for (int i = 0; i < mArray.Length; i++)
+            {
+                binaryWriter.Write(mArray[i]);
+            }
         }
     }
 }
