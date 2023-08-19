@@ -6,14 +6,14 @@ using UnityEditor;
 namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(PreDictionaryFletcher),true)]
-    public class PreDictionaryFletcherEditor : UnityEditor.Editor
+    public class PreDictionaryFletcherEditor : IconObjectEditor
     {
         public override void OnInspectorGUI()
         {
             PreDictionaryFletcher preDictionaryFletcher = (PreDictionaryFletcher)target;
 
-            EditorGUIUtility.SetIconForObject(preDictionaryFletcher, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Fletcher.png"));
-
+            SetIcon("Fletcher");
+            
             EditorGUI.BeginChangeCheck();
 
             DrawDefaultInspector();

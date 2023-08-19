@@ -59,10 +59,10 @@ namespace Perell.Artemis.Editor
             CreateArtemisItem(ScriptableObject.CreateInstance<FlagBundle>(), "Flag Bundle");
         }
 
-        [MenuItem("Assets/Create/Artemis/Data Handler")]
-        private static void CreateDataHandler()
+        [MenuItem("Assets/Create/Artemis/Constellation")]
+        private static void CreateConstellation()
         {
-            CreateArtemisItem(ScriptableObject.CreateInstance<DataBlockHandler>(), "Data Handler");
+            CreateArtemisItem(ScriptableObject.CreateInstance<Constellation>(), "Constellation");
         }
 
         private static void CreateArtemisItem(Object created, string type)

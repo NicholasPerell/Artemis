@@ -6,8 +6,8 @@ using Perell.Artemis.Saving;
 
 namespace Perell.Artemis.Editor.Saving
 {
-    [CustomEditor(typeof(DataBlockHandler))]
-    public class DataBlockHandlerEditor : UnityEditor.Editor
+    [CustomEditor(typeof(Constellation))]
+    public class ConstellationEditor : IconObjectEditor
     {
         SerializedProperty flags;
         SerializedProperty archers;
@@ -16,9 +16,9 @@ namespace Perell.Artemis.Editor.Saving
 
         private void OnEnable()
         {
-            SerializedProperty dataBlock = serializedObject.FindProperty("dataBlock");
-            flags = dataBlock.FindPropertyRelative("flags");
-            archers = dataBlock.FindPropertyRelative("archers");
+            SerializedProperty data = serializedObject.FindProperty("dataBlock");
+            flags = data.FindPropertyRelative("flags");
+            archers = data.FindPropertyRelative("archers");
             fileName = serializedObject.FindProperty("m_FileName");
             assetToLoadIn = serializedObject.FindProperty("m_AssetToLoadIn");
         }
@@ -26,8 +26,9 @@ namespace Perell.Artemis.Editor.Saving
 
         public override void OnInspectorGUI()
         {
-            DataBlockHandler dataBlockHandler = (DataBlockHandler)target;
-            EditorGUIUtility.SetIconForObject(dataBlockHandler, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Archer.png"));
+            Constellation constellation = (Constellation)target;
+            Debug.Log("Constellation" + (Mathf.Abs(target.GetInstanceID()) % 3));
+            SetIcon("Constellation" + (Mathf.Abs(target.GetInstanceID()) % 3));
 
             serializedObject.Update();
 
@@ -43,27 +44,27 @@ namespace Perell.Artemis.Editor.Saving
             EditorGUILayout.PropertyField(fileName, new GUIContent("File Name"));
             if (GUILayout.Button("Save Data To Peristent Memory"))
             {
-                dataBlockHandler.SaveAsPeristentData(fileName.stringValue);
+                constellation.SaveAsPeristentData(fileName.stringValue);
             }
             if (GUILayout.Button("Load Data From Peristent Memory"))
             {
-                dataBlockHandler.LoadAsPeristentData(fileName.stringValue);
+                constellation.LoadAsPeristentData(fileName.stringValue);
             }
             if (GUILayout.Button("Save Data As Game Asset"))
             {
-                dataBlockHandler.SaveAsTextAsset(fileName.stringValue);
+                constellation.SaveAsTextAsset(fileName.stringValue);
             }
             EditorGUILayout.PropertyField(assetToLoadIn, new GUIContent("Binary Asset"));
             if (GUILayout.Button("Load Data From Game Asset"))
             {
-                dataBlockHandler.LoadFromTextAsset((TextAsset)assetToLoadIn.objectReferenceValue);
+                constellation.LoadFromTextAsset((TextAsset)assetToLoadIn.objectReferenceValue);
             }
 
             serializedObject.ApplyModifiedProperties();
 
             if (EditorGUI.EndChangeCheck())
             {
-                EditorUtility.SetDirty(dataBlockHandler);
+                EditorUtility.SetDirty(constellation);
                 AssetDatabase.SaveAssets();
                 Repaint();
             }

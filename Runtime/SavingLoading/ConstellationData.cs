@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Perell.Artemis.Saving
 {
     [System.Serializable]
-    public struct ArtemisDataBlock : IBinaryReadWriteable
+    public struct ConstellationData : IBinaryReadWriteable
     {
         [SerializeField]
         Flag[] flags;

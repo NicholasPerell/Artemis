@@ -6,13 +6,13 @@ using UnityEditor;
 namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(FlagBundle))]
-    public class FlagBundleEditor : UnityEditor.Editor
+    public class FlagBundleEditor : IconObjectEditor
     {
         public override void OnInspectorGUI()
         {
             FlagBundle flagBundle = (FlagBundle)target;
-            
-            EditorGUIUtility.SetIconForObject(flagBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/FlagBundle.png"));
+
+            SetIcon("FlagBundle");
 
             EditorGUI.BeginChangeCheck();
 

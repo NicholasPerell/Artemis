@@ -8,12 +8,12 @@ using UnityEditor;
 
 namespace Perell.Artemis.Saving
 {
-    public class DataBlockHandler : ScriptableObject
+    public class Constellation : ScriptableObject
     {
         const string BINARY_FILE_EXTENSION = ".bytes";
 
         [SerializeField]
-        ArtemisDataBlock dataBlock;
+        ConstellationData dataBlock;
 #if UNITY_EDITOR
         [SerializeField]
         string m_FileName;

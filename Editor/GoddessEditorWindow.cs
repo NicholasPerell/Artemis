@@ -19,7 +19,7 @@ namespace Perell.Artemis.Editor
 
             //Get first existing window of this type, or (if none) make a new one:
             GoddessEditorWindow window = (GoddessEditorWindow)GetWindow(typeof(GoddessEditorWindow));
-            window.titleContent = new GUIContent("Goddess", AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Goddess.png"));
+            window.titleContent = new GUIContent("Goddess", LoadIconTexture("Goddess"));
             window.Show();
         }
 
@@ -35,6 +35,17 @@ namespace Perell.Artemis.Editor
                 editor = GoddessEditor.CreateEditor(Goddess.instance);
             }
             editor.OnInspectorGUI();
-        }   
+        }
+
+        static protected Texture2D LoadIconTexture(string fileName)
+        {
+            Texture2D iconTexture;
+            iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/" + fileName + ".png");
+            if (iconTexture == null)
+            {
+                iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Artemis/Editor/Icons/" + fileName + ".png");
+            }
+            return iconTexture;
+        }
     }
 }
