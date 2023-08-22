@@ -27,8 +27,7 @@ namespace Perell.Artemis.Editor.Saving
         public override void OnInspectorGUI()
         {
             Constellation constellation = (Constellation)target;
-            Debug.Log("Constellation" + (Mathf.Abs(target.GetInstanceID()) % 3));
-            SetIcon("Constellation" + (Mathf.Abs(target.GetInstanceID()) % 3));
+            SetIcon("Constellation");
 
             serializedObject.Update();
 
