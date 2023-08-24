@@ -99,7 +99,7 @@ _Artemis_'s base fletchers script is an abstract template class, where you will 
  2. The `bool SetUpDataFromCells(string[] dataToInterpret, out T valueDetermined)` fuction that validates the string array intake from the .CSV[^sheets] and uses those strings to generate the information that needs to be stored.
  3. The length of the string array. Based on the value of an int named columnsToReadFrom.
 
-To reiterate something said prior: The example folder has an Editor script that gives the Debug Fletchers to have a button in its inspector to trigger the .CSV[^sheets] parsing. It is reccomended you copy this to use it for your own Fletchers scripts.
+**Important:** for saving/loading purposes, make the name of all fletchers assets unique.
 
 ### Bows <img src="Editor/Icons/Bow.png" alt="Bow" height="50px;" align="right">
 
@@ -122,11 +122,16 @@ The narrative system keeps track of if flag IDs are being used by any of the arr
 
 Another important value the Goddess has is the <ins>Globally Loaded Flag Bundles</ins> array. All attemps at delivery from archers or arrows will take the flags here into account.
 
+### Constellation (Saving & Loading) <img src="Editor/Icons/Constellation.png" alt="Constellation" height="50px;" align="right">
+
+Scriptable Object that stores a list of flags and archers deemed important. Can save to (or load from) binary files to store the state of all their data, so long as the contents & ordering of the important assets have been preserved.
+
+
 ## Future Plans (0.3 and beyond)
 
 Development on *Artemis* has been fueled by a desire to make something both unique and robust for Unity developers. Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
 
- - [ ] Save/load capabilities for the whole narrative.
+ - [x] Save/load capabilities for the whole narrative.
  - [ ] Additional pipeline options for users to plan out the narrative logic in a way that suits them.
  - [ ] Debugging tools to analyze the rules, world state data, and archer decision-making.
  - [ ] More examples and scenes demonstrating how you can use *Artemis*! 🛠️ (Currently in Progress!)
