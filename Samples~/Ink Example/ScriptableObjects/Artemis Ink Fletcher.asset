@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c028df01ba292a40b493126115bc61e, type: 3}
+  m_Name: Artemis Ink Fletcher
+  m_EditorClassIdentifier: 
+  csvFile: {fileID: 0}
+  columnsToReadFrom: 1
+  database:
+    list:
+    - Key: 29
+      Value:
+        jsonString: '{"inkVersion":21,"root":[["\n","ev",{"VAR?":"roomieName"},"out","/ev","^
+          points at the bin and turns ","ev",{"VAR?":"roomie_their"},"out","/ev","^
+          head towards you. \"Hey, when are you taking out the trash?\"","\n","ev","str","^I
+          took it out last week.","/str","/ev",{"*":"0.c-0","flg":4},"ev","str","^I''m
+          not?","/str","/ev",{"*":"0.c-1","flg":4},"ev","str","^It''s not my turn.","/str","/ev",{"*":"0.c-2","flg":4},"ev","str","^\"C''mon?\"","/str","/ev",{"*":"0.c-3","flg":4},"ev","str","^Pulease","/str","/ev",{"*":"0.c-4","flg":4},"ev","str","^Next
+          week.","/str","/ev",{"*":"0.c-5","flg":4},{"c-0":["\n","^\"I took it out
+          last week,\" you say.","\n","^\"No, I took it out last week.\"","\n",{"->":"0.g-0"},{"#f":5}],"c-1":["\n","^You
+          reply, speaking like it''s a question you''re asking, \"I''m not?\"","\n","ev",{"VAR?":"roomieName"},"out","/ev","^
+          rolls ","ev",{"VAR?":"roomie_their"},"out","/ev","^ eyes. \"C''mon, it''s
+          your turn to take out the trash.\"","\n","^You regret saying it like it
+          was up for discussion.","\n",{"->":"0.g-0"},{"#f":5}],"c-2":["\n","^\"It
+          defintely is.\"","\n",{"->":"0.g-0"},{"#f":5}],"c-3":["\n","^dd","\n",{"->":"0.g-0"},{"#f":5}],"c-4":["\n","^e","\n",{"->":"0.g-0"},{"#f":5}],"c-5":["\n","^\"Next
+          week is t","\n",{"->":"0.g-0"},{"#f":5}],"g-0":["done",{"#f":5}]}],"done",{"global
+          decl":["ev","str","^Matt","/str",{"VAR=":"roomieName"},"str","^he","/str",{"VAR=":"roomie_they"},"str","^him","/str",{"VAR=":"roomie_them"},"str","^his","/str",{"VAR=":"roomie_their"},"str","^He","/str",{"VAR=":"roomie_They"},"str","^Him","/str",{"VAR=":"roomie_Them"},"str","^His","/str",{"VAR=":"roomie_Their"},0,{"VAR=":"score"},"/ev","end",null],"#f":1}],"listDefs":{}}'
+        inkFile:
+          inkAsset: {fileID: 102900000, guid: 1b823fdb3fe05df47beb772ff05cbdf8, type: 3}
+          jsonAssetDirectory: {fileID: 0}
+          jsonAsset: {fileID: 4900000, guid: 18b1074e582ce1549b9b3b00c13d7685, type: 3}
+          unhandledCompileErrors: []
+          recursiveIncludeErrorPaths: []
+          errors: []
+          warnings: []
+          todos: []
+          masterInkAssets: []
+          localIncludePaths:
+          - Globals.ink
+          includes:
+          - {fileID: 102900000, guid: 599707803085d1a4d9cffd403d335581, type: 3}
+    - Key: 30
+      Value:
+        jsonString: '{"inkVersion":21,"root":[["\n","ev",{"VAR?":"roomieName"},"out","/ev","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"global
+          decl":["ev","str","^Matt","/str",{"VAR=":"roomieName"},"str","^he","/str",{"VAR=":"roomie_they"},"str","^him","/str",{"VAR=":"roomie_them"},"str","^his","/str",{"VAR=":"roomie_their"},"str","^He","/str",{"VAR=":"roomie_They"},"str","^Him","/str",{"VAR=":"roomie_Them"},"str","^His","/str",{"VAR=":"roomie_Their"},0,{"VAR=":"score"},"/ev","end",null],"#f":1}],"listDefs":{}}'
+        inkFile:
+          inkAsset: {fileID: 102900000, guid: 8b2947b1364a7e74fa98fed1aa2cadc5, type: 3}
+          jsonAssetDirectory: {fileID: 0}
+          jsonAsset: {fileID: 4900000, guid: c7699b534f0c7054480986899d07299d, type: 3}
+          unhandledCompileErrors: []
+          recursiveIncludeErrorPaths: []
+          errors: []
+          warnings: []
+          todos: []
+          masterInkAssets: []
+          localIncludePaths:
+          - Globals.ink
+          includes:
+          - {fileID: 102900000, guid: 599707803085d1a4d9cffd403d335581, type: 3}
+    - Key: 31
+      Value:
+        jsonString: '{"inkVersion":21,"root":[["\n","ev",{"VAR?":"roomieName"},"out","/ev","^
+          shakes ","ev",{"VAR?":"roomie_their"},"out","/ev","^ head. \"No. <i>No</i>.
+          We are not doing this again.\"","\n","ev","str","^Doing what?","/str","/ev",{"*":"0.c-0","flg":4},"ev","str","^Yes,
+          we are.","/str","/ev",{"*":"0.c-1","flg":4},"ev","str","^<i>We''re</i>
+          doing this?","/str","/ev",{"*":"0.c-2","flg":4},{"c-0":["\n","^\"Doing
+          what?\" you ask.","\n","^\"Don''t play dumb.\"","\n",{"->":"0.g-0"},{"#f":5}],"c-1":["\n","^You
+          gesture your hands out, palm up. \"It appears we are, ","ev",{"VAR?":"roomieName"},"out","/ev","^.\"","\n",{"->":"0.g-0"},{"#f":5}],"c-2":["\n","^\"<i>We''re</i>
+          doing this? I think this is exclusively a <i>you</i> problem.\"","\n","ev",{"VAR?":"score"},1,"+","/ev",{"VAR=":"score","re":true},{"->":"0.g-0"},{"#f":5}],"g-0":["done",{"#f":5}]}],"done",{"global
+          decl":["ev","str","^Matt","/str",{"VAR=":"roomieName"},"str","^he","/str",{"VAR=":"roomie_they"},"str","^him","/str",{"VAR=":"roomie_them"},"str","^his","/str",{"VAR=":"roomie_their"},"str","^He","/str",{"VAR=":"roomie_They"},"str","^Him","/str",{"VAR=":"roomie_Them"},"str","^His","/str",{"VAR=":"roomie_Their"},0,{"VAR=":"score"},"/ev","end",null],"#f":1}],"listDefs":{}}'
+        inkFile:
+          inkAsset: {fileID: 102900000, guid: 44ed72fd4d362a04d94cebcfcd515a4a, type: 3}
+          jsonAssetDirectory: {fileID: 0}
+          jsonAsset: {fileID: 4900000, guid: 37620ffd92eccaa4d925c42a25033e1f, type: 3}
+          unhandledCompileErrors: []
+          recursiveIncludeErrorPaths: []
+          errors: []
+          warnings: []
+          todos: []
+          masterInkAssets: []
+          localIncludePaths:
+          - Globals.ink
+          includes:
+          - {fileID: 102900000, guid: 599707803085d1a4d9cffd403d335581, type: 3}
+  arrowIDCompiler:
+    idsUsed:
+      list: 1d0000001e0000001f000000
+    toAdd:
+      list: []
+    intsReadyToConvert:
+      list: 
+    toRemove: 
+    fileLocation: Assets/Ink Example/ScriptableObjects/Artemis Ink Fletcher Arrows/
+    enumName: Perell_artemis_example_inkintegration_artemisinkdata_arrowsID
+  flagsBeingUsed: []
+  arrowsNotBeingUsed: 1a0000001b0000001c000000
+  flagsNoLongerBeingUsed: []
+  inksToCompile:
+  - {fileID: 102900000, guid: 1b823fdb3fe05df47beb772ff05cbdf8, type: 3}
+  - {fileID: 102900000, guid: 8b2947b1364a7e74fa98fed1aa2cadc5, type: 3}
+  - {fileID: 102900000, guid: 44ed72fd4d362a04d94cebcfcd515a4a, type: 3}

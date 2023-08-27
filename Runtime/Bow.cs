@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Perell.Artemis
 {
@@ -15,6 +16,8 @@ namespace Perell.Artemis
         [SerializeField]
         Fletcher<T> deliverySystem;
 
+        public event UnityAction onReportEnd;
+
         protected virtual void OnEnable()
         {
             deliverySystem.SetInSceneObject(this);
@@ -28,6 +31,7 @@ namespace Perell.Artemis
 
         public void ReportEnd()
         {
+            onReportEnd?.Invoke();
             deliverySystem.ProcessEnd();
         }
     }
