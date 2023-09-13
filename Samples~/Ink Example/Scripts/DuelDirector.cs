@@ -1,11 +1,12 @@
 using Perell.Artemis.Generated;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 namespace Perell.Artemis.Example.InkIntegration
 {
-    public class DuelDirector : MonoBehaviour
+    public class DuelDirector : InkVariableKeeper
     {
         public event UnityAction onWin;
         public event UnityAction onLose;
@@ -20,6 +21,14 @@ namespace Perell.Artemis.Example.InkIntegration
         [SerializeField]
         [Min(1)]
         float requiredScoreToWin = 10;
+        [Space]
+        [SerializeField]
+        RoomieSetToDefault defaultSettings;
+        [Space]
+        [SerializeField]
+        Image statusDisplay;
+        [SerializeField]
+        Sprite[] up, down;
 
         private float score;
 
@@ -43,6 +52,10 @@ namespace Perell.Artemis.Example.InkIntegration
 
         private void SetToNewGameState()
         {
+            score = 0;
+
+            UpdateDuelImage();
+
             archer.Init();
 
             if (bow.IsBusy())
@@ -50,7 +63,7 @@ namespace Perell.Artemis.Example.InkIntegration
                 bow.AbruptEnd();
             }
 
-            //TODO: Reset flag values
+            defaultSettings.SetToDefaultValues();
         }
 
         private void AttemptNextArrow()
@@ -82,6 +95,32 @@ namespace Perell.Artemis.Example.InkIntegration
             if(!CheckForWinLoss())
             {
                 AttemptNextArrow();
+            }
+        }
+
+        public override void HandleVariableChange(string variableName, Ink.Runtime.Object newValue)
+        {
+            if(variableName == "score")
+            {
+                score = float.Parse(newValue.ToString());
+                Debug.Log($"Score: {score}");
+                UpdateDuelImage();
+            }
+        }
+
+        private void UpdateDuelImage()
+        {
+            if (score == 0)
+            {
+                statusDisplay.sprite = up[0];
+            }
+            else if (score > 0)
+            {
+                statusDisplay.sprite = up[(int)(Mathf.Lerp(0, up.Length - 1, score / requiredScoreToWin) + .5f)];
+            }
+            else
+            {
+                statusDisplay.sprite = down[(int)(Mathf.Lerp(0, down.Length - 1, -score / requiredScoreToWin) + .5f)];
             }
         }
     }

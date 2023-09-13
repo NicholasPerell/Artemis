@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4556e9be2e8d3214382a603811f3db02, type: 3}
+  m_Name: Up5
+  m_EditorClassIdentifier: 
+  chestLocalPosition: {x: 3.47, y: -0.29, z: 0}
+  chestRotation: 0
+  headRotation: 10.4
+  mainUpperarmRotation: 0
+  mainForearmRotation: 15.4
+  mainHandRotation: 0
+  swordRotation: 0
+  backUpperarmRotation: 54.7
+  backForearmRotation: 329.4
+  backHandRotation: 0
+  mainThighRotation: 337.8
+  mainCalfRotation: 30.3
+  mainFootRotation: 355.7
+  backThighRotation: 15.4
+  backCalfRotation: 19.9
+  backFootRotation: 348.7

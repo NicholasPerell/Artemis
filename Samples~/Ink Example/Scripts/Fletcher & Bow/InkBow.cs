@@ -13,6 +13,8 @@ namespace Perell.Artemis.Example.InkIntegration
     {
         [SerializeField]
         private FlagBundle flagsMappingToInkVariables;
+        [SerializeField]
+        private InkVariableKeeper[] variableKeepers;
         [Space]
         [SerializeField]
         private TextMeshProUGUI narrativeTextBox;
@@ -26,7 +28,6 @@ namespace Perell.Artemis.Example.InkIntegration
         private float fadeAwayTime = 1;
         [SerializeField]
         private Color defaultTextColor;
-
 
         private Image buttonPanelImage;
         private Story currentStory;
@@ -71,6 +72,11 @@ namespace Perell.Artemis.Example.InkIntegration
             currentFlags = flagsMappingToInkVariables.ToValueArray();
 
             Debug.Log("InitializeStory "+ currentStory + "\n\n" + jsonString);
+
+            foreach(InkVariableKeeper keeper in variableKeepers)
+            {
+                keeper.SetUpVariables(currentStory.variablesState);
+            }
 
             FlagID id;
             List<string> varnames = new List<string>();
@@ -214,14 +220,17 @@ namespace Perell.Artemis.Example.InkIntegration
                     }
                 }
             }
+
+            foreach (InkVariableKeeper keeper in variableKeepers)
+            {
+                keeper.HandleVariableChange(variableName, newValue);
+            }
         }
 
         private void CheckFading()
         {
             if(fadeTimer > 0)
             {
-                Debug.Log("Check Fading Count Down " + fadeTimer);
-
                 fadeTimer = Mathf.Max(fadeTimer - Time.deltaTime, 0);
 
                 Color clearTextColor = defaultTextColor;
@@ -230,7 +239,6 @@ namespace Perell.Artemis.Example.InkIntegration
                 narrativeTextBox.color = Color.Lerp(defaultTextColor, clearTextColor, 1 - (fadeTimer/fadeAwayTime));
                 if(fadeTimer == 0)
                 {
-                    Debug.Log("FadeTime went down to 0");
                     Debug.Log("Report End");
 
                     ReportEnd();

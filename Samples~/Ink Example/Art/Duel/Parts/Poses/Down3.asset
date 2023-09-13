@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4556e9be2e8d3214382a603811f3db02, type: 3}
+  m_Name: Down3
+  m_EditorClassIdentifier: 
+  chestLocalPosition: {x: 9, y: 0, z: 0}
+  chestRotation: 0
+  headRotation: 349.7
+  mainUpperarmRotation: 12.9
+  mainForearmRotation: 340.8
+  mainHandRotation: 12.9
+  swordRotation: 336.3
+  backUpperarmRotation: 184
+  backForearmRotation: 149.3
+  backHandRotation: 335.8
+  mainThighRotation: 350.2
+  mainCalfRotation: 24.3
+  mainFootRotation: 0
+  backThighRotation: 17.4
+  backCalfRotation: 337.8
+  backFootRotation: 0
