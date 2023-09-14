@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Perell.Artemis.Generated;
 
-namespace Perell.Artemis.Example
+namespace Perell.Artemis.Example.DebugConsole
 {
     public class PersistentArcherFireOnTime : MonoBehaviour
     {

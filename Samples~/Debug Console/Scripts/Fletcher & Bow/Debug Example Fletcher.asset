@@ -16,177 +16,177 @@ MonoBehaviour:
   columnsToReadFrom: 3
   database:
     list:
-    - Key: 201
+    - Key: 0
       Value:
         message: Test 0
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 202
+    - Key: 1
       Value:
         message: Test 1
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 203
+    - Key: 2
       Value:
         message: Test 2
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 204
+    - Key: 3
       Value:
         message: Test 3
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 205
+    - Key: 4
       Value:
         message: Test 4
         messageType: 2
         timeSystemIsBusy: 0.3
-    - Key: 206
+    - Key: 5
       Value:
         message: Test 5
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 207
+    - Key: 6
       Value:
         message: Test 6
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 208
+    - Key: 7
       Value:
         message: Test 7
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 209
+    - Key: 8
       Value:
         message: Test 8
         messageType: 2
         timeSystemIsBusy: 0.3
-    - Key: 210
+    - Key: 9
       Value:
         message: Test 9
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 211
+    - Key: 10
       Value:
         message: Test 10
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 212
+    - Key: 11
       Value:
         message: Test 11
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 213
+    - Key: 12
       Value:
         message: Test 12
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 214
+    - Key: 13
       Value:
         message: Test 13
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 215
+    - Key: 14
       Value:
         message: Test 14
         messageType: 2
         timeSystemIsBusy: 0.3
-    - Key: 216
+    - Key: 15
       Value:
         message: Test 15
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 217
+    - Key: 16
       Value:
         message: Test 16
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 218
+    - Key: 17
       Value:
         message: Test 17
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 219
+    - Key: 18
       Value:
         message: Test 18
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 220
+    - Key: 19
       Value:
         message: Test 19
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 221
+    - Key: 20
       Value:
         message: Test 20
         messageType: 2
         timeSystemIsBusy: 0.3
-    - Key: 222
+    - Key: 21
       Value:
         message: Test 21
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 223
+    - Key: 22
       Value:
         message: Test 22
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 224
+    - Key: 23
       Value:
         message: Test 23
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 225
+    - Key: 24
       Value:
         message: Test 24
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 226
+    - Key: 25
       Value:
         message: Test 25
         messageType: 2
         timeSystemIsBusy: 0.3
-    - Key: 227
+    - Key: 26
       Value:
         message: Test 26
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 228
+    - Key: 27
       Value:
         message: Test 27
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 229
+    - Key: 28
       Value:
         message: Test 28
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 230
+    - Key: 29
       Value:
         message: Test 29
         messageType: 0
         timeSystemIsBusy: 0.3
-    - Key: 231
+    - Key: 30
       Value:
         message: Test 30
         messageType: 1
         timeSystemIsBusy: 0.3
-    - Key: 232
+    - Key: 31
       Value:
         message: Test 31
         messageType: 0
         timeSystemIsBusy: 0.3
   arrowIDCompiler:
     idsUsed:
-      list: c9000000ca000000cb000000cc000000cd000000ce000000cf000000d0000000d1000000d2000000d3000000d4000000d5000000d6000000d7000000d8000000d9000000da000000db000000dc000000dd000000de000000df000000e0000000e1000000e2000000e3000000e4000000e5000000e6000000e7000000e8000000
+      list: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000
     toAdd:
       list: []
     intsReadyToConvert:
       list: 
     toRemove: 
-    fileLocation: Assets/Artemis/Examples/Debug Console/Scripts/Fletcher & Bow/Debug
-      Example Fletcher Arrows/
-    enumName: Artemis_example_artemisdebugdata_arrowsID
+    fileLocation: Assets/Debug Console/Scripts/Fletcher & Bow/Debug Example Fletcher
+      Arrows/
+    enumName: Perell_artemis_example_debugconsole_artemisdebugdata_arrowsID
   flagsBeingUsed:
   - CONCEPT
   - TRUEA

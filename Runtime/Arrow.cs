@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Perell.Artemis.Generated;
+using Perell.Artemis.Saving;
+using System.IO;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Perell.Artemis
 {
     //[CreateAssetMenu(fileName = "New Artemis Narrative Data Point", menuName = "Artemis/Narrative Data Point")]
-    public class Arrow : ScriptableObject
+    public class Arrow : ScriptableObject, IBinaryReadWriteable
     {
         public enum HowPriorityCalculated
         {
@@ -230,12 +235,78 @@ namespace Perell.Artemis
 
         public Type GetSymbolType()
         {
+            if(!fletcher)
+            {
+                return null;
+            }
+
             return fletcher.GetSymbolType();
         }
 
         public HowPriorityCalculated GetHowPriorityCalculated()
         {
             return howPriorityCalculated;
+        }
+
+        public void WriteToBinary(ref BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(this.name);
+
+            binaryWriter.Write(this.fletcher.name);
+
+            binaryWriter.Write(id);
+            binaryWriter.Write(priorityValue);
+
+            SortedStrictDictionary<FlagID, Criterion>.Tuple tuple;
+            binaryWriter.Write(rule.Count);
+            for(int i = 0; i < rule.Count; i++)
+            {
+                tuple = rule.GetTupleAtIndex(i);
+                binaryWriter.Write((int)tuple.Key);
+                tuple.Value.WriteToBinary(ref binaryWriter);
+            }
+
+            binaryWriter.Write((int)howToHandleBusy);
+            binaryWriter.Write((int)howPriorityCalculated);
+        }
+
+        public void ReadFromBinary(ref BinaryReader binaryReader)
+        {
+            this.name = binaryReader.ReadString();
+
+            string fletcherName = binaryReader.ReadString();
+            PreDictionaryFletcher[] fletchers = Resources.FindObjectsOfTypeAll<PreDictionaryFletcher>();
+            
+            for (int i = 0; i < fletchers.Length; i++)
+            {
+                if (fletchers[i].name == fletcherName)
+                {
+                    fletcher = fletchers[i];
+                    break;
+                }
+            }
+
+            id = binaryReader.ReadInt32();
+            priorityValue = binaryReader.ReadInt32();
+
+            rule ??= new SortedStrictDictionary<FlagID, Criterion>();
+            rule.Clear();
+            FlagID flagID;
+            Criterion criterion = new Criterion();
+            int ruleCount = binaryReader.ReadInt32();
+            for (int i = 0; i < ruleCount; i++)
+            {
+                flagID = (FlagID)binaryReader.ReadInt32();
+                criterion.ReadFromBinary(ref binaryReader);
+                rule.Add(flagID, criterion);
+            }
+
+            howToHandleBusy = (HowToHandleBusy)binaryReader.ReadInt32();
+            howPriorityCalculated = (HowPriorityCalculated)binaryReader.ReadInt32();
+
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
         }
     }
 }

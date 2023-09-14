@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Perell.Artemis.Example
+namespace Perell.Artemis.Example.DebugConsole
 {
     public class EventOnStart : MonoBehaviour
     {

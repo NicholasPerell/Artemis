@@ -5,12 +5,17 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Perell.Artemis.Generated;
+using Perell.Artemis.Saving;
+using System.IO;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Perell.Artemis
 {
-    public class Archer : ScriptableObject
+    public class Archer : ScriptableObject, IBinaryReadWriteable
     {
-        public struct BundleLog
+        public struct BundleLog : IBinaryReadWriteable
         {
             public ArrowBundle bundle;
             public bool isAdding;
@@ -19,6 +24,20 @@ namespace Perell.Artemis
             {
                 bundle = _bundle;
                 isAdding = _isAdding;
+            }
+
+            public void WriteToBinary(ref BinaryWriter binaryWriter)
+            {
+                binaryWriter.Write(isAdding);
+                bundle.WriteToBinary(ref binaryWriter);
+            }
+
+            public void ReadFromBinary(ref BinaryReader binaryReader)
+            {
+                isAdding = binaryReader.ReadBoolean();
+
+                bundle ??= ScriptableObject.CreateInstance<ArrowBundle>();
+                bundle.ReadFromBinary(ref binaryReader);
             }
         }
 
@@ -71,7 +90,7 @@ namespace Perell.Artemis
         private uint insertionOrder;
 
         [System.Serializable]
-        private struct OrderedArrowList
+        private struct OrderedArrowList : IBinaryReadWriteable
         {
             public List<Arrow> mArrows;
             public List<uint> mOrder;
@@ -82,6 +101,27 @@ namespace Perell.Artemis
                 tmp.mArrows = new List<Arrow>();
                 tmp.mOrder = new List<uint>();
                 return tmp;
+            }
+
+            public void ReadFromBinary(ref BinaryReader binaryReader)
+            {
+                mArrows = binaryReader.ReadScriptableObjectList<Arrow>();
+                mOrder.Clear();
+                int mOrderCount = binaryReader.ReadInt32();
+                for (int i = 0; i < mOrderCount; i++)
+                {
+                    mOrder.Add(binaryReader.ReadUInt32());
+                }
+            }
+
+            public void WriteToBinary(ref BinaryWriter binaryWriter)
+            {
+                binaryWriter.Write(mArrows);
+                binaryWriter.Write(mOrder.Count);
+                for (int i = 0; i < mOrder.Count; i++)
+                {
+                    binaryWriter.Write(mOrder[i]);
+                }
             }
         }
 
@@ -777,6 +817,48 @@ namespace Perell.Artemis
             }
 
             return bundleHistory;
+        }
+
+        public void WriteToBinary(ref BinaryWriter binaryWriter)
+        {
+            //Overall Data
+            overallData.WriteToBinary(ref binaryWriter);
+
+            //Partitioned Data
+            SortedStrictDictionary<ComparableIntArray, OrderedArrowList>.Tuple tuple;
+            binaryWriter.Write(partitionedData.Count);
+            for (int i = 0; i < partitionedData.Count; i++)
+            {
+                tuple = partitionedData.GetTupleAtIndex(i);
+                tuple.Key.WriteToBinary(ref binaryWriter);
+                tuple.Value.WriteToBinary(ref binaryWriter);
+            }
+
+            //BundleHistory
+            bundleHistory.WriteToBinary(ref binaryWriter);
+        }
+
+        public void ReadFromBinary(ref BinaryReader binaryReader)
+        {
+            //Overall Data
+            overallData = binaryReader.ReadScriptableObjectList<Arrow>();
+
+            //Partitioned Data
+            ComparableIntArray comparableIntArray = new ComparableIntArray();
+            OrderedArrowList orderedArrowList = OrderedArrowList.Init();
+            int partitionedDataCount = binaryReader.ReadInt32();
+            for (int i = 0; i < partitionedDataCount; i++)
+            {
+                comparableIntArray.ReadFromBinary(ref binaryReader);
+                orderedArrowList.ReadFromBinary(ref binaryReader);
+                partitionedData.Add(comparableIntArray, orderedArrowList);
+            }
+
+            //BundleHistory
+            bundleHistory = binaryReader.ReadList<BundleLog>();
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
         }
     }
 }

@@ -7,7 +7,7 @@ using Perell.Artemis.Generated;
 namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(Goddess))]
-    public class GoddessEditor : UnityEditor.Editor
+    public class GoddessEditor : IconObjectEditor
     {
         SerializedProperty flagsIdsToKeep;
         SerializedProperty globallyLoadedFlagBundles;
@@ -29,7 +29,7 @@ namespace Perell.Artemis.Editor
             int iconSize = 70;
             GUILayout.Space((EditorGUIUtility.currentViewWidth / 2) - (iconSize/2)); //Space to the left of the icon with the correct sizing to center the icon in the window
 
-            GUILayout.Label(AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Goddess.png"), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
+            GUILayout.Label(LoadIconTexture("Goddess"), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
             GUILayout.EndHorizontal();
 
             serializedObject.Update();
@@ -52,7 +52,7 @@ namespace Perell.Artemis.Editor
             EditorGUILayout.Space();
             if (GUILayout.Button("RESET \u26A0"))
             {
-                goddess.Reset();
+                goddess.ResetToNothing();
             }
 
             serializedObject.ApplyModifiedProperties();

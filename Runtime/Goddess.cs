@@ -8,15 +8,14 @@ using Perell.Artemis.Generated;
 
 
 #if UNITY_EDITOR
-using UnityEditor.PackageManager;
 using UnityEditor;
+using UnityEditor.PackageManager;
 #endif
 namespace Perell.Artemis
 {
-    [FilePath("Assets/Scripts/Generated/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
-    public class Goddess : ScriptableSingleton<Goddess>
+    public class Goddess : SingletonScriptableObject<Goddess>
     {
-        const string CURRENT_VERSION = "0.2.2";
+        const string CURRENT_VERSION = "0.2.5";
 
         [SerializeField]
         private List<FlagID> flagsIdsToKeep = new List<FlagID>();
@@ -88,6 +87,7 @@ namespace Perell.Artemis
 
             if (!File.Exists(path + relativePath))
             {
+                Debug.LogError("can't find " + path + relativePath);
                 WriteFlagEnumScript();
             }
 #endif
@@ -231,7 +231,7 @@ namespace Perell.Artemis
 
         private string GetFlagRepoFolderName()
         {
-            return this.name + "FlagEnums";
+            return "FlagEnums";
         }
 
         public void WriteFlagEnumScript()
@@ -379,19 +379,7 @@ namespace Perell.Artemis
             return rtn;
         }
 
-        public System.Type GetFlagSymbolType(FlagID id)
-        {
-            System.Type rtn = typeof(Flag.ValueType);
-
-            if (flagSymbolTypes.HasKey(id))
-            {
-                rtn = flagSymbolTypes[id].GetEnumType();
-            }
-
-            return rtn;
-        }
-
-        public void Reset()
+        public void ResetToNothing()
         {
 
             flagsIdsToKeep.Clear();
@@ -423,9 +411,29 @@ namespace Perell.Artemis
         }
 #endif
 
+        public System.Type GetFlagSymbolType(FlagID id)
+        {
+            System.Type rtn = typeof(Flag.ValueType);
+
+            if (flagSymbolTypes.HasKey(id))
+            {
+                rtn = flagSymbolTypes[id].GetEnumType();
+            }
+
+            return rtn;
+        }
+
         public void Modify()
         {
-            Save(true);
+            Save();
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+        protected override string GetFilePath()
+        {
+            return "/Scripts/Generated/Artemis/Goddess.json";
         }
     }
 }

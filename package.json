@@ -1,6 +1,6 @@
 {
   "name": "com.perell.artemis",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "displayName": "Artemis",
   "description": "Narrative programming package that accesses rules and world-state data to give the most appropriate and important delivery. May your aim be true. 3",
   "unity": "2021.2",
@@ -28,8 +28,13 @@
             "path": "Samples~/Debug Console"
         },
 	{
+            "displayName": "Ink File Demonstration",
+            "description": "Contains sample code for Ink assets compiling to coincide with Artemis arrows.",
+            "path": "Samples~/Ink Example"
+        },
+	{
             "displayName": "Rituals",
-            "description": "Small game that utilizes Artemis for its narrative calls.",
+            "description": "Small Roguelike Game that utilizes Artemis for its narrative calls.",
             "path": "Samples~/Rituals"
         }]
 }

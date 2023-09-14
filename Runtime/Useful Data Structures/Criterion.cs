@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Perell.Artemis.Generated;
+using Perell.Artemis.Saving;
+using System.IO;
 
 namespace Perell.Artemis
 {
@@ -21,7 +23,7 @@ namespace Perell.Artemis
     }
 
     [System.Serializable]
-    public struct Criterion : IComparable<Criterion>
+    public struct Criterion : IComparable<Criterion>, IBinaryReadWriteable
     {
         /* left-hand side is the larger or equal, 
          * while right-hand side is the smaller or equal
@@ -161,6 +163,22 @@ namespace Perell.Artemis
         public float getB()
         {
             return rhs;
+        }
+
+        public void WriteToBinary(ref BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(lhs);
+            binaryWriter.Write(rhs);
+            binaryWriter.Write((int)flagIDChecked);
+            binaryWriter.Write((int)comparisonType);
+        }
+
+        public void ReadFromBinary(ref BinaryReader binaryReader)
+        {
+            lhs = binaryReader.ReadSingle();
+            rhs = binaryReader.ReadSingle();
+            flagIDChecked = (FlagID)binaryReader.ReadInt32();
+            comparisonType = (CriterionComparisonType)binaryReader.ReadInt32();
         }
     }
 }

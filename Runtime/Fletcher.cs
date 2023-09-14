@@ -134,11 +134,11 @@ namespace Perell.Artemis
     {
         [Header("Database Loading")]
         [SerializeField]
-        private TextAsset csvFile;
+        protected TextAsset csvFile;
         [SerializeField]
         [Min(0)]
         [Tooltip("Number of columns in the CSV used to generate the data structures in each database. Number does not include the base 4 columns.")]
-        private int columnsToReadFrom;
+        protected int columnsToReadFrom;
         [SerializeField]
         private SortedStrictDictionary<int,T> database;
 
@@ -770,6 +770,18 @@ namespace Perell.Artemis
         private string GetArrowFolderName()
         {
             return name + " Arrows";
+        }
+
+        public Arrow[] RetrieveAllGeneratedArrows()
+        {
+            string arrowLocation = GetContainingFolder() + "/" + GetArrowFolderName() + "/";
+            string[] assets = AssetDatabase.FindAssets("t:Perell.Artemis.Arrow", new string[] { arrowLocation });
+            List<Arrow> arrows = new List<Arrow>();
+            foreach (string asset in assets)
+            {
+                arrows.Add(AssetDatabase.LoadAssetAtPath<Arrow>(AssetDatabase.GUIDToAssetPath(asset)));
+            }
+            return arrows.ToArray();
         }
 #endif
 

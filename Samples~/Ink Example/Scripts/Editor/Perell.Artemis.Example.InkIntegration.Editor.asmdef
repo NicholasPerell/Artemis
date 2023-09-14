@@ -1,0 +1,23 @@
+{
+    "name": "Perell.Artemis.Example.InkIntegration.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Perell.Artemis.Example.InkIntegration",
+        "Ink-Libraries",
+        "InkEditor",
+        "Perell.Artemis.Editor",
+        "Perell.Artemis.Generated",
+        "Perell.Artemis"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
