@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
-namespace Perell.Artemis.Example.DebugConsole
+namespace Perell.Artemis.Example.DebugConsole.Editor
 {
     [CustomEditor(typeof(DebugExampleInitializer))]
     public class DebugExampleInitializerEditor : UnityEditor.Editor

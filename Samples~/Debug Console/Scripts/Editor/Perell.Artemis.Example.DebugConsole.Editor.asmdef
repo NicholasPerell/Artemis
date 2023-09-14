@@ -1,9 +1,8 @@
 {
-    "name": "Perell.Artemis.Editor",
+    "name": "Perell.Artemis.Example.DebugConsole.Editor",
     "rootNamespace": "",
     "references": [
-        "Perell.Artemis",
-        "Perell.Artemis.Generated"
+        "GUID:c0b113ce282ab71489d1a8b08b7d0566"
     ],
     "includePlatforms": [
         "Editor"

@@ -17,8 +17,7 @@ namespace Perell.Artemis.Example.DebugConsole
             FLETCHER,
             ARCHER_FLAGS,
             INITIALIZED,
-            FLAGS_DELETE,
-            FLAG_FOLDER,
+            FLAGS_DELETE
         }
 
 
@@ -51,6 +50,7 @@ namespace Perell.Artemis.Example.DebugConsole
                 currentStep = InitSteps.FLAGS_DELETE;
                 CheckForSteps();
             }
+            //TODO: Check what this extra check for steps is for?
             CheckForSteps();
         }
 
@@ -84,6 +84,7 @@ namespace Perell.Artemis.Example.DebugConsole
                     break;
             }
         }
+
         private void TriggerFletcher()
         {
             fletcher.GeneratorArrowDatabase();

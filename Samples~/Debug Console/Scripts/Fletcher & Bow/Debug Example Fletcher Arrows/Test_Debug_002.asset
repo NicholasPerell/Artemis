@@ -10,48 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81d6c426b21345840a5ce7617c156483, type: 3}
-  m_Name: Test_Debug_002
+  m_Name: Test_Debug_019
   m_EditorClassIdentifier: 
-  id: 1387
+  id: 2
   fletcher: {fileID: 11400000, guid: 5ae98de649bde344491a8b1ed8971550, type: 2}
   priorityValue: 3
   rule:
     list:
-    - Key: 0
-      Value:
-        lhs: 1
-        rhs: 1
-        flagIDChecked: 0
-        comparisonType: 0
-    - Key: 1
-      Value:
-        lhs: 1
-        rhs: 1
-        flagIDChecked: 1
-        comparisonType: 0
     - Key: 2
       Value:
-        lhs: 0
-        rhs: 0
+        lhs: 2
+        rhs: 2
         flagIDChecked: 2
         comparisonType: 0
-    - Key: 8
+    - Key: 3
       Value:
         lhs: 1
         rhs: 1
-        flagIDChecked: 8
+        flagIDChecked: 3
         comparisonType: 0
-    - Key: 11
-      Value:
-        lhs: 1
-        rhs: 1
-        flagIDChecked: 11
-        comparisonType: 0
-    - Key: 12
+    - Key: 4
       Value:
         lhs: 0
         rhs: 0
-        flagIDChecked: 12
+        flagIDChecked: 4
+        comparisonType: 0
+    - Key: 10
+      Value:
+        lhs: 1
+        rhs: 1
+        flagIDChecked: 10
+        comparisonType: 0
+    - Key: 13
+      Value:
+        lhs: 1
+        rhs: 1
+        flagIDChecked: 13
+        comparisonType: 0
+    - Key: 14
+      Value:
+        lhs: 0
+        rhs: 0
+        flagIDChecked: 14
         comparisonType: 0
   howToHandleBusy: 2
   howPriorityCalculated: 0

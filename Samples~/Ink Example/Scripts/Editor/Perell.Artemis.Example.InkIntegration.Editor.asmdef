@@ -1,9 +1,13 @@
 {
-    "name": "Perell.Artemis.Editor",
+    "name": "Perell.Artemis.Example.InkIntegration.Editor",
     "rootNamespace": "",
     "references": [
-        "Perell.Artemis",
-        "Perell.Artemis.Generated"
+        "Perell.Artemis.Example.InkIntegration",
+        "Ink-Libraries",
+        "InkEditor",
+        "Perell.Artemis.Editor",
+        "Perell.Artemis.Generated",
+        "Perell.Artemis"
     ],
     "includePlatforms": [
         "Editor"

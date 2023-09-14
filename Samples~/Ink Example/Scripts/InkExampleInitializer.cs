@@ -108,9 +108,6 @@ namespace Perell.Artemis.Example.InkIntegration
                     flagBundle.Add(flag);
                 }
             }
-            //AssetDatabase.DeleteAsset(flagLocation + "/RoomieFlags.asset");
-            //AssetDatabase.CreateAsset(flagBundle, flagLocation + "/RoomieFlags.asset");
-            //AssetDatabase.ImportAsset(flagLocation + "/RoomieFlags.asset");
         }
 
         private void LoadArrowsToArcher()

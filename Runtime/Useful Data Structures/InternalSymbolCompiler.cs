@@ -66,6 +66,7 @@ namespace Perell.Artemis
 
         public void WriteFlagEnumScript()
         {
+#if UNITY_EDITOR
             string elementName;
             int elementInt;
 
@@ -130,10 +131,12 @@ namespace Perell.Artemis
 
             AssetDatabase.ImportAsset(relativePath);
             CheckForCompiledScript();
+#endif
         }
 
         public void DeleteFlagEnumScript()
         {
+#if UNITY_EDITOR
             //Determine File Path
             string relativePath = fileLocation + enumName + ".cs";
             string path = "";
@@ -145,6 +148,7 @@ namespace Perell.Artemis
             //Delete unused script
             AssetDatabase.DeleteAsset(relativePath);
             enumType = null;
+#endif
         }
 
         private int FindValidIDNumber()

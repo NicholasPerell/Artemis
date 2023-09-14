@@ -1,5 +1,7 @@
 using Ink.Runtime;
+#if UNITY_EDITOR
 using Ink.UnityIntegration;
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +13,8 @@ namespace Perell.Artemis.Example.InkIntegration
     [CreateAssetMenu(fileName = "New Artemis Ink Fletcher", menuName = "Artemis Examples/Ink Fletcher")]
     public class InkFletcher : Fletcher<ArtemisInkData>
     {
+
+#if UNITY_EDITOR
         [SerializeField]
         private List<DefaultAsset> inksToCompile;
 
@@ -104,10 +108,12 @@ namespace Perell.Artemis.Example.InkIntegration
 
             GeneratorArrowDatabase();
         }
+#endif
 
         protected override bool SetUpDataFromCells(string[] dataToInterpret, out ArtemisInkData valueDetermined)
         {
             valueDetermined = null;
+#if UNITY_EDITOR
             InkFile inkFile = InkLibrary.GetInkFileWithPath(dataToInterpret[0]);
             bool success = inkFile != null;
             if (success)
@@ -115,6 +121,9 @@ namespace Perell.Artemis.Example.InkIntegration
                 valueDetermined = new ArtemisInkData(inkFile);
             }
             return success;
+#else
+            return true;
+#endif
         }
     }
 }

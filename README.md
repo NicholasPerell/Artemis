@@ -127,7 +127,7 @@ Another important value the Goddess has is the <ins>Globally Loaded Flag Bundles
 Scriptable Object that stores a list of flags and archers deemed important. Can save to (or load from) binary files to store the state of all their data, so long as the contents & ordering of the important assets have been preserved.
 
 
-## Future Plans (0.3 and beyond)
+## Future Plans
 
 Development on *Artemis* has been fueled by a desire to make something both unique and robust for Unity developers. Perell can see where this can go in the future (and it's an open source project, so having this as an ongoing side-project feels fitting). Some planned additions:
 
@@ -135,6 +135,10 @@ Development on *Artemis* has been fueled by a desire to make something both uniq
  - [ ] Additional pipeline options for users to plan out the narrative logic in a way that suits them.
  - [ ] Debugging tools to analyze the rules, world state data, and archer decision-making.
  - [ ] More examples and scenes demonstrating how you can use *Artemis*! 🛠️ (Currently in Progress!)
+   - [x] Debug Console <img src="https://docs.unity3d.com/2023.3/Documentation/uploads/Main/ConsoleFilterMessage.png" alt="Debug Console Message Icon in Unity" height="15px;">
+   - [x] *Ink* Usage in *Roomie Feud* <img src="https://github.com/inkle/inky/blob/master/resources/Icon1024.png?raw=true" alt="Inky Icon" height="15px;">
+   - [ ] *Rituals* <img src="https://raw.githubusercontent.com/nicholas-hoy-champain/Artemis/482ffe348a5a8b5cdf4243cd1532b9fdadb75a5a/Rituals/ArtAssets/Sprites/Characters/Player/Normal/Char.png" alt="Rituals Player Character" height="15px;">
+   - [ ] *Yarn Spinner* usage <img src="https://camo.githubusercontent.com/59831ed5a79063aa4626561e65f70e4fc1631265d55189f19d3575e030e80f98/68747470733a2f2f7961726e7370696e6e65722e6465762f696d672f5961726e5370696e6e65724c6f676f2e706e67" alt="Yarn Spinner Icon" height="15px;">
 
 ## Credits
 

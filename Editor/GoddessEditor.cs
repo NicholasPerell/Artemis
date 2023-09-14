@@ -52,7 +52,7 @@ namespace Perell.Artemis.Editor
             EditorGUILayout.Space();
             if (GUILayout.Button("RESET \u26A0"))
             {
-                goddess.Reset();
+                goddess.ResetToNothing();
             }
 
             serializedObject.ApplyModifiedProperties();

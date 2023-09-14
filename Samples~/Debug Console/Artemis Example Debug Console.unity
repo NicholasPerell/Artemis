@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 1754715185}
   - component: {fileID: 1754715184}
   m_Layer: 0
-  m_Name: Example Initializer
+  m_Name: Debug Example (& Initializer)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +455,7 @@ MonoBehaviour:
   fletcher: {fileID: 11400000, guid: 5ae98de649bde344491a8b1ed8971550, type: 2}
   archer: {fileID: 11400000, guid: 7c7b7db778a05d04f9adaca6f3fa6f4c, type: 2}
   arrowBundle: {fileID: 11400000, guid: 27a6aabb28810454a89308fe4e31f357, type: 2}
-  currentStep: 0
+  currentStep: 3
 --- !u!4 &1754715185
 Transform:
   m_ObjectHideFlags: 0
