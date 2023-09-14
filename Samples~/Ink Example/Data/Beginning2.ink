@@ -13,7 +13,9 @@ INCLUDE Globals.ink
     ++["Is it the sink?"] 
         "Is it the sink?" <br>{roomieName}'s eyebrows furrow. "No..." {roomie_they} says. {roomie_They} looks back at the sink.
         {roomie_Their} lips press together. "But we're gonna have words about it, later."
+    -> END
     ** "The trash?"
+    -> END
     ** "You left lint in the drier again?"
     -> END
 + [Yes, we are.]
