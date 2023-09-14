@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class InkExampleInitializerEditor : MonoBehaviour
+namespace Perell.Artemis.Example.InkIntegration.Editor
 {
-    // Start is called before the first frame update
-    void Start()
+    [CustomEditor(typeof(InkExampleInitializer))]
+    public class InkExampleInitializerEditor : UnityEditor.Editor
     {
-        
-    }
+        public override void OnInspectorGUI()
+        {
+            InkExampleInitializer initializer = (InkExampleInitializer)target;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            DrawDefaultInspector();
+            if (GUILayout.Button("Initialize"))
+            {
+                initializer.InitializeExample();
+            }
+            if (GUILayout.Button("Deinitialize"))
+            {
+                initializer.DeinitializeExample();
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
 #priority value: 1000
-#flags: !game_begun
+#flags: !game_begun, game_started > 0
 #how to handle busy: DELETE
 -> beginning2
 

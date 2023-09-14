@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flagsUsed:
     list:
-    - Key: 60
+    - Key: 0
       Value: {fileID: 11400000, guid: d2f3e79f68e6ed3438d3d9694ba1f26c, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 76d1cb208b730b64397ec28a4539b225, type: 2}
   tempFlags: []

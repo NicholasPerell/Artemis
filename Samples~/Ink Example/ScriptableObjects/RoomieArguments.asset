@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RoomieArguments
   m_EditorClassIdentifier: 
   overallData:
-  - {fileID: 11400000, guid: 77aa522e019010949b8121cdd9e1b6e1, type: 2}
   - {fileID: 11400000, guid: 5440cbeed4c6d804ca8fc9e658e165df, type: 2}
+  - {fileID: 11400000, guid: 77aa522e019010949b8121cdd9e1b6e1, type: 2}
   - {fileID: 11400000, guid: 063557a6fce7ae544b7ce27923296964, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
@@ -28,7 +28,7 @@ MonoBehaviour:
   recencyBias: 0
   defaultContents:
   - {fileID: 11400000, guid: 5440cbeed4c6d804ca8fc9e658e165df, type: 2}
-  - {fileID: 11400000, guid: 063557a6fce7ae544b7ce27923296964, type: 2}
   - {fileID: 11400000, guid: 77aa522e019010949b8121cdd9e1b6e1, type: 2}
+  - {fileID: 11400000, guid: 063557a6fce7ae544b7ce27923296964, type: 2}
   tempArrowBundle: {fileID: 0}
   insertionOrder: 3

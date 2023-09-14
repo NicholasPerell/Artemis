@@ -992,6 +992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635410661}
   - component: {fileID: 635410662}
+  - component: {fileID: 635410663}
   m_Layer: 0
   m_Name: Roomie Duel
   m_TagString: Untagged
@@ -1035,6 +1036,22 @@ MonoBehaviour:
   menus: {fileID: 1435639943}
   introductionCutscene: {fileID: 1846371006}
   gameplay: {fileID: 1892046821}
+--- !u!114 &635410663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635410660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b412ade3b64f6b949bbbeb2cf7dced2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fletcher: {fileID: 11400000, guid: 588c1f61f1829384288774adee902c05, type: 2}
+  flagBundle: {fileID: 11400000, guid: 7a26d3cd24cabda44b110074bf0d427d, type: 2}
+  archer: {fileID: 11400000, guid: 14273cfe3a694b54cabdd46b5170e9e6, type: 2}
+  currentStep: 0
 --- !u!1 &647460532
 GameObject:
   m_ObjectHideFlags: 0
