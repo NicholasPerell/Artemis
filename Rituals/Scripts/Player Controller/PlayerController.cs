@@ -41,9 +41,14 @@ namespace Perell.Artemis.Example.Rituals
         [Min(1)]
         float scrollSensitivity = 1;
         float scrollTracker;
+#if ENABLE_INPUT_SYSTEM
+        SorcererInputs inputActions;
+        InputsCheckDownUp abilityInputPrimary;
+        InputsCheckDownUp abilityInputSecondary;
+#else
         InputsCheckDownUp abilityInputPrimary = new InputsCheckDownUp(new InputCheckDownUp(0), new InputCheckDownUp(KeyCode.Space));
         InputsCheckDownUp abilityInputSecondary = new InputsCheckDownUp(new InputCheckDownUp(1), new InputCheckDownUp(KeyCode.LeftShift));
-
+#endif
         float cooldownTimer = 0;
 
         public Vector3 PlayerPosition => transform.position;
@@ -61,6 +66,13 @@ namespace Perell.Artemis.Example.Rituals
 
         private void Awake()
         {
+#if ENABLE_INPUT_SYSTEM
+            inputActions = new SorcererInputs();
+            inputActions.Dungeon.Enable();
+            abilityInputPrimary = new InputsCheckDownUp(new InputCheckDownUp(inputActions.Dungeon.PrimaryAbility));
+            abilityInputSecondary = new InputsCheckDownUp(new InputCheckDownUp(inputActions.Dungeon.SecondaryAbility));
+#endif
+
             ResetAbilities();
             abilitiesHeld = new Dictionary<PlayerAbilityData, PlayerAbilityController>();
         }
@@ -134,7 +146,11 @@ namespace Perell.Artemis.Example.Rituals
 
         private void CheckAbilityScroll()
         {
+#if ENABLE_INPUT_SYSTEM
+            scrollTracker += inputActions.Dungeon.Scroll.ReadValue<Vector2>().y;
+#else
             scrollTracker += Input.mouseScrollDelta.y;
+#endif
             if(Mathf.Abs(scrollTracker) > scrollSensitivity)
             {
                 AttemptReleaseAbility(playerAbilities[abilityIndexPrimary]);

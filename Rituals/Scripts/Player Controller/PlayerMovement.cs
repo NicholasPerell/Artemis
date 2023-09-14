@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Perell.Artemis.Example.Rituals.Controls;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -24,8 +25,14 @@ namespace Perell.Artemis.Example.Rituals
         EnemyManager enemyManager;
         DungeonManager dungeonManager;
 
+#if ENABLE_INPUT_SYSTEM
+        SorcererInputs sorcererInputs;
+#endif
+
         private void Awake()
         {
+            sorcererInputs = new SorcererInputs();
+
             speedMultipliers = new Dictionary<System.Type, float>();
             rb = GetComponent<Rigidbody>();
 
@@ -43,6 +50,17 @@ namespace Perell.Artemis.Example.Rituals
         {
             base.OnEnable();
             canMove = true;
+#if ENABLE_INPUT_SYSTEM
+            sorcererInputs.General.Enable();
+#endif
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+#if ENABLE_INPUT_SYSTEM
+            sorcererInputs.General.Disable();
+#endif
         }
 
         void Update()
@@ -65,14 +83,22 @@ namespace Perell.Artemis.Example.Rituals
 
         void CheckForInput()
         {
+#if ENABLE_INPUT_SYSTEM
+            movementInput = sorcererInputs.General.Movement.ReadValue<Vector2>();
+#else
             movementInput.x = Input.GetAxisRaw("Horizontal");
             movementInput.y = Input.GetAxisRaw("Vertical");
+#endif
             if (movementInput.sqrMagnitude > 1)
             {
                 movementInput.Normalize();
             }
 
+#if ENABLE_INPUT_SYSTEM
+            mouseInWorldSpace = Camera.main.ScreenToWorldPoint(sorcererInputs.General.Facing.ReadValue<Vector2>(), Camera.MonoOrStereoscopicEye.Mono);
+#else
             mouseInWorldSpace = Camera.main.ScreenToWorldPoint(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
+#endif
             facingInput = new Vector2(mouseInWorldSpace.x - transform.position.x, mouseInWorldSpace.z - transform.position.z);
         }
 

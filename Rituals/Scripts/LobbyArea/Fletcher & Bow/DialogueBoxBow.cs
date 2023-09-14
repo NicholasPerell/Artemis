@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
+using Perell.Artemis.Example.Rituals.Controls;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -39,13 +41,49 @@ namespace Perell.Artemis.Example.Rituals
         int onLine = 0;
         DialogueData.LineData[] currentLines;
 
-        private void Update()
+#if ENABLE_INPUT_SYSTEM
+        SorcererInputs inputActions;
+
+        private void Awake()
         {
-            if(Input.GetKeyDown(KeyCode.E) && IsBusy())
+            inputActions = new SorcererInputs();
+        }
+#endif
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+#if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Enable();
+            inputActions.Narrative.Interact.performed += RespondToInteractKey;
+#endif
+        }
+
+        private void OnDisable()
+        {
+#if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Disable();
+#endif
+        }
+
+
+#if ENABLE_INPUT_SYSTEM
+        private void RespondToInteractKey(InputAction.CallbackContext context)
+        {
+            if(IsBusy())
             {
                 ShowNextLine();
             }
         }
+#else
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E) && IsBusy())
+            {
+                ShowNextLine();
+            }
+        }
+#endif
 
         public override void AbruptEnd()
         {

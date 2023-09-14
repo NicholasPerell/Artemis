@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Perell.Artemis.Example.Rituals.Controls
 {
@@ -18,6 +19,13 @@ namespace Perell.Artemis.Example.Rituals.Controls
             isUp = _isUp;
         }
 
+#if ENABLE_INPUT_SYSTEM
+        public InputCheckDownUp(InputAction inputAction)
+        {
+            isDown = () => inputAction.WasPressedThisFrame();
+            isUp = () => inputAction.WasReleasedThisFrame();
+        }
+#else
         public InputCheckDownUp(KeyCode keyCode)
         {
             isDown = () => Input.GetKeyDown(keyCode);
@@ -29,6 +37,7 @@ namespace Perell.Artemis.Example.Rituals.Controls
             isDown = () => Input.GetMouseButtonDown(mouseButton);
             isUp = () => Input.GetMouseButtonUp(mouseButton);
         }
+#endif
 
         public bool InputDown => isDown();
         public bool InputUp => isUp();
@@ -58,7 +67,14 @@ namespace Perell.Artemis.Example.Rituals.Controls
                 held = false;
                 released = true;
             }
-
+#if ENABLE_INPUT_SYSTEM
+            public InputCheckStatus(InputAction inputAction)
+            {
+                input = new InputCheckDownUp(inputAction);
+                held = false;
+                released = true;
+            }
+#else
             public InputCheckStatus(KeyCode keyCode)
             {
                 input = new InputCheckDownUp(keyCode);
@@ -72,6 +88,7 @@ namespace Perell.Artemis.Example.Rituals.Controls
                 held = false;
                 released = true;
             }
+#endif
 
             private void Update()
             {
