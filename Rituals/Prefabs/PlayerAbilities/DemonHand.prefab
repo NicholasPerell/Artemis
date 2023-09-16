@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTime: 0.75
+  lifeTime: 0.75
   damage: 100
 --- !u!54 &5418010583877213859
 Rigidbody:

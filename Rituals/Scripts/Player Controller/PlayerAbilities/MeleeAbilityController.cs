@@ -9,6 +9,8 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         float attackTime;
         [SerializeField]
+        float lifeTime;
+        [SerializeField]
         float damage;
 
         protected override void OnInitialized()
@@ -31,7 +33,8 @@ namespace Perell.Artemis.Example.Rituals
         private void RunTimers()
         {
             attackTime -= Time.deltaTime;
-            if(attackTime <= 0)
+            lifeTime -= Time.deltaTime;
+            if (lifeTime <= 0)
             {
                 Destroy(this.gameObject);
             }
@@ -39,7 +42,7 @@ namespace Perell.Artemis.Example.Rituals
 
         private void OnTriggerEnter(Collider collision)
         {
-            if (collision.tag == "Enemy")
+            if (attackTime > 0 && collision.tag == "Enemy")
             {
                 collision.GetComponent<EnemyHealth>().TakeDamage(damage);
             }
