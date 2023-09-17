@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StartScreenManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class StartScreenManager : MonoBehaviour
     GameObject[] creditsScreenContainers;
     [SerializeField]
     GameObject[] introScreenContainers;
+
+    public event UnityAction OnGameBegins;
 
     private void OnEnable()
     {
@@ -62,7 +65,7 @@ public class StartScreenManager : MonoBehaviour
 
     public void NewGame()
     {
-
+        OnGameBegins?.Invoke();
     }
 
     public void OnClickQuit()

@@ -28,6 +28,8 @@ namespace Perell.Artemis.Example.Rituals
 
         public static event UnityAction<bool> OnPossessed;
 
+        public event UnityAction OnEscaped;
+
         static AncientRuinsManager instance;
         public static Transform Player { get { return instance.player; } }
         public static PlayerController PlayerController { get { return instance.playerController; } }
@@ -51,6 +53,7 @@ namespace Perell.Artemis.Example.Rituals
             playerController.Corruption.OnCorrupted -= RespondToCorrupted;
             demonSpirit.OnCaughtPlayer -= RespondToCaughtPlayer;
             antipossesionScoll.OnScrollComplete -= RespondToScrollComplete;
+            OnPossessed?.Invoke(false);
         }
 
         private void RespondToCorrupted()

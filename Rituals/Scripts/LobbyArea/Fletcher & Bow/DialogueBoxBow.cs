@@ -62,6 +62,7 @@ namespace Perell.Artemis.Example.Rituals
         private void OnDisable()
         {
 #if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Interact.performed -= RespondToInteractKey;
             inputActions.Narrative.Disable();
 #endif
         }
@@ -99,12 +100,13 @@ namespace Perell.Artemis.Example.Rituals
         {
             onLine = 0;
             currentLines = data.lines;
-            if (currentLines != null && onLine >= currentLines.Length)
+            if (currentLines == null || onLine >= currentLines.Length)
             {
                 EndLines();
             }
             else
             {
+                Time.timeScale = 0;
                 ShowLine();
             }
         }
@@ -146,6 +148,7 @@ namespace Perell.Artemis.Example.Rituals
 
         private void EndLines()
         {
+            Time.timeScale = 1;
             onLine = 0;
             currentLines = null;
             overallPanel.SetActive(false);
