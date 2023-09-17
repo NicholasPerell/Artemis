@@ -36,6 +36,10 @@ PrefabInstance:
       value: 0.7900432
       objectReference: {fileID: 0}
     - target: {fileID: 1809239330914331768, guid: b7014c22e0684574abeb23358de4a383, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809239330914331768, guid: b7014c22e0684574abeb23358de4a383, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -49,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2924436714946498835, guid: b7014c22e0684574abeb23358de4a383, type: 3}
       propertyPath: m_Name
-      value: Servant
+      value: Servant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3901797162095815925, guid: b7014c22e0684574abeb23358de4a383, type: 3}
       propertyPath: m_RootOrder
