@@ -7,6 +7,7 @@ using UnityEngine;
 using Perell.Artemis.Generated;
 using Perell.Artemis.Saving;
 using System.IO;
+using Perell.Artemis.Debugging;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -129,22 +130,33 @@ namespace Perell.Artemis
 
         public void Init()
         {
+            ArtemisDebug.Instance.OpenReportLine(name + ".Init()");
             Refresh(true,false);
+            ArtemisDebug.Instance.ReportLine("Initialization Complete");
+            ArtemisDebug.Instance.CloseReport();
         }
 
         private void Refresh(bool includeNonZeroPriority, bool includeBundles)
         {
+            ArtemisDebug.Instance.OpenReportLine("Refresh()");
+            ArtemisDebug.Instance.Report("Include Non-Zero Priority: ").ReportLine(includeNonZeroPriority?"true":"false")
+                .Report("Include Bundles: ").ReportLine(includeBundles ? "true" : "false");
             insertionOrder = 0;
             overallData = new List<Arrow>();
             partitionedData = new SortedStrictDictionary<ComparableIntArray, OrderedArrowList>();
 
+            ArtemisDebug.Instance.Report("Default Contents Count: ").ReportLine(defaultContents.Count);
+            ArtemisDebug.Instance.Indents++;
             foreach (Arrow arrow in defaultContents)
             {
+                ArtemisDebug.Instance.Report("Arrow ").Report(arrow.name).Report(", Priority ").ReportLine(arrow.GetPriority());
                 if (arrow.GetPriority() == 0 || includeNonZeroPriority)
                 {
                     RecieveArrow(arrow);
                 }
             }
+            ArtemisDebug.Instance.Indents--;
+
 
             if (includeBundles)
             {
@@ -164,6 +176,7 @@ namespace Perell.Artemis
             {
                 bundleHistory.Clear();
             }
+            ArtemisDebug.Instance.CloseReport();
         }
 
         public void SetToLoopedState()
@@ -181,8 +194,11 @@ namespace Perell.Artemis
 
         public void RecieveArrow(Arrow arrow, bool returningArrow = false)
         {
-            Debug.Log("RecieveArrow: " + arrow + (returningArrow?" (returning)":""));
+            ArtemisDebug.Instance.OpenReportLine(name + ".RecieveArrow()");
+            ArtemisDebug.Instance.Report("Arrow: ").ReportLine(arrow.name);
+            ArtemisDebug.Instance.Report("Returning Arrow: ").ReportLine(returningArrow?"true":"false");
 
+            ArtemisDebug.Instance.ReportLine("Overall Data");
             //Overall Data
             InsertArrowIntoList(arrow, overallData, returningArrow);
 
@@ -191,16 +207,21 @@ namespace Perell.Artemis
             //Partitioned Data
             if (partitioningFlags.Count != 0)
             {
+                ArtemisDebug.Instance.ReportLine("Parititoned Data");
                 float value;
                 int[] array = new int[partitioningFlags.Count];
+                ArtemisDebug.Instance.Report("Parititoning Key: ");
                 for (int i = 0; i < partitioningFlags.Count; i++)
                 {
                     arrow.TryGetFlagEqualsValue(partitioningFlags[i], out value);
                     array[i] = (int)value;
+                    ArtemisDebug.Instance.Report(partitioningFlags[i]).Report(" ").Report(array[i]).Report("  ");
                 }
+                ArtemisDebug.Instance.ReportLine();
                 ComparableIntArray key = new ComparableIntArray(array);
                 if (!partitionedData.HasKey(key))
                 {
+                    ArtemisDebug.Instance.ReportLine("Creating a new OrderedArrowList for this key.");
                     partitionedData.Add(key, OrderedArrowList.Init());
                 }
                 OrderedArrowList bucket = partitionedData[key];
@@ -208,11 +229,16 @@ namespace Perell.Artemis
             }
 
             insertionOrder++;
+            ArtemisDebug.Instance.Report("Insertion Order increased to ").ReportLine(insertionOrder);
+            ArtemisDebug.Instance.CloseReport();
         }
 
         private void InsertArrowIntoList(Arrow arrow, List<Arrow> list, bool returningArrow, List<uint> orders = null)
         {
-            Debug.Log("InsertArrowIntoList: " + arrow + (returningArrow ? " (returning)" : ""));
+            ArtemisDebug.Instance.OpenReportLine("InsertArrowIntoList")
+                .Report("List: ").ReportLine(list != null ? "Size "+ list.Count : "null")
+                .Report("Returning Arrow: ").ReportLine(returningArrow?"true":"false")
+                .Report("Orders: ").ReportLine(orders);
 
             if (list != null)
             {
@@ -221,14 +247,24 @@ namespace Perell.Artemis
             Debug.Log("\t - " + a);
                 if (list.Count != 0)
                 {
+                    ArtemisDebug.Instance.Report("Arrow ").Report(arrow.name).Report(" has a priority of ").ReportLine(arrow.GetPriority());
                     int i;
                     if (arrow.IsPriority())
                     {
+                        if (!returningArrow)
+                        {
+                            ArtemisDebug.Instance.Report("Recency Bias: ").ReportLine(returningArrow ? "true" : "false");
+                        }
+
+                        ArtemisDebug.Instance.Indents++;
                         for (i = 0; i < list.Count; i++)
                         {
+                            ArtemisDebug.Instance.Report(i).Report(": checking for ").Report(list[i].GetPriority()).Report(" <");
+
                             bool insertable;
                             if (recencyBias || returningArrow)
                             {
+                                ArtemisDebug.Instance.Report("=");
                                 insertable = list[i].GetPriority() <= arrow.GetPriority();
                             }
                             else
@@ -236,11 +272,14 @@ namespace Perell.Artemis
                                 insertable = list[i].GetPriority() < arrow.GetPriority();
                             }
 
+                            ArtemisDebug.Instance.Report(" ").ReportLine(arrow.GetPriority());
+
                             if (insertable)
                             {
                                 break;
                             }
                         }
+                        ArtemisDebug.Instance.Indents--;
                     }
                     else
                     {
@@ -248,22 +287,27 @@ namespace Perell.Artemis
                         {
                             if (!list[i].IsPriority())
                             {
+                                ArtemisDebug.Instance.Report("Placing arrow in random point in the general pool (").Report(i).Report("–").Report(list.Count).ReportLine(")");
                                 i = UnityEngine.Random.Range(i, list.Count + 1);
                                 break;
                             }
                         }
                     }
+                    ArtemisDebug.Instance.Report("Inserting arrow at ").ReportLine(i);
                     list.Insert(i, arrow);
                     if (orders != null)
                     {
+                        ArtemisDebug.Instance.Report("Inserting order of ").Report(insertionOrder).Report(" at ").ReportLine(i);
                         orders.Insert(i, insertionOrder);
                     }
                 }
                 else
                 {
+                    ArtemisDebug.Instance.ReportLine("List is empty, simply adding to list.");
                     list.Add(arrow);
                     if (orders != null)
                     {
+                        ArtemisDebug.Instance.ReportLine("Same for Orders.");
                         orders.Add(insertionOrder);
                     }
                 }
@@ -271,6 +315,8 @@ namespace Perell.Artemis
                 foreach (Arrow a in list)
                     Debug.Log("\t - " + a);
             }
+
+            ArtemisDebug.Instance.CloseReport();
         }
 
         public bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)
