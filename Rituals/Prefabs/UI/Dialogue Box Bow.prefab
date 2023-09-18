@@ -193,7 +193,7 @@ MonoBehaviour:
     nameColor: {r: 0.6415627, g: 0.30659384, b: 0.8679245, a: 1}
   - speakerId: 1
     displayName: Mage
-    displayImage: {fileID: 21300000, guid: 91a43902cefe91648811f0029f11ec6b, type: 3}
+    displayImage: {fileID: 1006077442, guid: 6bf7540ad3d81e04584075bd46e45606, type: 3}
     nameColor: {r: 0.7372549, g: 1, b: 1, a: 1}
   - speakerId: 2
     displayName: Demon
@@ -205,7 +205,7 @@ MonoBehaviour:
     nameColor: {r: 0.50980395, g: 0.043137256, b: 0, a: 1}
   - speakerId: 4
     displayName: Craftsman
-    displayImage: {fileID: 21300000, guid: 0b605e2ec8abf104590878e443c0f070, type: 3}
+    displayImage: {fileID: 21300000, guid: a3218cdeb6023e4498016afd80f3ea3e, type: 3}
     nameColor: {r: 0.8005402, g: 0.8490566, b: 0.5482378, a: 1}
   - speakerId: 5
     displayName: Servant
