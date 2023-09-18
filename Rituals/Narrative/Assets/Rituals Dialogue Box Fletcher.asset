@@ -409,9 +409,54 @@ MonoBehaviour:
           text: ' The world finally ceases its spin.'
         flagChanges: []
         archerChanges: []
+    - Key: 240
+      Value:
+        lines:
+        - speaker: 4
+          text: ' You''ll get used to it.'
+        - speaker: 0
+          text: ' To what?'
+        - speaker: 4
+          text: ' The light. The rush. Soliders get trained to handle it all the
+            time.'
+        flagChanges:
+        - stringId: Spoken_To_Smith
+          id: 34
+          stringValue: 
+          value: 1
+        archerChanges:
+        - archer: {fileID: 11400000, guid: 4d7f18c7821e4a745a4d0be70a1c4ad8, type: 2}
+          arrowNames:
+          - Smith_001
+          arrowBundle: {fileID: 11400000, guid: 8a6df16c19c9889439fa6bd2e137fc79, type: 2}
+          dumping: 0
+    - Key: 241
+      Value:
+        lines:
+        - speaker: 4
+          text: ' You''re welcome for the runes.'
+        - speaker: 0
+          text: ' Right, sorry. Thank you.'
+        - speaker: 4
+          text: ' I''m used to it. You wizards have a knack for gunning towards an
+            objective without much grace.'
+        - speaker: 4
+          text: ' They have important work to do, and at least make up for it in
+            coin.'
+        flagChanges:
+        - stringId: Spoken_To_Smith
+          id: 34
+          stringValue: 
+          value: 1
+        archerChanges:
+        - archer: {fileID: 11400000, guid: 4d7f18c7821e4a745a4d0be70a1c4ad8, type: 2}
+          arrowNames:
+          - Smith_000
+          arrowBundle: {fileID: 11400000, guid: eb5b5a16d932549449d3eb9a4b89b976, type: 2}
+          dumping: 0
   arrowIDCompiler:
     idsUsed:
-      list: c8000000c9000000ca000000cb000000cc000000cd000000ce000000cf000000d0000000d1000000d2000000d3000000d4000000d5000000d6000000d7000000d8000000d9000000da000000db000000dc000000dd000000de000000df000000e0000000e1000000e2000000e3000000e4000000e5000000e6000000e7000000e8000000e9000000ea000000eb000000ec000000ed000000ee000000ef000000
+      list: c8000000c9000000ca000000cb000000cc000000cd000000ce000000cf000000d0000000d1000000d2000000d3000000d4000000d5000000d6000000d7000000d8000000d9000000da000000db000000dc000000dd000000de000000df000000e0000000e1000000e2000000e3000000e4000000e5000000e6000000e7000000e8000000e9000000ea000000eb000000ec000000ed000000ee000000ef000000f0000000f1000000
     toAdd:
       list: []
     intsReadyToConvert:
@@ -450,6 +495,10 @@ MonoBehaviour:
   - SERVANT_STATE
   - SERVANT_STATE
   - SERVANT_STATE
+  - RUNSSTARTED
+  - SPOKEN_TO_SMITH
+  - RUNSSTARTED
+  - SPOKEN_TO_SMITH
   - RUNSSTARTED
   - RUNSSTARTED
   arrowsNotBeingUsed: 

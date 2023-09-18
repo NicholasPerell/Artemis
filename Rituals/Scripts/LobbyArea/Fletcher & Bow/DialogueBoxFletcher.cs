@@ -128,8 +128,8 @@ namespace Perell.Artemis.Example.Rituals
 
             public bool TestsInvalid()
             {
-                return (id != FlagID.INVALID || IsFlagNameValid(stringId))
-                    && (stringValue == null || IsFlagNameValid(stringValue));
+                return (id == FlagID.INVALID && !IsFlagNameValid(stringId))
+                    && (stringValue != null && !IsFlagNameValid(stringValue));
             }
 
             private bool IsFlagNameValid(string flag)
@@ -173,7 +173,6 @@ namespace Perell.Artemis.Example.Rituals
         public ArcherChangeData[] archerChanges;
     }
 
-
     [CreateAssetMenu(fileName = "New Artemis Dialogue Delivery System", menuName = "Artemis Examples/Dialogue Delivery System")]
     public class DialogueBoxFletcher : Fletcher<DialogueData>
     {
@@ -199,7 +198,7 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
         ArcherAttributes[] archerAttributes;
 
-        //[HideInInspector]
+        [HideInInspector]
         [SerializeField]
         bool generating;
 

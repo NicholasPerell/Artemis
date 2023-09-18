@@ -23,6 +23,7 @@ MonoBehaviour:
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
-  defaultContents: []
+  defaultContents:
+  - {fileID: 11400000, guid: 409403d5aa93e184fb9abdc3e53b5c49, type: 2}
   tempArrowBundle: {fileID: 0}
   insertionOrder: 0
