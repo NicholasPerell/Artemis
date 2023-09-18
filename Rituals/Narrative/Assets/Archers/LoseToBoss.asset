@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
+  m_Name: LoseToBoss
+  m_EditorClassIdentifier: 
+  overallData:
+  - {fileID: 11400000, guid: e36502edba3716a4e8121c98ee439605, type: 2}
+  partitioningFlags: 
+  tempPartitioningFlags: 
+  partitionedData:
+    list: []
+  loops: 1
+  includeBundlesInLoop: 0
+  includeHigherPrioritiesInLoop: 0
+  discardArrowsAfterUse: 1
+  chooseSamePriority: 0
+  recencyBias: 0
+  defaultContents:
+  - {fileID: 11400000, guid: e36502edba3716a4e8121c98ee439605, type: 2}
+  tempArrowBundle: {fileID: 0}
+  insertionOrder: 1

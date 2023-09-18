@@ -1889,7 +1889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1395679782
 Transform:
   m_ObjectHideFlags: 0
@@ -1929,6 +1929,18 @@ MonoBehaviour:
   introScreenContainers:
   - {fileID: 1623577975}
   - {fileID: 1855806449}
+  gameSaveData: {fileID: 11400000, guid: 8efcb97fb9acfe6429c7fd5f2826c860, type: 2}
+  newGameSaveData: {fileID: 0}
+  archersToInitOnNewGame:
+  - {fileID: 11400000, guid: e54a5fa5aa9502043a97544970beef12, type: 2}
+  - {fileID: 11400000, guid: a601bbab7e7dfc04da3a74dd3e9e8d04, type: 2}
+  - {fileID: 11400000, guid: 936d7c0304d3fae4ebf1d69a0683995e, type: 2}
+  - {fileID: 11400000, guid: c90711c0ff21e0d4e958b69742b57086, type: 2}
+  - {fileID: 11400000, guid: 5160e429f2ce60d4998c60d59147af25, type: 2}
+  - {fileID: 11400000, guid: 0b57314d78e55404fa745dc0dafb64d5, type: 2}
+  - {fileID: 11400000, guid: 68379fc516cf381448eef1f72b5299a7, type: 2}
+  - {fileID: 11400000, guid: 4d7f18c7821e4a745a4d0be70a1c4ad8, type: 2}
+  - {fileID: 11400000, guid: 125cf27ff04635c479a0ab2de34d9d85, type: 2}
 --- !u!1001 &1425731106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2862,7 +2874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5481661405533845364, guid: 0c9cbaa43f2af184eb6f310220028ffb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5481661405533845365, guid: 0c9cbaa43f2af184eb6f310220028ffb, type: 3}
       propertyPath: m_RootOrder

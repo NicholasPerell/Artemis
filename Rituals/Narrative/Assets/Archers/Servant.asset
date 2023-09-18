@@ -12,17 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
   m_Name: Servant
   m_EditorClassIdentifier: 
-  overallData: []
+  overallData:
+  - {fileID: 11400000, guid: 7584b31dbc71bf94493e91f3e8fab4cc, type: 2}
+  - {fileID: 11400000, guid: 1f8e35b3d6533884fbd3541156d67680, type: 2}
+  - {fileID: 11400000, guid: 3937950dd6cf14142b5cef9c9fbce936, type: 2}
+  - {fileID: 11400000, guid: 2e92ad039a8ab5e4992f97c02b7d344f, type: 2}
+  - {fileID: 11400000, guid: 771569e6aceb76a4f81033178d4b78b8, type: 2}
+  - {fileID: 11400000, guid: 60eb329315e08fc458b4caac31537ea3, type: 2}
+  - {fileID: 11400000, guid: 6239aa619384f154a9246fa583a57e86, type: 2}
+  - {fileID: 11400000, guid: 463bf42071945794faffae2de7a6bb5e, type: 2}
+  - {fileID: 11400000, guid: 1c341777e17d1914a98bc44461a0f569, type: 2}
+  - {fileID: 11400000, guid: 52bd292701f8a2149b912e1fd5730eea, type: 2}
+  - {fileID: 11400000, guid: 9b562ff43f5cda7418d8117626015a9c, type: 2}
+  - {fileID: 11400000, guid: f812bec5341c0234ba2ab93d4e07f9d1, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 0
+  loops: 1
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
-  defaultContents: []
+  defaultContents:
+  - {fileID: 11400000, guid: 7584b31dbc71bf94493e91f3e8fab4cc, type: 2}
+  - {fileID: 11400000, guid: 1f8e35b3d6533884fbd3541156d67680, type: 2}
+  - {fileID: 11400000, guid: 3937950dd6cf14142b5cef9c9fbce936, type: 2}
+  - {fileID: 11400000, guid: 2e92ad039a8ab5e4992f97c02b7d344f, type: 2}
+  - {fileID: 11400000, guid: 771569e6aceb76a4f81033178d4b78b8, type: 2}
+  - {fileID: 11400000, guid: 60eb329315e08fc458b4caac31537ea3, type: 2}
+  - {fileID: 11400000, guid: f812bec5341c0234ba2ab93d4e07f9d1, type: 2}
+  - {fileID: 11400000, guid: 52bd292701f8a2149b912e1fd5730eea, type: 2}
+  - {fileID: 11400000, guid: 1c341777e17d1914a98bc44461a0f569, type: 2}
+  - {fileID: 11400000, guid: 6239aa619384f154a9246fa583a57e86, type: 2}
+  - {fileID: 11400000, guid: 463bf42071945794faffae2de7a6bb5e, type: 2}
+  - {fileID: 11400000, guid: 9b562ff43f5cda7418d8117626015a9c, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 0
+  insertionOrder: 12

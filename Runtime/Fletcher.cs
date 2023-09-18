@@ -143,6 +143,7 @@ namespace Perell.Artemis
         private SortedStrictDictionary<int,T> database;
 
         private const int BASE_COLUMNS = 4;
+        private const string INTERNAL_SYMBOL_LOCATION = "Assets/Scripts/Generated/Artemis/ArrowEnums/";
 
         [HideInInspector]
         [SerializeField]
@@ -195,9 +196,9 @@ namespace Perell.Artemis
             arrowPrefix = arrowPrefix.Replace('.', '_'); //Prevents namespaces from causing compilation errors
             if (arrowIDCompiler == null)
             {
-                arrowIDCompiler = new InternalSymbolCompiler(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
+                arrowIDCompiler = new InternalSymbolCompiler(INTERNAL_SYMBOL_LOCATION, arrowPrefix + "_arrows");
             }
-            arrowIDCompiler.SetLocation(GetContainingFolder() + "/" + GetArrowFolderName() + "/", arrowPrefix + "_arrows");
+            arrowIDCompiler.SetLocation(INTERNAL_SYMBOL_LOCATION, arrowPrefix + "_arrows");
 
             //Parse CSV
             fgCSVReader.LoadFromString(csvFile.text, BASE_COLUMNS + columnsToReadFrom, AddToDatabase);
@@ -771,6 +772,7 @@ namespace Perell.Artemis
         {
             return name + " Arrows";
         }
+
 
         public Arrow[] RetrieveAllGeneratedArrows()
         {

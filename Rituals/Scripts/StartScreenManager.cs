@@ -2,77 +2,99 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Perell.Artemis.Saving;
 
-public class StartScreenManager : MonoBehaviour
+namespace Perell.Artemis.Example.Rituals
 {
-    [SerializeField]
-    Camera mainCamera;
-
-    [SerializeField]
-    GameObject[] startScreenContainers;
-    [SerializeField]
-    GameObject[] creditsScreenContainers;
-    [SerializeField]
-    GameObject[] introScreenContainers;
-
-    public event UnityAction OnGameBegins;
-
-    private void OnEnable()
+    public class StartScreenManager : MonoBehaviour
     {
-        mainCamera.transform.position = new Vector3(0, mainCamera.transform.position.y, 0);
-        ShowStartScreen();
-    }
+        [SerializeField]
+        Camera mainCamera;
 
-    private void HideAllScreens()
-    {
-        foreach(GameObject gameObject in startScreenContainers)
+        [SerializeField]
+        GameObject[] startScreenContainers;
+        [SerializeField]
+        GameObject[] creditsScreenContainers;
+        [SerializeField]
+        GameObject[] introScreenContainers;
+
+        [Space]
+        [SerializeField]
+        Constellation gameSaveData;
+        [SerializeField]
+        TextAsset newGameSaveData;
+        [SerializeField]
+        Archer[] archersToInitOnNewGame;
+
+        public event UnityAction OnGameBegins;
+
+        private void OnEnable()
         {
-            gameObject.SetActive(false);
+            mainCamera.transform.position = new Vector3(0, mainCamera.transform.position.y, 0);
+            ShowStartScreen();
         }
-        foreach (GameObject gameObject in creditsScreenContainers)
+
+        private void HideAllScreens()
         {
-            gameObject.SetActive(false);
+            foreach (GameObject gameObject in startScreenContainers)
+            {
+                gameObject.SetActive(false);
+            }
+            foreach (GameObject gameObject in creditsScreenContainers)
+            {
+                gameObject.SetActive(false);
+            }
+            foreach (GameObject gameObject in introScreenContainers)
+            {
+                gameObject.SetActive(false);
+            }
         }
-        foreach (GameObject gameObject in introScreenContainers)
+
+        private void ShowSpecificScreen(GameObject[] containers)
         {
-            gameObject.SetActive(false);
+            HideAllScreens();
+            foreach (GameObject gameObject in containers)
+            {
+                gameObject.SetActive(true);
+            }
         }
-    }
 
-    private void ShowSpecificScreen(GameObject[] containers)
-    {
-        HideAllScreens();
-        foreach (GameObject gameObject in containers)
+        public void ShowStartScreen()
         {
-            gameObject.SetActive(true);
+            ShowSpecificScreen(startScreenContainers);
         }
-    }
 
-    public void ShowStartScreen()
-    {
-        ShowSpecificScreen(startScreenContainers);
-    }
+        public void ShowCreditsScreen()
+        {
+            ShowSpecificScreen(creditsScreenContainers);
+        }
 
-    public void ShowCreditsScreen()
-    {
-        ShowSpecificScreen(creditsScreenContainers);
-    }
+        public void ShowIntroScreen()
+        {
+            ShowSpecificScreen(introScreenContainers);
+        }
 
-    public void ShowIntroScreen()
-    {
-        ShowSpecificScreen(introScreenContainers);
-    }
+        public void NewGame()
+        {
+            foreach(Archer archer in archersToInitOnNewGame)
+            {
+                archer.Init();
+            }
 
-    public void NewGame()
-    {
-        OnGameBegins?.Invoke();
-    }
+            if(gameSaveData && newGameSaveData)
+            {
+                gameSaveData.LoadFromTextAsset(newGameSaveData);
+            }
 
-    public void OnClickQuit()
-    {
+            OnGameBegins?.Invoke();
+        }
+
+        public void OnClickQuit()
+        {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
             Application.Quit();
+        }
     }
 }

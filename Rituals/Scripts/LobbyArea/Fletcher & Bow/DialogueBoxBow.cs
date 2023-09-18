@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using Perell.Artemis.Example.Rituals.Controls;
+using Perell.Artemis.Generated;
+using System;
+using Perell.Artemis.Debugging;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -13,7 +16,7 @@ namespace Perell.Artemis.Example.Rituals
         [System.Serializable]
         public struct SpeakerAttributes
         {
-            public DialogueData.Speaker speakerID;
+            public DialogueData.Speaker speakerId;
             public string displayName;
             public Sprite displayImage;
             public Color nameColor;
@@ -21,6 +24,9 @@ namespace Perell.Artemis.Example.Rituals
 
         [SerializeField]
         SpeakerAttributes[] speakerAttributes;
+
+        [SerializeField]
+        FlagBundle affectableFlags;
 
         [SerializeField]
         GameObject overallPanel;
@@ -53,10 +59,7 @@ namespace Perell.Artemis.Example.Rituals
         protected override void OnEnable()
         {
             base.OnEnable();
-#if ENABLE_INPUT_SYSTEM
-            inputActions.Narrative.Enable();
-            inputActions.Narrative.Interact.performed += RespondToInteractKey;
-#endif
+            EndLines();
         }
 
         private void OnDisable()
@@ -109,17 +112,67 @@ namespace Perell.Artemis.Example.Rituals
                 Time.timeScale = 0;
                 ShowLine();
             }
+
+            DialogueData.FlagChangeData[] flagChanges = data.flagChanges;
+            if(flagChanges != null && flagChanges.Length > 0)
+            {
+                FlagID id;
+                Flag flag;
+                float value;
+                foreach(DialogueData.FlagChangeData change in flagChanges)
+                {
+                    id = change.GetID();
+                    if (id != FlagID.INVALID 
+                        && affectableFlags.flagsUsed.TryGetValue(id, out flag)
+                        && change.TryGetValue(out value))
+                    {
+                        flag.SetValue(value);
+                    }
+
+                }
+            }
+
+
+#if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Enable();
+            inputActions.Narrative.Interact.performed += RespondToInteractKey;
+#endif
+
+            StartCoroutine(AffectArcher(data));
+        }
+
+        private IEnumerator AffectArcher(DialogueData data)
+        {
+            yield return new WaitForEndOfFrame();
+
+            DialogueData.ArcherChangeData[] archerChanges = data.archerChanges;
+            if (archerChanges != null && archerChanges.Length > 0)
+            {
+                foreach (DialogueData.ArcherChangeData change in archerChanges)
+                {
+                    if (change.dumping)
+                    {
+                        change.archer.DumpBundle(change.arrowBundle);
+                    }
+                    else
+                    {
+                        change.archer.DropBundle(change.arrowBundle);
+                    }
+                }
+            }
         }
 
         private void ShowLine()
         {
+            Debug.Log("ShowLine");
+
             overallPanel.SetActive(true);
             DialogueData.LineData lineData = currentLines[onLine];
             foreach (SpeakerAttributes attribute in speakerAttributes)
             {
-                if (attribute.speakerID == lineData.speaker)
+                if (attribute.speakerId == lineData.speaker)
                 {
-                    bool isSpeaker = attribute.speakerID != DialogueData.Speaker.NARRATION;
+                    bool isSpeaker = attribute.speakerId != DialogueData.Speaker.NARRATION;
 
                     iconBorder.SetActive(isSpeaker);
                     iconImage.sprite = attribute.displayImage;
@@ -135,6 +188,8 @@ namespace Perell.Artemis.Example.Rituals
 
         private void ShowNextLine()
         {
+            Debug.Log("ShowNextLine");
+
             onLine++;
             if (onLine >= currentLines.Length)
             {
@@ -152,6 +207,14 @@ namespace Perell.Artemis.Example.Rituals
             onLine = 0;
             currentLines = null;
             overallPanel.SetActive(false);
+
+
+#if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Interact.performed -= RespondToInteractKey;
+            inputActions.Narrative.Disable();
+#endif
         }
+
+
     }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overallData:
   - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
+  - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
@@ -26,5 +27,6 @@ MonoBehaviour:
   recencyBias: 0
   defaultContents:
   - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
+  - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 1
+  insertionOrder: 2
