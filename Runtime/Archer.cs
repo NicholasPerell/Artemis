@@ -311,9 +311,6 @@ namespace Perell.Artemis
                         orders.Add(insertionOrder);
                     }
                 }
-            Debug.Log("InsertArrowIntoList: " + list.Count);
-                foreach (Arrow a in list)
-                    Debug.Log("\t - " + a);
             }
 
             ArtemisDebug.Instance.CloseReport();
