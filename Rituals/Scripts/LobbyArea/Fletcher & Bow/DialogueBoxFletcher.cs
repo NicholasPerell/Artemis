@@ -95,7 +95,7 @@ namespace Perell.Artemis.Example.Rituals
 
             public bool TryGetValue(out float result)
             {
-                if(stringValue != null)
+                if(stringValue != null && stringValue != "")
                 {
                     if (GetID() != FlagID.INVALID)
                     {
@@ -301,7 +301,7 @@ namespace Perell.Artemis.Example.Rituals
                     if(System.Enum.TryParse<DialogueData.Speaker>(speakerString, true, out speakerEnum))
                     {
                         valueDetermined.lines[i].speaker = speakerEnum;
-                        valueDetermined.lines[i].text = stringLines[i].Substring(indexOfDivider + 1);
+                        valueDetermined.lines[i].text = stringLines[i].Substring(indexOfDivider + 1).Trim();
                     }
                     else
                     {
