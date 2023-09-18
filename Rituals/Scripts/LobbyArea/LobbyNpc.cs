@@ -50,7 +50,6 @@ namespace Perell.Artemis.Example.Rituals
 
         private void RespondToInteractAttempted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-                Debug.Log("Input Attempt");
             if(CanBeTalkedTo())
             {
                 talkedToPlayer = true;

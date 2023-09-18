@@ -187,34 +187,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deliverySystem: {fileID: 11400000, guid: 2b17e2e89c7d27f4fbef64242463b5af, type: 2}
   speakerAttributes:
-  - speakerID: 0
+  - speakerId: 0
     displayName: Sorcerer
     displayImage: {fileID: 21300000, guid: 0b605e2ec8abf104590878e443c0f070, type: 3}
     nameColor: {r: 0.6415627, g: 0.30659384, b: 0.8679245, a: 1}
-  - speakerID: 1
+  - speakerId: 1
     displayName: Mage
     displayImage: {fileID: 21300000, guid: 91a43902cefe91648811f0029f11ec6b, type: 3}
     nameColor: {r: 0.7372549, g: 1, b: 1, a: 1}
-  - speakerID: 2
+  - speakerId: 2
     displayName: Demon
     displayImage: {fileID: 21300000, guid: 2696cb8510f59fd499c44aeb406a1980, type: 3}
     nameColor: {r: 0.509434, g: 0.041943677, b: 0, a: 1}
-  - speakerID: 3
+  - speakerId: 3
     displayName: Demon
     displayImage: {fileID: 21300000, guid: 7249cb945590d784ab10dd84ff8aa0f7, type: 3}
     nameColor: {r: 0.50980395, g: 0.043137256, b: 0, a: 1}
-  - speakerID: 4
+  - speakerId: 4
     displayName: Craftsman
     displayImage: {fileID: 21300000, guid: 0b605e2ec8abf104590878e443c0f070, type: 3}
     nameColor: {r: 0.8005402, g: 0.8490566, b: 0.5482378, a: 1}
-  - speakerID: 5
+  - speakerId: 5
     displayName: Servant
-    displayImage: {fileID: 21300000, guid: 38d2db627fb2f4b468e2d8b5233a07f6, type: 3}
+    displayImage: {fileID: 291420122, guid: 8b619251abfab6e44a3ba61f22a9cd69, type: 3}
     nameColor: {r: 0.8584906, g: 0.57052726, b: 0.76441234, a: 1}
-  - speakerID: 6
+  - speakerId: 6
     displayName: ' '
     displayImage: {fileID: 0}
     nameColor: {r: 0, g: 0, b: 0, a: 0}
+  affectableFlags: {fileID: 11400000, guid: b3abf4917c3fa804591d1136b6e7491f, type: 2}
   overallPanel: {fileID: 472608077422982158}
   iconBorder: {fileID: 4340772203445682873}
   iconImage: {fileID: 472608077180236166}

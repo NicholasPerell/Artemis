@@ -18,7 +18,7 @@ MonoBehaviour:
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 1
+  loops: 0
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1

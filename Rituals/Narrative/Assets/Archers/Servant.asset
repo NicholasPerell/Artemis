@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
   m_Name: Servant
   m_EditorClassIdentifier: 
-  overallData: []
+  overallData:
+  - {fileID: 11400000, guid: 3937950dd6cf14142b5cef9c9fbce936, type: 2}
+  - {fileID: 11400000, guid: bb77478e9c6f98a4f9ace8cdf5aad009, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
@@ -23,6 +25,8 @@ MonoBehaviour:
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
-  defaultContents: []
+  defaultContents:
+  - {fileID: 11400000, guid: 3937950dd6cf14142b5cef9c9fbce936, type: 2}
+  - {fileID: 11400000, guid: bb77478e9c6f98a4f9ace8cdf5aad009, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 0
+  insertionOrder: 3

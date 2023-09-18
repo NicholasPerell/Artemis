@@ -181,11 +181,15 @@ namespace Perell.Artemis
 
         public void RecieveArrow(Arrow arrow, bool returningArrow = false)
         {
+            Debug.Log("RecieveArrow: " + arrow + (returningArrow?" (returning)":""));
+
             //Overall Data
             InsertArrowIntoList(arrow, overallData, returningArrow);
 
+            Debug.Log("RecieveArrow: partitioningFlags.Count: " + partitioningFlags.Count);
+
             //Partitioned Data
-            if(partitioningFlags.Count != 0)
+            if (partitioningFlags.Count != 0)
             {
                 float value;
                 int[] array = new int[partitioningFlags.Count];
@@ -208,8 +212,13 @@ namespace Perell.Artemis
 
         private void InsertArrowIntoList(Arrow arrow, List<Arrow> list, bool returningArrow, List<uint> orders = null)
         {
+            Debug.Log("InsertArrowIntoList: " + arrow + (returningArrow ? " (returning)" : ""));
+
             if (list != null)
             {
+            Debug.Log("InsertArrowIntoList: " + list.Count);
+                foreach(Arrow a in list )
+            Debug.Log("\t - " + a);
                 if (list.Count != 0)
                 {
                     int i;
@@ -258,6 +267,9 @@ namespace Perell.Artemis
                         orders.Add(insertionOrder);
                     }
                 }
+            Debug.Log("InsertArrowIntoList: " + list.Count);
+                foreach (Arrow a in list)
+                    Debug.Log("\t - " + a);
             }
         }
 
@@ -710,6 +722,7 @@ namespace Perell.Artemis
 
         public void DumpBundle(ArrowBundle toDump)
         {
+            Debug.Log("Dump Bundle: " + toDump);
             DumpArrowsOfBundle(toDump);
             LogBundleHistory(toDump, true);
         }
@@ -718,11 +731,13 @@ namespace Perell.Artemis
         {
             if(toDump == null)
             {
+                Debug.Log("DumpArrowsOfBundle: " + toDump + "was null.");
                 return;
             }
 
             foreach (Arrow arrow in toDump.GetArrows())
             {
+                Debug.Log("DumpArrowsOfBundle: " + arrow);
                 if (includeNonZeroPriority || !arrow.IsPriority())
                 {
                     RecieveArrow(arrow);
