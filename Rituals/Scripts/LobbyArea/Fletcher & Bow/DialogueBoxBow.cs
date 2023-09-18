@@ -58,10 +58,7 @@ namespace Perell.Artemis.Example.Rituals
         protected override void OnEnable()
         {
             base.OnEnable();
-#if ENABLE_INPUT_SYSTEM
-            inputActions.Narrative.Enable();
-            inputActions.Narrative.Interact.performed += RespondToInteractKey;
-#endif
+            EndLines();
         }
 
         private void OnDisable()
@@ -105,6 +102,10 @@ namespace Perell.Artemis.Example.Rituals
         {
             onLine = 0;
             currentLines = data.lines;
+            Debug.Log("Send " + currentLines.Length);
+            foreach (DialogueData.LineData line in currentLines)
+                Debug.Log("\t" + line.text);
+
             if (currentLines == null || onLine >= currentLines.Length)
             {
                 EndLines();
@@ -133,23 +134,13 @@ namespace Perell.Artemis.Example.Rituals
                 }
             }
 
-            StartCoroutine(AffectArcher(data));
 
-            //DialogueData.ArcherChangeData[] archerChanges = data.archerChanges;
-            //if(archerChanges != null && archerChanges.Length > 0)
-            //{
-            //    foreach(DialogueData.ArcherChangeData change in archerChanges)
-            //    {
-            //        if(change.dumping)
-            //        {
-            //            change.archer.DumpBundle(change.arrowBundle);
-            //        }
-            //        else
-            //        {
-            //            change.archer.DropBundle(change.arrowBundle);
-            //        }
-            //    }
-            //}
+#if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Enable();
+            inputActions.Narrative.Interact.performed += RespondToInteractKey;
+#endif
+
+            StartCoroutine(AffectArcher(data));
         }
 
         private IEnumerator AffectArcher(DialogueData data)
@@ -175,6 +166,8 @@ namespace Perell.Artemis.Example.Rituals
 
         private void ShowLine()
         {
+            Debug.Log("ShowLine");
+
             overallPanel.SetActive(true);
             DialogueData.LineData lineData = currentLines[onLine];
             foreach (SpeakerAttributes attribute in speakerAttributes)
@@ -197,6 +190,8 @@ namespace Perell.Artemis.Example.Rituals
 
         private void ShowNextLine()
         {
+            Debug.Log("ShowNextLine");
+
             onLine++;
             if (onLine >= currentLines.Length)
             {
@@ -214,8 +209,14 @@ namespace Perell.Artemis.Example.Rituals
             onLine = 0;
             currentLines = null;
             overallPanel.SetActive(false);
+
+
+#if ENABLE_INPUT_SYSTEM
+            inputActions.Narrative.Interact.performed -= RespondToInteractKey;
+            inputActions.Narrative.Disable();
+#endif
         }
 
-        
+
     }
 }

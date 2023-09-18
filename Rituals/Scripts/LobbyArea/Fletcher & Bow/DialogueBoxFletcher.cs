@@ -206,8 +206,6 @@ namespace Perell.Artemis.Example.Rituals
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            Debug.Log(GetSymbolType());
-
             if(!generating)
             {
                 return;
