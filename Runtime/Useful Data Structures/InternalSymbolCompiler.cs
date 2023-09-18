@@ -122,7 +122,6 @@ namespace Perell.Artemis
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
             path += relativePath;
 
-            Debug.Log($"path folder: {path.Substring(0, path.LastIndexOf('/'))}");
             if(!Directory.Exists(path.Substring(0,path.LastIndexOf('/'))))
             {
                 Directory.CreateDirectory(path.Substring(0, path.LastIndexOf('/')));
