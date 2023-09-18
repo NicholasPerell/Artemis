@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
-  m_Name: Mage
+  m_Name: SpiritChase
   m_EditorClassIdentifier: 
   overallData:
-  - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
-  - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
+  - {fileID: 11400000, guid: 0f75c8f23d00b8842ab6e7125ca8e77f, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 1
+  loops: 0
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
   defaultContents:
-  - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
-  - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
+  - {fileID: 11400000, guid: 0f75c8f23d00b8842ab6e7125ca8e77f, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 2
+  insertionOrder: 1

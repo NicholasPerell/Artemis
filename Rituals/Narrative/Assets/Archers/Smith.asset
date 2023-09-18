@@ -12,18 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
   m_Name: Smith
   m_EditorClassIdentifier: 
-  overallData: []
+  overallData:
+  - {fileID: 11400000, guid: 6a9ff1ba3af374746bfc1db49dc07a0e, type: 2}
+  - {fileID: 11400000, guid: 3436f8d5081df0244a6c3f9faf204f1f, type: 2}
+  - {fileID: 11400000, guid: 409403d5aa93e184fb9abdc3e53b5c49, type: 2}
+  - {fileID: 11400000, guid: a91e4650d6affe04c97514f7b1a5b4f6, type: 2}
+  - {fileID: 11400000, guid: c87611e0d21b09e4089ebf17d670f8ad, type: 2}
+  - {fileID: 11400000, guid: 56f7e1d38ed5448458667fb4d86182b4, type: 2}
+  - {fileID: 11400000, guid: 6ea7dfee16f5cab49bb7a53c8e204d4b, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 0
+  loops: 1
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
   defaultContents:
+  - {fileID: 11400000, guid: 6a9ff1ba3af374746bfc1db49dc07a0e, type: 2}
+  - {fileID: 11400000, guid: 3436f8d5081df0244a6c3f9faf204f1f, type: 2}
   - {fileID: 11400000, guid: 409403d5aa93e184fb9abdc3e53b5c49, type: 2}
+  - {fileID: 11400000, guid: 56f7e1d38ed5448458667fb4d86182b4, type: 2}
+  - {fileID: 11400000, guid: c87611e0d21b09e4089ebf17d670f8ad, type: 2}
+  - {fileID: 11400000, guid: 6ea7dfee16f5cab49bb7a53c8e204d4b, type: 2}
+  - {fileID: 11400000, guid: a91e4650d6affe04c97514f7b1a5b4f6, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 0
+  insertionOrder: 7

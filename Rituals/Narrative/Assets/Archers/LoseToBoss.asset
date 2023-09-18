@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
   m_Name: LoseToBoss
   m_EditorClassIdentifier: 
-  overallData: []
+  overallData:
+  - {fileID: 11400000, guid: e36502edba3716a4e8121c98ee439605, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 0
+  loops: 1
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
-  defaultContents: []
+  defaultContents:
+  - {fileID: 11400000, guid: e36502edba3716a4e8121c98ee439605, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 0
+  insertionOrder: 1
