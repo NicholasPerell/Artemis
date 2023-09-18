@@ -123,7 +123,7 @@ namespace Perell.Artemis.Example.Rituals
                     }
                 }
                 result = value;
-                return stringValue == null;
+                return stringValue == null || stringValue == "";
             }
 
             public bool TestsInvalid()

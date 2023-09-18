@@ -7,6 +7,7 @@ using TMPro;
 using Perell.Artemis.Example.Rituals.Controls;
 using Perell.Artemis.Generated;
 using System;
+using Perell.Artemis.Debugging;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -125,12 +126,21 @@ namespace Perell.Artemis.Example.Rituals
                 foreach(DialogueData.FlagChangeData change in flagChanges)
                 {
                     id = change.GetID();
+                    affectableFlags.flagsUsed.TryGetValue(id, out flag);
+                    change.TryGetValue(out value);
+                    ArtemisDebug.Instance.OpenReportLine("FlagChangeData");
+                    ArtemisDebug.Instance.Report("Id: ").ReportLine(id);
+                    ArtemisDebug.Instance.Report("Flag: ").ReportLine(flag);
+                    ArtemisDebug.Instance.Report("Value: ").ReportLine(value);
                     if (id != FlagID.INVALID 
                         && affectableFlags.flagsUsed.TryGetValue(id, out flag)
                         && change.TryGetValue(out value))
                     {
+                    ArtemisDebug.Instance.Report("SetValue Reached!");
                         flag.SetValue(value);
                     }
+                    ArtemisDebug.Instance.CloseReport();
+
                 }
             }
 
