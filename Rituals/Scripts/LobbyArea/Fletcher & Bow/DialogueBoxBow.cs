@@ -103,10 +103,6 @@ namespace Perell.Artemis.Example.Rituals
         {
             onLine = 0;
             currentLines = data.lines;
-            Debug.Log("Send " + currentLines.Length);
-            foreach (DialogueData.LineData line in currentLines)
-                Debug.Log("\t" + line.text);
-
             if (currentLines == null || onLine >= currentLines.Length)
             {
                 EndLines();
@@ -126,20 +122,12 @@ namespace Perell.Artemis.Example.Rituals
                 foreach(DialogueData.FlagChangeData change in flagChanges)
                 {
                     id = change.GetID();
-                    affectableFlags.flagsUsed.TryGetValue(id, out flag);
-                    change.TryGetValue(out value);
-                    ArtemisDebug.Instance.OpenReportLine("FlagChangeData");
-                    ArtemisDebug.Instance.Report("Id: ").ReportLine(id);
-                    ArtemisDebug.Instance.Report("Flag: ").ReportLine(flag);
-                    ArtemisDebug.Instance.Report("Value: ").ReportLine(value);
                     if (id != FlagID.INVALID 
                         && affectableFlags.flagsUsed.TryGetValue(id, out flag)
                         && change.TryGetValue(out value))
                     {
-                    ArtemisDebug.Instance.Report("SetValue Reached!");
                         flag.SetValue(value);
                     }
-                    ArtemisDebug.Instance.CloseReport();
 
                 }
             }
