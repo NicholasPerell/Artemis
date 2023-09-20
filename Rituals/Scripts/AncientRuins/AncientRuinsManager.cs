@@ -1,3 +1,4 @@
+using Perell.Artemis.Saving;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +9,14 @@ namespace Perell.Artemis.Example.Rituals
 {
     public class AncientRuinsManager : MonoBehaviour
     {
+
         [Header("Player")]
         [SerializeField]
         Transform player;
         [SerializeField]
         PlayerController playerController;
+        [SerializeField]
+        Archer runStarted;
 
         [Space]
         [Header("Demon")]
@@ -20,11 +24,25 @@ namespace Perell.Artemis.Example.Rituals
         DemonSpiritController demonSpirit;
         [SerializeField]
         AntipossesionScrollController antipossesionScoll;
+        [SerializeField]
+        Archer demonSpawned;
 
         [Space]
         [Header("Dungeon")]
         [SerializeField]
         Transform dungeon;
+
+        [Space]
+        [Header("Narrative Data")]
+        [SerializeField]
+        FlagBundle gameOverallFlags;
+        [SerializeField]
+        FlagBundle runSpecificFlags;
+        [SerializeField]
+        Constellation runSpecificSave;
+        [SerializeField]
+        TextAsset runSpecificDefaultValues;
+
 
         public static event UnityAction<bool> OnPossessed;
 
@@ -43,6 +61,13 @@ namespace Perell.Artemis.Example.Rituals
 
         private void OnEnable()
         {
+            runStarted.AttemptDelivery(new FlagBundle[]{ gameOverallFlags, runSpecificFlags });
+            
+            if(runSpecificSave && runSpecificDefaultValues)
+            {
+                runSpecificSave.LoadFromTextAsset(runSpecificDefaultValues);
+            }
+            
             playerController.Corruption.OnCorrupted += RespondToCorrupted;
             demonSpirit.OnCaughtPlayer += RespondToCaughtPlayer;
             antipossesionScoll.OnScrollComplete += RespondToScrollComplete;
@@ -63,6 +88,7 @@ namespace Perell.Artemis.Example.Rituals
 
         private void SpawnSpirit()
         {
+            demonSpawned.AttemptDelivery(new FlagBundle[] { gameOverallFlags, runSpecificFlags });
             demonSpirit.transform.parent = dungeon;
             demonSpirit.gameObject.SetActive(true);
         }
