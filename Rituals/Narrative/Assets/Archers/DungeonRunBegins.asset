@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overallData:
   - {fileID: 11400000, guid: f1d882e32e7abaf4d977412ce2003df5, type: 2}
-  - {fileID: 11400000, guid: bb77478e9c6f98a4f9ace8cdf5aad009, type: 2}
-  - {fileID: 11400000, guid: 1334f54ee7577cc4694f473e2f02146a, type: 2}
-  - {fileID: 11400000, guid: 93da567c9e08b884fa99400485cae94c, type: 2}
   - {fileID: 11400000, guid: 6f2d5abf195c2f945a7d67c66e517331, type: 2}
+  - {fileID: 11400000, guid: 93da567c9e08b884fa99400485cae94c, type: 2}
+  - {fileID: 11400000, guid: 1334f54ee7577cc4694f473e2f02146a, type: 2}
+  - {fileID: 11400000, guid: bb77478e9c6f98a4f9ace8cdf5aad009, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 0
+  loops: 1
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1

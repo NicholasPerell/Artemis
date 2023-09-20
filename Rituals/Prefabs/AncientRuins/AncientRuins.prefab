@@ -1106,9 +1106,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7210776562560639766}
   playerController: {fileID: 2551529130287550373}
+  runStarted: {fileID: 11400000, guid: a601bbab7e7dfc04da3a74dd3e9e8d04, type: 2}
   demonSpirit: {fileID: 7210776561387574073}
   antipossesionScoll: {fileID: 1606582051635875773}
+  demonSpawned: {fileID: 11400000, guid: 125cf27ff04635c479a0ab2de34d9d85, type: 2}
   dungeon: {fileID: 7210776562666405118}
+  gameOverallFlags: {fileID: 11400000, guid: b3abf4917c3fa804591d1136b6e7491f, type: 2}
+  runSpecificFlags: {fileID: 11400000, guid: 1fa6b33f20a589f45b96e1c967637f2a, type: 2}
+  runSpecificSave: {fileID: 11400000, guid: 543c61323c842484394b82e7f722e811, type: 2}
+  runSpecificDefaultValues: {fileID: 0}
 --- !u!1 &7210776562404843734
 GameObject:
   m_ObjectHideFlags: 0
