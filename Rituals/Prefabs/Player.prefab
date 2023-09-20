@@ -66,7 +66,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1c83cbaccd5c09d418d97602fe2c635d, type: 2}
   - {fileID: 11400000, guid: 13c6f075663c0264da2f94d9e058070f, type: 2}
   - {fileID: 11400000, guid: 2bdd101dd3a17ea4e999cec7e6910f33, type: 2}
-  timeBetweenDemonAbilities: 1
+  timeBetweenDemonAbilities: 0.5
   scrollSensitivity: 1.5
 --- !u!114 &6374094407279114058
 MonoBehaviour:
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b01c8b773f10b344bfec9eb3da0ef06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastDamagedBy: {fileID: 11400000, guid: a1bd8207eb9f7c043a4582821a39e74c, type: 2}
   maxHealth: 25
   invulnerabilityTime: 1
 --- !u!114 &6374094407279114057

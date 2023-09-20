@@ -17,6 +17,8 @@ namespace Perell.Artemis.Example.Rituals
         PlayerController playerController;
         [SerializeField]
         Archer runStarted;
+        [SerializeField]
+        EscapeRune escapeRune;
 
         [Space]
         [Header("Demon")]
@@ -42,13 +44,17 @@ namespace Perell.Artemis.Example.Rituals
         Constellation runSpecificSave;
         [SerializeField]
         TextAsset runSpecificDefaultValues;
-
+        [SerializeField]
+        Flag runsAttempted;
 
         public static event UnityAction<bool> OnPossessed;
 
         public event UnityAction OnEscaped;
 
         static AncientRuinsManager instance;
+
+        public static bool IsActive { get { return instance.isActiveAndEnabled; } }
+
         public static Transform Player { get { return instance.player; } }
         public static PlayerController PlayerController { get { return instance.playerController; } }
         public static Transform Dungeon { get { return instance.dungeon; } }
@@ -61,6 +67,8 @@ namespace Perell.Artemis.Example.Rituals
 
         private void OnEnable()
         {
+            runsAttempted.SetValue(runsAttempted.GetValue() + 1);
+
             runStarted.AttemptDelivery(new FlagBundle[]{ gameOverallFlags, runSpecificFlags });
             
             if(runSpecificSave && runSpecificDefaultValues)
@@ -68,17 +76,32 @@ namespace Perell.Artemis.Example.Rituals
                 runSpecificSave.LoadFromTextAsset(runSpecificDefaultValues);
             }
             
+            playerController.Health.OnHealthLost += RespondToHealthLost;
             playerController.Corruption.OnCorrupted += RespondToCorrupted;
             demonSpirit.OnCaughtPlayer += RespondToCaughtPlayer;
             antipossesionScoll.OnScrollComplete += RespondToScrollComplete;
+            escapeRune.OnComplete += RespondToEscapeRuneComplete;
         }
 
         private void OnDisable()
         {
+            playerController.Health.OnHealthLost -= RespondToHealthLost;
             playerController.Corruption.OnCorrupted -= RespondToCorrupted;
             demonSpirit.OnCaughtPlayer -= RespondToCaughtPlayer;
             antipossesionScoll.OnScrollComplete -= RespondToScrollComplete;
+            escapeRune.OnComplete -= RespondToEscapeRuneComplete;
             OnPossessed?.Invoke(false);
+        }
+
+        private void RespondToHealthLost()
+        {
+            PreformEscapeRune();
+        }
+
+        private void PreformEscapeRune()
+        { 
+            Time.timeScale = 0;
+            escapeRune.gameObject.SetActive(true);
         }
 
         private void RespondToCorrupted()
@@ -104,6 +127,13 @@ namespace Perell.Artemis.Example.Rituals
         {
             antipossesionScoll.gameObject.SetActive(false);
             OnPossessed?.Invoke(false);
+        }
+
+        private void RespondToEscapeRuneComplete()
+        {
+            escapeRune.gameObject.SetActive(false);
+            OnPossessed?.Invoke(false);
+            OnEscaped?.Invoke();
         }
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mage
   m_EditorClassIdentifier: 
   overallData:
+  - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
   - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 

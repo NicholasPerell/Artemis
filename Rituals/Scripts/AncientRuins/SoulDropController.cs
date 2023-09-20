@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Perell.Artemis.Example.Rituals
 {
-    public class SoulDropController : MonoBehaviour
+    public class SoulDropController : DestroyOnDisable
     {
         [SerializeField]
         SpriteRenderer spriteRenderer;

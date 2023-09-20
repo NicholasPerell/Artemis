@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ArgoNavis
   m_EditorClassIdentifier: 
   dataBlock:
-    flags: []
+    flags:
+    - {fileID: 11400000, guid: eb8b8f4b0d161ba4caaf3d44eafa9ec2, type: 2}
+    - {fileID: 11400000, guid: 97a583692faa63342b0954a2a40168e6, type: 2}
+    - {fileID: 11400000, guid: db5eb5c7721156d4a9b846e4b24e1fef, type: 2}
     archers: []
-  m_FileName: 
+  m_FileName: Artemis/Rituals/Narrative/Data FIles/ArgoNavisDefault
   m_AssetToLoadIn: {fileID: 0}

@@ -13,6 +13,14 @@ namespace Perell.Artemis.Example.Rituals
         Vector3 startLocation;
         [SerializeField]
         LobbyEntrance entrance;
+        [SerializeField]
+        GradientFader whiteFade, blackFade;
+        
+        [Space]
+        [SerializeField]
+        Archer returnDialogue;
+        [SerializeField]
+        FlagBundle[] relevantFlagBundles;
 
         public event UnityAction OnRunBegan;
 
@@ -26,8 +34,13 @@ namespace Perell.Artemis.Example.Rituals
 
         private void OnEnable()
         {
-            lobbyPlayer.transform.position = startLocation;
+            Time.timeScale = 0;
             entrance.OnEntered += RespondToEntered;
+            whiteFade.OnComplete += RespondToWhiteFadeComplete;
+            blackFade.OnComplete += RespondToBlackFadeComplete;
+
+            lobbyPlayer.transform.position = startLocation;
+            whiteFade.StartFade();
         }
 
         private void OnDisable()
@@ -37,7 +50,19 @@ namespace Perell.Artemis.Example.Rituals
 
         private void RespondToEntered()
         {
+            Time.timeScale = 0;
+            blackFade.StartFade();
+        }
+
+        private void RespondToBlackFadeComplete()
+        {
             OnRunBegan?.Invoke();
+        }
+
+        private void RespondToWhiteFadeComplete()
+        {
+            Time.timeScale = 1;
+            returnDialogue.AttemptDelivery(relevantFlagBundles);
         }
     }
 }

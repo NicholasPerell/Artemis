@@ -22,15 +22,17 @@ namespace Perell.Artemis.Example.Rituals
         private void OnEnable()
         {
             healthMax = playerHealth.GetMaxHealth();
-            playerHealth.HealthChanged += DisplayHealth;
+            DisplayHealth(playerHealth.GetMaxHealth());
+            playerHealth.OnHealthChanged += DisplayHealth;
 
             manaMax = playerMana.GetMaxMana();
+            DisplayMana(playerMana.GetMaxMana());
             playerMana.ManaChanged += DisplayMana;
         }
 
         private void OnDisable()
         {
-            playerHealth.HealthChanged -= DisplayHealth;
+            playerHealth.OnHealthChanged -= DisplayHealth;
             playerMana.ManaChanged -= DisplayMana;
         }
 

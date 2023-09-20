@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,12 @@ namespace Perell.Artemis.Example.Rituals
 
     public class PlayerHealth : MonoBehaviour
     {
-        public event UnityAction<int> HealthChanged;
+        public event UnityAction<int> OnHealthChanged;
         public event UnityAction TookDamage;
-        public event UnityAction Died;
+        public event UnityAction OnHealthLost;
+
+        [SerializeField]
+        Flag lastDamagedBy;
 
         [SerializeField]
         [Min(1)]
@@ -68,11 +72,16 @@ namespace Perell.Artemis.Example.Rituals
                 return;
             }
 
+            if (deltaHealth < 0)
+            {
+                lastDamagedBy.SetValue((int)Enum.Parse<Generated.Cause_of_deathID>(healthEffectSource.ToString(),true));
+            }
+
             health = Mathf.Clamp(health + deltaHealth, 0, maxHealth);
-            HealthChanged.Invoke(health);
+            OnHealthChanged?.Invoke(health);
             if (health <= 0)
             {
-                Died?.Invoke();
+                OnHealthLost?.Invoke();
             }
             else if (deltaHealth < 0)
             {
@@ -115,6 +124,13 @@ namespace Perell.Artemis.Example.Rituals
         public void GiveTemporaryInvulnerability(float timeInvulnerable)
         {
             damageCoolDown = timeInvulnerable;
+        }
+
+        public void Die()
+        {
+            health = 0;
+            OnHealthChanged?.Invoke(health);
+            OnHealthLost?.Invoke();
         }
     }
 }

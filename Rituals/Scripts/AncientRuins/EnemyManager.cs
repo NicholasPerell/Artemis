@@ -35,6 +35,11 @@ namespace Perell.Artemis.Example.Rituals
             enemiesAlive = new List<EnemyHealth>();
         }
 
+        private void OnDisable()
+        {
+            ClearEnemies();
+        }
+
         public void SpawnEnemy(Vector3 position, EnemyType enemyType)
         {
             GameObject enemySpawned = null;
@@ -97,6 +102,16 @@ namespace Perell.Artemis.Example.Rituals
             }
 
             return result;
+        }
+
+        public void ClearEnemies()
+        {
+            for(int i = 0; i < enemiesAlive.Count; i++)
+            {
+                Destroy(enemiesAlive[i].transform.parent.gameObject);
+            }
+            enemiesAlive.Clear();
+            numEnemiesAlive = 0;
         }
     }
 }
