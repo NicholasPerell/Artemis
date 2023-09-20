@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Perell.Artemis.Example.Rituals
 {
-    public abstract class PlayerAbilityController : MonoBehaviour
+    public abstract class PlayerAbilityController : DestroyOnDisable
     {
         protected PlayerController playerController;
 

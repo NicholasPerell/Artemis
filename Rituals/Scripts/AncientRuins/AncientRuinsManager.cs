@@ -131,6 +131,7 @@ namespace Perell.Artemis.Example.Rituals
 
         private void RespondToEscapeRuneComplete()
         {
+            antipossesionScoll.gameObject.SetActive(false);
             escapeRune.gameObject.SetActive(false);
             OnPossessed?.Invoke(false);
             OnEscaped?.Invoke();

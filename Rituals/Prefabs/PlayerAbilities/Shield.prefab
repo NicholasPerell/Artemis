@@ -131,4 +131,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleOfProtection: 90
   manaPerSecond: 2
-  speedMultiplier: 0.5
+  speedMultiplier: 0.25
