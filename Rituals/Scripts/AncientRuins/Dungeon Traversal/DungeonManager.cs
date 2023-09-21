@@ -78,6 +78,8 @@ namespace Perell.Artemis.Example.Rituals
 
             if (!currentRoom.visited)
             {
+                Debug.Log("Spawning from " + currentRoom.layout.name);
+
                 foreach(RoomLayout.SpawnLocation spawns in currentRoom.layout.spawnLocations)
                 {
                     switch (spawns.spawnType)

@@ -26,8 +26,10 @@ namespace Perell.Artemis.Example.Rituals
         [Header("Abilities")]
         [SerializeField]
         PlayerAbilityData[] startingAbilities;
+        [SerializeField]//
         List<PlayerAbilityData> playerAbilities;
         public PlayerAbilityData[] StartingAbilities { get { return startingAbilities; } }
+        [SerializeField]//
         int abilityIndexPrimary = 0;
         int abilityIndexSecondary => CalcNextIndexOfAbilityWheel(abilityIndexPrimary);
         Dictionary<PlayerAbilityData, PlayerAbilityController> abilitiesHeld;
@@ -77,6 +79,11 @@ namespace Perell.Artemis.Example.Rituals
             abilitiesHeld = new Dictionary<PlayerAbilityData, PlayerAbilityController>();
         }
 
+        private void Start()
+        {
+            OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
+        }
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -122,6 +129,7 @@ namespace Perell.Artemis.Example.Rituals
 
         private void ResetAbilities()
         {
+            abilityIndexPrimary = 0;
             playerAbilities = new List<PlayerAbilityData>(startingAbilities);
         }
 
@@ -153,11 +161,21 @@ namespace Perell.Artemis.Example.Rituals
 #endif
             if(Mathf.Abs(scrollTracker) > scrollSensitivity)
             {
+                Debugging.ArtemisDebug.Instance.OpenReportLine("Scroll Tracker Reached");
+                Debugging.ArtemisDebug.Instance.Report("scrollTracker: ").ReportLine(scrollTracker);
+                Debugging.ArtemisDebug.Instance.Report("scrollSensitivity: ").ReportLine(scrollSensitivity);
+
+
                 AttemptReleaseAbility(playerAbilities[abilityIndexPrimary]);
                 AttemptReleaseAbility(playerAbilities[abilityIndexSecondary]);
 
+                Debugging.ArtemisDebug.Instance.ReportLine("Releasing" + playerAbilities[abilityIndexPrimary].name).ReportLine("Releasing" + playerAbilities[abilityIndexSecondary].name);
+
                 int slotsToMove = Mathf.FloorToInt(Mathf.Abs(scrollTracker) / scrollSensitivity);
-                if(scrollTracker < 0)
+                
+                Debugging.ArtemisDebug.Instance.Report("slotsToMove: ").ReportLine(slotsToMove);
+
+                if (scrollTracker < 0)
                 {
                     for(int i = 0; i < slotsToMove; i++)
                     {
@@ -172,6 +190,8 @@ namespace Perell.Artemis.Example.Rituals
                     }
                 }
                 scrollTracker = 0;
+
+                Debugging.ArtemisDebug.Instance.CloseReport();
 
                 OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
             }
@@ -275,7 +295,7 @@ namespace Perell.Artemis.Example.Rituals
         {
             if(!playerAbilities.Contains(playerAbility))
             {
-                playerAbilities.Add(playerAbility);
+                playerAbilities.Insert(abilityIndexPrimary, playerAbility);
                 OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
             }
         }

@@ -643,9 +643,12 @@ namespace Perell.Artemis.Example.Rituals
             }
 
             //Flourishes
-            foreach(RoomLayout.UniqueTile uniqueTile in roomData.layout.uniqueTiles)
+            if (roomData.layout.uniqueTiles != null)
             {
-                visualTilemap.SetTile(bottomLeftCorner + new Vector3Int(uniqueTile.position.x, uniqueTile.position.y, 0), uniqueTile.tile);
+                foreach (RoomLayout.UniqueTile uniqueTile in roomData.layout.uniqueTiles)
+                {
+                    visualTilemap.SetTile(bottomLeftCorner + new Vector3Int(uniqueTile.position.x, uniqueTile.position.y, 0), uniqueTile.tile);
+                }
             }
         }
     }

@@ -59,6 +59,8 @@ MonoBehaviour:
   startingAbilities:
   - {fileID: 11400000, guid: 13c6f075663c0264da2f94d9e058070f, type: 2}
   - {fileID: 11400000, guid: e746f4eac58b2b04ea57a56280513714, type: 2}
+  playerAbilities: []
+  abilityIndexPrimary: 0
   demonsAbilities:
   - {fileID: 11400000, guid: 0945ac1fef563bc4f8bb3048fcadf609, type: 2}
   - {fileID: 11400000, guid: f748a85e0a2a222438dfb07d22ceeda2, type: 2}
@@ -67,7 +69,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 13c6f075663c0264da2f94d9e058070f, type: 2}
   - {fileID: 11400000, guid: 2bdd101dd3a17ea4e999cec7e6910f33, type: 2}
   timeBetweenDemonAbilities: 0.5
-  scrollSensitivity: 1.5
+  scrollSensitivity: 119
 --- !u!114 &6374094407279114058
 MonoBehaviour:
   m_ObjectHideFlags: 0
