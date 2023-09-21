@@ -1,7 +1,7 @@
 Shader "Custom/UnlitCircle" {
 	Properties
     {
-        _Color   ("Color",  Color) = (1, 1, 1, 1)
+        [HDR]_Color   ("Color",  Color) = (1, 1, 1, 1)
         _Cutoff  ("Cutoff", Float) = 0.5
     }
 

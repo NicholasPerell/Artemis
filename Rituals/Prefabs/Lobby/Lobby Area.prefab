@@ -121,6 +121,7 @@ MonoBehaviour:
   timeToFade: 1
   deactivateOnComplete: 1
   ignoreTimeScale: 1
+  timer: 0
 --- !u!1 &401206873592394402
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   timeToFade: 1
   deactivateOnComplete: 1
   ignoreTimeScale: 1
+  timer: 0
 --- !u!1 &1120000419869917589
 GameObject:
   m_ObjectHideFlags: 0
