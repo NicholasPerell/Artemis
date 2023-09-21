@@ -9,6 +9,7 @@ namespace Perell.Artemis.Example.Rituals
     {
         public enum SpawnType
         {
+            INVALID = -1,
             TRICLOPS, //Green
             BLOB, //Purple
             CACODEMON, //Red with horns

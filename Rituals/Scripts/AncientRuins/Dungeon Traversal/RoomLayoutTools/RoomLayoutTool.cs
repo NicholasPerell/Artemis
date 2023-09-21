@@ -23,6 +23,11 @@ namespace Perell.Artemis.Example.Rituals
         Tilemap backdropTilemap;
         [SerializeField]
         Tilemap customizedTilemap;
+        [SerializeField]
+        GameObject spawnIndicatorPrefab;
+        [Space]
+        [SerializeField]
+        RoomLayout toLoad;
 
         [ContextMenu("Initialize")]
         private void Init()
@@ -127,6 +132,7 @@ namespace Perell.Artemis.Example.Rituals
             Vector3 temp;
             foreach(RoomSpawnIndicator spawner in spawners)
             {
+                spawner.Clamp();
                 temp = new Vector3(spawner.transform.position.x, 0, spawner.transform.position.z);
                 newLayout.spawnLocations.Add(new RoomLayout.SpawnLocation(spawner.transform.position, spawner.spawnType));
             }
@@ -140,6 +146,34 @@ namespace Perell.Artemis.Example.Rituals
             AssetDatabase.ImportAsset(filePath);
             
             Init();
+        }
+
+
+        [ContextMenu("Load")]
+        private void Load()
+        {
+            if(toLoad == null)
+            {
+                return;
+            }
+
+            tierPreview = toLoad.tier;
+
+            roomName = toLoad.name.Substring(5+toLoad.tier.ToString().Length);
+
+            Init();
+
+            foreach(RoomLayout.UniqueTile uniqueTile in toLoad.uniqueTiles)
+            {
+                customizedTilemap.SetTile(new Vector3Int(uniqueTile.position.x,uniqueTile.position.y), uniqueTile.tile);
+            }
+
+            foreach(RoomLayout.SpawnLocation spawnLocation in toLoad.spawnLocations)
+            {
+                RoomSpawnIndicator indicator = Instantiate(spawnIndicatorPrefab, spawnLocation.position, Quaternion.Euler(90,0,0)).GetComponent<RoomSpawnIndicator>();
+                indicator.spawnType = spawnLocation.spawnType;
+                indicator.EnsureVisuals();
+            }
         }
     }
 }
