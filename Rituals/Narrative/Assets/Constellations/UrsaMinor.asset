@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: UrsaMinor
   m_EditorClassIdentifier: 
   dataBlock:
-    flags: []
+    flags:
+    - {fileID: 11400000, guid: a1bd8207eb9f7c043a4582821a39e74c, type: 2}
     archers: []
-  m_FileName: 
+  m_FileName: Artemis/Rituals/Narrative/Data FIles/UrsaMinorDefault
   m_AssetToLoadIn: {fileID: 0}

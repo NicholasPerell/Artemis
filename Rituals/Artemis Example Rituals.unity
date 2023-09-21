@@ -1930,7 +1930,7 @@ MonoBehaviour:
   - {fileID: 1623577975}
   - {fileID: 1855806449}
   gameSaveData: {fileID: 11400000, guid: 8efcb97fb9acfe6429c7fd5f2826c860, type: 2}
-  newGameSaveData: {fileID: 0}
+  newGameSaveData: {fileID: 4900000, guid: 64ea67919ca71f748a7aab2047dc9c21, type: 3}
   archersToInitOnNewGame:
   - {fileID: 11400000, guid: e54a5fa5aa9502043a97544970beef12, type: 2}
   - {fileID: 11400000, guid: a601bbab7e7dfc04da3a74dd3e9e8d04, type: 2}
@@ -1948,6 +1948,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2239785927810865293, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 320713195}
     - target: {fileID: 7210776561387574073, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
       propertyPath: pixelPerfectCamera
       value: 

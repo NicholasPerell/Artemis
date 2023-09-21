@@ -94,6 +94,11 @@ namespace Perell.Artemis.Saving
 
         public void WriteToBinary(ref BinaryWriter binaryWriter)
         {
+            if (data == null)
+            {
+                data = new int[0];
+            }
+
             binaryWriter.Write(data.Length);
             for (int i = 0; i < data.Length; i++)
             {

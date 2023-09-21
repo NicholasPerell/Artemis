@@ -94,7 +94,9 @@ MonoBehaviour:
   - gridSize: {x: 1, y: 3}
     numberOfRooms: 3
     layouts:
-    - {fileID: 11400000, guid: a8d2824f88f571943a647b3784053bf0, type: 2}
+    - {fileID: 11400000, guid: 512e01a4875ee3e4a81d32041e8c444c, type: 2}
+    - {fileID: 11400000, guid: cd0ef5c27edccd64387cd9547b5b9f8c, type: 2}
+    - {fileID: 11400000, guid: 3cbabdeceaaba5d439f599f3c9abeabe, type: 2}
     abilities: []
     floorNorthWest: {fileID: 11400000, guid: d48e675cd3a25bf44b67a23d6257d897, type: 2}
     floorNorth: {fileID: 11400000, guid: 5051bd5033ebc844b8b24557a1c1c6c1, type: 2}
@@ -118,7 +120,16 @@ MonoBehaviour:
   - gridSize: {x: 16, y: 16}
     numberOfRooms: 16
     layouts:
-    - {fileID: 11400000, guid: da53f4a4bb8474147bdaa1fe634f7c67, type: 2}
+    - {fileID: 11400000, guid: bc7aa2ac7f0480041ab03e484cfcd2f2, type: 2}
+    - {fileID: 11400000, guid: ae29d38a2b49d7846bab6ac419c439ed, type: 2}
+    - {fileID: 11400000, guid: 65f8695d1035eb74db62312bda4b6dd4, type: 2}
+    - {fileID: 11400000, guid: 5a0993d8ec7cbc7419e175c437d5d0b7, type: 2}
+    - {fileID: 11400000, guid: 01368aca2757bfe408c5a8e7f98b99e7, type: 2}
+    - {fileID: 11400000, guid: ffdbdfc906abc2c4680c3527d9f1ef4d, type: 2}
+    - {fileID: 11400000, guid: 916c705586183ad41a2a3e3791879413, type: 2}
+    - {fileID: 11400000, guid: d05869d98625ad547ba4f67b34e3a482, type: 2}
+    - {fileID: 11400000, guid: 03c0f5091ffaf9b428cafa6c697c3e01, type: 2}
+    - {fileID: 11400000, guid: 944eff92a6ec57046b9d9947a99796c2, type: 2}
     abilities: []
     floorNorthWest: {fileID: 11400000, guid: d48e675cd3a25bf44b67a23d6257d897, type: 2}
     floorNorth: {fileID: 11400000, guid: 5051bd5033ebc844b8b24557a1c1c6c1, type: 2}
@@ -142,7 +153,16 @@ MonoBehaviour:
   - gridSize: {x: 12, y: 12}
     numberOfRooms: 25
     layouts:
-    - {fileID: 11400000, guid: 090df14c1b509ec42a9e6bf953844bab, type: 2}
+    - {fileID: 11400000, guid: 7a7102587f598a845b098f45d5fca9f6, type: 2}
+    - {fileID: 11400000, guid: 1b64db2bad298d54489f6a290571a35e, type: 2}
+    - {fileID: 11400000, guid: 4f3e33e0ddbfeca44b3c9d9796ed1d66, type: 2}
+    - {fileID: 11400000, guid: bbb8b9164d953414ea56c84fc52d7579, type: 2}
+    - {fileID: 11400000, guid: 98768cce688c8a14391cbe244e54eb95, type: 2}
+    - {fileID: 11400000, guid: 498484cf97cc19d46ad14987b3cfdeb1, type: 2}
+    - {fileID: 11400000, guid: 8c0abf59555a72446b2210c94e7d56ac, type: 2}
+    - {fileID: 11400000, guid: 34fcfbe842e411144ad17d0ad45e3abd, type: 2}
+    - {fileID: 11400000, guid: fe9dfcd080c08a44bbbc25689fd584e9, type: 2}
+    - {fileID: 11400000, guid: 219900092b52c3f4090a96ff1311f8b7, type: 2}
     abilities:
     - {fileID: 11400000, guid: 2bdd101dd3a17ea4e999cec7e6910f33, type: 2}
     - {fileID: 11400000, guid: 1c83cbaccd5c09d418d97602fe2c635d, type: 2}
@@ -169,7 +189,15 @@ MonoBehaviour:
   - gridSize: {x: 15, y: 15}
     numberOfRooms: 33
     layouts:
-    - {fileID: 11400000, guid: 6eb13ecde947b824c928f563f1b84c8d, type: 2}
+    - {fileID: 11400000, guid: 5d8544f8b64f3364dbaa28360ac556dc, type: 2}
+    - {fileID: 11400000, guid: 0f2f4cb7ed69ea94fb8381c3335ae579, type: 2}
+    - {fileID: 11400000, guid: 5d459dda28647ed4ea3e4b5ec237b45a, type: 2}
+    - {fileID: 11400000, guid: ef6b6a9e20b49de449acc6f4d2871c76, type: 2}
+    - {fileID: 11400000, guid: cf8019621ee24334a8c9c35579920a28, type: 2}
+    - {fileID: 11400000, guid: 9ed43fc1f0c164f48b70187068aaa07f, type: 2}
+    - {fileID: 11400000, guid: a5c340101a537d64ba8eae0eff71d5bd, type: 2}
+    - {fileID: 11400000, guid: 6ff0e85d88b0be14683b677000bd4759, type: 2}
+    - {fileID: 11400000, guid: b737c4b26ca015a479b877183479f3ff, type: 2}
     abilities:
     - {fileID: 11400000, guid: 0945ac1fef563bc4f8bb3048fcadf609, type: 2}
     - {fileID: 11400000, guid: c1ea4cb43a413694eb29ab676c420cb1, type: 2}
@@ -222,7 +250,6 @@ MonoBehaviour:
     list: []
   visualTilemap: {fileID: 829206671255939920}
   defaultLayout: {fileID: 11400000, guid: a8d2824f88f571943a647b3784053bf0, type: 2}
-  abilitiesAccountedFor: []
   generationComplete:
     m_PersistentCalls:
       m_Calls: []

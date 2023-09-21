@@ -4821,6 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8749911433838197820}
+  - component: {fileID: 6828776321693897517}
   m_Layer: 0
   m_Name: Loogie
   m_TagString: Untagged
@@ -4844,6 +4845,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6828776321693897517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8749911433838197823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e20891b119a16347b7d8a1a0773ea7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8749911434586833748
 GameObject:
   m_ObjectHideFlags: 0
