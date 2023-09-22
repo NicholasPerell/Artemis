@@ -372,7 +372,7 @@ MonoBehaviour:
   - {fileID: 8240015880670128592}
   basicColor: {r: 0.8, g: 0.6682824, b: 0.55120003, a: 0.8980392}
   clickMeColor: {r: 1, g: 0, b: 0, a: 1}
-  clickedColor: {r: 0.5754717, g: 0, b: 0, a: 1}
+  clickedColor: {r: 0.3773585, g: 0, b: 0, a: 1}
   timeToWaitOnceComplete: 0.5
 --- !u!1 &8240015880216507350
 GameObject:
