@@ -202,6 +202,15 @@ namespace Perell.Artemis.Example.Rituals.Controls
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reordering"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5b74bee-4e83-48a0-aed8-fac23c70bc2f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -259,6 +268,17 @@ namespace Perell.Artemis.Example.Rituals.Controls
                     ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9ea691f-cbdc-4c44-8511-fa1754fc863d"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reordering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -302,6 +322,7 @@ namespace Perell.Artemis.Example.Rituals.Controls
             m_Dungeon_PrimaryAbility = m_Dungeon.FindAction("PrimaryAbility", throwIfNotFound: true);
             m_Dungeon_SecondaryAbility = m_Dungeon.FindAction("SecondaryAbility", throwIfNotFound: true);
             m_Dungeon_Scroll = m_Dungeon.FindAction("Scroll", throwIfNotFound: true);
+            m_Dungeon_Reordering = m_Dungeon.FindAction("Reordering", throwIfNotFound: true);
             // Narrative
             m_Narrative = asset.FindActionMap("Narrative", throwIfNotFound: true);
             m_Narrative_Interact = m_Narrative.FindAction("Interact", throwIfNotFound: true);
@@ -408,6 +429,7 @@ namespace Perell.Artemis.Example.Rituals.Controls
         private readonly InputAction m_Dungeon_PrimaryAbility;
         private readonly InputAction m_Dungeon_SecondaryAbility;
         private readonly InputAction m_Dungeon_Scroll;
+        private readonly InputAction m_Dungeon_Reordering;
         public struct DungeonActions
         {
             private @SorcererInputs m_Wrapper;
@@ -415,6 +437,7 @@ namespace Perell.Artemis.Example.Rituals.Controls
             public InputAction @PrimaryAbility => m_Wrapper.m_Dungeon_PrimaryAbility;
             public InputAction @SecondaryAbility => m_Wrapper.m_Dungeon_SecondaryAbility;
             public InputAction @Scroll => m_Wrapper.m_Dungeon_Scroll;
+            public InputAction @Reordering => m_Wrapper.m_Dungeon_Reordering;
             public InputActionMap Get() { return m_Wrapper.m_Dungeon; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -433,6 +456,9 @@ namespace Perell.Artemis.Example.Rituals.Controls
                     @Scroll.started -= m_Wrapper.m_DungeonActionsCallbackInterface.OnScroll;
                     @Scroll.performed -= m_Wrapper.m_DungeonActionsCallbackInterface.OnScroll;
                     @Scroll.canceled -= m_Wrapper.m_DungeonActionsCallbackInterface.OnScroll;
+                    @Reordering.started -= m_Wrapper.m_DungeonActionsCallbackInterface.OnReordering;
+                    @Reordering.performed -= m_Wrapper.m_DungeonActionsCallbackInterface.OnReordering;
+                    @Reordering.canceled -= m_Wrapper.m_DungeonActionsCallbackInterface.OnReordering;
                 }
                 m_Wrapper.m_DungeonActionsCallbackInterface = instance;
                 if (instance != null)
@@ -446,6 +472,9 @@ namespace Perell.Artemis.Example.Rituals.Controls
                     @Scroll.started += instance.OnScroll;
                     @Scroll.performed += instance.OnScroll;
                     @Scroll.canceled += instance.OnScroll;
+                    @Reordering.started += instance.OnReordering;
+                    @Reordering.performed += instance.OnReordering;
+                    @Reordering.canceled += instance.OnReordering;
                 }
             }
         }
@@ -493,6 +522,7 @@ namespace Perell.Artemis.Example.Rituals.Controls
             void OnPrimaryAbility(InputAction.CallbackContext context);
             void OnSecondaryAbility(InputAction.CallbackContext context);
             void OnScroll(InputAction.CallbackContext context);
+            void OnReordering(InputAction.CallbackContext context);
         }
         public interface INarrativeActions
         {

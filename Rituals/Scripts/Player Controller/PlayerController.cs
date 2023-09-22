@@ -25,11 +25,13 @@ namespace Perell.Artemis.Example.Rituals
         [Space]
         [Header("Abilities")]
         [SerializeField]
+        AbilityReorderer abilityReorderer;
+        [SerializeField]
         PlayerAbilityData[] startingAbilities;
-        [SerializeField]//
+        //[SerializeField]//Debug
         List<PlayerAbilityData> playerAbilities;
         public PlayerAbilityData[] StartingAbilities { get { return startingAbilities; } }
-        [SerializeField]//
+        //[SerializeField]//Debug
         int abilityIndexPrimary = 0;
         int abilityIndexSecondary => CalcNextIndexOfAbilityWheel(abilityIndexPrimary);
         Dictionary<PlayerAbilityData, PlayerAbilityController> abilitiesHeld;
@@ -47,9 +49,11 @@ namespace Perell.Artemis.Example.Rituals
         SorcererInputs inputActions;
         InputsCheckDownUp abilityInputPrimary;
         InputsCheckDownUp abilityInputSecondary;
+        InputsCheckDownUp abilityInputReordering;
 #else
         InputsCheckDownUp abilityInputPrimary = new InputsCheckDownUp(new InputCheckDownUp(0), new InputCheckDownUp(KeyCode.Space));
         InputsCheckDownUp abilityInputSecondary = new InputsCheckDownUp(new InputCheckDownUp(1), new InputCheckDownUp(KeyCode.LeftShift));
+        InputsCheckDownUp abilityInputReordering = new InputsCheckDownUp(new InputCheckDownUp(KeyCode.Tab));
 #endif
         float cooldownTimer = 0;
 
@@ -73,6 +77,7 @@ namespace Perell.Artemis.Example.Rituals
             inputActions.Dungeon.Enable();
             abilityInputPrimary = new InputsCheckDownUp(new InputCheckDownUp(inputActions.Dungeon.PrimaryAbility));
             abilityInputSecondary = new InputsCheckDownUp(new InputCheckDownUp(inputActions.Dungeon.SecondaryAbility));
+            abilityInputReordering = new InputsCheckDownUp(new InputCheckDownUp(inputActions.Dungeon.Reordering));
 #endif
 
             ResetAbilities();
@@ -147,13 +152,37 @@ namespace Perell.Artemis.Example.Rituals
 
         private void CheckInputs()
         {
+            CheckAbilityReorder();
             CheckAbilityScroll();
             CheckAbilityInput(abilityInputPrimary, abilityIndexPrimary);
             CheckAbilityInput(abilityInputSecondary, abilityIndexSecondary);
         }
 
+        private void CheckAbilityReorder()
+        {
+            if(abilityInputReordering.InputDown && Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                AttemptReleaseAbility(playerAbilities[abilityIndexPrimary]);
+                AttemptReleaseAbility(playerAbilities[abilityIndexSecondary]);
+                abilityReorderer.Open(playerAbilities, abilityIndexPrimary); 
+            }
+            else if(abilityInputReordering.InputUp && abilityReorderer.IsOpen())
+            {
+                playerAbilities = abilityReorderer.Close();
+                abilityIndexPrimary = 0;
+                OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
+                Time.timeScale = 1;
+            }
+        }
+
         private void CheckAbilityScroll()
         {
+            if(Time.timeScale == 0)
+            {
+                return;
+            }
+
 #if ENABLE_INPUT_SYSTEM
             scrollTracker += inputActions.Dungeon.Scroll.ReadValue<Vector2>().y;
 #else
@@ -199,6 +228,11 @@ namespace Perell.Artemis.Example.Rituals
 
         private void CheckAbilityInput(InputsCheckDownUp controls, int index)
         {
+            if (Time.timeScale == 0)
+            {
+                return;
+            }
+
             if (controls.InputUp)
             {
                 AttemptReleaseAbility(playerAbilities[index]);

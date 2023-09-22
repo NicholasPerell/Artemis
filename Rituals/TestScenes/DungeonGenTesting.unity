@@ -515,6 +515,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 980411701023334205, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081355900976052016, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
+      propertyPath: pixelPerfectCamera
+      value: 
+      objectReference: {fileID: 1220833439}
     - target: {fileID: 7210776561387574073, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
       propertyPath: pixelPerfectCamera
       value: 

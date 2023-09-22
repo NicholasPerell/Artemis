@@ -1952,6 +1952,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 320713195}
+    - target: {fileID: 5081355900976052016, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
+      propertyPath: pixelPerfectCamera
+      value: 
+      objectReference: {fileID: 320713197}
     - target: {fileID: 7210776561387574073, guid: 98e127ba92eb402479a180550eddb69e, type: 3}
       propertyPath: pixelPerfectCamera
       value: 

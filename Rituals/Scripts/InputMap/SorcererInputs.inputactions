@@ -1,5 +1,5 @@
 {
-    "name": "RitualsControls",
+    "name": "SorcererInputs",
     "maps": [
         {
             "name": "General",
@@ -178,6 +178,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Reordering",
+                    "type": "Button",
+                    "id": "f5b74bee-4e83-48a0-aed8-fac23c70bc2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -233,6 +242,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9ea691f-cbdc-4c44-8511-fa1754fc863d",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reordering",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
