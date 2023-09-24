@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Perell.Artemis.Example.Rituals
 {
@@ -28,6 +29,8 @@ namespace Perell.Artemis.Example.Rituals
         AntipossesionScrollController antipossesionScoll;
         [SerializeField]
         Archer demonSpawned;
+        [SerializeField]
+        Archer possessed;
 
         [Space]
         [Header("Dungeon")]
@@ -59,8 +62,11 @@ namespace Perell.Artemis.Example.Rituals
         public static PlayerController PlayerController { get { return instance.playerController; } }
         public static Transform Dungeon { get { return instance.dungeon; } }
 
+        Controls.SorcererInputs inputActions;
+
         private void Awake()
         {
+            inputActions = new Controls.SorcererInputs();
             UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
             instance = this;
         }
@@ -81,6 +87,9 @@ namespace Perell.Artemis.Example.Rituals
             demonSpirit.OnCaughtPlayer += RespondToCaughtPlayer;
             antipossesionScoll.OnScrollComplete += RespondToScrollComplete;
             escapeRune.OnComplete += RespondToEscapeRuneComplete;
+
+            inputActions.Dungeon.DEBUGESCAPE.Enable();
+            inputActions.Dungeon.DEBUGESCAPE.performed += DebugKill;
         }
 
         private void OnDisable()
@@ -91,6 +100,9 @@ namespace Perell.Artemis.Example.Rituals
             antipossesionScoll.OnScrollComplete -= RespondToScrollComplete;
             escapeRune.OnComplete -= RespondToEscapeRuneComplete;
             OnPossessed?.Invoke(false);
+
+            inputActions.Dungeon.DEBUGESCAPE.performed -= DebugKill;
+            inputActions.Dungeon.DEBUGESCAPE.Disable();
         }
 
         private void RespondToHealthLost()
@@ -120,6 +132,7 @@ namespace Perell.Artemis.Example.Rituals
         {
             demonSpirit.gameObject.SetActive(false);
             OnPossessed?.Invoke(true);
+            possessed.IgnoreSuccessAttemptDelivery();
             antipossesionScoll.gameObject.SetActive(true);
         }
 
@@ -135,6 +148,11 @@ namespace Perell.Artemis.Example.Rituals
             escapeRune.gameObject.SetActive(false);
             OnPossessed?.Invoke(false);
             OnEscaped?.Invoke();
+        }
+
+        private void DebugKill(InputAction.CallbackContext callbackContext)
+        {
+            playerController.Health.Die();
         }
     }
 }

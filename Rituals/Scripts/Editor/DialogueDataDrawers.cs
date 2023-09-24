@@ -116,7 +116,7 @@ namespace Perell.Artemis.Example.Rituals.Editor
                 arrowsInBundle = ((ArrowBundle)arrowBundle.objectReferenceValue).GetArrows().Length;
             }
 
-            return (base.GetPropertyHeight(archer, label) * (2 + arrowsInBundle)) + (spacing * (1 + arrowsInBundle));
+            return (base.GetPropertyHeight(archer, label) * (3 + arrowsInBundle)) + (spacing * (2 + arrowsInBundle));
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -132,21 +132,27 @@ namespace Perell.Artemis.Example.Rituals.Editor
 
             EditorGUI.BeginProperty(position, label, property);
 
+            string header = "";
             if (dumping.boolValue)
             {
+                header = "(+) Dumping";
                 EditorGUI.DrawRect(position, new Color(0, 1, 0, 0.1f));
             }
             else
             {
+                header = "(-) Dropping";
                 EditorGUI.DrawRect(position, new Color(1, 0, 0, 0.1f));
             }
 
             float objectRefHeight = base.GetPropertyHeight(archer, label);
 
-            Rect archerRect = new Rect(position.x, position.y, position.width, objectRefHeight);
+            Rect headerRect = new Rect(position.x, position.y, position.width, objectRefHeight);
+            EditorGUI.LabelField(headerRect, header, EditorStyles.boldLabel);
+
+            Rect archerRect = new Rect(position.x, position.y + objectRefHeight + spacing, position.width, objectRefHeight);
             EditorGUI.PropertyField(archerRect, archer, GUIContent.none);
 
-            Rect arrowBundleRect = new Rect(position.x, position.y + objectRefHeight + spacing, position.width, objectRefHeight);
+            Rect arrowBundleRect = new Rect(position.x, position.y + (objectRefHeight + spacing) * 2, position.width, objectRefHeight);
             EditorGUI.PropertyField(arrowBundleRect, arrowBundle, GUIContent.none);
 
             EditorGUI.indentLevel++;
@@ -154,8 +160,8 @@ namespace Perell.Artemis.Example.Rituals.Editor
             Rect arrowRect;
             for (int i = 0; i < arrows.Length; i++)
             {
-                arrowRect = new Rect(position.x, position.y + objectRefHeight * (i+2) + spacing * (i+2), position.width, objectRefHeight);
-                EditorGUI.ObjectField(arrowRect, arrows[i], arrows[i].GetType(), false);
+                arrowRect = new Rect(position.x, position.y + objectRefHeight * (i+3) + spacing * (i+3), position.width, objectRefHeight);
+                EditorGUI.ObjectField(arrowRect, new GUIContent(), arrows[i], arrows[i].GetType(), false);
             }
             EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;

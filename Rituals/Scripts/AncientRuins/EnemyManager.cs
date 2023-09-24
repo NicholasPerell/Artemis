@@ -108,7 +108,10 @@ namespace Perell.Artemis.Example.Rituals
         {
             for(int i = 0; i < enemiesAlive.Count; i++)
             {
-                Destroy(enemiesAlive[i].transform.parent.gameObject);
+                if (enemiesAlive[i])
+                {
+                    Destroy(enemiesAlive[i].transform.parent.gameObject);
+                }
             }
             enemiesAlive.Clear();
             numEnemiesAlive = 0;

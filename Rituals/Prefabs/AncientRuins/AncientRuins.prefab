@@ -1112,6 +1112,7 @@ MonoBehaviour:
   demonSpirit: {fileID: 7210776561387574073}
   antipossesionScoll: {fileID: 1606582051635875773}
   demonSpawned: {fileID: 11400000, guid: 125cf27ff04635c479a0ab2de34d9d85, type: 2}
+  possessed: {fileID: 11400000, guid: d768b1694012b8c44907e4910e793ce1, type: 2}
   dungeon: {fileID: 7210776562666405118}
   gameOverallFlags: {fileID: 11400000, guid: b3abf4917c3fa804591d1136b6e7491f, type: 2}
   runSpecificFlags: {fileID: 11400000, guid: 1fa6b33f20a589f45b96e1c967637f2a, type: 2}

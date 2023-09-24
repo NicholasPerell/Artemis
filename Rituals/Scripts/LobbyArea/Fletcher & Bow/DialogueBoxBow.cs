@@ -164,8 +164,6 @@ namespace Perell.Artemis.Example.Rituals
 
         private void ShowLine()
         {
-            Debug.Log("ShowLine");
-
             overallPanel.SetActive(true);
             DialogueData.LineData lineData = currentLines[onLine];
             foreach (SpeakerAttributes attribute in speakerAttributes)
@@ -188,8 +186,6 @@ namespace Perell.Artemis.Example.Rituals
 
         private void ShowNextLine()
         {
-            Debug.Log("ShowNextLine");
-
             onLine++;
             if (onLine >= currentLines.Length)
             {

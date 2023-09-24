@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyPlayer: {fileID: 2237264521216563984}
-  startLocation: {x: 5.748, y: 0, z: -3.006}
+  startLocation: {x: 0.1, y: 0, z: -3.5}
   entrance: {fileID: 1370207763891801895}
   whiteFade: {fileID: 309164777403891652}
   blackFade: {fileID: 3425783676370614854}

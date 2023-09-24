@@ -148,6 +148,7 @@ MonoBehaviour:
   magicTint: {r: 0.054901972, g: 0.3855043, b: 0.5568628, a: 0.41568628}
   demonicTint: {r: 0.5568628, g: 0.05490196, b: 0.12156863, a: 0.41960785}
   playerAbility: {fileID: 0}
+  tutorialArcher: {fileID: 11400000, guid: 305e9a92b843e704fb9a2b3fa942e23c, type: 2}
 --- !u!1 &6037814794358775642
 GameObject:
   m_ObjectHideFlags: 0

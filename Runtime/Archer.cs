@@ -242,9 +242,6 @@ namespace Perell.Artemis
 
             if (list != null)
             {
-            Debug.Log("InsertArrowIntoList: " + list.Count);
-                foreach(Arrow a in list )
-            Debug.Log("\t - " + a);
                 if (list.Count != 0)
                 {
                     ArtemisDebug.Instance.Report("Arrow ").Report(arrow.name).Report(" has a priority of ").ReportLine(arrow.GetPriority());

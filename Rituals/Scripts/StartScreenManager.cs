@@ -17,6 +17,8 @@ namespace Perell.Artemis.Example.Rituals
         GameObject[] creditsScreenContainers;
         [SerializeField]
         GameObject[] introScreenContainers;
+        [SerializeField]
+        GameObject[] controlsScreenContainers;
 
         [Space]
         [SerializeField]
@@ -48,6 +50,10 @@ namespace Perell.Artemis.Example.Rituals
             {
                 gameObject.SetActive(false);
             }
+            foreach (GameObject gameObject in controlsScreenContainers)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         private void ShowSpecificScreen(GameObject[] containers)
@@ -72,6 +78,11 @@ namespace Perell.Artemis.Example.Rituals
         public void ShowIntroScreen()
         {
             ShowSpecificScreen(introScreenContainers);
+        }
+
+        public void ShowControlScreen()
+        {
+            ShowSpecificScreen(controlsScreenContainers);
         }
 
         public void NewGame()

@@ -187,6 +187,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DEBUG ESCAPE",
+                    "type": "Button",
+                    "id": "153d2752-3349-4f67-8d01-bc1d9b7be640",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -253,6 +262,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reordering",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5f43fcb-0a57-4c83-90e9-e077cfa8e189",
+                    "path": "<Keyboard>/k",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DEBUG ESCAPE",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

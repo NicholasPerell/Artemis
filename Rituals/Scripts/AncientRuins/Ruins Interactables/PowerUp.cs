@@ -22,6 +22,10 @@ namespace Perell.Artemis.Example.Rituals
         [SerializeField]
 #endif
         PlayerAbilityData playerAbility;
+        [Space]
+        [SerializeField]
+        Archer tutorialArcher;
+
 
 #if UNITY_EDITOR
         private void Awake()
@@ -60,6 +64,7 @@ namespace Perell.Artemis.Example.Rituals
             if(initialized && other.tag == "Player")
             {
                 other.GetComponent<PlayerController>().GainAbility(playerAbility);
+                tutorialArcher.IgnoreSuccessAttemptDelivery();
             }
 
             Destroy(this.gameObject);

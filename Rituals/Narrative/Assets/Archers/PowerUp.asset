@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9145289e97141243933838e9835f6de, type: 3}
-  m_Name: Mage
+  m_Name: PowerUp
   m_EditorClassIdentifier: 
   overallData:
-  - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
-  - {fileID: 11400000, guid: fcb2de82317239e42b5edcec8d0b6d78, type: 2}
-  - {fileID: 11400000, guid: e06d632598196d04bab3d32c9979e8f8, type: 2}
-  - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
+  - {fileID: 11400000, guid: 477d75f0aa98b7d4380591c558bee7e9, type: 2}
   partitioningFlags: 
   tempPartitioningFlags: 
   partitionedData:
     list: []
-  loops: 1
+  loops: 0
   includeBundlesInLoop: 0
   includeHigherPrioritiesInLoop: 0
   discardArrowsAfterUse: 1
   chooseSamePriority: 0
   recencyBias: 0
   defaultContents:
-  - {fileID: 11400000, guid: ba7c95642bfc5f84fa6fc3478f2cd077, type: 2}
-  - {fileID: 11400000, guid: 56f19e42dd34d9948bc20ca01231a2c1, type: 2}
-  - {fileID: 11400000, guid: e06d632598196d04bab3d32c9979e8f8, type: 2}
-  - {fileID: 11400000, guid: fcb2de82317239e42b5edcec8d0b6d78, type: 2}
+  - {fileID: 11400000, guid: 477d75f0aa98b7d4380591c558bee7e9, type: 2}
   tempArrowBundle: {fileID: 0}
-  insertionOrder: 4
+  insertionOrder: 1

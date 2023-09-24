@@ -99,6 +99,10 @@ namespace Perell.Artemis.Example.Rituals
         protected override void OnDisable()
         {
             base.OnDisable();
+
+            AttemptReleaseAbility(playerAbilities[abilityIndexPrimary]);
+            AttemptReleaseAbility(playerAbilities[abilityIndexSecondary]);
+
             ResetAbilities();
             OnChangedAbilityWheel?.Invoke(playerAbilities.ToArray(), abilityIndexPrimary);
         }

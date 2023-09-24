@@ -1,4 +1,4 @@
-ID,Priority Value,Flags,How to handle busy,Dialogue Script,Falg Value Changes,Archer Arrow Changes
+ID,Priority Value,Flags,How to handle busy,Dialogue Script,Flag Value Changes,Archer Arrow Changes
 Debug_000,0,,CANCEL,"Sorcerer: Testing 0
 Mage: Testing 1
 Demon_Spirit: Testing 2
@@ -13,8 +13,11 @@ Sorcerer: It comes about more, but that experience is more useful in the ruins f
 Mage: I'm aware. I saw it myself. That your master didn't disown you eludes understanding.
 Sorcerer: My master isn't one to grandstand like you are, mage. His only dissaproval was that I did it wrong.
 Mage: Your hubris astounds me, sorcerer.",,
-Mage_002,,,,,,
-Mage_003,,,,,,
+Mage_002,0,,,"Sorcerer: Do you suppose there lives entities beyond the 9 planes?
+Mage: It is possible. At first we thought there was only 1.",,
+Mage_003,0,,,"Mage: Need help with something, Socerer?
+Sorcerer: Do you know of a way to make arcane spells more powerful?
+Mage: There is no easy way about it. Each cast has a strength, but it is the magician's skillful use that determines its effectiveness.",,
 Mage_004,,,,,,
 Mage_005,,,,,,
 Mage_006,,,,,,
@@ -148,12 +151,13 @@ Servant: Unable to leave the material form, but boiling their essence in the att
 Servant_004,1,"Servant_State = Default, Cause_Of_Death = Cacodemon",QUEUE,"Servant: Ah, the cacodemon. It's been a long time since I've had the displeasure of meeting one.",,
 Servant_005,1,"Servant_State = Default, Cause_Of_Death = Spike",QUEUE,"Servant: Spikes? The place was designed with hostility, it seems.",,
 Servant_006,1,"Servant_State = Default, Cause_Of_Death = Boss",QUEUE,"Servant: It gained its own, coporial form? You're so close, young sir. With it slain, you can leave you your autonomy back in tact.",,
-Servant_007,0,Servant_State = Default,,Servant: I hope for your success.,,
+Servant_007,0,Servant_State = Default,,Servant: I hope for your success.,,"Servant
+Servant_007"
 Servant_008,0,"Servant_State = Default, Cause_Of_Death = Triclops",,"Servant: You're stronger, young sir. You will best the Triclops soon, like Master.",,
 Servant_009,0,"Servant_State = Default, Cause_Of_Death = Blob",,Servant: I wonder what the projectiles it fires are made out of.,,
 Servant_010,0,"Servant_State = Default, Cause_Of_Death = Cacodemon",,Servant: Cacodemon horns are sharper than obsidian.,,
-Servant_011,0,"Servant_State = Default, Cause_Of_Death = Spike",,Servant: It is certainly hard when the beast can control your steps.,,
-Servant_012,0,"Servant_State = Default, Cause_Of_Death = Boss",,"Sorcerer: Do you know this form of beast?
+Servant_011,0,"Servant_State = Default, Cause_Of_Death = Spike",,Servant: It is certainly hard to avoid the spikes when the beast can control your steps.,,
+Servant_012,0,"Servant_State = Default, Cause_Of_Death = Boss",,"Sorcerer: Do you know this form of beast, the one I fight?
 Servant: It eludes my knowledge, young sir.",,
 Servant_013,,Servant_State = Default,,,,
 Servant_014,,Servant_State = Default,,,,
@@ -372,12 +376,18 @@ Smith_097,,,,,,
 Smith_098,,,,,,
 Smith_099,,,,,,
 Smith_100,,,,,,
-RunStart_000,1,,,Sorcerer: I've arrived. Finally.,,
+RunStart_000,1,,,"Sorcerer: I've arrived.
+Narration: Use WASD to move. Mouse to aim.
+Narration: Use Left Click (or Space) for your primary ability.
+Narration: Use Right Click (or Left Shift) for your secondary ability.
+Narration: In the bottom left, your health, your mana, and your corruption are tracked.
+Narration: <color=""red""><b>DEBUG COMMAND: [CTRL SHIFT K] to end the run and escape to the lobby.
+Sorcerer: Finally.",,
 RunStart_001,0,,,Sorcerer: Shame to start over again.,,
 RunStart_002,,,,Sorcerer: May the gods have mercy on those that try to stop me.,,
 RunStart_003,,,,"Demon_Spirit: Dark down here, isn't it?",,
 RunStart_004,,,,"Narration: You, the young sorcerer, ready yourself for another trial.",,
-RunStart_005,,,,,,
+RunStart_005,,,,Sorcerer: I imagined something less rural than this.,,
 RunStart_006,,,,,,
 RunStart_007,,,,,,
 RunStart_008,,,,,,
@@ -465,4 +475,9 @@ Smith: Glad to see you back, youngin'. Means the rune worked.
 Smith: Here, have another one.
 Narration: He tosses with a swift underhand. You stretch out to just catch it, then catch yourself from falling with a lunging step.
 Narration: The world finally ceases its spin.",,
+Possessed_0,1,,,"Narration: <b>The demon has taken full control of your body.</b>
+Narration: On the screen there are <color=""red"">dots.</color> Connect the dots in order to create the sigil, expelling the demon.
+Narration: It is powerful, but it does not understand the flesh. Your body could be torn and broken, and it will not try to save itself.",,
+PowerUp_0,1,,,"Narration: You've gained another ability. Use the scroll wheel to cycle through, changing your primary and secondary. Holding Tab (when in control) will allow you to reorder them to your choosing.
+Narration: Magical abilities are normal, while demonic abilities are outlined in purple. These abilities will increase your chance of corruption when used.",,
 END,,,,,,
