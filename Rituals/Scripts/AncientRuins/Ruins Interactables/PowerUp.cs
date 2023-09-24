@@ -65,9 +65,8 @@ namespace Perell.Artemis.Example.Rituals
             {
                 other.GetComponent<PlayerController>().GainAbility(playerAbility);
                 tutorialArcher.IgnoreSuccessAttemptDelivery();
+                Destroy(this.gameObject);
             }
-
-            Destroy(this.gameObject);
         }
 
         private void SetUpVisuals()
