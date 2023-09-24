@@ -9,6 +9,7 @@ namespace Perell.Artemis.Example.Rituals
 {
     public class RoomLayoutTool : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField]
         string roomName;
 
@@ -175,5 +176,6 @@ namespace Perell.Artemis.Example.Rituals
                 indicator.EnsureVisuals();
             }
         }
+#endif
     }
 }
