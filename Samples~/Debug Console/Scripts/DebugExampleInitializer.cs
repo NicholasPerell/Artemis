@@ -123,13 +123,7 @@ namespace Perell.Artemis.Example.DebugConsole
             AssetDatabase.CreateAsset(flagBundle, flagLocation + "/DebugConsoleFlagBundle.asset");
             AssetDatabase.ImportAsset(flagLocation + "/DebugConsoleFlagBundle.asset");
 
-            FlagBundle[] newGlobalBundles = new FlagBundle[Goddess.instance.globallyLoadedFlagBundles.Length + 1];
-            for (int i = 0; i < Goddess.instance.globallyLoadedFlagBundles.Length; i++)
-            {
-                newGlobalBundles[i] = Goddess.instance.globallyLoadedFlagBundles[i];
-            }
-            newGlobalBundles[Goddess.instance.globallyLoadedFlagBundles.Length] = flagBundle;
-            Goddess.instance.globallyLoadedFlagBundles = newGlobalBundles;
+            Goddess.instance.globallyLoadedFlagBundles.Add(flagBundle);
         }
 
         private void LoadArrowsToArcher()
@@ -152,14 +146,9 @@ namespace Perell.Artemis.Example.DebugConsole
             //TODO: Remove arrows & flagIDs using fletcher
 
             //Remove Flag Bundle On End of Global States
-            if (Goddess.instance.globallyLoadedFlagBundles.Length > 0)
+            if (Goddess.instance.globallyLoadedFlagBundles.Count > 0)
             {
-                FlagBundle[] newGlobalBundles = new FlagBundle[Goddess.instance.globallyLoadedFlagBundles.Length - 1];
-                for (int i = 0; i < newGlobalBundles.Length; i++)
-                {
-                    newGlobalBundles[i] = Goddess.instance.globallyLoadedFlagBundles[i];
-                }
-                Goddess.instance.globallyLoadedFlagBundles = newGlobalBundles;
+                Goddess.instance.globallyLoadedFlagBundles.RemoveAt(Goddess.instance.globallyLoadedFlagBundles.Count - 1);
             }
 
             //Remove Flag Assets

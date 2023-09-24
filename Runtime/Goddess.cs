@@ -37,7 +37,7 @@ namespace Perell.Artemis
         private List<FlagID> toRemove = new List<FlagID>();
 
         [SerializeField]
-        public FlagBundle[] globallyLoadedFlagBundles = new FlagBundle[0];
+        public List<FlagBundle> globallyLoadedFlagBundles = new List<FlagBundle>();
 
         [SerializeField]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections = new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
@@ -392,7 +392,7 @@ namespace Perell.Artemis
                 flagSymbolTypes.GetTupleAtIndex(i).Value.DeleteFlagEnumScript();
                 flagSymbolTypes.RemoveAt(i);
             }
-            globallyLoadedFlagBundles = new FlagBundle[0];
+            globallyLoadedFlagBundles = new List<FlagBundle>();
 
             foreach (FlagID e in Enum.GetValues(typeof(FlagID)))
             {
