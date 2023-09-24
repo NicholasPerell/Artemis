@@ -113,7 +113,7 @@ namespace Perell.Artemis
             }
             Array.Sort(all);
 
-            FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles;
+            FlagBundle[] globalStates = Goddess.instance.globallyLoadedFlagBundles.ToArray();
             int[] globalIndecies = new int[globalStates.Length];
             int[] importedIndecies = new int[importedStates.Length];
             Array.Fill(globalIndecies, 0);
