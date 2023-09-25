@@ -10,8 +10,8 @@ public class EnemyHealth : MonoBehaviour
     int maxHealth = 1;
     [SerializeField]
     float health;
-    //[SerializeField]
-    //GameObject demonSoulPrefab;
+    [SerializeField]
+    Animator anim;
 
     public event UnityAction<EnemyHealth> EnemyDied;
 
@@ -27,13 +27,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        anim.SetTrigger("Hurt");
         health -= damage;
         if (health <= 0)
         {
-            /*if (!GameObject.FindObjectOfType<WizardController>().possessed)
-            {
-                Instantiate(demonSoulPrefab, transform.position, transform.rotation);
-            }*/
             EnemyDied?.Invoke(this);
             transform.parent.gameObject.SetActive(false);
         }

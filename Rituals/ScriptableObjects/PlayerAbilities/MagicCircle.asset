@@ -17,4 +17,4 @@ MonoBehaviour:
   cooldownTime: 0.25
   prefab: {fileID: 4082106456221683934, guid: c056aac7a602ba441b3676ab434b3e03, type: 3}
   prefabParent: 1
-  wheelIcon: {fileID: 946843525, guid: b81800c9f4764174dbb6c70e8fdf6a0e, type: 3}
+  wheelIcon: {fileID: 21300000, guid: 91a43902cefe91648811f0029f11ec6b, type: 3}

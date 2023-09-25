@@ -20,6 +20,10 @@ PrefabInstance:
       value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 5978787974485569458, guid: e0259d3444b21874e8442c04d19882f0, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 5791672078835459153}
+    - target: {fileID: 5978787974485569458, guid: e0259d3444b21874e8442c04d19882f0, type: 3}
       propertyPath: maxHealth
       value: 4
       objectReference: {fileID: 0}
@@ -89,3 +93,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0259d3444b21874e8442c04d19882f0, type: 3}
+--- !u!95 &5791672078835459153 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5978787974580502765, guid: e0259d3444b21874e8442c04d19882f0, type: 3}
+  m_PrefabInstance: {fileID: 187124705343743164}
+  m_PrefabAsset: {fileID: 0}
