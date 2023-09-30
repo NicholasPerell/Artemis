@@ -13,14 +13,11 @@ namespace Perell.Artemis.Editor
         SerializedProperty globallyLoadedFlagBundles;
         Vector2 scrollPos;
 
-        protected virtual void OnEnable()
+        public override void OnInspectorGUI()
         {
             flagsIdsToKeep = serializedObject.FindProperty("flagsIdsToKeep");
             globallyLoadedFlagBundles = serializedObject.FindProperty("globallyLoadedFlagBundles");
-        }
-
-        public override void OnInspectorGUI()
-        {
+        
             EditorGUI.BeginChangeCheck();
             Goddess goddess = (Goddess)target;
 

@@ -12,7 +12,7 @@ namespace Perell.Artemis.Editor
         {
             Arrow arrow = (Arrow)target;
 
-            SetIcon("Arrow.png");
+            SetIcon("Arrow");
 
             EditorGUI.BeginChangeCheck();
 
