@@ -35,6 +35,46 @@ namespace Perell.Artemis.Editor.Saving
 
             EditorGUILayout.LabelField("Data", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(flags);
+
+            //Flag bundles can apply flag assets now
+            Event dropEvent = Event.current;
+            Rect drop_area = GUILayoutUtility.GetLastRect();
+            switch (dropEvent.type)
+            {
+                case EventType.DragUpdated:
+                case EventType.DragPerform:
+                    if (!drop_area.Contains(dropEvent.mousePosition))
+                        break;
+
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+
+                    if (dropEvent.type == EventType.DragPerform)
+                    {
+                        DragAndDrop.AcceptDrag();
+                        Flag[] bundleContents;
+                        foreach (Object dragged_object in DragAndDrop.objectReferences)
+                        {
+                            if(dragged_object is Flag)
+                            {
+                                flags.InsertArrayElementAtIndex(0);
+                                flags.GetArrayElementAtIndex(0).objectReferenceValue = dragged_object;
+                            }
+                            else if(dragged_object is FlagBundle)
+                            {
+                                bundleContents = ((FlagBundle)dragged_object).ToValueArray();
+                                foreach (Flag flag in bundleContents)
+                                {
+                                    flags.InsertArrayElementAtIndex(0);
+                                    flags.GetArrayElementAtIndex(0).objectReferenceValue = flag;
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+
+
+
             EditorGUILayout.PropertyField(archers);
             EditorGUILayout.Space();
             EditorGUILayout.Space();
