@@ -136,11 +136,11 @@ namespace Perell.Artemis
             value = default(V);
             int searchIndex = list.BinarySearch(new Tuple(key, value));
             bool success = searchIndex > 1;
-            if(success)
+            if (success)
             {
                 value = GetTupleAtIndex(searchIndex).Value;
             }
-            return success; 
+            return success;
         }
 
         public bool HasKey(K key)

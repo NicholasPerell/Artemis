@@ -17,7 +17,7 @@ namespace Perell.Artemis.Editor
         {
             flagsIdsToKeep = serializedObject.FindProperty("flagsIdsToKeep");
             globallyLoadedFlagBundles = serializedObject.FindProperty("globallyLoadedFlagBundles");
-
+        
             EditorGUI.BeginChangeCheck();
             Goddess goddess = (Goddess)target;
 
