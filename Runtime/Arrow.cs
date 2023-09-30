@@ -11,7 +11,6 @@ using UnityEditor;
 
 namespace Perell.Artemis
 {
-    //[CreateAssetMenu(fileName = "New Artemis Narrative Data Point", menuName = "Artemis/Narrative Data Point")]
     public class Arrow : ScriptableObject, IBinaryReadWriteable
     {
         public enum HowPriorityCalculated
