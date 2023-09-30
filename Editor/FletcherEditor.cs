@@ -11,7 +11,7 @@ namespace Perell.Artemis.Editor
         SerializedProperty database;
         bool showDatabase;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             database = serializedObject.FindProperty("database").FindPropertyRelative("list");
         }
@@ -26,7 +26,7 @@ namespace Perell.Artemis.Editor
             serializedObject.Update();
             EditorGUI.BeginChangeCheck();
 
-            DrawPropertiesExcluding(serializedObject, "database");
+            LayoutDataForCompilation();
 
             showDatabase = EditorGUILayout.Foldout(showDatabase, "Database");
             if (showDatabase)
@@ -43,9 +43,9 @@ namespace Perell.Artemis.Editor
                 EditorGUI.indentLevel--;
             }
 
-            if (GUILayout.Button("Parse CSV into database"))
+            if (GUILayout.Button(GetButtonString()))
             {
-                preDictionaryFletcher.GeneratorArrowDatabase();
+                PerformButtonAction(preDictionaryFletcher);
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -55,6 +55,21 @@ namespace Perell.Artemis.Editor
                 AssetDatabase.SaveAssets();
                 Repaint();
             }
+        }
+
+        protected virtual void LayoutDataForCompilation()
+        {
+            DrawPropertiesExcluding(serializedObject, "database");
+        }
+
+        protected virtual string GetButtonString()
+        {
+            return "Parse CSV into database";
+        }
+
+        protected virtual void PerformButtonAction(PreDictionaryFletcher preDictionaryFletcher)
+        {
+            preDictionaryFletcher.GeneratorArrowDatabase();
         }
     }
 
