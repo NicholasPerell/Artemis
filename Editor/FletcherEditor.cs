@@ -24,7 +24,6 @@ namespace Perell.Artemis.Editor
             SetIcon("Fletcher");
 
             serializedObject.Update();
-            serializedObject.Update();
             EditorGUI.BeginChangeCheck();
 
             DrawPropertiesExcluding(serializedObject, "database");
