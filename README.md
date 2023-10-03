@@ -34,7 +34,15 @@ This branch is currently working towards **Version 0.2**! In this repository you
     - An example .CSV[^sheets] file.
     - Children scripts of the Fletchers & Bows to deliver debug log messages with a delay before another message can be sent.
     - A scene that initializes an example archer then triggers narrative delivery from the archer at a rate that demonstrates the settings each data point can have save for what to do if the bow is busy.
-  - 
+  - _Artemis_ + _Ink_ Example
+    - Custom Fletchers that allows the compilation of .INK files into arrows.
+    - Custom Bow that links together the getting and setting of global variables in _Ink_ to flags.
+    - The framework for a small WIP game called _Roomie Duel_ utilizing it.
+  - _Artemis_ + _Yarn Spinner_ Example
+    - Custom Fletcher that utilizes Yarn Project/Starting Node pairings to compile the arrows.
+    - Custom Bow that handles a Yarn Spinner's `DialogueRunner` component. 
+    - `ArtemisYarnVariableStorage` component to link the getting and setting of _Yarn Spinner_ variables and flags.
+    - _Additional_ Custom Bow that inherents from the first that then creates a custom `then` command that can be called in the .YARN scripts to trigger a response/follow-up
 
 ## File-By-File Explanation
 
