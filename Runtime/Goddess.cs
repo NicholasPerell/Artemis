@@ -8,15 +8,14 @@ using Perell.Artemis.Generated;
 
 
 #if UNITY_EDITOR
-using UnityEditor.PackageManager;
 using UnityEditor;
+using UnityEditor.PackageManager;
 #endif
 namespace Perell.Artemis
 {
-    [FilePath("Assets/Scripts/Generated/Artemis/Goddess.art", FilePathAttribute.Location.ProjectFolder)]
-    public class Goddess : ScriptableSingleton<Goddess>
+    public class Goddess : SingletonScriptableObject<Goddess>
     {
-        const string CURRENT_VERSION = "0.2.4";
+        const string CURRENT_VERSION = "0.2.5";
 
         [SerializeField]
         private List<FlagID> flagsIdsToKeep = new List<FlagID>();
@@ -38,7 +37,7 @@ namespace Perell.Artemis
         private List<FlagID> toRemove = new List<FlagID>();
 
         [SerializeField]
-        public FlagBundle[] globallyLoadedFlagBundles = new FlagBundle[0];
+        public List<FlagBundle> globallyLoadedFlagBundles = new List<FlagBundle>();
 
         [SerializeField]
         private SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>> flagIDConnections = new SortedStrictDictionary<FlagID, List<PreDictionaryFletcher>>();
@@ -57,13 +56,14 @@ namespace Perell.Artemis
         private void InitializeScripts()
         {
 #if UNITY_EDITOR
+            Debug.Log("InitializeScripts");
+
             string relativePath, path, totalPath;
             path = Application.dataPath;
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
 
             //1) delete sample flagid
             AssetDatabase.DeleteAsset("Assets/Samples/Artemis/"+CURRENT_VERSION+ "/Initialize Package");
-
 
             //2) create assembly for generated
             relativePath = GetContainingFolder() + "Perell.Artemis.Generated.asmdef";
@@ -88,12 +88,19 @@ namespace Perell.Artemis
 
             if (!File.Exists(path + relativePath))
             {
+                Debug.LogError("can't find " + path + relativePath);
                 WriteFlagEnumScript();
             }
 #endif
         }
 
 #if UNITY_EDITOR
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void OnScriptsReloaded()
+        {
+            Goddess artemis = instance;
+        }
+
         public FlagID[] GetFlagIDs()
         {
             idsUsed ??= new SortedStrictList<FlagID>();
@@ -231,7 +238,7 @@ namespace Perell.Artemis
 
         private string GetFlagRepoFolderName()
         {
-            return this.name + "FlagEnums";
+            return "FlagEnums";
         }
 
         public void WriteFlagEnumScript()
@@ -379,19 +386,7 @@ namespace Perell.Artemis
             return rtn;
         }
 
-        public System.Type GetFlagSymbolType(FlagID id)
-        {
-            System.Type rtn = typeof(Flag.ValueType);
-
-            if (flagSymbolTypes.HasKey(id))
-            {
-                rtn = flagSymbolTypes[id].GetEnumType();
-            }
-
-            return rtn;
-        }
-
-        public void Reset()
+        public void ResetToNothing()
         {
 
             flagsIdsToKeep.Clear();
@@ -404,7 +399,7 @@ namespace Perell.Artemis
                 flagSymbolTypes.GetTupleAtIndex(i).Value.DeleteFlagEnumScript();
                 flagSymbolTypes.RemoveAt(i);
             }
-            globallyLoadedFlagBundles = new FlagBundle[0];
+            globallyLoadedFlagBundles = new List<FlagBundle>();
 
             foreach (FlagID e in Enum.GetValues(typeof(FlagID)))
             {
@@ -423,9 +418,28 @@ namespace Perell.Artemis
         }
 #endif
 
+        public System.Type GetFlagSymbolType(FlagID id)
+        {
+            System.Type rtn = typeof(Flag.ValueType);
+
+            if (flagSymbolTypes.HasKey(id))
+            {
+                rtn = flagSymbolTypes[id].GetEnumType();
+            }
+
+            return rtn;
+        }
+
         public void Modify()
         {
-            Save(true);
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
+        }
+
+        public override string GetFilePath()
+        {
+            return "/Scripts/Generated/Artemis/Goddess.asset";
         }
     }
 }

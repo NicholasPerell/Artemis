@@ -7,7 +7,7 @@ namespace Perell.Artemis.Editor
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(ArrowBundle))]
-    public class ArrowBundleEditor : UnityEditor.Editor
+    public class ArrowBundleEditor : IconObjectEditor
     {
         SerializedProperty arrowsProperty;
 
@@ -20,9 +20,7 @@ namespace Perell.Artemis.Editor
         {
             ArrowBundle arrowBundle = (ArrowBundle)target;
 
-            //TODO: Figure out why Resources works in the Ink Package but not in Artemis
-            //AssetDatabase.Resources<Texture2D>("ArcherFileIcon-Large.png");
-            EditorGUIUtility.SetIconForObject(arrowBundle, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/ArrowBundle.png"));
+            SetIcon("ArrowBundle");
 
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();

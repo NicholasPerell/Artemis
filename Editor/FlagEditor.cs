@@ -8,7 +8,7 @@ namespace Perell.Artemis.Editor
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(Flag))]
-    public class FlagEditor : UnityEditor.Editor
+    public class FlagEditor : IconObjectEditor
     {
         SerializedProperty valueProperty;
 
@@ -195,7 +195,7 @@ namespace Perell.Artemis.Editor
                 }
             }
 
-            copyFrom = AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Flag" + fileSuffix + ".png");
+            copyFrom = LoadIconTexture("Flag" + fileSuffix);
 
             EditorUtility.CopySerialized(copyFrom, tex);
 

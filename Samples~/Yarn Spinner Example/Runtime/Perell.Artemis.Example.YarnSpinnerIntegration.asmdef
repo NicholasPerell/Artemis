@@ -1,0 +1,20 @@
+{
+    "name": "Perell.Artemis.Example.YarnSpinnerIntegration",
+    "rootNamespace": "",
+    "references": [
+        "Perell.Artemis",
+        "Perell.Artemis.Editor",
+        "Perell.Artemis.Generated",
+        "YarnSpinner.Unity",
+        "YarnSpinner.Unity.Editor"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -8,7 +8,7 @@ using Perell.Artemis.Generated;
 namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(Archer))]
-    public class ArcherEditor : UnityEditor.Editor
+    public class ArcherEditor : IconObjectEditor
     {
         bool showBundleOptions = true;
         bool showDescisionMaking = true;
@@ -46,7 +46,7 @@ namespace Perell.Artemis.Editor
         {
             Archer archer = (Archer)target;
 
-            EditorGUIUtility.SetIconForObject(archer, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Archer.png"));
+            SetIcon("Archer");
 
             serializedObject.Update();
 

@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Perell.Artemis",
-        "Perell.Artemis.Generated"
+        "Perell.Artemis.Generated",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

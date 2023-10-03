@@ -1,0 +1,12 @@
+﻿title: Start
+priority_value: 4
+flags: location = restaurant
+how_to_handle_busy: QUEUE
+tag:
+position: -70,-120
+---
+Alice: Have you ever thought about working here? #line:Alice0
+Ben: You're joking, right? #line:Ben0
+<<wait 1>>
+Alice: Yes... #line:Alice1
+===

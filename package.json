@@ -1,6 +1,6 @@
 {
   "name": "com.perell.artemis",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "displayName": "Artemis",
   "description": "Narrative programming package that accesses rules and world-state data to give the most appropriate and important delivery. May your aim be true.",
   "unity": "2021.2",
@@ -26,5 +26,15 @@
             "displayName": "Debug Console",
             "description": "Contains sample code for a simple debug logger using the Artemis system.",
             "path": "Samples~/Debug Console"
+        },
+	{
+            "displayName": "Ink File Demonstration",
+            "description": "Contains sample code for Ink assets compiling to coincide with Artemis arrows.",
+            "path": "Samples~/Ink Example"
+        },
+	{
+            "displayName": "Yarn Spinner Demonstration",
+            "description": "Contains sample code for Yarn Project starting nodes to coincide with Artemis arrows.",
+            "path": "Samples~/Ink Example"
         }]
 }

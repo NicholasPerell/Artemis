@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Perell.Artemis
 {
@@ -13,7 +14,9 @@ namespace Perell.Artemis
     {
         [Space]
         [SerializeField]
-        Fletcher<T> deliverySystem;
+        private Fletcher<T> deliverySystem;
+
+        public event UnityAction onReportEnd;
 
         protected virtual void OnEnable()
         {
@@ -26,9 +29,20 @@ namespace Perell.Artemis
 
         public abstract void AbruptEnd();
 
-        public void ReportEnd()
+        protected void ReportEnd()
         {
+            onReportEnd?.Invoke();
             deliverySystem.ProcessEnd();
+        }
+
+        protected bool FletcherHasQueue()
+        {
+            return deliverySystem.IsSomethingToQueue();
+        }
+
+        protected Fletcher<T> GetFletcher()
+        {
+            return deliverySystem;
         }
     }
 }

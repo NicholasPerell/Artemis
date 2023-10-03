@@ -6,13 +6,13 @@ using UnityEditor;
 namespace Perell.Artemis.Editor
 {
     [CustomEditor(typeof(Arrow))]
-    public class ArrowEditor : UnityEditor.Editor
+    public class ArrowEditor : IconObjectEditor
     {
         public override void OnInspectorGUI()
         {
             Arrow arrow = (Arrow)target;
 
-            EditorGUIUtility.SetIconForObject(arrow, AssetDatabase.LoadAssetAtPath<Texture2D>("Packages/com.perell.artemis/Editor/Icons/Arrow.png"));
+            SetIcon("Arrow");
 
             EditorGUI.BeginChangeCheck();
 
