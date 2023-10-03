@@ -20,7 +20,6 @@ namespace Perell.Artemis.Example.DebugConsole
             FLAGS_DELETE
         }
 
-
         [SerializeField]
         ArtemisDebugExampleFletcher fletcher;
         [SerializeField]
@@ -28,7 +27,6 @@ namespace Perell.Artemis.Example.DebugConsole
         [SerializeField]
         ArrowBundle arrowBundle;
 
-        [HideInInspector]
         [SerializeField]
         InitSteps currentStep = InitSteps.EMPTY;
 
@@ -70,6 +68,7 @@ namespace Perell.Artemis.Example.DebugConsole
             switch (currentStep)
             {
                 case InitSteps.FLETCHER:
+                    gameObject.AddComponent<GoddessInitializer>();
                     TriggerFletcher();
                     currentStep = InitSteps.ARCHER_FLAGS;
                     break;
@@ -80,6 +79,7 @@ namespace Perell.Artemis.Example.DebugConsole
                     break;
                 case InitSteps.FLAGS_DELETE:
                     ClearOutData();
+                    DestroyImmediate(GetComponent<GoddessInitializer>());
                     currentStep = InitSteps.EMPTY;
                     break;
             }
@@ -133,6 +133,7 @@ namespace Perell.Artemis.Example.DebugConsole
             archer.defaultContents.Clear();
             archer.defaultContents.AddRange(arrowsGenerated);
             archer.Init();
+            EditorUtility.SetDirty(archer);
 
             string bundleLocation = AssetDatabase.GetAssetPath(arrowBundle);
             arrowBundle = ArrowBundle.CreateInstance(new Arrow[] { arrowsGenerated[0], arrowsGenerated[1] });
@@ -143,7 +144,8 @@ namespace Perell.Artemis.Example.DebugConsole
 
         private void ClearOutData()
         {
-            //TODO: Remove arrows & flagIDs using fletcher
+            //Remove arrows & flagIDs using fletcher
+            fletcher.DestroyDatabase();
 
             //Remove Flag Bundle On End of Global States
             if (Goddess.instance.globallyLoadedFlagBundles.Count > 0)

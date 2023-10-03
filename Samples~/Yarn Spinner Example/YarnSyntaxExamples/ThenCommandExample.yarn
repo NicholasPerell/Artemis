@@ -1,0 +1,56 @@
+﻿//Variable Declarations so the project knows these variables exist
+title: Declarations
+tag:
+---
+<<declare $target = "dahlia">>
+<<declare $target_health = 20>>
+<<declare $dahlia_health = 20>>
+<<declare $casey_health = 20>>
+===
+
+//Real Dialogue
+title: CaseyHurt
+priority_value: COND
+flags: concept = critically_hurt, speaker = casey, target = casey, casey_health < 5
+how_to_handle_busy: QUEUE
+---
+Casey: Ugh... Why... #line:02ef625 
+<<set $target = "casey">>
+<<set $target_health = $casey_health>>
+<<then ally_hurt any>>
+===
+
+title: DahliaRespondToAllyHurt
+priority_value: COND
+flags: concept = ally_hurt, speaker = dahlia, !dahliaIsBeingDamaged
+how_to_handle_busy: QUEUE
+---
+Dahlia: Oh no! #line:06dea4a 
+===
+
+title: DahliaRespondToAllyBadlyHurt
+priority_value: COND
+flags: concept = ally_hurt, speaker = dahlia, target_health < 5, !dahliaIsBeingDamaged
+how_to_handle_busy: QUEUE
+---
+Dahlia: That doesn't look good! #line:09cf1f 
+===
+
+title: DahliaRespondToCaseyHurt
+priority_value: COND
+flags: concept = ally_hurt, speaker = dahlia, target = casey, target_health < 5, !dahliaIsBeingDamaged
+how_to_handle_busy: QUEUE
+---
+Dahlia: Honey, you good over there!? #line:0b4b7c8 
+<<set $target = "dahlia">>
+<<set $target_health = $dahlia_health>>
+<<then ask_if_okay casey>>
+===
+
+title: EdwardRespondToAllyHurt
+priority_value: COND
+flags: concept = ally_hurt, speaker = edward, target_health < 5, !ericIsBeingDamaged
+how_to_handle_busy: QUEUE
+---
+Edward: Tough luck, pal. #line:0d34b2a 
+===

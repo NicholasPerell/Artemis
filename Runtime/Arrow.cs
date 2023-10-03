@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Perell.Artemis.Generated;
+using Perell.Artemis.Debugging;
 using Perell.Artemis.Saving;
 using System.IO;
 #if UNITY_EDITOR
@@ -101,6 +102,8 @@ namespace Perell.Artemis
 
         public bool CondtionsMet(FlagBundle[] importedStates, FlagID[] all = null)
         {
+            ArtemisDebug.Instance.OpenReportLine(name + " ConditionsMet");
+
             //Null checks
             if(importedStates == null)
             {
@@ -118,6 +121,10 @@ namespace Perell.Artemis
             Array.Fill(globalIndecies, 0);
             Array.Fill(importedIndecies, 0);
 
+            ArtemisDebug.Instance.Report("globalStates: ").ReportLine(globalStates)
+                .Report("importedStates: ").ReportLine(importedStates)
+                .Report("all: ").ReportLine(all);
+
             FlagID targetID = FlagID.INVALID;
             Criterion targetCriterion;
             Flag targetFlag;
@@ -127,6 +134,7 @@ namespace Perell.Artemis
             {
                 targetID = rule.GetTupleAtIndex(i).Key;
                 targetCriterion = rule.GetTupleAtIndex(i).Value;
+                ArtemisDebug.Instance.Report("Rule ").Report(i).Report(": ").ReportLine(targetCriterion.GetStringRepresentation());
 
                 located = false;
                 for (; allIndex < all.Length && !located; allIndex++)
@@ -134,6 +142,7 @@ namespace Perell.Artemis
                     int cmp = targetID.CompareTo(all[allIndex]);
                     if (cmp == 0)
                     {
+                        ArtemisDebug.Instance.Report(targetID).ReportLine(" located in all.");
                         located = true;
                     }
                     else if(cmp < 0)
@@ -143,15 +152,19 @@ namespace Perell.Artemis
                 }
                 for (int j = 0; j < globalStates.Length && !located; j++)
                 {
-                    if(globalStates[j].flagsUsed.LinearSearch(targetID, ref globalIndecies[j], out targetFlag))
+                    ArtemisDebug.Instance.Report("Linear Searching ").Report(globalStates[j]).Report(" starting at index ").Report(globalIndecies[j]).Report(" (").Report(globalStates[j].flagsUsed.GetTupleAtIndex(globalIndecies[j]).Key).ReportLine(")");
+                    if (globalStates[j].flagsUsed.LinearSearch(targetID, ref globalIndecies[j], out targetFlag))
                     {
                         located = true;
                         if(!targetCriterion.Compare(targetFlag.GetValue()))
                         {
                             //The criterion was failed to be met!
+                            ArtemisDebug.Instance.Report("The criterion (").Report(targetCriterion.GetStringRepresentation()).Report(") was failed to be met by ").Report(targetFlag).Report(" (").Report(targetFlag.GetValue()).Report(")");
+                            ArtemisDebug.Instance.CloseReport();
                             return false;
                         }
                     }
+                    ArtemisDebug.Instance.Report("Linear Searching index now set to ").ReportLine(globalIndecies[j]);
                 }
                 for (int j = 0; j < importedStates.Length && !located; j++)
                 {
@@ -161,6 +174,8 @@ namespace Perell.Artemis
                         if (!targetCriterion.Compare(targetFlag.GetValue()))
                         {
                             //The criterion was failed to be met!
+                            ArtemisDebug.Instance.Report("The criterion (").Report(targetCriterion.GetStringRepresentation()).Report(") was failed to be met by ").Report(targetFlag).Report(" (").Report(targetFlag.GetValue()).Report(")");
+                            ArtemisDebug.Instance.CloseReport();
                             return false;
                         }
                     }
@@ -169,10 +184,13 @@ namespace Perell.Artemis
                 if (!located)
                 {
                     //Flag not found in any state!
+                    ArtemisDebug.Instance.Report(targetID).Report(" Flag not found in any state!");
+                    ArtemisDebug.Instance.CloseReport();
                     return false;
                 }
             }
 
+            ArtemisDebug.Instance.CloseReport();
             return true;
         }
 

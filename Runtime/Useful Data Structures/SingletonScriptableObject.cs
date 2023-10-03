@@ -17,73 +17,31 @@ namespace Perell.Artemis
 			{
 				if (!m_instance)
 				{
-					m_instance = ScriptableObject.CreateInstance<T>();
-					m_instance.Load();
+					T[] found = Resources.FindObjectsOfTypeAll<T>();
+					if (found != null && found.Length > 0)
+					{
+						m_instance = found[0];
+					}
+					else
+					{
+						m_instance = ScriptableObject.CreateInstance<T>();
+#if UNITY_EDITOR
+						string filePath = "Assets/" + m_instance.GetFilePath();
+						string parentFolder = filePath.Substring(0, filePath.LastIndexOf('/') + 1);
+						if(!AssetDatabase.IsValidFolder(parentFolder))
+						{
+							AssetDatabase.CreateFolder(parentFolder.Substring(0, parentFolder.LastIndexOf('/') + 1), parentFolder.Substring(parentFolder.LastIndexOf('/') + 1));
+						}
+						AssetDatabase.CreateAsset(m_instance,filePath);
+						AssetDatabase.ImportAsset(filePath);
+#endif
+					}
 				}
 				return m_instance;
 			}
 		}
 
-		protected abstract string GetFilePath();
+		public abstract string GetFilePath();
 
-		protected void Save()
-		{
-			Save(Application.persistentDataPath, GetFilePath());
-#if UNITY_EDITOR
-			Save(Application.dataPath, GetFilePath());
-			AssetDatabase.Refresh();
-#endif
-		}
-
-		private void Save(string saveToPath, string fileName)
-		{
-			string filePath = saveToPath + '/' + fileName;
-			string parentFolder = filePath.Substring(0, filePath.LastIndexOf('/') + 1);
-
-			if (!Directory.Exists(parentFolder))
-			{
-				Directory.CreateDirectory(parentFolder);
-			}
-
-			if (!File.Exists(filePath))
-			{
-				FileStream stream;
-				stream = File.Create(filePath);
-				StreamWriter textWriter = new StreamWriter(stream);
-
-				textWriter.Write(JsonUtility.ToJson((T)this));
-
-				textWriter.Close();
-				stream.Close();
-			}
-			else
-			{
-				File.WriteAllText(filePath, JsonUtility.ToJson((T)this));
-			}
-		}
-
-		protected void Load()
-		{
-#if UNITY_EDITOR
-			Load(Application.dataPath, GetFilePath());
-#else
-			Load(Application.persistentDataPath, GetFilePath());
-#endif
-		}
-
-		private void Load(string loadFromPath, string fileName)
-		{
-			string filePath = Application.persistentDataPath + '/' + fileName;
-			FileStream stream;
-			stream = File.OpenRead(filePath);
-
-			StreamReader textReader = new StreamReader(stream);
-
-			string json = textReader.ReadToEnd();
-			JsonUtility.FromJsonOverwrite(json, this);
-
-			textReader.Close();
-			stream.Close();
-		}
 	}
 }

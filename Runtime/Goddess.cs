@@ -425,15 +425,14 @@ namespace Perell.Artemis
 
         public void Modify()
         {
-            Save();
 #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
 #endif
         }
 
-        protected override string GetFilePath()
+        public override string GetFilePath()
         {
-            return "/Scripts/Generated/Artemis/Goddess.json";
+            return "/Scripts/Generated/Artemis/Goddess.asset";
         }
     }
 }

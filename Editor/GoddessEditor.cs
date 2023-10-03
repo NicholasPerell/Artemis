@@ -36,14 +36,17 @@ namespace Perell.Artemis.Editor
             EditorGUILayout.PropertyField(globallyLoadedFlagBundles);
 
             //Preview list of all Flag IDs and their value types (SYMBOL, FLOAT, BOOL)
-            EditorGUILayout.Space();
-            scrollPos = GUILayout.BeginScrollView(scrollPos, false, true); //Lets the list be scrollable if the list of flags wouldn't normally fit in the window given.
             FlagID[] flagIds = goddess.GetFlagIDs();
-            foreach (FlagID id in flagIds)
+            if (flagIds != null && flagIds.Length > 0)
             {
-                EditorGUILayout.LabelField(id.ToString(), goddess.GetFlagValueType(id).ToString());
+                EditorGUILayout.Space();
+                scrollPos = GUILayout.BeginScrollView(scrollPos, false, true); //Lets the list be scrollable if the list of flags wouldn't normally fit in the window given.
+                foreach (FlagID id in flagIds)
+                {
+                    EditorGUILayout.LabelField(id.ToString(), goddess.GetFlagValueType(id).ToString());
+                }
+                GUILayout.EndScrollView();
             }
-            GUILayout.EndScrollView();
 
             //Reset button
             EditorGUILayout.Space();

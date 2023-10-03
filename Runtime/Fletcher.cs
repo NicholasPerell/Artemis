@@ -119,12 +119,32 @@ namespace Perell.Artemis
             }
         }
 
+        public bool IsSomethingToQueue()
+        {
+            for(int i = 0; i < queue.Count; i--)
+            {
+                ArrowFiringData grouping = queue[i];
+                if (grouping.arrow.CondtionsMet(grouping.importedStates, grouping.all))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         protected abstract void Send(int id);
         protected abstract bool IsBusy();
         protected abstract void AbruptEnd();
 
 #if UNITY_EDITOR
+        [ContextMenu("Destroy Database")]
+        private void DestroyDatabaseContextMenu()
+        {
+            DestroyDatabase();
+        }
+
         public abstract void GeneratorArrowDatabase();
+        public abstract void DestroyDatabase();
 #endif
 
         public abstract Type GetSymbolType();
@@ -158,10 +178,10 @@ namespace Perell.Artemis
         [SerializeField]
         private List<string> flagsNoLongerBeingUsed;
 
-        Bow<T> inSceneObject;
+        private Bow<T> inSceneObject;
 
 #if UNITY_EDITOR
-        public override void GeneratorArrowDatabase()
+        public sealed override void GeneratorArrowDatabase()
         {
             //List used to track what Arrows need to be deleted
             arrowsNotBeingUsed = new List<int>();
@@ -189,6 +209,7 @@ namespace Perell.Artemis
             if (!AssetDatabase.IsValidFolder(GetContainingFolder() + "/" + GetArrowFolderName()))
             {
                 AssetDatabase.CreateFolder(GetContainingFolder(), GetArrowFolderName());
+                AssetDatabase.Refresh();
             }
 
             //Generate the internalSymbolCompiler for the arrow IDs
@@ -229,6 +250,8 @@ namespace Perell.Artemis
             Goddess.instance.WriteFlagEnumScript();
 
             EditorUtility.SetDirty(this);
+
+            RespondToFinishedGenerating();
         }
 
         private void AddToDatabase(Line currentLine)
@@ -369,7 +392,7 @@ namespace Perell.Artemis
             }
         }
 
-        bool TryEvalFlagList(string str, out SortedStrictDictionary<FlagID, Criterion> flagChecks)
+        private bool TryEvalFlagList(string str, out SortedStrictDictionary<FlagID, Criterion> flagChecks)
         {
             bool success = true;
             flagChecks = new SortedStrictDictionary<FlagID, Criterion>();
@@ -387,7 +410,7 @@ namespace Perell.Artemis
             return success;
         }
 
-        bool TryEvalSpecificFlag(string input, ref SortedStrictDictionary<FlagID, Criterion> flagChecks)
+        private bool TryEvalSpecificFlag(string input, ref SortedStrictDictionary<FlagID, Criterion> flagChecks)
         {
             //Variable set-up
             CriterionComparisonType compareType = CriterionComparisonType.INVALID;
@@ -659,7 +682,7 @@ namespace Perell.Artemis
             return valid;
         }
 
-        bool IsValidLessGreat(string input, char compareChar, out float a, out string flag)
+        private bool IsValidLessGreat(string input, char compareChar, out float a, out string flag)
         {
             bool valid;
             flag = "";
@@ -703,7 +726,7 @@ namespace Perell.Artemis
             return valid;
         }
 
-        bool IsFlagNameValid(string flag)
+        private bool IsFlagNameValid(string flag)
         {
             bool valid = true;
 
@@ -728,7 +751,7 @@ namespace Perell.Artemis
             return valid;
         }
 
-        bool ProcessCriterion(string flag, Flag.ValueType valueType, CriterionComparisonType comparisonType, float a, float b, ref SortedStrictDictionary<FlagID, Criterion> flagChecks)
+        private bool ProcessCriterion(string flag, Flag.ValueType valueType, CriterionComparisonType comparisonType, float a, float b, ref SortedStrictDictionary<FlagID, Criterion> flagChecks)
         {
             bool success = true;
 
@@ -747,20 +770,7 @@ namespace Perell.Artemis
 
             return success;
         }
-#endif
 
-        public bool FindData(int id, out T value)
-        {
-            value = default(T);
-            bool success = database.HasKey(id);
-            if (success)
-            {
-                value = database[id];
-            }
-            return success;
-        }
-
-#if UNITY_EDITOR
         private string GetContainingFolder()
         {
             string rtn = AssetDatabase.GetAssetPath(this);
@@ -778,13 +788,85 @@ namespace Perell.Artemis
             string arrowLocation = GetContainingFolder() + "/" + GetArrowFolderName() + "/";
             string[] assets = AssetDatabase.FindAssets("t:Perell.Artemis.Arrow", new string[] { arrowLocation });
             List<Arrow> arrows = new List<Arrow>();
-            foreach (string asset in assets)
+            foreach (string asset in assets) 
             {
                 arrows.Add(AssetDatabase.LoadAssetAtPath<Arrow>(AssetDatabase.GUIDToAssetPath(asset)));
             }
+            Debugging.ArtemisDebug.Instance.OpenReportLine("RetrieveAllGenArrows").Report(arrows).CloseReport();
             return arrows.ToArray();
         }
+
+        protected virtual void RespondToFinishedGenerating()
+        {
+            //This is for if the player needs to edit the database once the Arrows assets have been generated
+        }
+
+        public sealed override void DestroyDatabase()
+        {
+            //List used to track what Arrows need to be deleted
+            arrowsNotBeingUsed = new List<int>();
+            if (database != null)
+            {
+                arrowsNotBeingUsed = database.GetKeyList();
+            }
+
+            //List used to track what Flag IDs need to be disconnected
+            if (flagsBeingUsed == null)
+            {
+                flagsBeingUsed = new List<string>();
+            }
+            flagsNoLongerBeingUsed = new List<string>();
+            foreach (string flag in flagsBeingUsed)
+            {
+                flagsNoLongerBeingUsed.Add(flag);
+            }
+            flagsBeingUsed.Clear();
+
+            //Reset database
+            database = new SortedStrictDictionary<int, T>();
+
+            //Delete the unused arrow assets
+            //string pathOfArrowToDelete;
+            //foreach (int arrowID in arrowsNotBeingUsed)
+            //{
+            //    if (arrowIDCompiler != null)
+            //    {
+            //        arrowIDCompiler.SetToRemove(arrowID);
+            //    }
+            //    pathOfArrowToDelete = GetContainingFolder() + "/" + GetArrowFolderName() + "/" + arrowIDCompiler.FindNameOfValue(arrowID) + ".asset";
+            //    if (AssetDatabase.LoadAssetAtPath<Arrow>(pathOfArrowToDelete) != null)
+            //    {
+            //        AssetDatabase.DeleteAsset(pathOfArrowToDelete);
+            //    }
+            //}
+            arrowIDCompiler.DeleteFlagEnumScript();
+            AssetDatabase.DeleteAsset(GetContainingFolder() + "/" + GetArrowFolderName() + "/");
+
+
+            //Disconnect unused flags
+            foreach (string flag in flagsNoLongerBeingUsed)
+            {
+                Goddess.instance.DisconnectFlag(flag, this);
+            }
+
+            //Compile arrow and flag IDs
+            arrowIDCompiler.WriteFlagEnumScript();
+            Goddess.instance.WriteFlagEnumScript();
+
+            EditorUtility.SetDirty(this);
+        }
 #endif
+
+        public bool FindData(int id, out T value)
+        {
+            value = default(T);
+            bool success = database.HasKey(id);
+            if (success)
+            {
+                value = database[id];
+            }
+            return success;
+        }
 
         public void SetInSceneObject(Bow<T> _value)
         {
@@ -796,7 +878,7 @@ namespace Perell.Artemis
             return inSceneObject;
         }
 
-        protected override void Send(int id)
+        protected sealed override void Send(int id)
         {
             T value;
             if (FindData(id, out value))
@@ -805,12 +887,12 @@ namespace Perell.Artemis
             }
         }
 
-        protected override bool IsBusy()
+        protected sealed override bool IsBusy()
         {
             return inSceneObject.IsBusy();
         }
 
-        protected override void AbruptEnd()
+        protected sealed override void AbruptEnd()
         {
             inSceneObject.AbruptEnd();
         }

@@ -20,7 +20,7 @@ namespace Perell.Artemis.Example.DebugConsole
         public float timeSystemIsBusy;
     }
 
-    [CreateAssetMenu(fileName = "New Artemis Debug Delivery System", menuName = "Artemis Examples/Debug Delivery System")]
+    [CreateAssetMenu(fileName = "New Artemis Debug Fletcher", menuName = "Artemis Examples/Debug Fletcher")]
     public class ArtemisDebugExampleFletcher : Fletcher<ArtemisDebugData>
     {
         protected override bool SetUpDataFromCells(string[] dataToInterpret, out ArtemisDebugData valueDetermined)

@@ -31,5 +31,10 @@
             "displayName": "Ink File Demonstration",
             "description": "Contains sample code for Ink assets compiling to coincide with Artemis arrows.",
             "path": "Samples~/Ink Example"
+        },
+	{
+            "displayName": "Yarn Spinner Demonstration",
+            "description": "Contains sample code for Yarn Project starting nodes to coincide with Artemis arrows.",
+            "path": "Samples~/Ink Example"
         }]
 }

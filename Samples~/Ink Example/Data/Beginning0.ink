@@ -12,7 +12,7 @@ INCLUDE Globals.ink
     -> END
 + [I'm not?]
     You reply, speaking like it's a question you're asking, "I'm not?"
-    {roomieName} rolls {roomie_their} eyes. "C'mon, it's your turn to take out the trash."
+    {roomieName} rolls {their} eyes. "C'mon, it's your turn to take out the trash."
     You regret saying it like it was up for discussion. 
     ++[It's not my turn.]
         "It's not my turn."
@@ -21,18 +21,16 @@ INCLUDE Globals.ink
     ++["C'mon?"]
         "'C'mon?'" you say. "Next you gonna ask Tony to speedwalk over 'ta getcha uh slice?'"
         ~ score = score - 1
-        {roomieName} winces. "That wasn't even remotely funny. And yeah, take out the trash."
+        {They} {s("wince")}. "That wasn't even remotely funny. And yeah, take out the trash."
         "You're so sure it's my turn?"<br>"Yeah."
         ~ childishMoments = childishMoments + 1
-        You send a limp wrist {roomie_their} way. "'Fuggedaboutit.'" — you continue before {roomieName} can let out an audible groan — "I took it out last week, {roomieName}."
+        You send a limp wrist {their} way. "'Fuggedaboutit.'" — you continue before {roomieName} can let out an audible groan — "I took it out last week, {roomieName}."
         "No, you didn't." <br>"Yes, I did. I remember; it was last week."
-        "Oh c'mon," {roomie_they} says. You jut your head forward and {roomie_they} rolls {roomie_their} eyes away from you.
-        ***"I took it out the night I heated the Hawaiian rolls."
-        ~ hawaiianRolls = true
-        -> END
-        ***"I took it out the night I found your fried stuff in the fridge."
-        ~ friedFoodLastWeek = true
-        -> END
+        "Oh c'mon," {they} {s("say")}. You jut your head forward and {they} {s("roll")} {their} eyes away from you.
+        *** "I took it out the night I heated the Hawaiian rolls."
+            -> hawaiianRollsHeated
+        *** "I took it out the night I found your fried stuff in the fridge."
+            -> friedLeftoversTossedOut
     ++[Pulease]
         e
     -> END
@@ -42,6 +40,22 @@ INCLUDE Globals.ink
 
     -> END
     
-=== knotName ===
-This is the content of the knot.
+=== hawaiianRollsHeated ===
+~ hawaiianRolls = true
+"I'm still mad at you for that," {they} {s("say")}.
+-> END
+
+=== friedLeftoversTossedOut ===
+~ friedFoodLastWeek = true
+"What fried stuff?" {they} {s("ask")}.
+-> END
+
+=== pages ===
+~ hawaiianRolls = true
+"I'm still mad at you for that," {they} {s("say")}.
+-> END
+
+=== magic ===
+~ hawaiianRolls = true
+"I'm still mad at you for that," {they} {s("say")}.
 -> END

@@ -25,7 +25,6 @@ namespace Perell.Artemis.Example.InkIntegration
         [SerializeField]
         Archer archer;
 
-        [HideInInspector]
         [SerializeField]
         InitSteps currentStep = InitSteps.EMPTY;
 
@@ -65,6 +64,7 @@ namespace Perell.Artemis.Example.InkIntegration
             switch (currentStep)
             {
                 case InitSteps.FLETCHER:
+                    gameObject.AddComponent<GoddessInitializer>();
                     TriggerFletcher();
                     currentStep = InitSteps.ARCHER_FLAGS;
                     break;
@@ -75,6 +75,7 @@ namespace Perell.Artemis.Example.InkIntegration
                     break;
                 case InitSteps.FLAGS_DELETE:
                     ClearOutData();
+                    DestroyImmediate(GetComponent<GoddessInitializer>());
                     currentStep = InitSteps.EMPTY;
                     break;
             }
@@ -82,17 +83,16 @@ namespace Perell.Artemis.Example.InkIntegration
 
         private void TriggerFletcher()
         {
-            fletcher.CompileInks();        }
+            fletcher.CompileInks();        
+        }
 
         private void GenerateFlagAssets()
         {
             string bundleLocation = AssetDatabase.GetAssetPath(flagBundle);
             string flagLocation = bundleLocation.Substring(0, bundleLocation.LastIndexOf('/'));
-            //flagLocation = flagLocation.Substring(0, flagLocation.LastIndexOf('/'));
             AssetDatabase.CreateFolder(flagLocation, "Flags");
 
-            flagBundle.Remove(null);
-            //flagBundle = FlagBundle.CreateInstance();
+            flagBundle.flagsUsed.Clear();
             Flag flag;
             foreach (FlagID flagID in System.Enum.GetValues(typeof(FlagID)))
             {
@@ -108,6 +108,7 @@ namespace Perell.Artemis.Example.InkIntegration
                     flagBundle.Add(flag);
                 }
             }
+            EditorUtility.SetDirty(flagBundle);
         }
 
         private void LoadArrowsToArcher()
@@ -117,11 +118,14 @@ namespace Perell.Artemis.Example.InkIntegration
             archer.defaultContents.Clear();
             archer.defaultContents.AddRange(arrowsGenerated);
             archer.Init();
+
+            EditorUtility.SetDirty(archer);
         }
 
         private void ClearOutData()
         {
-            //TODO: Remove arrows & flagIDs using fletcher
+            //Remove arrows & flagIDs using fletcher
+            fletcher.DestroyDatabase();
 
             //Remove Flag Assets
             string bundleLocation = AssetDatabase.GetAssetPath(flagBundle);

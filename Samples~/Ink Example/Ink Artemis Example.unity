@@ -732,7 +732,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.000045776367, y: -919.99994}
+  m_AnchoredPosition: {x: 10.000015, y: -920.00073}
   m_SizeDelta: {x: -10, y: 1000}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &548660572
@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "This silly game was made by <b>Nicholas Perell</b> & <b>Aaron Pastor</b>\n\nUsed
+  m_text: "This silly game's planned team is <b>Nicholas Perell</b> & <b>Aaron Pastor</b>\n\nUsed
     for introduction:\n<indent=5%>\u2022 Photo by <u><link=\"https://unsplash.com/@danedeaner?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\r\">Dane
     Deaner</link></u> on <u><link=\"https://unsplash.com/photos/1WFXk3WJXZU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Unsplash</link></u>\n\u2022
     Photo by <u><link=\"https://unsplash.com/@nixcreative?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText\">Tyler
@@ -1508,7 +1508,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1576662477}
   m_HandleRect: {fileID: 1576662476}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2026,8 +2026,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 313.55554, y: -35}
-  m_SizeDelta: {x: 607.1111, y: 50}
+  m_AnchoredPosition: {x: 92.37499, y: -35}
+  m_SizeDelta: {x: 164.74998, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &891555777
 MonoBehaviour:
@@ -2337,8 +2337,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 323.55554, y: -718}
-  m_SizeDelta: {x: 627.1111, y: 70}
+  m_AnchoredPosition: {x: 102.37499, y: -717.99994}
+  m_SizeDelta: {x: 184.74998, y: 70}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1051405795
 MonoBehaviour:
@@ -2600,6 +2600,7 @@ GameObject:
   - component: {fileID: 1104964845}
   - component: {fileID: 1104964844}
   - component: {fileID: 1104964843}
+  - component: {fileID: 1104964846}
   m_Layer: 5
   m_Name: Menus Canvas
   m_TagString: Untagged
@@ -2693,6 +2694,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1104964846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104964841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b4e32f1f86ae841924eeab51b2e6bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1151321940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3402,8 +3415,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '<b>Roomie Duel</b>
 
-    <size=25%>A silly game made by Nicholas Perell
-    & Aaron Pastor</size>'
+    <size=25%>A silly game in the works</size>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4153,8 +4165,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1648558486}
   m_HandleRect: {fileID: 1648558485}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.08
+  m_Value: 1.0000008
+  m_Size: 0.079998605
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4496,6 +4508,7 @@ GameObject:
   - component: {fileID: 1590819550}
   - component: {fileID: 1590819549}
   - component: {fileID: 1590819548}
+  - component: {fileID: 1590819552}
   m_Layer: 5
   m_Name: Gameplay Canvas
   m_TagString: Untagged
@@ -4586,6 +4599,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1590819552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590819547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797d851fbb6ce9348beb3d965acc11ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels:
+  - {fileID: 1700125773}
+  - {fileID: 1221869927}
 --- !u!1 &1596698128
 GameObject:
   m_ObjectHideFlags: 0
@@ -4667,9 +4695,9 @@ RectTransform:
   m_Father: {fileID: 1071017451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.91999996}
+  m_AnchorMin: {x: 0, y: 0.9200014}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -27.599998}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1648558486
@@ -4823,8 +4851,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 323.55554, y: -324}
-  m_SizeDelta: {x: 627.1111, y: 100}
+  m_AnchoredPosition: {x: 102.37499, y: -323.99997}
+  m_SizeDelta: {x: 184.74998, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1718442259
 MonoBehaviour:

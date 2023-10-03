@@ -5,14 +5,14 @@ INCLUDE Globals.ink
 -> beginning2
 
 === beginning2 ===
-{startGame()}{roomieName} shakes {roomie_their} head. "No. <i>No</i>. We are not doing this again."
+{startGame()}{roomieName} shakes {their} head. "No. <i>No</i>. We are not doing this again."
 
 + [Doing what?]
     "Doing what?" you ask.
     "Don't play dumb."
     ++["Is it the sink?"] 
-        "Is it the sink?" <br>{roomieName}'s eyebrows furrow. "No..." {roomie_they} says. {roomie_They} looks back at the sink.
-        {roomie_Their} lips press together. "But we're gonna have words about it, later."
+        "Is it the sink?" <br>{roomieName}'s eyebrows furrow. "No..." {they} says. {They} looks back at the sink.
+        {Their} lips press together. "But we're gonna have words about it, later."
     -> END
     ** "The trash?"
     -> END

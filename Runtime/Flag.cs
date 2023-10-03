@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Perell.Artemis.Generated;
+using UnityEngine.Events;
 
 namespace Perell.Artemis
 {
@@ -31,14 +32,39 @@ namespace Perell.Artemis
         [SerializeField]
         float value = 0;
 
+        public event UnityAction OnValueChanged;
+
         public void SetValue(float _value)
         {
+            float formerValue = value;
             value = _value;
+            if(formerValue != value)
+            {
+                OnValueChanged?.Invoke();
+            }
         }
 
         public void SetValue(bool _value)
         {
-            value = _value ? 1 : 0;
+            SetValue(_value ? 1 : 0);
+        }
+
+        public void SetValue(string _value)
+        {
+            object parsed;
+            if (GetValueType() == ValueType.SYMBOL && System.Enum.TryParse(GetSymbolType(), _value, true, out parsed))
+            {
+                SetValue((int)parsed);
+            }
+            else if(GetValueType() == ValueType.SYMBOL)
+            {
+                Debug.LogError(name + ": " + _value + "not recognized as a value for " + GetFlagID().ToString() + ". Setting to INVALID."); ;
+                SetValue((int)FlagID.INVALID);
+            }
+            else
+            {
+                Debug.LogError(name + " could not set value to: " + _value);
+            }
         }
 
         public float GetValue()

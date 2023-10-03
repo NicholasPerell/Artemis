@@ -40,8 +40,10 @@ namespace Perell.Artemis.Debugging
         }
 
         public Tabs Indents;
-
+        
         private StringBuilder builder;
+
+        private static StringBuilder Builder => Instance.builder;
 
         private static ArtemisDebug instance = null;
         public static ArtemisDebug Instance
@@ -64,16 +66,16 @@ namespace Perell.Artemis.Debugging
 
         public ArtemisDebug OpenReportLine(object headerMessage)
         {
-            if (builder.Length > 0)
-            { 
+            if (Builder.Length > 0)
+            {
                 Indents++;
-                if (builder.Length > 0 && builder[builder.Length - 1] != '\n')
+                if (Builder.Length > 0 && Builder[Builder.Length - 1] != '\n')
                 {
-                    builder.AppendLine();
+                    Builder.AppendLine();
                 }
             }
             ReportLine(headerMessage);
-            return this;
+            return Instance;
         }
 
         public void CloseReport()
@@ -86,6 +88,31 @@ namespace Perell.Artemis.Debugging
             {
                 SubmitLog();
             }
+        }
+
+        public ArtemisDebug Report<T>(T[] message)
+        {
+            if (message == null)
+            {
+                Report("null");
+            }
+            else
+            {
+                Report("{ ");
+                int count = 0;
+                foreach (T element in message)
+                {
+                    if (count > 0)
+                    {
+                        Report(", ");
+                    }
+                    Report(element);
+                    count++;
+                }
+                Report(" }");
+            }
+
+            return Instance;
         }
 
         public ArtemisDebug Report<T>(List<T> message)
@@ -110,7 +137,7 @@ namespace Perell.Artemis.Debugging
                 Report(" }");
             }
 
-            return this;
+            return Instance;
         }
 
         public ArtemisDebug Report(object message)
@@ -125,33 +152,39 @@ namespace Perell.Artemis.Debugging
 
             msg = msg.Replace("\n", "\n" + tabs);
 
-            if(builder.Length > 0 && builder[builder.Length-1] == '\n')
+            if(Builder.Length > 0 && Builder[Builder.Length-1] == '\n')
             {
-                builder.Append(tabs);
+                Builder.Append(tabs);
             }
 
-            builder.Append(msg);
-            return this;
+            Builder.Append(msg);
+            return Instance;
         }
 
         public ArtemisDebug ReportLine() => ReportLine("");
+        public ArtemisDebug ReportLine<T>(T[] message)
+        {
+            Report(message);
+            Builder.AppendLine();
+            return Instance;
+        }
         public ArtemisDebug ReportLine<T>(List<T> message)
         {
             Report(message);
-            builder.AppendLine();
-            return this;
+            Builder.AppendLine();
+            return Instance;
         }
         public ArtemisDebug ReportLine(object message)
         {
             Report(message);
-            builder.AppendLine();
-            return this;
+            Builder.AppendLine();
+            return Instance;
         }
 
-        private void SubmitLog()
+        private static void SubmitLog()
         {
-            Debug.Log(builder.ToString());
-            builder.Clear();
+            Debug.Log(Builder.ToString());
+            Builder.Clear();
         }
     }
 }

@@ -314,6 +314,7 @@ namespace Perell.Artemis
         public bool AttemptDelivery(FlagBundle[] importedStates, FlagID[] all = null)
         {
             bool success = false;
+            ArtemisDebug.Instance.OpenReportLine("Archer " + name + " calling AttemptDelivery");
 
             if (!IsEmpty)
             {
@@ -631,6 +632,7 @@ namespace Perell.Artemis
                 SetToLoopedState();
             }
 
+            ArtemisDebug.Instance.CloseReport();
             return success;
         }
 
@@ -867,6 +869,11 @@ namespace Perell.Artemis
             }
 
             return bundleHistory;
+        }
+
+        public FlagID[] GetPartitioningFlags()
+        {
+            return partitioningFlags.ToArray();
         }
 
         public void WriteToBinary(ref BinaryWriter binaryWriter)
