@@ -56,13 +56,14 @@ namespace Perell.Artemis
         private void InitializeScripts()
         {
 #if UNITY_EDITOR
+            Debug.Log("InitializeScripts");
+
             string relativePath, path, totalPath;
             path = Application.dataPath;
             path = path.Substring(0, path.Length - 6); //removes the "Assets"
 
             //1) delete sample flagid
             AssetDatabase.DeleteAsset("Assets/Samples/Artemis/"+CURRENT_VERSION+ "/Initialize Package");
-
 
             //2) create assembly for generated
             relativePath = GetContainingFolder() + "Perell.Artemis.Generated.asmdef";
@@ -94,6 +95,12 @@ namespace Perell.Artemis
         }
 
 #if UNITY_EDITOR
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void OnScriptsReloaded()
+        {
+            Goddess artemis = instance;
+        }
+
         public FlagID[] GetFlagIDs()
         {
             idsUsed ??= new SortedStrictList<FlagID>();
