@@ -1,4 +1,4 @@
-<img src="Images/Title.png" alt="Artemis Logo." height="108px;" align="center">
+<img src="../Artemis Title.png" alt="Artemis Logo." height="108px;" align="center">
 
 **_Artemis_ User Documentation**
 
@@ -60,7 +60,7 @@ Although one of the best ways to get an understanding of _Artemis_ would be to c
 
 ## Arrows
 
-<img src="Images/Arrow.png" alt="Arrow" height="100px" align="center">
+<img src="../Editor/Icons/Arrow.png" alt="Arrow" height="100px" align="center">
 
 Stores the most basic information for each possible piece of narrative delivery. This includes:
 
@@ -79,7 +79,7 @@ Arrows can also be prompted to fire on their own without going through the proce
 
 ## Archers
 
-<img src="Images/Archer.png" alt="Archer" height="100px" align="center">
+<img src="../Editor/Icons/Archer.png" alt="Archer" height="100px" align="center">
 
 This is what tries to choose which arrow should be shot. Arrows with a priority of zero are placed in a "general pool" with a random order. Higher values are given priority above lower values. The data presented to the user includes:
 * <ins>Default Contents:</ins> the arrows the archer has on hand when she's initialized.
@@ -99,13 +99,13 @@ The archer is prompted by calling `bool AttemptDelivery(FlagBundle[] importedSta
 
 ## Arrow Bundles
 
-<img src="Images/ArrowBundle.png" alt="Arrow Bundle" height="100px" align="center">
+<img src="../Editor/Icons/ArrowBundle.png" alt="Arrow Bundle" height="100px" align="center">
 
 List of arrows. Can be dumped into or dropped from an archer. These dumps are where <ins>Handling Same Priority</ins> on an archer is very important.
 
 ## Flags
 
-<img src="Images/Flag.png" alt="Flag" height="100px" align="center">
+<img src="../Editor/Icons/Flag.png" alt="Flag" height="100px" align="center">
 
 Objects which store the values that are evaluated for an arrow's criteria. Data stored in each flag include:
 * <ins>ID:</ins> enum value used to sort flags.
@@ -118,16 +118,16 @@ When in the inspector, the flag uses variant icons to indicate what type of flag
 
 | Icon | Meaning |
 |---|---|
-| <img src="Images/FloatFlag.png" alt="Float Flag" height="100px" align="center"> | **FLOAT.** Flag presents its <ins>Value</ins> this way. |
-| <img src="Images/BoolFlag.png" alt="Bool Flag" height="100px" align="center"> |  **BOOL.** Flag presents its <ins>Value</ins> this way. |
-| <img src="Images/SymbolFlag.png" alt="Symbol Flag" height="100px" align="center"> |  **SYMBOL.** Flag presents its <ins>Value</ins> this way. |
-| <img src="Images/UnknownFlag.png" alt="Unknown Flag" height="100px" align="center"> | **UNKNOWN.** Flag <ins>ID</ins> is not set to something valid. Usually seen when creating a new flag asset for the first time. |
-| <img src="Images/IssueFlag.png" alt="Issue Flag" height="100px" align="center"> | **ISSUE.** The flag thinks it needs to present the stored <ins>Value</ins> a certain way, but the <ins>ID</ins> isn’t set to something valid. Common cause of this may be the <ins>ID</ins> of this flag has been deleted or modified.|
+| <img src="../Editor/Icons/FlagFloat.png" alt="Float Flag" height="100px" align="center"> | **FLOAT.** Flag presents its <ins>Value</ins> this way. |
+| <img src="../Editor/Icons/FlagBool.png" alt="Bool Flag" height="100px" align="center"> |  **BOOL.** Flag presents its <ins>Value</ins> this way. |
+| <img src="../Editor/Icons/FlagSymbol.png" alt="Symbol Flag" height="100px" align="center"> |  **SYMBOL.** Flag presents its <ins>Value</ins> this way. |
+| <img src="../Editor/Icons/FlagUnknown.png" alt="Unknown Flag" height="100px" align="center"> | **UNKNOWN.** Flag <ins>ID</ins> is not set to something valid. Usually seen when creating a new flag asset for the first time. |
+| <img src="../Editor/Icons/FlagIssue.png" alt="Issue Flag" height="100px" align="center"> | **ISSUE.** The flag thinks it needs to present the stored <ins>Value</ins> a certain way, but the <ins>ID</ins> isn’t set to something valid. Common cause of this may be the <ins>ID</ins> of this flag has been deleted or modified.|
 
 
 ## Flag Bundles
 
-<img src="Images/FlagBundle.png" alt="Flag Bundle" height="100px" align="center">
+<img src="../Editor/Icons/FlagBundle.png" alt="Flag Bundle" height="100px" align="center">
 
 Sorted list of flags. Flags in these lists can't have the same flag ID. Loading these in or out helps speed through the evaluation process on arrows.
 
@@ -137,7 +137,7 @@ If there are any null items in your flag bundle, you can try to remove an empty 
 
 ## Fletchers
 
-<img src="Images/Fletcher.png" alt="Fletcher" height="100px" align="center">
+<img src="../Editor/Icons/Fletcher.png" alt="Fletcher" height="100px" align="center">
 
 _Artemis_'s base fletchers script is an abstract template class, where you will want to define:
 
@@ -151,7 +151,7 @@ There is also `RespondToFinishedGenerating()`, an empty virtual function that ca
 
 ## Bows
 
-<img src="Images/Bow.png" alt="Bow" height="100px" align="center">
+<img src="../Editor/Icons/Bow.png" alt="Bow" height="100px" align="center">
 
 Another whose base script is an abstract template class. The typing on the template class should be the same as the fletchers you want it to work with. This is where things go from decision to full delivery.
 
@@ -167,7 +167,7 @@ When attaching the bow monobehavior to a game object, make sure the <ins>Fletche
 
 ## Goddess
 
-<img src="Images/Goddess.png" alt="Goddess" height="100px" align="center">
+<img src="../Editor/Icons/Goddess.png" alt="Goddess" height="100px" align="center">
 
 Singleton that facilitates the flag IDs. Found at `Window/Artemis Goddess`.
 
@@ -179,7 +179,7 @@ As the Goddess is a scriptable object, it’s required to have been loaded into 
 
 ## Constellation (Saving & Loading)
 
-<img src="Images/Constellation.png" alt="Constellation" height="100px" align="center">
+<img src="../Editor/Icons/Constellation.png" alt="Constellation" height="100px" align="center">
 
 Scriptable Object that stores a list of flags and archers deemed important. Can save to (or load from) binary files to store the state of all their data. This is so long as the following has been preserved:
 
