@@ -17,7 +17,7 @@ _Artemis_ takes inspiration from _Hades_'s priority queues[^1], _Firewatch_'s De
 
 ## What's Currently Here
 
-This branch is currently working towards **Version 0.2**! In this repository you can find a Unity Project that includes:
+In this repository you can find a Unity Project that includes:
 
 - The base code for Artemis's...
   - <ins>Arrows</ins> for each deliverable narrative beat, with ID's, priority values, and what criteria need to be met. 
