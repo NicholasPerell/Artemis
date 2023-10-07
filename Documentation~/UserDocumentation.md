@@ -279,8 +279,7 @@ Going to the sample folder’s scene, you can see the parent object, where you c
 
 _Roomie Duel_ is a game where the player character gets into an unhealthy argument with their roommate over who should be taking out the trash tonight.
 
-<img src="Images/RoomieDuelTrash.png" alt="Trash" height="200px" align="center">
-<img src="Images/RoomieDuelMainCharacter.png" alt="Player Character" height="200px" align="center">
+<img src="../Samples~/Ink%20Example/Art/Intro/intro%205.png" alt="Trash" height="200px" align="center"> <img src="../Samples~/Ink%20Example/Art/Intro/intro%209.png" alt="Player Character" height="200px" align="center">
 
 The game takes inspiration from the Delilah Brain of _Firewatch_.[^Firewatch] What either character has brought up in the argument will incur openings to more possible grievances. Bring up the Halloween mishap at risk of the roommate countering with New Year’s Eve.
 
