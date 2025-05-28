@@ -163,7 +163,7 @@ CSV Parsing Scripts contributed by Brandon "bb" Boras.
 
 Art made by Crystal Wong.
 
-Additional credits & special thanks for work on the packages samples can be found in the [user documentation](Artemis_User_Documentation_Version_0.2.5.pdf).
+Additional credits & special thanks for work on the packages samples can be found in the [user documentation](Documentation~/UserDocumentation.md).
 
 [^sheets]: For what the format of the .CSV's should be like, [here is an example format on Google Sheets](https://docs.google.com/spreadsheets/d/1gtyDt-t9y313tH2-3ZhPWSwGH2fTYE7FLWc2X8bA-ww/edit?usp=sharing). You're encouraged to make a copy and use it as a basis for yours.
 [^1]: [People Make Games's video on _Hades_](https://www.youtube.com/watch?v=bwdYL0KFA_U)
