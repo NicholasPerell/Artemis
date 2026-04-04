@@ -6,6 +6,9 @@
 
 *Artemis* is an ongoing narrative programming project by [Nicholas Perell](http://www.nicholasperell.com/). For games where the order of who you talk to or what you do is variable, *Artemis* accesses rules and world state data to give the most appropriate and important delivery. It’s not about the means of delivery, like *Ink* or *Yarn Spinner*, but instead about deciding what should be delivered to ensure the narrative beats feel reactive, appropriate, and timely.
 
+> [!IMPORTANT]
+> If you're looking at _Artemis_ due to its usage in [_FOOTSLOG_](https://store.steampowered.com/app/4387810/FOOTSLOG/), please be aware that the current version on main is an *old version* compared to what was used for the game's narrative systems. I hope to eventually have the time & bandwidth to fully remake the Artemis package with more modern and production-ready code, after *FOOTSLOG* is out the door and I have some personal stability.
+
 ## Installation
 
 1) Use the Package Manager to [add by git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html): `https://github.com/nicholas-hoy-champain/Artemis.git`.
